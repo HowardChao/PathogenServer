@@ -1,0 +1,5 @@
+TypeError in line 6 of /Users/chaokuan-hao/Documents/bioinformatics/VirusRNASeq/Snakefile:
+expected string or bytes-like object
+  File "/Users/chaokuan-hao/Documents/bioinformatics/VirusRNASeq/Snakefile", line 6, in <module>
+  File "/Users/chaokuan-hao/miniconda3/envs/virus/lib/python3.6/site-packages/pkg_resources/__init__.py", line 127, in parse_version
+  File "/Users/chaokuan-hao/miniconda3/envs/virus/lib/python3.6/site-packages/pkg_resources/_vendor/packaging/version.py", line 200, in __init__

@@ -1,0 +1,4 @@
+AttributeError in line 10 of /Users/chaokuan-hao/Documents/bioinformatics/VirusRNASeq/Snakefile:
+'NoneType' object has no attribute 'get'
+  File "/Users/chaokuan-hao/Documents/bioinformatics/VirusRNASeq/Snakefile", line 10, in <module>
+  File "/Users/chaokuan-hao/miniconda3/envs/virus/lib/python3.6/site-packages/jsonschema/validators.py", line 887, in validator_for

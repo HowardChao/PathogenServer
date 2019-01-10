@@ -1,0 +1,3 @@
+WorkflowError in line 9 of /Users/chaokuan-hao/Documents/bioinformatics/VirusRNASeq/Snakefile:
+Config file must be given as JSON or YAML with keys at top level.
+  File "/Users/chaokuan-hao/Documents/bioinformatics/VirusRNASeq/Snakefile", line 9, in <module>
