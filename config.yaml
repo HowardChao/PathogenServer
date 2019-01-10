@@ -1,0 +1,14 @@
+# define a dictionary of configuration parameters and their values
+workdir: "/Users/chaokuan-hao/Documents/bioinformatics/VirusRNASeq"
+
+ref:
+  host_fasta: "virus_data/chISab2.fa"
+  virus_reference: "virus_data/PT-P96.fasta"
+  samples:
+    SAMPLE1:
+      - "virus_data/ip96_S13_R1_001.fastq"
+      - "virus_data/ip96_S13_R2_001.fastq"
+      #FOR PAIRED-END samples--WARNING: DON'T mix single-end samples w/ paired-end
+    SAMPLE1:
+      - "virus_data/P96_S12_R1_001.fastq"
+      - "virus_data/P96_S12_R2_001.fastq"
