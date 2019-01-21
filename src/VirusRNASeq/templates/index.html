@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<header>
+    <div class="navbar-fixed">
+      <nav>
+        <div class="nav-wrapper">
+          <div class="brand-logo">
+            <img src="">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+              aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">VirusRNASeq</a>
+          </div>
+        </div>
+        <ul class="nav-middle-items">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Analysis
+              Steps<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/upload_data">Upload Data</a></li>
+              <li><a href="/second_step">Second Step</a></li>
+              <li><a href="/third_step">Third Step</a></li>
+            </ul>
+          </li>
+          <li><a href="/similar_assessment">Help</a></li>
+          <li><a href="/gene_signature">About</a></li>
+          <li><a href="/help">Help</a></li>
+        </ul>
+        <!-- Right Navbar -->
+        <ul class="nav-right-items">
+          <li><a href="mailto:ntueeb05howard@gmail.com">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+{% endblock content %}
