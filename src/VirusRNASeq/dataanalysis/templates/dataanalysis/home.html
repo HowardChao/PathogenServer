@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
     <ul>
         <li>
@@ -19,4 +19,5 @@
             </li>
         {% endfor %}
     </ul>
+    <img src="{% static "dataanalysis/virus.png" %}">
 {% endblock content %}
