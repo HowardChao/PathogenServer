@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
+{% load progress_bar %}
+{% load static %}
+{% block extraheader %}
+{% progress_bar_media %}
+{% endblock extraheader %}
+
 {% block content %}
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Upload</button>
-    </form>
-    <p><a href="{% url 'home' %}">Return to home</a></p>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% progress_bar %}
+    <button type="submit">Upload</button>
+</form>
+<p><a href="{% url 'home' %}">Return to home</a></p>
 {% endblock content %}
