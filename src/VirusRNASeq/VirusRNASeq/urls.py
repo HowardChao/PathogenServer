@@ -14,16 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
-from VirusRNASeq import views
+from VirusRNASeq import views 
 
 urlpatterns = [
     path('', views.home, name='homepage'),
     path('admin/', admin.site.urls),
     path('dataanalysis/', include('dataanalysis.urls')),
     path('email_hash/', include('email_hash.urls')),
+    path('users/', include('users.urls'))
     # path('progressbarupload/', include('progressbarupload.urls')),
 ]
 

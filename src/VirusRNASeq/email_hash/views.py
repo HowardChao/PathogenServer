@@ -6,21 +6,39 @@ from django.core.mail import send_mail
 from django.conf import settings
 from email_hash import models
 from email_hash import forms
+from django.contrib.auth.models import User
+from users.forms import UserRegisterForm
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(
+                request, f'Your acount has been created! You are now be able to log in!')
+            return redirect('login')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'users/register.html', {'form': form})
 
 def newsletter_singup(request):
-    form = forms.NewsletterUserSignUpForm(request.POST or None)
-    if form.is_valid():
-        instance = form.save(commit=False)
-        if models.NewsletterUser.objects.filter(email=instance.email).exists():
-            messages.warning(request, 'Your Email Already exist in our database', extra_tags="alert alert-warning alert-dismissible fade show")
-        else:
-            instance.save()
-            messages.success(request, 'Your Email has been submitted to database',
-                             extra_tags="alert alert-success alert-dismissible fade show")
-            subject = "Thank you for using VrisuRNASeq"
+    # form = forms.NewsletterUserSignUpForm(request.POST or None)
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
+            user_project_number = User.objects.filter(email=email).count
+            # user_project_number = models.NewsletterUser.objects.filter(email=instance.email).count()
+            messages.warning(request, 'You have ' + str(user_project_number) + ' analysis project in VirusRNASeq', extra_tags="alert alert-warning alert-dismissible fade show")
             from_email = settings.EMAIL_HOST_USER
-            to_email = [instance.email]
-            signup_message = """Welcome to VirusRNASeq! If you would like to delete your analysis process, visit http://127.0.0.1:8000/email_hash/unsubscribe"""
+            to_email = [email]
+            messages.success(request, 'Your analysis project has been created. Project access id has been sent to  \'' + email + '\'', extra_tags="alert alert-success alert-dismissible fade show")
+            subject = "Thank you for using VrisuRNASeq"
+            signup_message = """Welcome to VirusRNASeq!\nYour Project access id is:\n """ + str(instance.analysis_code) + """.   If you would like to delete your analysis process, visit http://127.0.0.1:8000/email_hash/delete_analysis"""
             send_mail(subject=subject, from_email=from_email, recipient_list=to_email, message=signup_message, fail_silently=False)
             
 
