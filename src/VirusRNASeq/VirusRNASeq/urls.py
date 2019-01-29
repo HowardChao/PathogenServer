@@ -20,9 +20,11 @@ from django.conf.urls.static import static
 from VirusRNASeq import views
 
 urlpatterns = [
-    path('', views.home),
+    path('', views.home, name='homepage'),
     path('admin/', admin.site.urls),
     path('dataanalysis/', include('dataanalysis.urls')),
+    path('email_hash/', include('email_hash.urls')),
+    # path('progressbarupload/', include('progressbarupload.urls')),
 ]
 
 if settings.DEBUG:
