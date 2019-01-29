@@ -15,6 +15,7 @@ $(document).ready(function(){
           var progress = parseInt(data.received, 10)/parseInt(data.size, 10)*100;
           $('.progress-bar').attr('aria-valuenow', progress);
           $('.progress-bar').attr('style', 'width: ' + progress + '%');
+          $('.progress-bar').text(Math.round(progress*100)/100 + '%');
         }
         else {
           $('.progress').attr('hidden', '');  // hide progress bar if no datas
