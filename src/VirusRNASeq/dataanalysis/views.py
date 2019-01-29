@@ -40,6 +40,7 @@ def model_form_upload(request):
 def hello_world(request):
     return HttpResponse('Hello World!')
 
+
 # -*- coding: utf-8 -*-
 
 def upload_progress(request):

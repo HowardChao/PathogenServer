@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'dataanalysis',
     'email_hash',
+    'users',
     # 'progressbarupload',
 ]
 
@@ -150,3 +151,6 @@ FILE_UPLOAD_HANDLERS = (
 )
 
 PROGRESSBARUPLOAD_INCLUDE_JQUERY = True
+
+##
+LOGIN_REDIRECT_URL = 'homepage'

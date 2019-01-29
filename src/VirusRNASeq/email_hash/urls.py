@@ -5,8 +5,8 @@ from email_hash import views
 
 urlpatterns = [
     path('start_new_analysis/', views.newsletter_singup, name='new_analysis'),
-    path('cancel_analysis/', views.newsletter_unsubscribe,
-         name='cancel_analysis'),
+    path('delete_analysis/', views.newsletter_unsubscribe,
+         name='delete_analysis'),
 ]
 
 if settings.DEBUG:
