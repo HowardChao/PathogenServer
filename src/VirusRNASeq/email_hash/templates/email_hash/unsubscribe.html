@@ -5,11 +5,11 @@
 <div class="container">
     <div class="row">
         <div class="card bg-light mt-5 mb-3 w-100 p-3">
-            <div class="card-header"><p class="h2"><i class="fas fa-trash-alt"></i> &nbsp &nbsp Delete Created Analysis</p></div>
+            <div class="card-header"><p class="h2"><i class="fas fa-trash-alt"></i> &nbsp &nbsp Delete Created Project</p></div>
             <div class="card-body w-100">
-                <h5 class="card-title">Delete your analysis project by email and project hash code</h5>
+                <h5 class="card-title">Delete your analysis project by verifing project name, email and analysis code</h5>
                 <br>
-                <p class="card-text">Please enter your email address and project has code below. After you press the "Delete Analysis" button, the specified project would be deleted from serevr.</p>
+                <p class="card-text">Please enter your 'Project name', 'Email address' and 'Analysis code' below. After you press the "Delete Project" button, the specified project would be deleted from database.</p>
                 {% if messages %}
                     {% for message in messages %}
                         <div {% if message.tags %} class="{{message.tags}}" {% endif %} role="alert">
@@ -18,19 +18,20 @@
                             {{ message }}
                         </div>
                     {% endfor %}
-                    <a href={% url 'homepage' %}><button type="button" class="btn btn-outline-success">Back to homepage</button></a>
+                    <br>
+                    <a href={% url 'new_analysis' %}><button type="button" class="btn btn-success">Start new project!</button></a>
+                    <a href={% url 'homepage' %}><button type="button" class="btn btn-outline-secondary">Back to homepage</button></a>
                 {% else %}
-                <form method="POST" class="w-100">
-                    {% csrf_token %}
-                    <div class="input-group w-100">
-                        {% crispy form %}
-                        <br>
-                        {% crispy form %}
+                               <br>
+                <div class="col-md-7">
+                    <form method="POST" class="w-100">
+                        {% csrf_token %}
+                        {{ form|crispy }}
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="submit">Delete Analysis</button>
+                            <button class="btn btn-outline-info" type="submit">Delete Project</button>
                         </span>
-                    </div>
-                </form>
+                    </form>
+                </div>
                 {% endif %}
             </div>
         </div>

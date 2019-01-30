@@ -7,6 +7,7 @@ urlpatterns = [
     path('start_new_analysis/', views.newsletter_singup, name='new_analysis'),
     path('delete_analysis/', views.newsletter_unsubscribe,
          name='delete_analysis'),
+    path('check_project/', views.check_project, name='check_project'),
 ]
 
 if settings.DEBUG:

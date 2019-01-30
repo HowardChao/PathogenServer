@@ -6,12 +6,29 @@ from django.core.mail import send_mail
 from django.conf import settings
 from email_hash import models
 from email_hash import forms
+import uuid
+
+
+def analysis_code_generator():
+    return uuid.uuid1().hex
+
+def project_name_generator():
+    return "Project" + uuid.uuid1().hex
 
 def newsletter_singup(request):
+    default_analysis_code = analysis_code_generator()
+    # print(default_analysis_code)
+    form = forms.NewsletterUserSignUpForm(
+        initial={
+            'analysis_code': default_analysis_code,
+        }
+    )
     form = forms.NewsletterUserSignUpForm(request.POST or None)
     if form.is_valid():
         instance = form.save(commit=False)
+        instance.analysis_code = default_analysis_code
         instance.save()
+        print(instance.analysis_code)
         user_project_number = models.NewsletterUser.objects.filter(email=instance.email).count()
         messages.warning(request, 'You have ' + str(user_project_number) + ' analysis project in VirusRNASeq', extra_tags="alert alert-warning alert-dismissible fade show")
         from_email = settings.EMAIL_HOST_USER
@@ -27,19 +44,37 @@ def newsletter_singup(request):
     return render(request, template, context)
 
 def newsletter_unsubscribe(request):
-    form = forms.NewsletterUserSignUpForm(request.POST or None)
+    form = forms.NewsletterUserDeleteAnalysisForm(request.POST or None)
     if form.is_valid():
         instance = form.save(commit=False)
-        if models.NewsletterUser.objects.filter(email=instance.email).exists():
-            models.NewsletterUser.objects.filter(email=instance.email).delete()
-            messages.success(request, 'Your Email has been removed',
+        if models.NewsletterUser.objects.filter(project_name=instance.project_name,email=instance.email, analysis_code=instance.analysis_code).exists(): 
+            print("You successfully delete your project!")
+            models.NewsletterUser.objects.filter(
+                project_name=instance.project_name, email=instance.email, analysis_code=instance.analysis_code).delete()
+            messages.success(request, 'Your analysis project has been removed from database. Thank you for using VirusRNASeq!',
                              extra_tags="alert alert-success alert-dismissible fade show")
         else:
-            messages.warning(request, 'Your Email is not in the database',
-                             extra_tags="alert alert-warning alert-dismissible fade show")
-        
+            print(False)
+            messages.warning(request, 'Your analysis project is not found in the database!',
+                             extra_tags="alert alert-warning alert-dismissible fade show") 
     context = {
         "form": form,
     }
     template = "email_hash/unsubscribe.html"
+    return render(request, template, context)
+
+def check_project(request):
+    form = forms.NewsletterUserCheck(request.POST or None)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        if models.NewsletterUser.objects.filter(analysis_code=instance.analysis_code).exists():
+            messages.success(request, 'INSIDE!!!!!!!!!!',
+                             extra_tags="alert alert-success alert-dismissible fade show")
+        else:
+            messages.warning(request, 'NONONONONONONONONO',
+                             extra_tags="alert alert-warning alert-dismissible fade show")
+    context = {
+        "form": form,
+    }
+    template = "email_hash/check_project.html"
     return render(request, template, context)
