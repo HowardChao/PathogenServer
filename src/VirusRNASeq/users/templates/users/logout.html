@@ -1,9 +1,22 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
 {% block content %}
-    <h2>You have been logged out</h2>
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            Already Have An Acount? <a class="ml-2" href={% url 'login' %}>Log In Again</a>
-        </small>
+<div class="container">
+    <div class="row">
+        <div class="card bg-light mt-5 mb-3 w-100 p-3">
+            <div class="card-header"><p class="h2"><i class="fas fa-search"></i> &nbsp &nbsp Check Project Progress</p></div>
+            <div class="card-body w-100">
+                <h5 class="card-title">Check the progress of your analysis project by analysis code</h5>
+                <br>
+                <h2>You have been logged out</h2>
+                <div class="border-top pt-3">
+                    <small class="text-muted">
+                        Already Have An Acount? <a class="ml-2" href={% url 'login' %}>Log In Again</a>
+                    </small>
+                </div>
+            </div>
+        </div>
     </div>
-{% endblock content %} 
+</div>
+{% endblock content %}

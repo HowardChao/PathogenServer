@@ -50,21 +50,26 @@
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                     </li> {% endcomment %}
-                    <li class="nav-item nav-middle">
-                        <a class="nav-link" href={% url 'new_analysis' %}><i class="fas fa-plus"></i> Start New Analysis</a>
-                    </li>
-                    <li class="nav-item nav-middle">
-                        <a class="nav-link" href={% url 'delete_analysis' %}><i class="fas fa-times"></i> Delete Analysis</a>
-                    </li>
-                    <li class="nav-item nav-middle">
-                        <a class="nav-link" href="dataanalysis"><i class="fas fa-list-ul"></i> Check  Analysis Project</a>
-                    </li>
-                    <li class="nav-item nav-middle">
-                        <a class="nav-link" href="dataanalysis"><i class="fas fa-question"></i> Help<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item nav-middle">
-                        <a class="nav-link" href="dataanalysis"><i class="fas fa-info"></i> About</a>
-                    </li>
+                    {% if user.is_authenticated %}
+
+                    {% else %}
+                        <li class="nav-item nav-middle">
+                            <a class="nav-link" href={% url 'new_analysis' %}><i class="fas fa-plus"></i> Start New Project</a>
+                        </li>
+                        <li class="nav-item nav-middle">
+                            <a class="nav-link" href={% url 'delete_analysis' %}><i class="fas fa-times"></i> Delete Project</a>
+                        </li>
+                        <li class="nav-item nav-middle">
+                            <a class="nav-link" href={% url 'check_project' %}><i class="fas fa-list-ul"></i> Check Project</a>
+                        </li>
+                    {% endif %}
+                        <li class="nav-item nav-middle">
+                            <a class="nav-link" href="dataanalysis"><i class="fas fa-question"></i> Help<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item nav-middle">
+                            <a class="nav-link" href="dataanalysis"><i class="fas fa-info"></i> About</a>
+                        </li>
+
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% comment %} <li><a href="mailto:s89066@gmail.com">Contact</a></li> {% endcomment %}
