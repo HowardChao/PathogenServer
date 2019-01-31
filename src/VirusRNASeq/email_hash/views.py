@@ -47,14 +47,17 @@ def newsletter_unsubscribe(request):
     form = forms.NewsletterUserDeleteAnalysisForm(request.POST or None)
     if form.is_valid():
         instance = form.save(commit=False)
+        inside_or_outside = False
         if models.NewsletterUser.objects.filter(project_name=instance.project_name,email=instance.email, analysis_code=instance.analysis_code).exists(): 
+            inside_or_outside = True
             print("You successfully delete your project!")
             models.NewsletterUser.objects.filter(
                 project_name=instance.project_name, email=instance.email, analysis_code=instance.analysis_code).delete()
             messages.success(request, 'Your analysis project has been removed from database. Thank you for using VirusRNASeq!',
                              extra_tags="alert alert-success alert-dismissible fade show")
         else:
-            print(False)
+            inside_or_outside = False
+            print(inside_or_outside)
             messages.warning(request, 'Your analysis project is not found in the database!',
                              extra_tags="alert alert-warning alert-dismissible fade show") 
     context = {
@@ -65,15 +68,22 @@ def newsletter_unsubscribe(request):
 
 def check_project(request):
     form = forms.NewsletterUserCheck(request.POST or None)
+    inside_or_outside = False
     if form.is_valid():
         instance = form.save(commit=False)
         if models.NewsletterUser.objects.filter(analysis_code=instance.analysis_code).exists():
+            inside_or_outside = True
             messages.success(request, 'INSIDE!!!!!!!!!!',
                              extra_tags="alert alert-success alert-dismissible fade show")
         else:
+            inside_or_outside = False
             messages.warning(request, 'NONONONONONONONONO',
                              extra_tags="alert alert-warning alert-dismissible fade show")
+    variable = {
+        "inside_or_outside": inside_or_outside,
+    }
     context = {
+        "variable": variable,
         "form": form,
     }
     template = "email_hash/check_project.html"

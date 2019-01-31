@@ -1,0 +1,9 @@
+nav.col-sm-3#list-example {
+    top: 20px;
+    position: fixed;
+}
+
+div#list-item-1 {
+    padding-top:200px;
+    padding-bottom:200px
+}
