@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% crispy form form.helper %}
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="card bg-light mt-5 mb-3 w-100 p-3">
-            <div class="card-header"><p class="h2"><i class="fas fa-search"></i> &nbsp &nbsp Check Project Progress</p></div>
+            <div class="card-header"><p class="h2"><i class="fas fa-search"></i> &nbsp &nbsp Check Project Progress {{ variable.inside_or_outside }} </p></div>
             <div class="card-body w-100">
                 <h5 class="card-title">Check the progress of your analysis project by analysis code</h5>
                 <br>
@@ -34,7 +35,38 @@
                 </div>
                 {% endif %}
             </div>
+        </div> 
+
+{% comment %} Here will be in dataanalysis page!! {% endcomment %}
+        <nav class="col-sm-3" id="list-example" >
+            <ul id="list-example" class="list-group nav nav-pills nav-stacked" style="top: 120px;position: fixed;">
+                <a class="list-group-item list-group-item-action" href="#list-item-1">Item 1</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-2">Item 2</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-3">Item 3</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
+            </ul>
+        </nav>
+
+        <div class="col-sm-9 scrollspy-example">
+            <div id="list-item-1" style="padding-top:200px;padding-bottom:200px">
+                <h4>Item 1</h4>
+                <p>...</p>
+            </div>
+            <div id="list-item-2" style="padding-top:200px;padding-bottom:200px">
+                <h4>Item 2</h4>
+                <p>...</p>
+            </div>
+            <div id="list-item-3" style="padding-top:200px;padding-bottom:200px">
+                <h4>Item 3</h4>
+                <p>...</p>
+            </div>
+            <div id="list-item-4" style="padding-top:200px;padding-bottom:200px">
+                <h4>Item 4</h4>
+                <p>...</p>
+            </div>
         </div>
     </div>
 </div>
+
+
 {% endblock content %}

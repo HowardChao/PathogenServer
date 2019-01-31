@@ -1,23 +1,176 @@
 {% extends 'base.html' %}
+{% load progress_bar %}
+{% block extraheader %}
 {% load static %}
+{% progress_bar_media %}
+<link rel="stylesheet" href="{% static 'dataanalysis/css/home.css' %}">
+{% endblock extraheader %}
 {% block content %}
-    <ul>
-        <li>
-            <a href="{% url 'simple_upload' %}">Simple Upload</a>
-        </li>
-        <li>
-            <a href="{% url 'model_form_upload' %}">Model Form Upload</a>
-        </li>
-    </ul>
+<div class="container">
+    <div class="row">
+        {% comment %} <div id="side-nav" class="col-sm-2">
+            <ul class="nav nav-pills nav-stacked affix list-group">
+                <li><a href="#one"><i class="list-group-item list-group-item-action"></i> One</a></li>
+                <li><a href="#two"><i class="list-group-item list-group-item-action"></i> Two</a></li>
+                <li><a href="#three"><i class="list-group-item list-group-item-action"></i> Three</a></li>
+                <li><a href="#four"><i class="list-group-item list-group-item-action"></i> Four</a></li>
+                <li><a href="#five"><i class="list-group-item list-group-item-action"></i> Five</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-10 content">
+            <section id="one">
+                Section 1
+            </section>
+            <section id="two">
+                Section 2
+            </section>
+            <section id="three">
+                Section 3
+            </section>
+            <section id="four">
+                Section 4
+            </section>
+            <section id="five">
+                Section 5
+            </section>
+        </div> {% endcomment %}
+        <nav class="col-sm-2" id="list-example" >
+            <ul id="side-nav" class="list-group nav nav-pills nav-stacked" style="top: 120px;">
+                <a class="list-group-item list-group-item-action" href="#list-item-1">1. Files Upload</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-2">2. Read Trimming</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-3">3. Read Subtraction</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
+            </ul>
+        </nav>
+        <div class="col-sm-10">
+            <div class=" scrollspy-example">
+                <div id="list-item-1" >
+                    <div class="card bg-light mt-5 mb-3 w-100 p-3">
+                        <div class="card-header"><p class="h2"><i class="fas fa-file-upload"></i> &nbsp &nbsp Read Files Upload {{ variable.inside_or_outside }} </p></div>
+                        <div class="card-body w-100">
+                            <h5 class="card-title">VirusRNASeq</h5>
+                            <br>
+                            <p class="card-text">Please enter your 'Analysis code' below. After you press the "Find  Project" button, you can go into your project page!</p>
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="file" name="myfile">
+                                {% progress_bar %}
+                                <button type="submit">Upload</button>
+                            </form>
+                            {% if uploaded_file_url %}
+                                <p>File uploaded at: <a herf="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+                            {% endif %}
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="file" name="myfile">
+                                {% progress_bar %}
+                                <button type="submit">Upload</button>
+                            </form>
+                            {% if uploaded_file_url %}
+                                <p>File uploaded at: <a herf="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+                            {% endif %}
 
-    <p>Upload files:</p>
-    <ul>
-        {% for obj in documents %}
-            <li>
-                <a href="{{ obj.document.url }}">{{ obj.document.name }}</a>
-                <small>(Upload at: {{ obj.uploaded_at }})</small>
-            </li>
-        {% endfor %}
-    </ul>
-    <img src="{% static "dataanalysis/images/virus.png" %}">
+                            {% comment %} <p>Upload files:</p>
+                            <ul>
+                                {% for obj in documents %}
+                                    <li>
+                                        <a href="{{ obj.document.url }}">{{ obj.document.name }}</a>
+                                        <small>(Upload at: {{ obj.uploaded_at }})</small>
+                                    </li>
+                                {% endfor %}
+                            </ul> {% endcomment %}
+                        </div>
+                    </div> 
+                </div>
+                <div id="list-item-2">
+                    <div class="card bg-light mt-5 mb-3 w-100 p-3">
+                        <div class="card-header"><p class="h2"><i class="fas fa-cut"></i> &nbsp &nbsp Read Trimming  {{ variable.inside_or_outside }} </p></div>
+                        <div class="card-body w-100">
+                            <h5 class="card-title">Read with low quality would be deleted</h5>
+                            <br>
+                            <p class="card-text">Please enter your 'Analysis code' below. After you press the "Find  Project" button, you can go into your project page!</p>
+                            <ul>
+                                <li>
+                                    <a href="{% url 'simple_upload' %}">Simple Upload</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'model_form_upload' %}">Model Form Upload</a>
+                                </li>
+                            </ul>
+                            {% comment %} <p>Upload files:</p>
+                            <ul>
+                                {% for obj in documents %}
+                                    <li>
+                                        <a href="{{ obj.document.url }}">{{ obj.document.name }}</a>
+                                        <small>(Upload at: {{ obj.uploaded_at }})</small>
+                                    </li>
+                                {% endfor %}
+                            </ul> {% endcomment %}
+                        </div>
+                    </div> 
+                </div>
+                <div id="list-item-3">
+                    <div class="card bg-light mt-5 mb-3 w-100 p-3">
+                        <div class="card-header"><p class="h2"><i class="fas fa-search-minus"></i> &nbsp &nbsp Read Subtraction {{ variable.inside_or_outside }} </p></div>
+                        <div class="card-body w-100">
+                            <h5 class="card-title">Check the progress of your analysis project by analysis code</h5>
+                            <br>
+                            <p class="card-text">Please enter your 'Analysis code' below. After you press the "Find  Project" button, you can go into your project page!</p>
+                            <ul>
+                                <li>
+                                    <a href="{% url 'simple_upload' %}">Simple Upload</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'model_form_upload' %}">Model Form Upload</a>
+                                </li>
+                            </ul>
+                            {% comment %} <p>Upload files:</p>
+                            <ul>
+                                {% for obj in documents %}
+                                    <li>
+                                        <a href="{{ obj.document.url }}">{{ obj.document.name }}</a>
+                                        <small>(Upload at: {{ obj.uploaded_at }})</small>
+                                    </li>
+                                {% endfor %}
+                            </ul> {% endcomment %}
+                        </div>
+                    </div> 
+                </div>
+                <div id="list-item-4">
+                    <div class="card bg-light mt-5 mb-3 w-100 p-3">
+                        <div class="card-header"><p class="h2"><i class="fas fa-search"></i> &nbsp &nbsp File Upload {{ variable.inside_or_outside }} </p></div>
+                        <div class="card-body w-100">
+                            <h5 class="card-title">Check the progress of your analysis project by analysis code</h5>
+                            <br>
+                            <p class="card-text">Please enter your 'Analysis code' below. After you press the "Find  Project" button, you can go into your project page!</p>
+                            <ul>
+                                <li>
+                                    <a href="{% url 'simple_upload' %}">Simple Upload</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'model_form_upload' %}">Model Form Upload</a>
+                                </li>
+                            </ul>
+                            {% comment %} <p>Upload files:</p>
+                            <ul>
+                                {% for obj in documents %}
+                                    <li>
+                                        <a href="{{ obj.document.url }}">{{ obj.document.name }}</a>
+                                        <small>(Upload at: {{ obj.uploaded_at }})</small>
+                                    </li>
+                                {% endfor %}
+                            </ul> {% endcomment %}
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+</div>
+
+
+
+
 {% endblock content %}

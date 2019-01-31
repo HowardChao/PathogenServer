@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{% static 'bootstrap-4/css/bootstrap.css'%}"> {% endcomment %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
-    <link href={% static 'css/mainstyles.css' %} rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
@@ -16,12 +15,14 @@
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+    <link href={% static 'css/mainstyles.css' %} rel="stylesheet" type="text/css" >
+    <script src={% static 'js/main.js' %}></script>
     <title>Welcome | VirusRNASeq</title>
     {% block extraheader %}
     {% endblock extraheader %}
 </head>
 
-<body>
+<body data-spy="scroll" data-target="#side-nav">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <img src="{% static "images/virus.png" %}" alt="My image" height="42" width="42">
