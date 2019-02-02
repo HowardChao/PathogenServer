@@ -32,16 +32,16 @@ all_input = [
 
 rule trimmomatic_pe:
     input:
-        r1=os.path.join(os.path.expanduser(config["ref_data"]), "{sample}.1.fastq.gz"),
-        r2=os.path.join(os.path.expanduser(config["ref_data"]), "{sample}.2.fastq.gz")
+        r1=os.path.join(os.path.expanduser(config["ref_data"]), "ip96_S13.1.fastq.gz"),
+        r2=os.path.join(os.path.expanduser(config["ref_data"]), "ip96_S13.2.fastq.gz")
     output:
-        r1="trimmed/{sample}.1.fastq.gz",
-        r2="trimmed/{sample}.2.fastq.gz",
+        r1="trimmed/ip96_S13.1.fastq.gz",
+        r2="trimmed/ip96_S13.2.fastq.gz",
         # reads where trimming entirely removed the mate
-        r1_unpaired="trimmed/{sample}.1.unpaired.fastq.gz",
-        r2_unpaired="trimmed/{sample}.2.unpaired.fastq.gz"
+        r1_unpaired="trimmed/ip96_S13.1.unpaired.fastq.gz",
+        r2_unpaired="trimmed/ip96_S13.2.unpaired.fastq.gz"
     log:
-        "logs/trimmomatic/{sample}.log"
+        "logs/trimmomatic/ip96_S13.log"
     params:
         # list of trimmers (see manual)
         trimmer=["TRAILING:3"],
