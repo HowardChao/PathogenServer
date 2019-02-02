@@ -30,6 +30,7 @@ rule all:
     #shell:
     #    "echo \"Evreything is done! \""
 
+print(os.path.join(config["ref_data"], "{sample}.1.fastq.gz"))
 rule trim:
     input:
         r1=os.path.join(config["ref_data"], "{sample}.1.fastq.gz"),
