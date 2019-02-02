@@ -10,7 +10,7 @@ __author__ = 'Kuan-Hao Chao <b05901180@ntu.edu.tw>'
 #------------ Config setup ------------
 configfile: "config.yaml"
 validate(config, "schemas/config.schema.yaml")
-print("Hi")
+# pipesDir = os.path.join(os.path.expanduser(config['bin_dir']), 'pipes', 'rules')
 
 
 # Tabular configuration
