@@ -1,5 +1,8 @@
 # define a dictionary of configuration parameters and their values
+ref: "/home/kuan-hao/Documents/bioinformatics/Virus/VirusRNASeq/ref.yaml"
 root_dir: "/home/kuan-hao/Documents/bioinformatics/Virus"
-ref: "virus_data"
-wordir: "VirusRNASeq"
+wordir: "/home/kuan-hao/Documents/bioinformatics/Virus/VirusRNASeq"
+
 tool_dir: "/home/kuan-hao/Documents/tools"
+ref_data: "../virus_data"
+result_data: "../analysis_results"
