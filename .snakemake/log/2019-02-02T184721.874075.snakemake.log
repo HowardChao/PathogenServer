@@ -1,0 +1,67 @@
+No validator found for JSON Schema version identifier 'http://json-schema.org/draft-06/schema#'
+Defaulting to validator for JSON Schema version 'http://json-schema.org/draft-04/schema#'
+Note that schema file may not be validated correctly.
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	2	bwa_alignment
+	2	trimmomatic_trimming_PE
+	5
+
+[Sat Feb  2 18:47:22 2019]
+rule trimmomatic_trimming_PE:
+    input: b.txt
+    output: b.upper.txt
+    jobid: 4
+    wildcards: filename=b
+
+[Sat Feb  2 18:47:22 2019]
+Finished job 4.
+1 of 5 steps (20%) done
+
+[Sat Feb  2 18:47:22 2019]
+rule bwa_alignment:
+    input: b.upper.txt
+    output: b.upper.down.txt
+    jobid: 2
+    wildcards: filename=b
+
+[Sat Feb  2 18:47:22 2019]
+Finished job 2.
+2 of 5 steps (40%) done
+
+[Sat Feb  2 18:47:22 2019]
+rule trimmomatic_trimming_PE:
+    input: a.txt
+    output: a.upper.txt
+    jobid: 3
+    wildcards: filename=a
+
+[Sat Feb  2 18:47:22 2019]
+Finished job 3.
+3 of 5 steps (60%) done
+
+[Sat Feb  2 18:47:22 2019]
+rule bwa_alignment:
+    input: a.upper.txt
+    output: a.upper.down.txt
+    jobid: 1
+    wildcards: filename=a
+
+[Sat Feb  2 18:47:22 2019]
+Finished job 1.
+4 of 5 steps (80%) done
+
+[Sat Feb  2 18:47:22 2019]
+localrule all:
+    input: a.upper.down.txt, b.upper.down.txt
+    jobid: 0
+
+[Sat Feb  2 18:47:22 2019]
+Finished job 0.
+5 of 5 steps (100%) done
+Complete log: /home/kuan-hao/Documents/bioinformatics/Virus/VirusRNASeq/.snakemake/log/2019-02-02T184721.874075.snakemake.log

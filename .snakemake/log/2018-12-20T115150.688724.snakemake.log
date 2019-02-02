@@ -1,5 +1,0 @@
-KeyboardInterrupt in line 3 of /Users/chaokuan-hao/Documents/bioinformatics/VirusRNASeq/Snakefile.
-  File "/Users/chaokuan-hao/Documents/bioinformatics/VirusRNASeq/Snakefile", line 3, in <module>
-  File "/Users/chaokuan-hao/miniconda3/envs/virus/lib/python3.6/site-packages/pandas/__init__.py", line 13, in <module>
-  File "/Users/chaokuan-hao/miniconda3/envs/virus/lib/python3.6/site-packages/numpy/__init__.py", line 227, in <module>
-  File "/Users/chaokuan-hao/miniconda3/envs/virus/lib/python3.6/site-packages/numpy/__init__.py", line 219, in _sanity_check
