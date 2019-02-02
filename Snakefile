@@ -23,9 +23,9 @@ all_input = [
 ]
 
 #------------ Target File -------------
-rule all:
-    input:
-        f2=expand(os.path.join(config["result_data"], "{filename}.upper.down.txt"), filename=all_input)
+# rule all:
+#     input:
+#         f2=expand(os.path.join(config["result_data"], "{filename}.upper.down.txt"), filename=all_input)
     #input: all_input
     #shell:
     #    "echo \"Evreything is done! \""
