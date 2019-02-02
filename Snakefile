@@ -33,16 +33,16 @@ rule all:
 print(os.path.join(config["ref_data"], "{sample}.1.fastq.gz"))
 rule trim:
     input:
-        r1=os.path.join(config["ref_data"], "{sample}.1.fastq.gz"),
-        r2=os.path.join(config["ref_data"], "{sample}.2.fastq.gz")
+        r1=os.path.join(os.path.expanduser(config["ref_data"]), "{sample}.1.fastq.gz"),
+        r2=os.path.join(os.path.expanduser(config["ref_data"]), "{sample}.2.fastq.gz")
     output:
-        r1=os.path.join(config["result_data"], "{sample}.1.fastq.gz"),
-        r2=os.path.join(config["result_data"], "{sample}.2.fastq.gz"),
+        r1=os.path.join(os.path.expanduser(config["result_data"]), "{sample}.1.fastq.gz"),
+        r2=os.path.join(os.path.expanduser(config["result_data"]), "{sample}.2.fastq.gz"),
         # reads where trimming entirely removed the mate
-        r1_unpaired=os.path.join(config["result_data"], "{sample}.1.unpaired.fastq.gz"),
-        r2_unpaired=os.path.join(config["result_data"], "{sample}.2.unpaired.fastq.gz")
+        r1_unpaired=os.path.join(os.path.expanduser(config["result_data"]), "{sample}.1.unpaired.fastq.gz"),
+        r2_unpaired=os.path.join(os.path.expanduser(config["result_data"]), "{sample}.2.unpaired.fastq.gz")
     log:
-        os.path.join(config["result_data"], "logs/trimmomatic/{sample}.log")
+        os.path.join(os.path.expanduser(config["result_data"]), "logs/trimmomatic/{sample}.log")
     params:
         # list of trimmers (see manual)
         trimmer=["TRAILING:3"],
