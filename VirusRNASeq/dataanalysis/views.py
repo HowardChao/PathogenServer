@@ -8,6 +8,7 @@ from django.core.files.storage import FileSystemStorage
 from dataanalysis.models import Document
 from dataanalysis.forms import DocumentForm
 
+TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_project"
 
 def home(request):
     documents = Document.objects.all()
@@ -17,7 +18,11 @@ def simple_upload(request):
     if request.method == 'POST' and request.FILES['myfile']:
         if 'tmp_project_id' in request.session:
             tmp_project_id = request.session['tmp_project_id']
-        print(tmp_project_id)
+        print("sessions tmp_project_id: ", tmp_project_id)
+        upload_dir = os.path.join(TMP_DIR, tmp_project_id, "reads")
+        print("upload_dir id: ", upload_dir)
+        if not os.path.exists(upload_dir):
+            os.makedirs(upload_dir)
         myfile = request.FILES['myfile']
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)

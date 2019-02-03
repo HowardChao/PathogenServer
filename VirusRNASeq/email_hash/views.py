@@ -7,6 +7,7 @@ from django.conf import settings
 from email_hash import models
 from email_hash import forms
 import uuid
+import os
 
 TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_project"
 
@@ -29,9 +30,6 @@ def newsletter_singup(request):
         instance = form.save(commit=False)
         instance.analysis_code = default_analysis_code
         instance.save()
-        upload_dir = os.path.join(TMP_DIR, instance.analysis_code+instance.email, "reads")
-        if not os.path.exists(upload_dir)
-            os.makedirs(upload_dir)
         print(instance.analysis_code)
         request.session['tmp_project_id'] = instance.project_name + instance.email
         user_project_number = models.NewsletterUser.objects.filter(email=instance.email).count()
@@ -74,9 +72,11 @@ def newsletter_unsubscribe(request):
 def check_project(request):
     form = forms.NewsletterUserCheck(request.POST or None)
     inside_or_outside = False
+    project_name = "None"
     if form.is_valid():
         instance = form.save(commit=False)
         if models.NewsletterUser.objects.filter(analysis_code=instance.analysis_code).exists():
+            project_name = instance.project_name
             inside_or_outside = True
             messages.success(request, 'INSIDE!!!!!!!!!!',
                              extra_tags="alert alert-success alert-dismissible fade show")
@@ -86,6 +86,7 @@ def check_project(request):
                              extra_tags="alert alert-warning alert-dismissible fade show")
     variable = {
         "inside_or_outside": inside_or_outside,
+        "project_name": project_name,
     }
     context = {
         "variable": variable,

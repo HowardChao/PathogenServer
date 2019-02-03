@@ -19,8 +19,30 @@
                             {{ message }}
                         </div>
                     {% endfor %}
+                    {% if variable.inside_or_outside %}
+                        <script language="javascript" type="text/javascript">
+                        function popitup(url) {
+                            var newwindow=window.open(url,'Your project','height=1000,width=1000');
+                            
+                            var form = document.createElement("form");
+                            var hiddenField1 = document.createElement("input");
+
+                            var project_name = {{ variable.project_name }}
+
+                            if (window.focus) {newwindow.focus()}
+                            return false;
+                        }
+                        popitup("{% url 'dataanalysis_home' %}")
+                        </script>
+                        <br>
+                        <a><button type="button" class="btn btn-success btn-block btn-lg" onclick="return popitup({% url 'dataanalysis_home' %})">Link to your Project!</button></a>
+                        <br>
+                        <a ><button type="button" class="btn btn-outline-success" onclick="return popitup('http://127.0.0.1:8000/dataanalysis/')">Start new analysis project!</button></a>
+                    {% else %}
                     <br>
-                    <a href={% url 'new_analysis' %}><button type="button" class="btn btn-success">Start new analysis project!</button></a>
+                    <a ><button type="button" class="btn btn-success" onclick="return popitup('http://127.0.0.1:8000/dataanalysis/')">Start new analysis project!</button></a>
+                    {% endif %}
+                    {% comment %} <p>{{ variable.project_name }}</p> {% endcomment %}
                     <a href={% url 'homepage' %}><button type="button" class="btn btn-outline-secondary">Back to homepage</button></a>
                 {% else %}
                 <br>
@@ -35,7 +57,7 @@
                 </div>
                 {% endif %}
             </div>
-        </div> 
+        </div>
 
 {% comment %} Here will be in dataanalysis page!! {% endcomment %}
     </div>
