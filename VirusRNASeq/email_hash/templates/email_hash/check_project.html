@@ -19,20 +19,23 @@
                             {{ message }}
                         </div>
                     {% endfor %}
-                    <script language="javascript" type="text/javascript">
-                    function popitup(url) {
-                        newwindow=window.open(url,'{{ title }}','height=1000,width=1000');
-                        if (window.focus) {newwindow.focus()}
-                        return false;
-                    }
-                    popitup('http://127.0.0.1:8000/dataanalysis/')
-                    </script>
-                    <div > </div>
-
+                    {% if variable.inside_or_outside %}
+                        <script language="javascript" type="text/javascript">
+                        function popitup(url) {
+                            newwindow=window.open(url,'Your project','height=1000,width=1000');
+                            if (window.focus) {newwindow.focus()}
+                            return false;
+                        }
+                        popitup("{% url 'dataanalysis_home' %}")
+                        </script>
+                        <br>
+                        <a><button type="button" class="btn btn-success btn-block btn-lg" onclick="return popitup({% url 'dataanalysis_home' %})">Link to your Project!</button></a>
+                        <br>
+                        <a ><button type="button" class="btn btn-outline-success" onclick="return popitup('http://127.0.0.1:8000/dataanalysis/')">Start new analysis project!</button></a>
+                    {% else %}
                     <br>
-                    <a><button type="button" class="btn btn-success btn-block btn-lg" onclick="return popitup('http://127.0.0.1:8000/dataanalysis/')">Link to your Project!</button></a>
-                    <br>
-                    <a ><button type="button" class="btn btn-outline-success" onclick="return popitup('http://127.0.0.1:8000/dataanalysis/')">Start new analysis project!</button></a>
+                    <a ><button type="button" class="btn btn-success" onclick="return popitup('http://127.0.0.1:8000/dataanalysis/')">Start new analysis project!</button></a>
+                    {% endif %}
                     <a href={% url 'homepage' %}><button type="button" class="btn btn-outline-secondary">Back to homepage</button></a>
                 {% else %}
                 <br>
