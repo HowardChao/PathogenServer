@@ -3,3 +3,8 @@ description: Trim paired-end reads with trimmomatic. (De)compress with pigz.
 authors:
   - Johannes Köster
   - Jorge Langa
+  
+Project_id: "Projecta4dd8ad0276011e99ddf60f81dacbf14"
+tmp_dir: "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_project"
+login_dir: "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/login_project"
+user_email_dir: "user_email@gmail.com"

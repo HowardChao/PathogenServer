@@ -1,6 +1,9 @@
+import os
+configfile: "meta.yaml"
+print(config[Project_id])
 rule trimmomatic_pe:
     input:
-        r1="reads/{sample}.1.fastq.gz",
+        r1=os.path.join("reads/{sample}.1.fastq.gz"),
         r2="reads/{sample}.2.fastq.gz"
     output:
         r1="trimmed/{sample}.1.fastq.gz",
