@@ -1,20 +1,21 @@
+configfile: "../meta.yaml"
 rule trimmomatic_pe:
     input:
-        r1="reads/{sample}.1.fastq",
-        r2="reads/{sample}.2.fastq"
+        r1=config["tmp_dir"]+"/"+"Projecta4dd8ad0276011e99ddf60f81dacbf14"+"/"+"reads/{sample}.1.fastq",
+        r2=config["tmp_dir"]+"/"+"Projecta4dd8ad0276011e99ddf60f81dacbf14"+"/"+"reads/{sample}.2.fastq"
     output:
-        r1="trimmed/{sample}.1.fastq",
-        r2="trimmed/{sample}.2.fastq",
+        r1=config["tmp_dir"]+"/"+"Projecta4dd8ad0276011e99ddf60f81dacbf14"+"/"+"trimmed/{sample}.1.fastq",
+        r2=config["tmp_dir"]+"/"+"Projecta4dd8ad0276011e99ddf60f81dacbf14"+"/"+"trimmed/{sample}.2.fastq",
         # reads where trimming entirely removed the mate
-        r1_unpaired="trimmed/{sample}.1.unpaired.fastq",
-        r2_unpaired="trimmed/{sample}.2.unpaired.fastq"
+        r1_unpaired=config["tmp_dir"]+"/"+"Projecta4dd8ad0276011e99ddf60f81dacbf14"+"/"+"trimmed/{sample}.1.unpaired.fastq",
+        r2_unpaired=config["tmp_dir"]+"/"+"Projecta4dd8ad0276011e99ddf60f81dacbf14"+"/"+"trimmed/{sample}.2.unpaired.fastq"
     log:
-        "logs/trimmomatic/{sample}.log"
+        log=config["tmp_dir"]+"/"+"Projecta4dd8ad0276011e99ddf60f81dacbf14"+"/"+"logs/trimmomatic/{sample}.log"
     params:
         # list of trimmers (see manual)
         trimmer=["CROP:151"],
         minilength=["MINLEN:50"],
         # optional parameters
-        extra="-phred33"
+        extra="-phred33",
     wrapper:
         "master/bio/trimmomatic/pe"

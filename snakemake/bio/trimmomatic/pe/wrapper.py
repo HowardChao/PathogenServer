@@ -33,7 +33,8 @@ def compose_output_gz(filename, compression_level="-5"):
     return filename
 
 
-extra = snakemake.params.get("extra", "")
+extra = snakemake.params.get("extra", "-phred33")
+#extra = snakemake.params.extra
 log = snakemake.log_fmt_shell(stdout=True, stderr=True)
 compression_level = snakemake.params.get("compression_level", "-5")
 trimmer = " ".join(snakemake.params.trimmer)

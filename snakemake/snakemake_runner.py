@@ -54,9 +54,11 @@ def run(wrapper, cmd, check_log=None):
 
 def test_trimmomatic_pe():
     """Four tests, one per fq-gz combination"""
+    #run("bio/trimmomatic/pe",
+    #    ["snakemake", "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_project/Projecta4dd8ad0276011e99ddf60f81dacbf14/trimmed/ip96_S13.1.fastq", "--use-conda", "-F",
+    #    "-s", "Snakefile_fq_fq", "-r", "-p"])
     run("bio/trimmomatic/pe",
-        ["snakemake", "trimmed/a.1.fastq", "-F",
-        "-s", "Snakefile_fq_fq"])
+        ["snakemake", "-s", "Snakefile_fq_fq", "-r", "-p", "--use-conda", "-F", "trimmomatic_pe"])
     # run("bio/trimmomatic/pe",
     #     ["snakemake", "trimmed/a.1.fastq.gz", "--use-conda", "-F",
     #     "-s", "Snakefile_fq_gz"])
