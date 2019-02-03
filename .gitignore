@@ -1,3 +1,4 @@
+.snakemake/
 COMMAND.txt
 virus_data
 src/VirusRNASeq/media
