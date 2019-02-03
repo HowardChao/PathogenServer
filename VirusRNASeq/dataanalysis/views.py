@@ -15,9 +15,13 @@ def home(request):
 
 def simple_upload(request):
     if request.method == 'POST' and request.FILES['myfile']:
+        if 'tmp_project_id' in request.session:
+            tmp_project_id = request.session['tmp_project_id']
+        print(tmp_project_id)
         myfile = request.FILES['myfile']
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
+
         uploaded_file_url = fs.url(filename)
         return render(request, 'dataanalysis/simple_upload.html', {
             'uploaded_file_url': uploaded_file_url

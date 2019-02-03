@@ -8,6 +8,7 @@ from email_hash import models
 from email_hash import forms
 import uuid
 
+TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_project"
 
 def analysis_code_generator():
     return uuid.uuid1().hex
@@ -28,7 +29,11 @@ def newsletter_singup(request):
         instance = form.save(commit=False)
         instance.analysis_code = default_analysis_code
         instance.save()
+        upload_dir = os.path.join(TMP_DIR, instance.analysis_code+instance.email, "reads")
+        if not os.path.exists(upload_dir)
+            os.makedirs(upload_dir)
         print(instance.analysis_code)
+        request.session['tmp_project_id'] = instance.project_name + instance.email
         user_project_number = models.NewsletterUser.objects.filter(email=instance.email).count()
         messages.warning(request, 'You have ' + str(user_project_number) + ' analysis project in VirusRNASeq', extra_tags="alert alert-warning alert-dismissible fade show")
         from_email = settings.EMAIL_HOST_USER
@@ -48,7 +53,7 @@ def newsletter_unsubscribe(request):
     if form.is_valid():
         instance = form.save(commit=False)
         inside_or_outside = False
-        if models.NewsletterUser.objects.filter(project_name=instance.project_name,email=instance.email, analysis_code=instance.analysis_code).exists(): 
+        if models.NewsletterUser.objects.filter(project_name=instance.project_name,email=instance.email, analysis_code=instance.analysis_code).exists():
             inside_or_outside = True
             print("You successfully delete your project!")
             models.NewsletterUser.objects.filter(
@@ -59,7 +64,7 @@ def newsletter_unsubscribe(request):
             inside_or_outside = False
             print(inside_or_outside)
             messages.warning(request, 'Your analysis project is not found in the database!',
-                             extra_tags="alert alert-warning alert-dismissible fade show") 
+                             extra_tags="alert alert-warning alert-dismissible fade show")
     context = {
         "form": form,
     }
