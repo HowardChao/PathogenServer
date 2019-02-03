@@ -12,8 +12,9 @@ rule trimmomatic_pe:
         "logs/trimmomatic/{sample}.log"
     params:
         # list of trimmers (see manual)
-        trimmer=["TRAILING:3"],
+        trimmer=["CROP:151"],
+        minilength=["MINLEN:50"],
         # optional parameters
-        extra=""
+        extra="-phred33"
     wrapper:
         "master/bio/trimmomatic/pe"

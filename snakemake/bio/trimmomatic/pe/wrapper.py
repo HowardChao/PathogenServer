@@ -37,6 +37,7 @@ extra = snakemake.params.get("extra", "")
 log = snakemake.log_fmt_shell(stdout=True, stderr=True)
 compression_level = snakemake.params.get("compression_level", "-5")
 trimmer = " ".join(snakemake.params.trimmer)
+minilength = snakemake.params.minilength
 
 
 # Collect files
@@ -54,5 +55,6 @@ shell(
     "{output_r1} {output_r1_unp} "
     "{output_r2} {output_r2_unp} "
     "{trimmer} "
+    "{minilength}"
     "{log}"
 )
