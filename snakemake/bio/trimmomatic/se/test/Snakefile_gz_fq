@@ -1,0 +1,16 @@
+rule trimmomatic:
+    input:
+        "reads/{sample}.fastq.gz"
+    output:
+        "trimmed/{sample}.fastq"
+    log:
+        "logs/trimmomatic/{sample}.log"
+    params:
+        # list of trimmers (see manual)
+        trimmer=["TRAILING:3"],
+        # optional parameters
+        extra=""
+    threads:
+        32
+    wrapper:
+        "master/bio/trimmomatic/se"
