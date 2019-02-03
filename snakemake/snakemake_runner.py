@@ -8,6 +8,7 @@ def run(wrapper, cmd, check_log=None):
     origdir = os.getcwd()
     with tempfile.TemporaryDirectory() as d:
         dst = os.path.join(d, "master", wrapper)
+        print("Destination", dst)
         os.makedirs(dst, exist_ok=True)
         copy = lambda src: shutil.copy(os.path.join(wrapper, src), dst)
         success = False
@@ -25,6 +26,7 @@ def run(wrapper, cmd, check_log=None):
         if os.path.exists(".snakemake"):
             shutil.rmtree(".snakemake")
         cmd = cmd + ["--wrapper-prefix", "file://{}/".format(d)]
+        print("cmd: ", cmd)
         subprocess.check_call(["snakemake", "--version"])
 
         try:
