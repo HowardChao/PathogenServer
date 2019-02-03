@@ -10,23 +10,53 @@ from dataanalysis.forms import DocumentForm
 
 TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_project"
 
-def home(request):
-    documents = Document.objects.all()
-    return render(request, 'dataanalysis/home.html', { 'documents': documents })
+def data_analysis_home(request):
+    if request.method == 'POST' and request.FILES['myfile1']:
+        project_name = "None"
+        analysis_code = "None"
+        if 'project_name' in request.session:
+            project_name = request.session['project_name']
+        if 'analysis_code' is request.session:
+            analysis_code = request.session['analysis_code']
+        print("project_name: ", project_name)
+        print("analysis_code: ", analysis_code)
+        # upload_dir = os.path.join(TMP_DIR, tmp_project_id, "reads")
+        # print("upload_dir id: ", upload_dir)
+        # if not os.path.exists(upload_dir):
+        #     os.makedirs(upload_dir)
+        myfile = request.FILES['myfile1']
+        myfile2 = request.FILES['myfile2']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        filename2 = fs.save(myfile2.name, myfile2)
+        uploaded_file_url = fs.url(filename)
+        uploaded_file_url2 = fs.url(filename2)
+        return render(request, 'dataanalysis/home.html', {
+            'uploaded_file_url': uploaded_file_url,
+            'uploaded_file_url2': uploaded_file_url2,
+        })
+    return render(request, 'dataanalysis/home.html')
+    # documents = Document.objects.all()
+    # return render(request, 'dataanalysis/home.html', { 'documents': documents })
 
 def simple_upload(request):
+    print("Inside simple_upload()")
     if request.method == 'POST' and request.FILES['myfile']:
-        if 'tmp_project_id' in request.session:
-            tmp_project_id = request.session['tmp_project_id']
-        print("sessions tmp_project_id: ", tmp_project_id)
-        upload_dir = os.path.join(TMP_DIR, tmp_project_id, "reads")
-        print("upload_dir id: ", upload_dir)
-        if not os.path.exists(upload_dir):
-            os.makedirs(upload_dir)
+        project_name = "None"
+        analysis_code = "None"
+        if 'project_name' in request.session:
+            project_name = request.session['project_name']
+        if 'analysis_code' is request.session:
+            analysis_code = request.session['analysis_code']
+        print("project_name: ", project_name)
+        print("analysis_code: ", analysis_code)
+        # upload_dir = os.path.join(TMP_DIR, tmp_project_id, "reads")
+        # print("upload_dir id: ", upload_dir)
+        # if not os.path.exists(upload_dir):
+        #     os.makedirs(upload_dir)
         myfile = request.FILES['myfile']
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
-
         uploaded_file_url = fs.url(filename)
         return render(request, 'dataanalysis/simple_upload.html', {
             'uploaded_file_url': uploaded_file_url
@@ -38,7 +68,7 @@ def model_form_upload(request):
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            return redirect('dataanalysis_home')
     else:
         form = DocumentForm()
     return render(request, 'dataanalysis/model_form_upload.html', {

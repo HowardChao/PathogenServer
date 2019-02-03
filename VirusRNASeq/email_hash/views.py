@@ -31,7 +31,6 @@ def newsletter_singup(request):
         instance.analysis_code = default_analysis_code
         instance.save()
         print(instance.analysis_code)
-        request.session['tmp_project_id'] = instance.project_name + instance.email
         user_project_number = models.NewsletterUser.objects.filter(email=instance.email).count()
         messages.warning(request, 'You have ' + str(user_project_number) + ' analysis project in VirusRNASeq', extra_tags="alert alert-warning alert-dismissible fade show")
         from_email = settings.EMAIL_HOST_USER
@@ -76,14 +75,20 @@ def check_project(request):
     if form.is_valid():
         instance = form.save(commit=False)
         if models.NewsletterUser.objects.filter(analysis_code=instance.analysis_code).exists():
-            project_name = instance.project_name
+            # request.session['tmp_project_id'] = instance.project_name
+            query_instance = models.NewsletterUser.objects.get(analysis_code=instance.analysis_code)
+            project_name = query_instance.project_name
+            analysis_code = instance.analysis_code
+            print("project_name: ", project_name)
+            print("analysis_code: ", analysis_code)
             inside_or_outside = True
-            messages.success(request, 'INSIDE!!!!!!!!!!',
+            request.session["project_name"] = project_name
+            request.session["analysis_code"] = analysis_code
+            messages.success(request, 'Your analysis code is correct!',
                              extra_tags="alert alert-success alert-dismissible fade show")
         else:
             inside_or_outside = False
-            messages.warning(request, 'NONONONONONONONONO',
-                             extra_tags="alert alert-warning alert-dismissible fade show")
+            messages.warning(request, 'Your analysis code is not correct try again!',extra_tags="alert alert-warning alert-dismissible fade show")
     variable = {
         "inside_or_outside": inside_or_outside,
         "project_name": project_name,

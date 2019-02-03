@@ -150,7 +150,7 @@ STATICFILES_FINDERS = (
 )
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join("/home/kuan-hao/Documents/bioinformatics/Virus")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 FILE_UPLOAD_HANDLERS = (
     "dataanalysis.uploadhandler.ProgressBarUploadHandler",
