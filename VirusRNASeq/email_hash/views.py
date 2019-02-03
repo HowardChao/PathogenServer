@@ -7,6 +7,7 @@ from django.conf import settings
 from email_hash import models
 from email_hash import forms
 import uuid
+import os
 
 TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_project"
 
@@ -30,8 +31,6 @@ def newsletter_singup(request):
         instance.analysis_code = default_analysis_code
         instance.save()
         upload_dir = os.path.join(TMP_DIR, instance.analysis_code+instance.email, "reads")
-        if not os.path.exists(upload_dir)
-            os.makedirs(upload_dir)
         print(instance.analysis_code)
         request.session['tmp_project_id'] = instance.project_name + instance.email
         user_project_number = models.NewsletterUser.objects.filter(email=instance.email).count()
