@@ -1,0 +1,6 @@
+No validator found for JSON Schema version identifier 'http://json-schema.org/draft-06/schema#'
+Defaulting to validator for JSON Schema version 'http://json-schema.org/draft-04/schema#'
+Note that schema file may not be validated correctly.
+SyntaxError in line 6 of /home/kuan-hao/Documents/bioinformatics/Virus/VirusRNASeq/rules/trimmomatic_trimming_PE.snakefile:
+EOF in multi-line statement (trimmomatic_trimming_PE.snakefile, line 6)
+  File "/home/kuan-hao/Documents/bioinformatics/Virus/VirusRNASeq/Snakefile", line 35, in <module>
