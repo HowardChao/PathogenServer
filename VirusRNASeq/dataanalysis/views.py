@@ -1,14 +1,36 @@
 from django.core.cache import cache
 from django.http import HttpResponse
 import json
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
+from django.views import View
+
 
 from dataanalysis.models import Document
 from dataanalysis.forms import DocumentForm
 
 TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_project"
+
+# Creating GET and POST functions!! When we access page, we are going to 
+# show the user a list of uploaded files
+class BasicUploadView(View):
+    def get(self, request):
+        files_list = Document.objects.all()
+        context = {
+            "files": files_list,
+        }
+        return render(self.request, 'dataanalysis/home.html', context=context)
+
+    def post(self, request):
+        form = DocumentForm(self.request.POST, self.request.FILES)
+        if form.is_valid():
+            getfile = form.save()
+            data = {'is_valid': True,
+                    'name': getfile.document.name, 'url': getfile.document.url}
+        else:
+            data = {'is_valid': False}
+        return JsonResponse(data)
 
 def data_analysis_home(request):
     if request.method == 'POST' and request.FILES['myfile1']:

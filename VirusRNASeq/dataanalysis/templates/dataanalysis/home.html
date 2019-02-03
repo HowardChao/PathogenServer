@@ -3,7 +3,14 @@
 {% block extraheader %}
 {% load static %}
 {% progress_bar_media %}
-<link rel="stylesheet" href="{% static 'dataanalysis/css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'dataanalysis/css/home.css' %}">
+    {# JQUERY FILE UPLOAD SCRIPTS #}
+    <script src="{% static 'js/jquery_file_upload/vendor/jquery.ui.widget.js' %}"></script>
+    <script src="{% static 'js/jquery_file_upload/jquery.iframe-transport.js' %}"></script>
+    <script src="{% static 'js/jquery_file_upload/jquery.fileupload.js' %}"></script>
+    {# PHOTOS PAGE SCRIPTS #}
+    <script src="{% static 'js/basic_upload.js' %}"></script>
+
 {% endblock extraheader %}
 {% block content %}
 <div class="container">
@@ -51,6 +58,8 @@
                             <h5 class="card-title">VirusRNASeq</h5>
                             <br>
                             <p class="card-text">Please enter your 'Analysis code' below. After you press the "Find  Project" button, you can go into your project page!</p>
+
+
                             <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Paired-End</a>
