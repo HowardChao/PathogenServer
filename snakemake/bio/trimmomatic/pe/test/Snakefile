@@ -16,6 +16,7 @@ rule trimmomatic_pe:
     params:
         # list of trimmers (see manual)
         trimmer=["TRAILING:3"],
+        minilength=["MINLEN:50"],
         # optional parameters
         extra="",
         compression_level="-9"
