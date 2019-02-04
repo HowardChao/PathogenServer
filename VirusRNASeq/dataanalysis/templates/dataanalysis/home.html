@@ -13,43 +13,19 @@
 
 {% endblock extraheader %}
 {% block content %}
-<div class="container">
+<main role="main" class="container">
     <div class="row">
-        {% comment %} <div id="side-nav" class="col-sm-2">
-            <ul class="nav nav-pills nav-stacked affix list-group">
-                <li><a href="#one"><i class="list-group-item list-group-item-action"></i> One</a></li>
-                <li><a href="#two"><i class="list-group-item list-group-item-action"></i> Two</a></li>
-                <li><a href="#three"><i class="list-group-item list-group-item-action"></i> Three</a></li>
-                <li><a href="#four"><i class="list-group-item list-group-item-action"></i> Four</a></li>
-                <li><a href="#five"><i class="list-group-item list-group-item-action"></i> Five</a></li>
-            </ul>
-        </div>
-        <div class="col-sm-10 content">
-            <section id="one">
-                Section 1
-            </section>
-            <section id="two">
-                Section 2
-            </section>
-            <section id="three">
-                Section 3
-            </section>
-            <section id="four">
-                Section 4
-            </section>
-            <section id="five">
-                Section 5
-            </section>
-        </div> {% endcomment %}
-        <nav class="col-sm-2" id="list-example" >
-            <ul id="side-nav" class="list-group nav nav-pills nav-stacked" style="top: 120px;">
-                <a class="list-group-item list-group-item-action" href="#list-item-1">1. Files Upload</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-2">2. Read Trimming</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-3">3. Read Subtraction</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
-            </ul>
+        <nav class="col-md-4" id="list-example" >
+            <div class="content-section">
+                <ul id="side-nav" class="list-group nav nav-pills nav-stacked" style="top: 120px;">
+                    <a class="list-group-item list-group-item-action" href="#list-item-1">1. Files Upload</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-2">2. Read Trimming</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-3">3. Read Subtraction</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
+                </ul>
+            </div>
         </nav>
-        <div class="col-sm-10">
+        <div class="col-md-8">
             <div class=" scrollspy-example">
                 <div id="list-item-1" >
                     <div class="card bg-light mt-5 mb-3 w-100 p-3">
@@ -68,18 +44,29 @@
                             </nav>
                             <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <br>                    
+
                                 <form method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
-                                    <input type="file" name="myfile1">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="inputGroupFile02">
+                                        <label class="custom-file-label" for="inputGroupFile02">Choose R1 file (*.1.fastq.gz)</label>
+                                    </div>
+                                    {% comment %} <input type="file" name="myfile1"> {% endcomment %}
                                     {% progress_bar %}
-                                    <button type="submit">Upload</button>
+                                    {% comment %} <button type="submit">Upload</button> {% endcomment %}
                                 </form>
                                 {% if uploaded_file_url %}
                                     <p>File uploaded at: <a herf="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
                                 {% endif %}
+                                <br>
                                 <form method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
-                                    <input type="file" name="myfile2">
+                                    {% comment %} <input type="file" name="myfile2"> {% endcomment %}
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="inputGroupFile02">
+                                        <label class="custom-file-label" for="inputGroupFile02">Choose R1 file (*.1.fastq.gz)</label>
+                                    </div>
                                     {% progress_bar %}
                                     <button type="submit">Upload</button>
                                 </form>
@@ -87,7 +74,6 @@
                                     <p>File uploaded at: <a herf="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
                                 {% endif %}
                             </div>
-
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                 <form method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
@@ -197,7 +183,7 @@
 
         
     </div>
-</div>
+</main>
 
 
 

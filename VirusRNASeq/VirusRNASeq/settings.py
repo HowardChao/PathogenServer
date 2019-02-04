@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'dataanalysis',
     'email_hash',
-    'users',
+    'users.apps.UsersConfig',
     # 'progressbarupload',
 ]
 

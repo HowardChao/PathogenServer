@@ -52,7 +52,9 @@
                         </div>
                     </li> {% endcomment %}
                     {% if user.is_authenticated %}
-
+                        <li class="nav-item nav-middle">
+                            <a class="nav-link" href={% url 'new_analysis' %}><i class="fas fa-list-ul"></i>  My Analysis List</a>
+                        </li>
                     {% else %}
                         <li class="nav-item nav-middle">
                             <a class="nav-link" href={% url 'new_analysis' %}><i class="fas fa-plus"></i> Start New Project</a>
