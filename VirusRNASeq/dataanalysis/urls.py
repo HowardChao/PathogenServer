@@ -4,10 +4,10 @@ from django.urls import path
 from dataanalysis import views
 
 urlpatterns = [
-    path('', views.BasicUploadView.as_view(), name='dataanalysis_home'),
+    path('', views.data_analysis_home, name='dataanalysis_home'),
     path('upload/simple/', views.simple_upload, name='simple_upload'),
     path('upload/form/', views.model_form_upload, name='model_form_upload'),
-    path('upload_progress/', views.upload_progress, name='upload_progress')
+    path('upload-progress/', views.upload_progress, name='upload_progress')
 ]
 
 if settings.DEBUG:

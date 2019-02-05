@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'dataanalysis',
     'email_hash',
     'users.apps.UsersConfig',
+    'tmpuser',
     # 'progressbarupload',
 ]
 

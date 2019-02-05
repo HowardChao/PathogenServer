@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% crispy form form.helper %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="card bg-light mt-5 mb-3 w-100 p-3">
+            <div class="card-header"><p class="h2"><i class="fas fa-search"></i> &nbsp &nbsp Check Project Progress {{ variable.inside_or_outside }} </p></div>
+            <div class="card-body w-100">
+                <h5 class="card-title">Check the progress of your analysis project by analysis code</h5>
+                <br>
+                <p class="card-text">Please enter your 'Analysis code' below. After you press the "Find  Project" button, you can go into your project page!</p>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div {% if message.tags %} class="{{message.tags}}" {% endif %} role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                        </button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    {% if variable.inside_or_outside %}
+                        <script language="javascript" type="text/javascript">
+                        function popitup(url) {
+                            var project_name=window.open(url,'Your project','height=1000,width=1200');
+                            var form = document.createElement("form");
+                            var hiddenField1 = document.createElement("input");
+
+                            var project_name = {{ variable.project_name }}
+
+                            if (window.focus) {newwindow.focus()}
+                            return false;
+                        }
+                        popitup("{% url 'dataanalysis_home' %}")
+                        </script>
+                        <br>
+                        <a><button type="button" class="btn btn-success btn-block btn-lg" onclick="return popitup({% url 'dataanalysis_home' %})">Link to your Project!</button></a>
+                        <br>
+                        <a href={% url 'new_analysis' %}><button type="button" class="btn btn-outline-success">Back to homepage</button></a>
+                    {% else %}
+                        <br>
+                        <a href={% url 'new_analysis' %}><button type="button" class="btn btn-success">Back to homepage</button></a>
+                    {% endif %}
+                    <a href={% url 'homepage' %}><button type="button" class="btn btn-outline-secondary">Back to homepage</button></a>
+                {% else %}
+                <br>
+                <div class="col-md-7">
+                    <form method="POST" class="w-100">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <span class="input-group-btn">
+                            <button class="btn btn-outline-info" type="submit">Find Project</button>
+                        </span>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+{% comment %} Here will be in dataanalysis page!! {% endcomment %}
+    </div>
+</div>
+
+
+{% endblock content %}

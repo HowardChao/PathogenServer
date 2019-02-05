@@ -33,9 +33,13 @@
                         <div class="card-body w-100">
                             <h5 class="card-title">VirusRNASeq</h5>
                             <br>
-                            <p class="card-text">Please enter your 'Analysis code' below. After you press the "Find  Project" button, you can go into your project page!</p>
-
-
+                            <p class="card-text">VirusRNASeq can accept:</p>
+                            <p>&nbsp &nbsp 1) .fastq.gz format.</p>
+                            <p>&nbsp &nbsp 2) ≤20.0 GBytes in total.</p>
+                            <p>&nbsp &nbsp 3) Original raw sequenceing read files only.</p>
+                            <p>&nbsp &nbsp 4) Cannot accept fastq.gz paired-end file from SRA.</p>
+                            <p>&nbsp &nbsp 5) Cannot accept nanopore data.</p>
+                            <p>&nbsp &nbsp 6) rules.</p>
                             <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Paired-End</a>
@@ -45,7 +49,6 @@
                             <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                             <br>                    
-
                                 <form method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <div class="custom-file">
@@ -65,21 +68,27 @@
                                     {% comment %} <input type="file" name="myfile2"> {% endcomment %}
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="inputGroupFile02">
-                                        <label class="custom-file-label" for="inputGroupFile02">Choose R1 file (*.1.fastq.gz)</label>
+                                        <label class="custom-file-label" for="inputGroupFile02">Choose R2 file (*.1.fastq.gz)</label>
                                     </div>
                                     {% progress_bar %}
-                                    <button type="submit">Upload</button>
+                                    <br><br>
+                                    <button class="btn btn-info btn-block" type="submit">Upload</button>
                                 </form>
                                 {% if uploaded_file_url %}
                                     <p>File uploaded at: <a herf="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
                                 {% endif %}
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <br>
                                 <form method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
-                                    <input type="file" name="myfile2">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="inputGroupFile02">
+                                        <label class="custom-file-label" for="inputGroupFile02">Choose R2 file (*.1.fastq.gz)</label>
+                                    </div>
                                     {% progress_bar %}
-                                    <button type="submit">Upload</button>
+                                    <br><br>
+                                    <button class="btn btn-info btn-block" type="submit">Upload</button>
                                 </form>
                                 {% if uploaded_file_url %}
                                     <p>File uploaded at: <a herf="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>

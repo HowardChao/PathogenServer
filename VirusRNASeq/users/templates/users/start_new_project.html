@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="card bg-light mt-5 mb-3 w-100 p-3">
+            <div class="card-header"><p class="h2"><i class="fas fa-play"></i> &nbsp &nbsp Start New Project</p></div>
+            <div class="card-body w-100">
+                <h5 class="card-title" >Choose an email to start a new project</h5>
+                <br>
+                <p class="card-text">Please enter your email address below to create the analysis project. You can change the default project name to a distinct name. After you press the "start project" button, a special hash code linked to the newly created analysis project would be sent to your email. </p>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div {% if message.tags %} class="{{message.tags}}" {% endif %} role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                        </button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    <br>
+                    <a href={% url 'check_project' %}><button type="button" class="btn btn-success">Go to check project!</button></a>
+                    <a href={% url 'homepage' %}><button type="button" class="btn btn-outline-secondary">Back to homepage</button></a>
+                {% else %}
+                <br>
+                <div class="col-md-7">
+                    <form method="POST" class="w-100">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+{% comment %} 
+                        {% for field in form %}
+                        {{ field | crispy}}
+                        {% endfor %} {% endcomment %}
+
+                        {% comment %} {{ form|crispy }} {% endcomment %}
+                        <span class="input-group-btn">
+                            <button class="btn btn-outline-info" type="submit">Start Project</button>
+                        </span>
+                    </form>
+                </div>
+                {% comment %} {% crispy form %} {% endcomment %}
+                {% comment %} {% crispy form %} {% endcomment %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -27,21 +27,22 @@ class BasicUploadView(View):
         if form.is_valid():
             getfile = form.save()
             data = {'is_valid': True,
-                    'name': getfile.document.name, 'url': getfile.document.url}
+                    'name': getfile.document.name, 'url': getfile.file.url}
         else:
             data = {'is_valid': False}
         return JsonResponse(data)
 
 def data_analysis_home(request):
+    print("Inside data_analysis_home !!!")
+    if 'project_name' in request.session:
+        project_name = request.session['project_name']
+        print("project_name: ", project_name)
+    if 'analysis_code' is request.session:
+        analysis_code = request.session['analysis_code']
+        print("analysis_code: ", analysis_code)
     if request.method == 'POST' and request.FILES['myfile1']:
         project_name = "None"
         analysis_code = "None"
-        if 'project_name' in request.session:
-            project_name = request.session['project_name']
-        if 'analysis_code' is request.session:
-            analysis_code = request.session['analysis_code']
-        print("project_name: ", project_name)
-        print("analysis_code: ", analysis_code)
         # upload_dir = os.path.join(TMP_DIR, tmp_project_id, "reads")
         # print("upload_dir id: ", upload_dir)
         # if not os.path.exists(upload_dir):
@@ -98,6 +99,7 @@ def model_form_upload(request):
     })
 
 
+
 def hello_world(request):
     return HttpResponse('Hello World!')
 
@@ -121,3 +123,4 @@ def upload_progress(request):
         cache_key = "%s_%s" % (request.META['REMOTE_ADDR'], progress_id)
         data = cache.get(cache_key)
         return HttpResponse(json.dumps(data))
+

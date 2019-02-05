@@ -75,15 +75,20 @@ def check_project(request):
     if form.is_valid():
         instance = form.save(commit=False)
         if models.NewsletterUser.objects.filter(analysis_code=instance.analysis_code).exists():
-            # request.session['tmp_project_id'] = instance.project_name
             query_instance = models.NewsletterUser.objects.get(analysis_code=instance.analysis_code)
             project_name = query_instance.project_name
             analysis_code = instance.analysis_code
             print("project_name: ", project_name)
             print("analysis_code: ", analysis_code)
+            # request.session['tmp_project_id'] = instance.project_name
             inside_or_outside = True
             request.session["project_name"] = project_name
             request.session["analysis_code"] = analysis_code
+            upload_dir = os.path.join(
+                settings.MEDIA_ROOT, project_name, "reads")
+            print("***Upload_dir id: ", upload_dir)
+            if not os.path.exists(upload_dir):
+                os.makedirs(upload_dir)
             messages.success(request, 'Your analysis code is correct!',
                              extra_tags="alert alert-success alert-dismissible fade show")
         else:
