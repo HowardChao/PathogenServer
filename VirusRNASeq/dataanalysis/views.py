@@ -5,10 +5,12 @@ from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 from django.views import View
+from django.conf import settings
+import glob
+import os
 
-
-from dataanalysis.models import Document
-from dataanalysis.forms import DocumentForm
+from dataanalysis.models import Document, PairedEnd, SingleEnd
+from dataanalysis.forms import DocumentForm, PairedEndForm, SingleEndForm
 
 TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_project"
 
@@ -33,13 +35,7 @@ class BasicUploadView(View):
         return JsonResponse(data)
 
 def data_analysis_home(request):
-    print("Inside data_analysis_home !!!")
-    if 'project_name' in request.session:
-        project_name = request.session['project_name']
-        print("project_name: ", project_name)
-    if 'analysis_code' is request.session:
-        analysis_code = request.session['analysis_code']
-        print("analysis_code: ", analysis_code)
+
     if request.method == 'POST' and request.FILES['myfile1']:
         project_name = "None"
         analysis_code = "None"
@@ -98,6 +94,49 @@ def model_form_upload(request):
         'form': form
     })
 
+def paired_end_upload(request):
+    print("Inside data_analysis_home !!!")
+    if 'project_name' in request.session:
+        project_name = request.session['project_name']
+        print("project_name: ", project_name)
+    if 'analysis_code' is request.session:
+        analysis_code = request.session['analysis_code']
+        print("analysis_code: ", analysis_code)
+
+    if request.method == 'POST' :
+        print("paired_or_single: ", request.POST['paired_or_single'])
+        if request.POST['paired_or_single'] == "paired":
+            # form = PairedEndForm(request.POST, request.FILES)
+            # for f in request.FILES.getlist('file'):
+            #     PairedEnd.objects.create(file=f)
+            # if form.is_valid():
+            #     form.save()
+            myfile1 = request.FILES['r1']
+            myfile2 = request.FILES['r2']
+            fs = FileSystemStorage()
+            filename1 = fs.save(myfile1.name, myfile1)
+            filename2 = fs.save(myfile2.name, myfile2)
+            uploaded_file_url_1 = fs.url(filename1)
+            uploaded_file_url_2 = fs.url(filename2)
+            return render(request, 'dataanalysis/home.html', {
+                'uploaded_file_url_1': uploaded_file_url_1,
+                'uploaded_file_url_2': uploaded_file_url_2,
+            })
+
+        elif request.POST['paired_or_single'] == "single":
+            print("NONO")
+    return render(request, 'dataanalysis/home.html')
+
+    #     form = PairedEndForm(request.POST, request.FILES)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('dataanalysis_home')
+    # else:
+    #     form = PairedEndForm()
+    # return render(request, 'dataanalysis/home.html', {
+    #     'form': form,
+    # })
+
 
 
 def hello_world(request):
@@ -124,3 +163,29 @@ def upload_progress(request):
         data = cache.get(cache_key)
         return HttpResponse(json.dumps(data))
 
+def Get_Uploaded_File_Name(is_paired_end):
+    if is_paired_end:
+        file_name_1 = None
+        file_name_2 = None
+        upload_dir = os.path.join(
+            settings.MEDIA_ROOT, project_name, "reads", "pe", "*.fastq.gz")
+        files = glob.glob(upload_dir)
+        print("Pair-end files:", files)
+        if len(files) == 2:
+            return files
+        elif len(files) == 0:
+            return None
+        else:
+            return "invalid"
+    else:
+        file_name = None
+        upload_dir = os.path.join(
+            settings.MEDIA_ROOT, project_name, "reads", "se", "*.fastq.gz")
+        files = glob.glob(upload_dir)
+        print("Single-end files:", files)
+        if len(files) == 1:
+            return files
+        elif len(files) == 0:
+            return None
+        else:
+            return "invalid"

@@ -2,6 +2,7 @@
 {% load progress_bar %}
 {% block extraheader %}
 {% load static %}
+{% load staticfiles %}
 {% progress_bar_media %}
     <link rel="stylesheet" href="{% static 'dataanalysis/css/home.css' %}">
     {# JQUERY FILE UPLOAD SCRIPTS #}
@@ -9,8 +10,8 @@
     <script src="{% static 'js/jquery_file_upload/jquery.iframe-transport.js' %}"></script>
     <script src="{% static 'js/jquery_file_upload/jquery.fileupload.js' %}"></script>
     {# PHOTOS PAGE SCRIPTS #}
-    <script src="{% static 'js/basic_upload.js' %}"></script>
-
+    <script src="{% static 'dataanalysis/js/basic_upload.js' %}"></script>
+    <script src="{% static 'dataanalysis/js/main.js' %}"></script>
 {% endblock extraheader %}
 {% block content %}
 <main role="main" class="container">
@@ -40,55 +41,142 @@
                             <p>&nbsp &nbsp 4) Cannot accept fastq.gz paired-end file from SRA.</p>
                             <p>&nbsp &nbsp 5) Cannot accept nanopore data.</p>
                             <p>&nbsp &nbsp 6) rules.</p>
+
                             <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Paired-End</a>
                                 <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Singel_End</a>
                             </div>
                             </nav>
+
                             <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                             <br>                    
-                                <form method="post" enctype="multipart/form-data">
+                                <form method="post" enctype="multipart/form-data" required="True">
+                                    <div id="paired-end-container"></div>
                                     {% csrf_token %}
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="inputGroupFile02">
-                                        <label class="custom-file-label" for="inputGroupFile02">Choose R1 file (*.1.fastq.gz)</label>
+                                        <input type="hidden" value="paired" name="paired_or_single">
+                                        <input type="file" name="r1" class="custom-file-input" id="inputGroupFile01">
+                                        <label class="custom-file-label" for="inputGroupFile01">Choose R1 file (*.1.fastq.gz)</label>
                                     </div>
-                                    {% comment %} <input type="file" name="myfile1"> {% endcomment %}
-                                    {% progress_bar %}
-                                    {% comment %} <button type="submit">Upload</button> {% endcomment %}
-                                </form>
-                                {% if uploaded_file_url %}
-                                    <p>File uploaded at: <a herf="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
-                                {% endif %}
-                                <br>
-                                <form method="post" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    {% comment %} <input type="file" name="myfile2"> {% endcomment %}
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="inputGroupFile02">
+                                        <input type="file" name="r2" class="custom-file-input" id="inputGroupFile02">
                                         <label class="custom-file-label" for="inputGroupFile02">Choose R2 file (*.1.fastq.gz)</label>
                                     </div>
                                     {% progress_bar %}
                                     <br><br>
-                                    <button class="btn btn-info btn-block" type="submit">Upload</button>
+                                    <button id="paired-end-button"  class="btn btn-info btn-block" type="submit">Upload Paired-End Files</button>
+                                    <script>
+                                    // Change color would be done in the future !!! (It is not working right now!)
+                                        $('#inputGroupFile01').on('change',function(){
+                                            //get the file name
+                                            var fileName = $(this).val();
+                                            var cleanFileName = fileName.replace('C:\\fakepath\\', " ");
+                                            //replace the "Choose a file" label
+                                            $(this).next('.custom-file-label').html(cleanFileName);
+                                            reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz|.R1.fastq)$/i
+                                            if (cleanFileName.match(reg_exp_1)) {
+                                                console.log("Change color to green");
+                                                $(this).css("background-color", "rgba(175, 201, 99, 0.2)");
+                                            } else {
+                                                console.log("Change color to red");
+                                                $(event.delegateTarget).css("background-color", "rgba(175, 201, 99, 0.2)");
+                                            }
+                                        })
+                                        
+                                        $('#inputGroupFile02').on('change',function(){
+                                            //get the file name
+                                            var fileName = $(this).val();
+                                            var cleanFileName = fileName.replace('C:\\fakepath\\', " ");
+                                            //replace the "Choose a file" label
+                                            $(this).next('.custom-file-label').html(cleanFileName);
+                                        })
+
+                                        $('#paired-end-button').click(function(){
+                                            var myNode = document.getElementById("paired-end-container");
+                                            myNode.innerHTML = '';
+                                            file_1_size = document.getElementById("inputGroupFile01").files.length
+                                            file_2_size = document.getElementById("inputGroupFile02").files.length
+                                            file_name1 = document.getElementById("inputGroupFile01").value;
+                                            file_name2 = document.getElementById("inputGroupFile02").value;
+                                            reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz|.R1.fastq)$/i
+                                            reg_exp_2 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R2.fastq.gz|.R2.fastq)$/i
+                                            checker = true;
+                                            if (file_1_size == 0) {
+                                                console.log("File 1 have not selected");
+                                                $('#paired-end-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">You do not select <strong>R1 file</strong> !<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+                                                checker = false;
+                                            } 
+                                            if (file_1_size == 1 & !file_name1.match(reg_exp_1)) {
+                                                $('#paired-end-container').append('<div class="alert alert-warning alert-dismissible fade show" role="alert">R1 file name is <strong>INVALID</strong> ! (clue: <strong>"*.R1.fastq.gz"</strong>)<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+                                                checker = false;   
+                                            }
+                                            if (file_2_size == 0) {
+                                                console.log("File 2 have not selected");
+                                                $('#paired-end-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">You do not select <strong>R2 file</strong> !<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+                                                checker = false;
+                                            }
+                                            if (file_2_size == 1 & !file_name2.match(reg_exp_2)) {
+                                                $('#paired-end-container').append('<div class="alert alert-warning alert-dismissible fade show" role="alert">R2 file name is <strong>INVALID</strong> ! (clue: <strong>"*.R2.fastq.gz"</strong>)<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+                                                checker = false;
+                                            }
+                                            return checker
+                                        })
+                                    </script> 
                                 </form>
-                                {% if uploaded_file_url %}
+                                {% comment %} {% if uploaded_file_url %}
                                     <p>File uploaded at: <a herf="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
-                                {% endif %}
+                                {% endif %} {% endcomment %}
+                                <br>
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <br>
                                 <form method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="inputGroupFile02">
-                                        <label class="custom-file-label" for="inputGroupFile02">Choose R2 file (*.1.fastq.gz)</label>
+                                        <input type="file" class="custom-file-input" id="inputGroupFileSin">
+                                        <label class="custom-file-label" for="inputGroupFileSin">Choose R2 file (*.1.fastq.gz)</label>
                                     </div>
                                     {% progress_bar %}
                                     <br><br>
-                                    <button class="btn btn-info btn-block" type="submit">Upload</button>
+                                    <button id="paired-end-button-sin"  class="btn btn-info btn-block" type="submit">Upload Single-End Files</button>
+                                    <script>
+                                        $('#inputGroupFileSin').on('change',function(){
+                                            //get the file name
+                                            var fileName = $(this).val();
+                                            var cleanFileName = fileName.replace('C:\\fakepath\\', " ");
+                                            //replace the "Choose a file" label
+                                            $(this).next('.custom-file-label').html(cleanFileName);
+                                            reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz|.R1.fastq)$/i
+                                            if (cleanFileName.match(reg_exp_1)) {
+                                                console.log("Change color to green");
+                                                $(this).css("background-color", "rgba(175, 201, 99, 0.2)");
+                                            } else {
+                                                console.log("Change color to red");
+                                                $(event.delegateTarget).css("background-color", "rgba(175, 201, 99, 0.2)");
+                                            }
+                                        })
+
+                                        $('#paired-end-button-sin').click(function(){
+                                            var myNode = document.getElementById("paired-end-container");
+                                            myNode.innerHTML = '';
+                                            file_1_size = document.getElementById("inputGroupFileSin").files.length
+                                            file_name1 = document.getElementById("inputGroupFileSin").value;
+                                            reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.fastq.gz|.fastq)$/i
+                                            checker = true;
+                                            if (file_1_size == 0) {
+                                                console.log("File 1 have not selected");
+                                                $('#paired-end-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">You do not select <strong>R1 file</strong> !<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+                                                checker = false;
+                                            } 
+                                            if (file_1_size == 1 & !file_name1.match(reg_exp_1)) {
+                                                $('#paired-end-container').append('<div class="alert alert-warning alert-dismissible fade show" role="alert">R1 file name is <strong>INVALID</strong> ! (clue: <strong>"*.R1.fastq.gz"</strong>)<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+                                                checker = false;   
+                                            }
+                                            return checker
+                                        })
+                                    </script>
                                 </form>
                                 {% if uploaded_file_url %}
                                     <p>File uploaded at: <a herf="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>

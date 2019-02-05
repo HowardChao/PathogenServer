@@ -10,9 +10,9 @@ class DocumentForm(forms.ModelForm):
 class PairedEndForm(forms.ModelForm):
     class Meta:
         model = PairedEnd
-        fields = ('file1', 'file2')
+        fields = ('file1', 'file2',)
 
 class SingleEndForm(forms.ModelForm):
     class Meta:
         model = SingleEnd
-        fields = ('file1')
+        fields = ('file1',)
