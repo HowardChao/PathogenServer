@@ -114,8 +114,13 @@ def paired_end_upload(request):
             myfile1 = request.FILES['r1']
             myfile2 = request.FILES['r2']
             fs = FileSystemStorage()
-            filename1 = fs.save(myfile1.name, myfile1)
-            filename2 = fs.save(myfile2.name, myfile2)
+
+            if fs.exists(os.path.join(project_name, "pe")):
+                fs.delete(os.path.join(project_name, "pe"))
+            if fs.exists(os.path.join(project_name, "pe")):
+                fs.delete(os.path.join(project_name, "pe"))
+            filename1 = fs.save(os.path.join(project_name, "pe", myfile1.name), myfile1)
+            filename2 = fs.save(os.path.join(project_name, "pe", myfile2.name), myfile2)
             uploaded_file_url_1 = fs.url(filename1)
             uploaded_file_url_2 = fs.url(filename2)
             return render(request, 'dataanalysis/home.html', {
@@ -124,7 +129,16 @@ def paired_end_upload(request):
             })
 
         elif request.POST['paired_or_single'] == "single":
-            print("NONO")
+            myfile1 = request.FILES['s1']
+            fs = FileSystemStorage()
+            if fs.exists(os.path.join(project_name, "se")):
+                fs.delete(os.path.join(project_name, "se"))
+            filename1 = fs.save(os.path.join(
+                project_name, "se", myfile1.name), myfile1)
+            uploaded_file_url_1 = fs.url(filename1)
+            return render(request, 'dataanalysis/home.html', {
+                'uploaded_file_url_1': uploaded_file_url_1,
+            })
     return render(request, 'dataanalysis/home.html')
 
     #     form = PairedEndForm(request.POST, request.FILES)

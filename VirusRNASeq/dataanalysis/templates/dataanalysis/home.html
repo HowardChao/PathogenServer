@@ -45,7 +45,7 @@
                             <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Paired-End</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Singel_End</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Singel-End</a>
                             </div>
                             </nav>
 
@@ -133,14 +133,16 @@
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <br>
                                 <form method="post" enctype="multipart/form-data">
+                                    <div id="single-end-container"></div>
                                     {% csrf_token %}
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="inputGroupFileSin">
-                                        <label class="custom-file-label" for="inputGroupFileSin">Choose R2 file (*.1.fastq.gz)</label>
+                                        <input type="hidden" value="single" name="paired_or_single">
+                                        <input type="file" name="s1" class="custom-file-input" id="inputGroupFileSin">
+                                        <label class="custom-file-label" for="inputGroupFileSin">Choose R1 file (*.1.fastq.gz)</label>
                                     </div>
                                     {% progress_bar %}
                                     <br><br>
-                                    <button id="paired-end-button-sin"  class="btn btn-info btn-block" type="submit">Upload Single-End Files</button>
+                                    <button id="single-end-button"  class="btn btn-info btn-block" type="submit">Upload Single-End Files</button>
                                     <script>
                                         $('#inputGroupFileSin').on('change',function(){
                                             //get the file name
@@ -158,8 +160,8 @@
                                             }
                                         })
 
-                                        $('#paired-end-button-sin').click(function(){
-                                            var myNode = document.getElementById("paired-end-container");
+                                        $('#single-end-button').click(function(){
+                                            var myNode = document.getElementById("single-end-container");
                                             myNode.innerHTML = '';
                                             file_1_size = document.getElementById("inputGroupFileSin").files.length
                                             file_name1 = document.getElementById("inputGroupFileSin").value;
@@ -167,11 +169,11 @@
                                             checker = true;
                                             if (file_1_size == 0) {
                                                 console.log("File 1 have not selected");
-                                                $('#paired-end-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">You do not select <strong>R1 file</strong> !<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+                                                $('#single-end-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">You do not select <strong>R1 file</strong> !<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
                                                 checker = false;
                                             } 
                                             if (file_1_size == 1 & !file_name1.match(reg_exp_1)) {
-                                                $('#paired-end-container').append('<div class="alert alert-warning alert-dismissible fade show" role="alert">R1 file name is <strong>INVALID</strong> ! (clue: <strong>"*.R1.fastq.gz"</strong>)<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+                                                $('#single-end-container').append('<div class="alert alert-warning alert-dismissible fade show" role="alert">R1 file name is <strong>INVALID</strong> ! (clue: <strong>"*.R1.fastq.gz"</strong>)<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
                                                 checker = false;   
                                             }
                                             return checker

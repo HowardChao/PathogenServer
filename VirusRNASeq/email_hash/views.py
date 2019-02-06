@@ -87,8 +87,8 @@ def check_project(request):
             upload_dir = os.path.join(
                 settings.MEDIA_ROOT, project_name, "reads")
             print("***Upload_dir id: ", upload_dir)
-            if not os.path.exists(upload_dir):
-                os.makedirs(upload_dir)
+            # if not os.path.exists(upload_dir):
+            #     os.makedirs(upload_dir)
             messages.success(request, 'Your analysis code is correct!',
                              extra_tags="alert alert-success alert-dismissible fade show")
         else:
