@@ -93,7 +93,7 @@
                             <strong>{{ uploaded_file_url_pe_2 }}</strong>
                             <strong>{{ uploaded_file_url_se }}</strong>
 
-                            {% if uploaded_file_url_pe_1 == None and uploaded_file_url_pe_2 == None and uploaded_file_url_se == None%}
+                            {% if remove_file is True or uploaded_file_url_pe_1 == None and uploaded_file_url_pe_2 == None and uploaded_file_url_se == None %}
                             {% comment %} Inside is Normal for user to upload file {% endcomment %}
                                 <div class="upload-file-single-end tab-content">User can upload file</div>
                                 <div class="not-upload tab-content" id="nav-tabContent">
@@ -113,7 +113,7 @@
                                             </div>
                                             {% progress_bar %}
                                             <br><br>
-                                            <button id="paired-end-button"  class="btn btn-info btn-block" type="submit">Upload Paired-End Files</button>
+                                            <button id="paired-end-button" name="upload-paired-end-file" class="btn btn-info btn-block" type="submit">Upload Paired-End Files</button>
                                             <script>
                                             // Change color would be done in the future !!! (It is not working right now!)
                                                 $('#inputGroupFile01').on('change',function(){
@@ -186,7 +186,7 @@
                                             </div>
                                             {% progress_bar %}
                                             <br><br>
-                                            <button id="single-end-button"  class="btn btn-info btn-block" type="submit">Upload Single-End Files</button>
+                                            <button id="single-end-button" name="upload-single-end-file" class="btn btn-info btn-block" type="submit">Upload Single-End Files</button>
                                             <script>
                                                 $('#inputGroupFileSin').on('change',function(){
                                                     //get the file name
@@ -224,14 +224,12 @@
                                                 })
                                             </script>
                                         </form>
-                                        {% comment %} {% if uploaded_file_url %}
-                                            <p>File uploaded at: <a herf="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
-                                        {% endif %} {% endcomment %}
                                     </div>
                                 </div>
                             {% elif uploaded_file_url_pe_1 != None and uploaded_file_url_pe_2 != None and uploaded_file_url_se == None %}
                                 <div class="upload-file-paired-end tab-content">Upload files are paired-end !!!!</div>
-
+                                <form method="post" enctype="multipart/form-data" required="True">
+                                {% csrf_token %}
                                     <p>Upload files:</p>
                                     <ul>
                                         <li>
@@ -241,16 +239,22 @@
                                             <small>Upload at: <a href={{ uploaded_file_url_pe_2 }}>{{ uploaded_file_url_pe_2 }}</a></small>
                                         </li>
                                     </ul>
-
+                                    <br>
+                                    <button id="delete-paired-end-file" name="remove-paired-end-file" class="btn btn-danger btn-block" type="submit">Delete Uploaded Files</button>
+                                </form>
                             {% elif uploaded_file_url_pe_1 == None and uploaded_file_url_pe_2 == None and uploaded_file_url_se != None %}
                                 <div class="upload-file-paired-end tab-content">Upload files are single-end !!!!</div>
+                                <form method="post" enctype="multipart/form-data" required="True">
+                                {% csrf_token %}
                                     <p>Upload files:</p>
                                     <ul>
                                         <li>
                                             <small>Upload at: <a href={{ uploaded_file_url_se }}>{{ uploaded_file_url_se }}</a></small>
                                         </li>
                                     </ul>
-
+                                    <br>
+                                    <button id="delete-single-end-file" name="remove-single-end-file" class="btn btn-danger btn-block" type="submit">Delete Uploaded File</button>
+                                </form>
                             {% else %}
                             remove all the files and do two false
                             {% endif %}   

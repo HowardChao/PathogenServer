@@ -113,24 +113,27 @@ def paired_end_upload(request):
     (uploaded_file_url_pe_1, uploaded_file_url_pe_2, uploaded_file_url_se) = Check_Uploaded_File_Name(
         project_name)
     if request.method == 'POST' :
-        print("paired_or_single: ", request.POST['paired_or_single'])
-        if request.POST['paired_or_single'] == "paired":
+        if 'upload-paired-end-file' in request.POST:
+            print("    * Inside upload-paired-end-file")
             myfile1 = request.FILES['r1']
             myfile2 = request.FILES['r2']
             fs = FileSystemStorage()
-            print("Checker path: ", os.path.join(settings.MEDIA_ROOT, project_name, "pe"))
             print("Checker path: ", os.path.join(
-                settings.MEDIA_ROOT, project_name, "se"))
-            if fs.exists(os.path.join(settings.MEDIA_ROOT, project_name, "pe")):
+                settings.MEDIA_ROOT, 'tmp', project_name, "pe"))
+            print("Checker path: ", os.path.join(
+                settings.MEDIA_ROOT, 'tmp', project_name, "se"))
+            if fs.exists(os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, "pe")):
                 print("Removing files")
                 shutil.rmtree(os.path.join(
-                    settings.MEDIA_ROOT, project_name, "pe"))
-            if fs.exists(os.path.join(settings.MEDIA_ROOT, project_name, "se")):
+                    settings.MEDIA_ROOT, 'tmp', project_name, "pe"))
+            if fs.exists(os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, "se")):
                 print("Removing files")
                 shutil.rmtree(os.path.join(
-                    settings.MEDIA_ROOT, project_name, "se"))
-            filename1 = fs.save(os.path.join(project_name, "pe", myfile1.name), myfile1)
-            filename2 = fs.save(os.path.join(project_name, "pe", myfile2.name), myfile2)
+                    settings.MEDIA_ROOT, 'tmp', project_name, "se"))
+            filename1 = fs.save(os.path.join(
+                'tmp', project_name, "pe", myfile1.name), myfile1)
+            filename2 = fs.save(os.path.join(
+                'tmp', project_name, "pe", myfile2.name), myfile2)
             uploaded_file_url_pe_1 = fs.url(filename1)
             uploaded_file_url_pe_2 = fs.url(filename2)
             print("uploaded_file_url_pe_1: ", uploaded_file_url_pe_1)
@@ -147,62 +150,88 @@ def paired_end_upload(request):
                 'uploaded_file_url_pe_1': uploaded_file_url_pe_1,
                 'uploaded_file_url_pe_2': uploaded_file_url_pe_2,
                 'uploaded_file_url_se': uploaded_file_url_se,
-                # 'paired_end': check_files[0],
-                # 'single_end': check_files[1],
+                'remove_file': False,
             })
-        elif request.POST['paired_or_single'] == "single":
+
+        elif 'upload-single-end-file' in request.POST:
+            print("    * Inside upload-single-end-file")
             myfile1 = request.FILES['s1']
             fs = FileSystemStorage()
             print("Checker path: ", os.path.join(
-                settings.MEDIA_ROOT, project_name, "pe"))
+                settings.MEDIA_ROOT, 'tmp', project_name, "pe"))
             print("Checker path: ", os.path.join(
-                settings.MEDIA_ROOT, project_name, "se"))
-            if fs.exists(os.path.join(settings.MEDIA_ROOT, project_name, "pe")):
+                settings.MEDIA_ROOT, 'tmp', project_name, "se"))
+            if fs.exists(os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, "pe")):
                 print("Removing files")
                 shutil.rmtree(os.path.join(
-                    settings.MEDIA_ROOT, project_name, "pe"))
-            if fs.exists(os.path.join(settings.MEDIA_ROOT, project_name, "se")):
+                    settings.MEDIA_ROOT, 'tmp', project_name, "pe"))
+            if fs.exists(os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, "se")):
                 print("Removing files")
                 shutil.rmtree(os.path.join(
-                    settings.MEDIA_ROOT, project_name, "se"))
+                    settings.MEDIA_ROOT, 'tmp', project_name, "se"))
             filename1 = fs.save(os.path.join(
-                project_name, "se", myfile1.name), myfile1)
+                'tmp', project_name, "se", myfile1.name), myfile1)
             uploaded_file_url_se = fs.url(filename1)
             print("uploaded_file_url_se: ", uploaded_file_url_se)
-            # return HttpResponseRedirect(request.path_info, {
-            #     'single_end': check_files[1],
-            #     'uploaded_file_url_1': uploaded_file_url_1,
-            # })
             return render(request, "dataanalysis/home.html", {
                 'which': "single-end",
                 'project_name': project_name,
                 'uploaded_file_url_pe_1': uploaded_file_url_pe_1,
                 'uploaded_file_url_pe_2': uploaded_file_url_pe_2,
                 'uploaded_file_url_se': uploaded_file_url_se,
-                # 'paired_end': check_files[0],
-                # 'single_end': check_files[1],
+                'remove_file': False,
             })
-    # return HttpResponseRedirect(request.path_info, {
-    #     'paired_end': check_files[0],
-    #     'single_end': check_files[1],
-    # })
+
+
+
+        elif 'remove-paired-end-file' in request.POST:
+            print("    * Inside remove-paired-end-file")
+            fs = FileSystemStorage()
+            print("Checker path: ", os.path.join(
+                settings.MEDIA_ROOT, 'tmp', project_name, "pe"))
+            print("Checker path: ", os.path.join(
+                settings.MEDIA_ROOT, 'tmp', project_name, "se"))
+            if fs.exists(os.path.join(settings.MEDIA_ROOT, 'tmp', project_name)):
+                print("Removing files")
+                shutil.rmtree(os.path.join(
+                    settings.MEDIA_ROOT, 'tmp', project_name))
+            return render(request, "dataanalysis/home.html", {
+                'which': "single-end",
+                'project_name': project_name,
+                'uploaded_file_url_pe_1': uploaded_file_url_pe_1,
+                'uploaded_file_url_pe_2': uploaded_file_url_pe_2,
+                'uploaded_file_url_se': uploaded_file_url_se,
+                'remove_file': True,
+            })
+
+        elif 'remove-single-end-file' in request.POST:
+            print('    * Inside remove-single-end-file')
+            fs = FileSystemStorage()
+            print("Checker path: ", os.path.join(
+                settings.MEDIA_ROOT, 'tmp', project_name, "pe"))
+            print("Checker path: ", os.path.join(
+                settings.MEDIA_ROOT, 'tmp', project_name, "se"))
+            if fs.exists(os.path.join(settings.MEDIA_ROOT, 'tmp', project_name)):
+                print("Removing files")
+                shutil.rmtree(os.path.join(
+                    settings.MEDIA_ROOT, 'tmp', project_name))
+            return render(request, "dataanalysis/home.html", {
+                'which': "single-end",
+                'project_name': project_name,
+                'uploaded_file_url_pe_1': uploaded_file_url_pe_1,
+                'uploaded_file_url_pe_2': uploaded_file_url_pe_2,
+                'uploaded_file_url_se': uploaded_file_url_se,
+                'remove_file': True,
+            })
+
     return render(request, "dataanalysis/home.html", {
         'which': "normal",
         'project_name': project_name,
         'uploaded_file_url_pe_1': uploaded_file_url_pe_1,
         'uploaded_file_url_pe_2': uploaded_file_url_pe_2,
         'uploaded_file_url_se': uploaded_file_url_se,
+        'remove_file': False,
     })
-
-    #     form = PairedEndForm(request.POST, request.FILES)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('dataanalysis_home')
-    # else:
-    #     form = PairedEndForm()
-    # return render(request, 'dataanalysis/home.html', {
-    #     'form': form,
-    # })
 
 
 
@@ -238,7 +267,7 @@ def Check_Uploaded_File_Name(project_name):
     pe_files = []
     se_files = []
     upload_dir_pe = os.path.join(
-        settings.MEDIA_ROOT, project_name, "pe")
+        settings.MEDIA_ROOT, 'tmp', project_name, "pe")
     if os.path.exists(upload_dir_pe):
         pe_files = os.listdir(upload_dir_pe)
         print(pe_files)
@@ -246,19 +275,20 @@ def Check_Uploaded_File_Name(project_name):
             print(file_check)
             if ".R1.fastq" in file_check:
                 uploaded_file_url_pe_1 = os.path.join(
-                    "/media", project_name, "pe", file_check)
+                    "/media", 'tmp', project_name, "pe", file_check)
             if ".R2.fastq" in file_check:
                 uploaded_file_url_pe_2 = os.path.join(
-                    "/media", project_name, "pe", file_check)
+                    "/media", 'tmp', project_name, "pe", file_check)
         print("uploaded_file_url_pe_1: ", uploaded_file_url_pe_1)
         print("uploaded_file_url_pe_2: ", uploaded_file_url_pe_2)
         # uploaded_file_url_pe_1 = os.path.join(upload_dir_pe, pe_files[0])
         # uploaded_file_url_pe_2 = os.path.join(upload_dir_pe, pe_files[1])
     upload_dir_se = os.path.join(
-        settings.MEDIA_ROOT, project_name, "se")
+        settings.MEDIA_ROOT, 'tmp', project_name, "se")
     if os.path.exists(upload_dir_se):
         se_files = os.listdir(upload_dir_se)
-        uploaded_file_url_se = os.path.join("/media", project_name, "se", se_files[0])
+        uploaded_file_url_se = os.path.join(
+            "/media", 'tmp', project_name, "se", se_files[0])
 
     # files = glob.glob(upload_dir)
 
