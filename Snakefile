@@ -1,5 +1,6 @@
 from snakemake.utils import validate
 from snakemake.utils import min_version
+import os
 import pandas as pd
 
 __author__ = 'Kuan-Hao Chao <b05901180@ntu.edu.tw>'
@@ -8,7 +9,8 @@ __author__ = 'Kuan-Hao Chao <b05901180@ntu.edu.tw>'
 
 #------------ Config setup ------------
 configfile: "config.yaml"
-workdir: config["datadir"]
+print(os.path.join(config["datadir"], config["project_name"], config["se_or_pe"]))
+workdir: os.path.join(config["datadir"], config["project_name"], config["se_or_pe"])
 trimmomatic_jar = config["trimmomatic_jar"]
 validate(config, "schemas/config.schema.yaml")
 # pipesDir = os.path.join(os.path.expanduser(config['bin_dir']), 'pipes', 'rules')
