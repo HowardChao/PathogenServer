@@ -22,7 +22,7 @@ validate(config, "schemas/config.schema.yaml")
 
 #------------ Definition fo all_input ------
 samples = {f for f in os.listdir(".") if f.endswith(".fastq.gz")}
-
+print(samples)
 
 #------------ Target File -------------
 # rule all:
@@ -31,7 +31,6 @@ samples = {f for f in os.listdir(".") if f.endswith(".fastq.gz")}
     #input: all_input
     #shell:
     #    "echo \"Evreything is done! \""
-
 
 rule targets:
     input:
