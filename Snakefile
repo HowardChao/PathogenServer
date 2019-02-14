@@ -18,7 +18,7 @@ validate(config, "schemas/config.schema.yaml")
 # validate(samples, schema="schemas/cells.schema.yaml")
 
 #------------ Definition fo all_input ------
-samples = {os.path.splitext(os.path.splitext(f)[0])[0] for f in os.listdir("./" + config["se_or_pe"]) if f.endswith(".fastq") or }
+samples = {os.path.splitext(os.path.splitext(f)[0])[0] for f in os.listdir("./" + config["se_or_pe"]) if f.endswith(".fastq")}
 
 # for f in os.listdir("./" + config["se_or_pe"]):
 #     if f.endswith(".fastq"):
