@@ -48,7 +48,7 @@ rule preprocess:
     message: "Trimming Illumina adapters from {input.r1} and {input.r2}"
     shell:
         """
-        java -jar config[trimmomatic_jar] PE {input.r1} {input.r2} {output.r1_paired} \
+        java -jar {config[trimmomatic_jar]} PE {input.r1} {input.r2} {output.r1_paired} \
         {output.r1_unpaired} {output.r2_paired} {output.r2_unpaired} \
         ILLUMINACLIP:{config[adapter]} LEADING:{config[leading]} TRAILING:{config[trailing]} SLIDINGWINDOW:{config[window]} MINLEN:{config[minlen]}
         """
