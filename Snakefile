@@ -8,6 +8,8 @@ __author__ = 'Kuan-Hao Chao <b05901180@ntu.edu.tw>'
 
 #------------ Config setup ------------
 configfile: "config.yaml"
+workdir: config["datadir"]
+trimmomatic_jar = config["trimmomatic_jar"]
 validate(config, "schemas/config.schema.yaml")
 # pipesDir = os.path.join(os.path.expanduser(config['bin_dir']), 'pipes', 'rules')
 
@@ -17,10 +19,8 @@ validate(config, "schemas/config.schema.yaml")
 # validate(samples, schema="schemas/cells.schema.yaml")
 
 #------------ Definition fo all_input ------
-all_input = [
-    "a",
-    "b",
-]
+samples = {for f in os.listdir(".") if f.endswith(".fastq.gz")}
+
 
 #------------ Target File -------------
 # rule all:
@@ -30,26 +30,49 @@ all_input = [
     #shell:
     #    "echo \"Evreything is done! \""
 
-rule trimmomatic_pe:
+
+rule targets:
     input:
-        r1=os.path.join(os.path.expanduser(config["ref_data"]), "ip96_S13.1.fastq.gz"),
-        r2=os.path.join(os.path.expanduser(config["ref_data"]), "ip96_S13.2.fastq.gz")
+        expand("{sample}_forward_paired.fq.gz", sample=samples)
+
+
+rule preprocess:
+    input:
+        r1 = "{sample}.R1.fastq.gz",
+        r2 = "{sample}.R2.fastq.gz",
     output:
-        r1="trimmed/ip96_S13.1.fastq.gz",
-        r2="trimmed/ip96_S13.2.fastq.gz",
-        # reads where trimming entirely removed the mate
-        r1_unpaired="trimmed/ip96_S13.1.unpaired.fastq.gz",
-        r2_unpaired="trimmed/ip96_S13.2.unpaired.fastq.gz"
-    log:
-        "logs/trimmomatic/ip96_S13.log"
-    params:
-        # list of trimmers (see manual)
-        trimmer=["TRAILING:3"],
-        # optional parameters
-        extra="",
-        compression_level="-9"
-    wrapper:
-        "0.31.1/bio/trimmomatic/pe"
+        r1_paired = "{sample}_r1_paired.fastq.gz",
+        r1_unpaired = "{sample}_r1_unpaired.fastq.gz",
+        r2_paired = "{sample}_r2_paired.fastq.gz",
+        r2_unpaired = "{sample}_r2_unpaired.fastq.gz"
+    message: "Trimming Illumina adapters from {input.forward} and {input.reverse}"
+    shell:
+        """
+        java -jar config[trimmomatic_jar] PE {input.forward} {input.reverse} {output.forward_paired} \
+        {output.forward_unpaired} {output.reverse_paired} {output.reverse_unpaired} \
+        ILLUMINACLIP:{config[adapter]} LEADING:{config[leading]} TRAILING:{config[trailing]} SLIDINGWINDOW:{config[window]} MINLEN:{config[minlen]}
+        """
+#
+# rule trimmomatic_pe:
+#     input:
+#         r1=os.path.join(os.path.expanduser(config["ref_data"]), "ip96_S13.1.fastq.gz"),
+#         r2=os.path.join(os.path.expanduser(config["ref_data"]), "ip96_S13.2.fastq.gz")
+#     output:
+#         r1="trimmed/ip96_S13.1.fastq.gz",
+#         r2="trimmed/ip96_S13.2.fastq.gz",
+#         # reads where trimming entirely removed the mate
+#         r1_unpaired="trimmed/ip96_S13.1.unpaired.fastq.gz",
+#         r2_unpaired="trimmed/ip96_S13.2.unpaired.fastq.gz"
+#     log:
+#         "logs/trimmomatic/ip96_S13.log"
+#     params:
+#         # list of trimmers (see manual)
+#         trimmer=["TRAILING:3"],
+#         # optional parameters
+#         extra="",
+#         compression_level="-9"
+#     wrapper:
+#         "0.31.1/bio/trimmomatic/pe"
 
 
 # print(os.path.join(os.path.expanduser(config["ref_data"]), "{sample}.1.fastq.gz"))

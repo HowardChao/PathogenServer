@@ -1,8 +1,15 @@
 # define a dictionary of configuration parameters and their values
+trimmomatic_jar: "../tools/Trimmomatic/trimmomatic-0.38.jar"
+datadir: "VirusRNASeq/media/tmp"
+adapter: "TruSeq3-PE.fa:2:30:10"
+leading: 3
+trailing: 3
+minlen: 36
+window: "4:15"
+
 ref: "/home/kuan-hao/Documents/bioinformatics/Virus/VirusRNASeq/ref.yaml"
 root_dir: "/home/kuan-hao/Documents/bioinformatics/Virus"
 wordir: "/home/kuan-hao/Documents/bioinformatics/Virus/VirusRNASeq"
-
 tool_dir: "/home/kuan-hao/Documents/tools"
 ref_data: "/home/kuan-hao/Documents/bioinformatics/Virus/virus_data"
 result_data: "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results"
