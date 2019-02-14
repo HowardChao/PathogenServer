@@ -45,7 +45,7 @@ rule preprocess:
         r1_unpaired = "{sample}_r1_unpaired.fastq.gz",
         r2_paired = "{sample}_r2_paired.fastq.gz",
         r2_unpaired = "{sample}_r2_unpaired.fastq.gz"
-    message: "Trimming Illumina adapters from {input.forward} and {input.reverse}"
+    message: "Trimming Illumina adapters from {input.r1} and {input.r2}"
     shell:
         """
         java -jar config[trimmomatic_jar] PE {input.r1} {input.r2} {output.r1_paired} \
