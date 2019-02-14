@@ -36,11 +36,10 @@ rule targets:
     input:
         expand("{sample}_r1_paired.fastq.gz", sample=samples)
 
-
 rule preprocess:
     input:
-        r1 = "{sample}.R1.fastq.gz",
-        r2 = "{sample}.R2.fastq.gz",
+        r1 = "{sample}.R1.fastq",
+        r2 = "{sample}.R2.fastq",
     output:
         r1_paired = "{sample}_r1_paired.fastq.gz",
         r1_unpaired = "{sample}_r1_unpaired.fastq.gz",
