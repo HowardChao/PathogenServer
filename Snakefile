@@ -21,7 +21,7 @@ validate(config, "schemas/config.schema.yaml")
 # validate(samples, schema="schemas/cells.schema.yaml")
 
 #------------ Definition fo all_input ------
-samples = {for f in os.listdir(".") if f.endswith(".fastq.gz")}
+samples = {f for f in os.listdir(".") if f.endswith(".fastq.gz")}
 
 
 #------------ Target File -------------
