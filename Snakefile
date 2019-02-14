@@ -34,7 +34,7 @@ print(samples)
 
 rule targets:
     input:
-        expand("{sample}_forward_paired.fq.gz", sample=samples)
+        expand("{sample}_r1_paired.fq.gz", sample=samples)
 
 
 rule preprocess:
