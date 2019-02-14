@@ -37,7 +37,7 @@ print(samples)
 
 rule targets:
     input:
-        expand("{sample}_r1_paired.fastq.gz", sample=samples)
+        expand(os.path.join("trimmed_paired", "{sample}_r1_paired.fastq.gz"), sample=samples)
 
 rule preprocess:
     input:
