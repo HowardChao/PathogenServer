@@ -5,23 +5,26 @@ import pandas as pd
 
 __author__ = 'Kuan-Hao Chao <b05901180@ntu.edu.tw>'
 
-#------------ Depend on a min_version ---------
-
 #------------ Config setup ------------
 configfile: "config.yaml"
 print(os.path.join(config["datadir"], config["project_name"], config["se_or_pe"]))
-workdir: os.path.join(config["datadir"], config["project_name"], config["se_or_pe"])
+workdir: os.path.join(config["datadir"], config["project_name"])
 trimmomatic_jar = config["trimmomatic_jar"]
 validate(config, "schemas/config.schema.yaml")
 # pipesDir = os.path.join(os.path.expanduser(config['bin_dir']), 'pipes', 'rules')
-
 
 # Tabular configuration
 # samples = pd.read_table(config["samples"]).set_index("sample", drop=FALSE)
 # validate(samples, schema="schemas/cells.schema.yaml")
 
 #------------ Definition fo all_input ------
-samples = {os.path.splitext(os.path.splitext(f)[0])[0] for f in os.listdir(".") if f.endswith(".fastq")}
+samples = {os.path.splitext(os.path.splitext(f)[0])[0] for f in os.listdir("./" + config["se_or_pe"]) if f.endswith(".fastq") or }
+
+# for f in os.listdir("./" + config["se_or_pe"]):
+#     if f.endswith(".fastq"):
+#         os.path.splitext(f)[0]
+#     elif f.endswith(".fastq.gz"):
+
 print(samples)
 
 #------------ Target File -------------
@@ -38,13 +41,13 @@ rule targets:
 
 rule preprocess:
     input:
-        r1 = "{sample}.R1.fastq",
-        r2 = "{sample}.R2.fastq",
+        r1 = os.path.join(config["se_or_pe"], "{sample}.R1.fastq"),
+        r2 = os.path.join(config["se_or_pe"], "{sample}.R2.fastq"),
     output:
-        r1_paired = "{sample}_r1_paired.fastq.gz",
-        r1_unpaired = "{sample}_r1_unpaired.fastq.gz",
-        r2_paired = "{sample}_r2_paired.fastq.gz",
-        r2_unpaired = "{sample}_r2_unpaired.fastq.gz"
+        r1_paired = os.path.join("trimmed_paired", "{sample}_r1_paired.fastq.gz"),
+        r1_unpaired = os.path.join("trimmed_unpaired", "{sample}_r1_unpaired.fastq.gz"),
+        r2_paired = os.path.join("trimmed_paired", "{sample}_r2_paired.fastq.gz"),
+        r2_unpaired = os.path.join("trimmed_unpaired", "{sample}_r2_unpaired.fastq.gz"),
     message: "Trimming Illumina adapters from {input.r1} and {input.r2}"
     shell:
         """
@@ -52,7 +55,7 @@ rule preprocess:
         {output.r1_unpaired} {output.r2_paired} {output.r2_unpaired} \
         ILLUMINACLIP:{config[adapter]} LEADING:{config[leading]} TRAILING:{config[trailing]} SLIDINGWINDOW:{config[window]} MINLEN:{config[minlen]}
         """
-#
+
 # rule trimmomatic_pe:
 #     input:
 #         r1=os.path.join(os.path.expanduser(config["ref_data"]), "ip96_S13.1.fastq.gz"),
