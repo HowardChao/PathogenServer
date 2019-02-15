@@ -89,7 +89,7 @@ def simple_upload(request):
             trailing = 3
             minlen = 36
             window = "4:15"
-            config_file_path = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, 'config.yml')
+            config_file_path = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, 'config.yaml')
             data = dict(
                 project_name = project_name,
                 datadir = datadir,
@@ -112,7 +112,6 @@ def simple_upload(request):
                 # 'tmp', project_name, "pe", myfile1.name), myfile1)
             return render(request, 'dataanalysis/simple_upload.html')
     return render(request, 'dataanalysis/simple_upload.html')
-
 
 
 
