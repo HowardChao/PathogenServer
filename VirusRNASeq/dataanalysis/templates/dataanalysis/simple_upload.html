@@ -1,13 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="file" name="myfile">
-        <button type="submit">Upload</button>
-    </form>
-    {% if uploaded_file_url %}
-        <p>File uploaded at: <a herf="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
-    {% endif %}
-    <p><a href="{% url 'dataanalysis_home' %}">Return to home</a></p>
+<form method="post" enctype="multipart/form-data" required="True">
+{% csrf_token %}
+    <button id="snakefile-creation-button" name="snakefile-creation" class="btn btn-primary" type="submit">Button</button>
+</form>
 {% endblock content %}

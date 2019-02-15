@@ -1,0 +1,6 @@
+trimmomatic:
+  ILLUMINACLIP: TruSeq2-PE.fa
+  LEADING: '5'
+  MINLEN: '20'
+  SLIDINGWINDOW: '4:15'
+  TRAILING: '10'
