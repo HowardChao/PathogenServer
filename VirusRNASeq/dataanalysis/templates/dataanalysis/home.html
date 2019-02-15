@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_checkfile.html' %}
 {% load progress_bar %}
 {% block extraheader %}
 {% load static %}
@@ -98,7 +98,7 @@
                                 <div class="upload-file-single-end tab-content">User can upload file</div>
                                 <div class="not-upload tab-content" id="nav-tabContent">
                                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                        <br>             
+                                        <br>
                                         <form method="post" enctype="multipart/form-data" required="True">
                                             <div id="paired-end-container"></div>
                                             {% csrf_token %}
@@ -131,7 +131,7 @@
                                                         $(event.delegateTarget).css("background-color", "rgba(175, 201, 99, 0.2)");
                                                     }
                                                 })
-                                                
+
                                                 $('#inputGroupFile02').on('change',function(){
                                                     //get the file name
                                                     var fileName = $(this).val();
@@ -154,10 +154,10 @@
                                                         console.log("File 1 have not selected");
                                                         $('#paired-end-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">You do not select <strong>R1 file</strong> !<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
                                                         checker = false;
-                                                    } 
+                                                    }
                                                     if (file_1_size == 1 & !file_name1.match(reg_exp_1)) {
                                                         $('#paired-end-container').append('<div class="alert alert-warning alert-dismissible fade show" role="alert">R1 file name is <strong>INVALID</strong> ! (clue: <strong>"*.R1.fastq.gz"</strong>)<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
-                                                        checker = false;   
+                                                        checker = false;
                                                     }
                                                     if (file_2_size == 0) {
                                                         console.log("File 2 have not selected");
@@ -170,7 +170,7 @@
                                                     }
                                                     return checker
                                                 })
-                                            </script> 
+                                            </script>
                                         </form>
                                         <br>
                                     </div>
@@ -215,10 +215,10 @@
                                                         console.log("File 1 have not selected");
                                                         $('#single-end-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">You do not select <strong>R1 file</strong> !<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
                                                         checker = false;
-                                                    } 
+                                                    }
                                                     if (file_1_size == 1 & !file_name1.match(reg_exp_1)) {
                                                         $('#single-end-container').append('<div class="alert alert-warning alert-dismissible fade show" role="alert">R1 file name is <strong>INVALID</strong> ! (clue: <strong>"*.fastq.gz"</strong>)<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
-                                                        checker = false;   
+                                                        checker = false;
                                                     }
                                                     return checker
                                                 })
@@ -257,9 +257,9 @@
                                 </form>
                             {% else %}
                             remove all the files and do two false
-                            {% endif %}   
+                            {% endif %}
 
-                        </div> 
+                        </div>
                     </div>
                 </div>
 
@@ -269,15 +269,42 @@
                         <div class="card-body w-100">
                             <h5 class="card-title">Read with low quality would be deleted</h5>
                             <br>
-                            <p class="card-text">Please enter your 'Analysis code' below. After you press the "Find  Project" button, you can go into your project page!</p>
-                            <ul>
-                                <li>
-                                    <a href="{% url 'simple_upload' %}">Simple Upload</a>
-                                </li>
-                                <li>
-                                    <a href="{% url 'model_form_upload' %}">Model Form Upload</a>
-                                </li>
-                            </ul>
+                            <p class="card-text"></p>
+                            <label for="trimmomatic_stringency">stringency</label>
+                            <div id="trimmomatic_stringency" class="btn-group" role="group" aria-label="Basic example">
+                              <button type="button" class="btn btn-secondary">High</button>
+                              <button type="button" class="btn btn-secondary">Middle</button>
+                              <button type="button" class="btn btn-secondary">Low</button>
+                            </div>
+                            <br><br>
+                            <div class="form-group">
+                              <label for="trimmomatic_illuminaclip">ILLUMINACLIP</label>
+                              <select class="form-control" id="trimmomatic_illuminaclip">
+                                <option>TruSeq2-PE.fa</option>
+                                <option>TruSeq3-PE.fa</option>
+                                <option>TruSeq3-PE-2.fa</option>
+                                <option>NexteraPE-PE.fa</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="trimmomatic_slidingwindow">SLIDINGWINDOW</label>
+                              <select class="form-control" id="trimmomatic_slidingwindow">
+                                <option>4:15</option>
+                                <option>4:20</option>
+                              </select>
+                            </div>
+                            <div>
+                            <label for="trimmomatic_leading">LEADING</label>
+                            <input id="trimmomatic_leading" type="text" name="trimmomatic_leading"><br>
+                            </div>
+                            <div>
+                            <label for="trimmomatic_tailing">TAILING</label>
+                            <input id="trimmomatic_tailing" type="text" name="trimmomatic_tailing"><br>
+                            </div>
+                            <div>
+                            <label for="trimmomatic_minlen">MINILEN</label>
+                            <input id="trimmomatic_minlen" type="text" name="trimmomatic_minlen"><br>
+                            </div>
                             {% comment %} <p>Upload files:</p>
                             <ul>
                                 {% for obj in documents %}
@@ -288,7 +315,7 @@
                                 {% endfor %}
                             </ul> {% endcomment %}
                         </div>
-                    </div> 
+                    </div>
                 </div>
                 <div id="list-item-3">
                     <div class="card bg-light mt-5 mb-3 w-100 p-3">
@@ -315,7 +342,7 @@
                                 {% endfor %}
                             </ul> {% endcomment %}
                         </div>
-                    </div> 
+                    </div>
                 </div>
                 <div id="list-item-4">
                     <div class="card bg-light mt-5 mb-3 w-100 p-3">
@@ -342,12 +369,13 @@
                                 {% endfor %}
                             </ul> {% endcomment %}
                         </div>
-                    </div> 
+                    </div>
                 </div>
+                <button type="button" class="btn btn-primary btn-lg btn-block">Start Analysis</button>
             </div>
         </div>
 
-        
+
     </div>
 </main>
 

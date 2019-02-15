@@ -2,6 +2,7 @@
 {% load crispy_forms_tags %}
 {% crispy form form.helper %}
 {% block content %}
+{% if messages %}
 {% for message in messages %}
     <div class="alert alert-{{ message.tags }}">
     {{ message }}
