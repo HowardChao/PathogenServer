@@ -7,7 +7,7 @@ import pandas as pd
 __author__ = 'Kuan-Hao Chao <b05901180@ntu.edu.tw>'
 
 #------------ Config setup ------------
-configfile: "config.yaml"
+configfile: "config.yml"
 print(os.path.join(config["datadir"], config["project_name"], config["se_or_pe"]))
 workdir: os.path.join(config["datadir"], config["project_name"])
 trimmomatic_jar = config["trimmomatic_jar"]
