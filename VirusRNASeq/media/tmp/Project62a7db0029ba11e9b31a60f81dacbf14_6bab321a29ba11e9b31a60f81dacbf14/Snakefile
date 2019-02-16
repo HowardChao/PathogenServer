@@ -1,4 +1,3 @@
-# from snakemake.utils import validate
 from snakemake.utils import min_version
 import os
 from snakemake.shell import shell
@@ -8,11 +7,9 @@ __author__ = 'Kuan-Hao Chao <b05901180@ntu.edu.tw>'
 
 #------------ Config setup ------------
 configfile: "config.yaml"
-workdir: os.path.join(config["datadir"], config["project_name"])
-print("Current directory: ", os.getcwd())
+print(os.path.join(config["datadir"], config["se_or_pe"]))
+workdir: os.path.join(config["datadir"])
 trimmomatic_jar = config["trimmomatic"]["trimmomatic_jar"]
-print("trimmomatic_jar: ", trimmomatic_jar)
-# validate(config, "schemas/config.schema.yaml")
 # pipesDir = os.path.join(os.path.expanduser(config['bin_dir']), 'pipes', 'rules')
 
 # Tabular configuration
@@ -20,7 +17,7 @@ print("trimmomatic_jar: ", trimmomatic_jar)
 # validate(samples, schema="schemas/cells.schema.yaml")
 
 #------------ Definition fo all_input ------
-samples = {os.path.splitext(os.path.splitext(f)[0])[0] for f in os.listdir("./" + config["se_or_pe"]) if f.endswith(".fastq")}
+samples = {os.path.splitext(os.path.splitext(os.path.splitext(f)[0])[0])[0] for f in os.listdir(os.path.join(config["datadir"], config["se_or_pe"])) if f.endswith(".fastq.gz")}
 print(samples)
 # for f in os.listdir("./" + config["se_or_pe"]):
 #     if f.endswith(".fastq"):
@@ -41,8 +38,8 @@ rule targets:
 
 rule trimmomatic_pe:
     input:
-        r1 = os.path.join(config["se_or_pe"], "{sample}.R1.fastq"),
-        r2 = os.path.join(config["se_or_pe"], "{sample}.R2.fastq"),
+        r1 = os.path.join(config["se_or_pe"], "{sample}.R1.fastq.gz"),
+        r2 = os.path.join(config["se_or_pe"], "{sample}.R2.fastq.gz"),
     output:
         r1_paired = os.path.join("trimmed_paired", "{sample}_r1_paired.fastq.gz"),
         r1_unpaired = os.path.join("trimmed_unpaired", "{sample}_r1_unpaired.fastq.gz"),
@@ -63,51 +60,6 @@ rule trimmomatic_pe:
         {output.r1_unpaired} {output.r2_paired} {output.r2_unpaired} \
         ILLUMINACLIP:{config[trimmomatic][adapter]} LEADING:{config[trimmomatic][leading]} TRAILING:{config[trimmomatic][trailing]} SLIDINGWINDOW:{config[trimmomatic][window]} MINLEN:{config[trimmomatic][minlen]}
         """
-
-
-# rule trimmomatic_pe:
-#     input:
-#         r1=os.path.join(os.path.expanduser(config["ref_data"]), "ip96_S13.1.fastq.gz"),
-#         r2=os.path.join(os.path.expanduser(config["ref_data"]), "ip96_S13.2.fastq.gz")
-#     output:
-#         r1="trimmed/ip96_S13.1.fastq.gz",
-#         r2="trimmed/ip96_S13.2.fastq.gz",
-#         # reads where trimming entirely removed the mate
-#         r1_unpaired="trimmed/ip96_S13.1.unpaired.fastq.gz",
-#         r2_unpaired="trimmed/ip96_S13.2.unpaired.fastq.gz"
-#     log:
-#         "logs/trimmomatic/ip96_S13.log"
-#     params:
-#         # list of trimmers (see manual)
-#         trimmer=["TRAILING:3"],
-#         # optional parameters
-#         extra="",
-#         compression_level="-9"
-#     wrapper:
-#         "0.31.1/bio/trimmomatic/pe"
-
-
-# print(os.path.join(os.path.expanduser(config["ref_data"]), "{sample}.1.fastq.gz"))
-# rule trim:
-#     input:
-#         r1=os.path.join(os.path.expanduser(config["ref_data"]), "{sample}.1.fastq.gz"),
-#         r2=os.path.join(os.path.expanduser(config["ref_data"]), "{sample}.2.fastq.gz")
-#     output:
-#         r1=os.path.join(os.path.expanduser(config["result_data"]), "{sample}.1.fastq.gz"),
-#         r2=os.path.join(os.path.expanduser(config["result_data"]), "{sample}.2.fastq.gz"),
-#         # reads where trimming entirely removed the mate
-#         r1_unpaired=os.path.join(os.path.expanduser(config["result_data"]), "{sample}.1.unpaired.fastq.gz"),
-#         r2_unpaired=os.path.join(os.path.expanduser(config["result_data"]), "{sample}.2.unpaired.fastq.gz")
-#     log:
-#         os.path.join(os.path.expanduser(config["result_data"]), "logs/trimmomatic/{sample}.log")
-#     params:
-#         # list of trimmers (see manual)
-#         trimmer=["TRAILING:3"],
-#         # optional parameters
-#         extra="",
-#         compression_level="-9"
-#     wrapper:
-#         "0.31.1/bio/trimmomatic/pe"
 
 #------------ include rules -----------
 # include: "./rules/trimmomatic_trimming_PE.snakefile"

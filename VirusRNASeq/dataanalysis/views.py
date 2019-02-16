@@ -12,6 +12,7 @@ import glob
 import os
 import shutil
 import re
+import subprocess
 
 from dataanalysis.models import Document, PairedEnd, SingleEnd
 from dataanalysis.forms import DocumentForm, PairedEndForm, SingleEndForm
@@ -80,16 +81,22 @@ def simple_upload(request):
         print("Inside POST")
         if 'snakefile-creation' in request.POST:
             print("Inside snakefile-creation !!")
-            project_name = "Project62a7db0029ba11e9b31a60f81dacbf14"
-            trimmomatic_jar = "/home/kuan-hao/Documents/bioinformatics/Virus/tools/Trimmomatic/trimmomatic-0.38.jar"
+            project_name = "Project62a7db0029ba11e9b31a60f81dacbf14_6bab321a29ba11e9b31a60f81dacbf14"
+            trimmomatic_jar = "/Users/chaokuan-hao/Documents/bioinformatics/Virus/tools/Trimmomatic/trimmomatic-0.38.jar"
             datadir = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name)
-            se_or_pe = "pe"
-            adapter = "/home/kuan-hao/Documents/bioinformatics/Virus/tools/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10"
+            adapter = "/Users/chaokuan-hao/Documents/bioinformatics/Virus/tools/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10"
             leading = 3
             trailing = 3
             minlen = 36
             window = "4:15"
             config_file_path = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, 'config.yaml')
+            if os.path.exists(os.path.join(datadir, 'pe')):
+                se_or_pe = 'pe'
+                snakemake_file = "/Users/chaokuan-hao/Documents/bioinformatics/Virus/VirusRNASeq/VirusRNASeq/Snakefile_pe"
+            elif os.path.exists(os.path.join(datadir, 'se')):
+                se_or_pe = 'se'
+                snakemake_file = "/Users/chaokuan-hao/Documents/bioinformatics/Virus/VirusRNASeq/VirusRNASeq/Snakefile_se"
+            destination_snakemake_file = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, 'Snakefile')
             data = dict(
                 project_name = project_name,
                 datadir = datadir,
@@ -105,11 +112,9 @@ def simple_upload(request):
             )
             with open(config_file_path, 'w') as ymlfile:
                 yaml.dump(data, ymlfile, default_flow_style=False)
-
-            # f = open(path)
-            # myfile = File(f)
-            # filename1 = fs.save(os.path.join(
-                # 'tmp', project_name, "pe", myfile1.name), myfile1)
+            shutil.copyfile(snakemake_file, destination_snakemake_file)
+            subprocess.call(['snakemake'], shell=True, cwd=datadir)
+            print(subprocess.call(['pwd']))
             return render(request, 'dataanalysis/simple_upload.html')
     return render(request, 'dataanalysis/simple_upload.html')
 
@@ -126,33 +131,28 @@ def paired_end_upload(request):
     if 'project_name' in request.session:
         project_name = request.session['project_name']
         print("project_name: ", project_name)
-    if 'analysis_code' is request.session:
+    if 'analysis_code' in request.session:
         analysis_code = request.session['analysis_code']
         print("analysis_code: ", analysis_code)
     (uploaded_file_url_pe_1, uploaded_file_url_pe_2, uploaded_file_url_se) = Check_Uploaded_File_Name(
         project_name)
     if request.method == 'POST' :
+        base_dir = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name + '_' + analysis_code)
         if 'upload-paired-end-file' in request.POST:
             print("    * Inside upload-paired-end-file")
             myfile1 = request.FILES['r1']
             myfile2 = request.FILES['r2']
             fs = FileSystemStorage()
-            print("Checker path: ", os.path.join(
-                settings.MEDIA_ROOT, 'tmp', project_name, "pe"))
-            print("Checker path: ", os.path.join(
-                settings.MEDIA_ROOT, 'tmp', project_name, "se"))
-            if fs.exists(os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, "pe")):
+            print("Checker path: ", os.path.join(base_dir, 'pe'))
+            print("Checker path: ", os.path.join(base_dir, 'se'))
+            if fs.exists(os.path.join(base_dir, 'pe')):
                 print("Removing files")
-                shutil.rmtree(os.path.join(
-                    settings.MEDIA_ROOT, 'tmp', project_name, "pe"))
-            if fs.exists(os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, "se")):
+                shutil.rmtree(os.path.join(base_dir, "pe"))
+            if fs.exists(os.path.join(base_dir, "se")):
                 print("Removing files")
-                shutil.rmtree(os.path.join(
-                    settings.MEDIA_ROOT, 'tmp', project_name, "se"))
-            filename1 = fs.save(os.path.join(
-                'tmp', project_name, "pe", myfile1.name), myfile1)
-            filename2 = fs.save(os.path.join(
-                'tmp', project_name, "pe", myfile2.name), myfile2)
+                shutil.rmtree(os.path.join(base_dir, "se"))
+            filename1 = fs.save(os.path.join(base_dir, "pe", myfile1.name), myfile1)
+            filename2 = fs.save(os.path.join(base_dir, "pe", myfile2.name), myfile2)
             uploaded_file_url_pe_1 = fs.url(filename1)
             uploaded_file_url_pe_2 = fs.url(filename2)
             print("uploaded_file_url_pe_1: ", uploaded_file_url_pe_1)
@@ -176,20 +176,15 @@ def paired_end_upload(request):
             print("    * Inside upload-single-end-file")
             myfile1 = request.FILES['s1']
             fs = FileSystemStorage()
-            print("Checker path: ", os.path.join(
-                settings.MEDIA_ROOT, 'tmp', project_name, "pe"))
-            print("Checker path: ", os.path.join(
-                settings.MEDIA_ROOT, 'tmp', project_name, "se"))
-            if fs.exists(os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, "pe")):
+            print("Checker path: ", os.path.join(base_dir, "pe"))
+            print("Checker path: ", os.path.join(base_dir, "se"))
+            if fs.exists(os.path.join(base_dir, "pe")):
                 print("Removing files")
-                shutil.rmtree(os.path.join(
-                    settings.MEDIA_ROOT, 'tmp', project_name, "pe"))
-            if fs.exists(os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, "se")):
+                shutil.rmtree(os.path.join(base_dir, "pe"))
+            if fs.exists(os.path.join(base_dir, "se")):
                 print("Removing files")
-                shutil.rmtree(os.path.join(
-                    settings.MEDIA_ROOT, 'tmp', project_name, "se"))
-            filename1 = fs.save(os.path.join(
-                'tmp', project_name, "se", myfile1.name), myfile1)
+                shutil.rmtree(os.path.join(base_dir, "se"))
+            filename1 = fs.save(os.path.join(base_dir, "se", myfile1.name), myfile1)
             uploaded_file_url_se = fs.url(filename1)
             print("uploaded_file_url_se: ", uploaded_file_url_se)
             return render(request, "dataanalysis/home.html", {
@@ -201,19 +196,14 @@ def paired_end_upload(request):
                 'remove_file': False,
             })
 
-
-
         elif 'remove-paired-end-file' in request.POST:
             print("    * Inside remove-paired-end-file")
             fs = FileSystemStorage()
-            print("Checker path: ", os.path.join(
-                settings.MEDIA_ROOT, 'tmp', project_name, "pe"))
-            print("Checker path: ", os.path.join(
-                settings.MEDIA_ROOT, 'tmp', project_name, "se"))
-            if fs.exists(os.path.join(settings.MEDIA_ROOT, 'tmp', project_name)):
+            print("Checker path: ", os.path.join(base_dir, "pe"))
+            print("Checker path: ", os.path.join(base_dir, "se"))
+            if fs.exists(base_dir):
                 print("Removing files")
-                shutil.rmtree(os.path.join(
-                    settings.MEDIA_ROOT, 'tmp', project_name))
+                shutil.rmtree(base_dir)
             return render(request, "dataanalysis/home.html", {
                 'which': "single-end",
                 'project_name': project_name,
@@ -226,14 +216,11 @@ def paired_end_upload(request):
         elif 'remove-single-end-file' in request.POST:
             print('    * Inside remove-single-end-file')
             fs = FileSystemStorage()
-            print("Checker path: ", os.path.join(
-                settings.MEDIA_ROOT, 'tmp', project_name, "pe"))
-            print("Checker path: ", os.path.join(
-                settings.MEDIA_ROOT, 'tmp', project_name, "se"))
-            if fs.exists(os.path.join(settings.MEDIA_ROOT, 'tmp', project_name)):
+            print("Checker path: ", os.path.join(base_dir, "pe"))
+            print("Checker path: ", os.path.join(base_dir, "se"))
+            if fs.exists(base_dir):
                 print("Removing files")
-                shutil.rmtree(os.path.join(
-                    settings.MEDIA_ROOT, 'tmp', project_name))
+                shutil.rmtree(base_dir)
             return render(request, "dataanalysis/home.html", {
                 'which': "single-end",
                 'project_name': project_name,

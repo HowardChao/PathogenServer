@@ -3,5 +3,4 @@ __pycache__
 .snakemake/
 COMMAND.txt
 virus_data
-src/VirusRNASeq/media
 src/VirusRNASeq/VirusRNASeq/settings.py

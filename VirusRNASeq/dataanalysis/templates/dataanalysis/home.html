@@ -122,7 +122,7 @@
                                                     var cleanFileName = fileName.replace('C:\\fakepath\\', " ");
                                                     //replace the "Choose a file" label
                                                     $(this).next('.custom-file-label').html(cleanFileName);
-                                                    reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz|.R1.fastq)$/i
+                                                    reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz)$/i
                                                     if (cleanFileName.match(reg_exp_1)) {
                                                         console.log("Change color to green");
                                                         $(this).css("background-color", "rgba(175, 201, 99, 0.2)");
@@ -147,8 +147,8 @@
                                                     file_2_size = document.getElementById("inputGroupFile02").files.length
                                                     file_name1 = document.getElementById("inputGroupFile01").value;
                                                     file_name2 = document.getElementById("inputGroupFile02").value;
-                                                    reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz|.R1.fastq)$/i
-                                                    reg_exp_2 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R2.fastq.gz|.R2.fastq)$/i
+                                                    reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz)$/i
+                                                    reg_exp_2 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R2.fastq.gz)$/i
                                                     checker = true;
                                                     if (file_1_size == 0) {
                                                         console.log("File 1 have not selected");
@@ -194,7 +194,7 @@
                                                     var cleanFileName = fileName.replace('C:\\fakepath\\', " ");
                                                     //replace the "Choose a file" label
                                                     $(this).next('.custom-file-label').html(cleanFileName);
-                                                    reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.fastq.gz|.fastq)$/i
+                                                    reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.fastq.gz)$/i
                                                     if (cleanFileName.match(reg_exp_1)) {
                                                         console.log("Change color to green");
                                                         $(this).css("background-color", "rgba(175, 201, 99, 0.2)");
@@ -209,7 +209,7 @@
                                                     myNode.innerHTML = '';
                                                     file_1_size = document.getElementById("inputGroupFileSin").files.length
                                                     file_name1 = document.getElementById("inputGroupFileSin").value;
-                                                    reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.fastq.gz|.fastq)$/i
+                                                    reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.fastq.gz)$/i
                                                     checker = true;
                                                     if (file_1_size == 0) {
                                                         console.log("File 1 have not selected");
