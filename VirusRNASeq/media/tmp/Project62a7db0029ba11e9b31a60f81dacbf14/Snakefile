@@ -1,4 +1,4 @@
-from snakemake.utils import validate
+# from snakemake.utils import validate
 from snakemake.utils import min_version
 import os
 from snakemake.shell import shell
@@ -7,10 +7,11 @@ import pandas as pd
 __author__ = 'Kuan-Hao Chao <b05901180@ntu.edu.tw>'
 
 #------------ Config setup ------------
-configfile: "config.yml"
-print(os.path.join(config["datadir"], config["project_name"], config["se_or_pe"]))
+configfile: "config.yaml"
 workdir: os.path.join(config["datadir"], config["project_name"])
-trimmomatic_jar = config["trimmomatic_jar"]
+print("Current directory: ", os.getcwd())
+trimmomatic_jar = config["trimmomatic"]["trimmomatic_jar"]
+print("trimmomatic_jar: ", trimmomatic_jar)
 # validate(config, "schemas/config.schema.yaml")
 # pipesDir = os.path.join(os.path.expanduser(config['bin_dir']), 'pipes', 'rules')
 
@@ -58,9 +59,9 @@ rule trimmomatic_pe:
         extra="-phred33",
     shell:
         """
-        java -jar {config[trimmomatic_jar]} PE {input.r1} {input.r2} {output.r1_paired} \
+        java -jar {config[trimmomatic][trimmomatic_jar]} PE {input.r1} {input.r2} {output.r1_paired} \
         {output.r1_unpaired} {output.r2_paired} {output.r2_unpaired} \
-        ILLUMINACLIP:{config[adapter]} LEADING:{config[leading]} TRAILING:{config[trailing]} SLIDINGWINDOW:{config[window]} MINLEN:{config[minlen]}
+        ILLUMINACLIP:{config[trimmomatic][adapter]} LEADING:{config[trimmomatic][leading]} TRAILING:{config[trimmomatic][trailing]} SLIDINGWINDOW:{config[trimmomatic][window]} MINLEN:{config[trimmomatic][minlen]}
         """
 
 
