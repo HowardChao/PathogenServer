@@ -130,7 +130,7 @@ def simple_upload(request):
 
 
 
-def paired_end_upload(request):
+def paired_end_upload(request, slug):
     print("Inside data_analysis_home !!!")
 
     ## Check if file exist !!
@@ -144,10 +144,14 @@ def paired_end_upload(request):
     if 'analysis_code' in request.session:
         analysis_code = request.session['analysis_code']
         print("analysis_code: ", analysis_code)
+    if 'email' in request.session:
+        email = request.session['email']
+        print("email: ", email)
     (uploaded_file_url_pe_1, uploaded_file_url_pe_2, uploaded_file_url_se) = Check_Uploaded_File_Name(
-        project_name, analysis_code)
+        project_name, email, analysis_code)
     if request.method == 'POST' :
-        base_dir = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name + '_' + analysis_code)
+        base_dir = os.path.join(settings.MEDIA_ROOT,
+                                'tmp', project_name + '_' + email + '_' + analysis_code)
         if 'upload-paired-end-file' in request.POST:
             print("    * Inside upload-paired-end-file")
             myfile1 = request.FILES['r1']
@@ -243,9 +247,9 @@ def paired_end_upload(request):
         elif 'start-analysis' in request.POST:
             print('    * Inside start-analysis')
             prefix_dir = "/Users/chaokuan-hao/Documents/bioinformatics/Virus"
-            project_name = "Project62a7db0029ba11e9b31a60f81dacbf14_6bab321a29ba11e9b31a60f81dacbf14"
             trimmomatic_jar = os.path.join(prefix_dir, "tools/Trimmomatic/trimmomatic-0.38.jar")
-            datadir = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name)
+            datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
+                                project_name + '_' + email + '_' + analysis_code)
             threads = 8
             phred = "-phred33"
             select_adapter = request.POST.get('trimmomatic_illuminaclip')
@@ -256,14 +260,14 @@ def paired_end_upload(request):
             minlen = request.POST.get('trimmomatic_minlen')
             window_size = request.POST.get('trimmomatic_slidingwindow_size')
             window_quality = request.POST.get('trimmomatic_slidingwindow_quality')
-            config_file_path = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, 'config.yaml')
+            config_file_path = os.path.join(datadir, 'config.yaml')
             if os.path.exists(os.path.join(datadir, 'pe')):
                 se_or_pe = 'pe'
                 snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_pe")
             elif os.path.exists(os.path.join(datadir, 'se')):
                 se_or_pe = 'se'
                 snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_se")
-            destination_snakemake_file = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, 'Snakefile')
+            destination_snakemake_file = os.path.join(datadir, 'Snakefile')
             data = dict(
                 project_name = project_name,
                 datadir = datadir,
@@ -328,13 +332,13 @@ def upload_progress(request):
         return HttpResponse(json.dumps(data))
 
 
-def Check_Uploaded_File_Name(project_name, analysis_code):
+def Check_Uploaded_File_Name(project_name, email, analysis_code):
     uploaded_file_url_pe_1 = None
     uploaded_file_url_pe_2 = None
     uploaded_file_url_se = None
     pe_files = []
     se_files = []
-    datadir = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name + '_' + analysis_code)
+    datadir = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name + '_' + email + '_' + analysis_code)
     upload_dir_pe = os.path.join(datadir, "pe")
     if os.path.exists(upload_dir_pe):
         pe_files = os.listdir(upload_dir_pe)
