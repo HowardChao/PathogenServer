@@ -2,9 +2,13 @@ datadir: /Users/chaokuan-hao/Documents/bioinformatics/Virus/VirusRNASeq/VirusRNA
 project_name: Project62a7db0029ba11e9b31a60f81dacbf14_6bab321a29ba11e9b31a60f81dacbf14
 se_or_pe: pe
 trimmomatic:
-  adapter: /Users/chaokuan-hao/Documents/bioinformatics/Virus/tools/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10
-  leading: 3
-  minlen: 36
-  trailing: 3
+  adapter: /Users/chaokuan-hao/Documents/bioinformatics/Virus/tools/Trimmomatic/adapters/TruSeq3-PE.fa
+  adapter_param: :2:30:10
+  leading: '8'
+  minlen: '36'
+  phred: -phred33
+  threads: 8
+  trailing: '8'
   trimmomatic_jar: /Users/chaokuan-hao/Documents/bioinformatics/Virus/tools/Trimmomatic/trimmomatic-0.38.jar
-  window: '4:15'
+  window_quality: '20'
+  window_size: '4'

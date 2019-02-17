@@ -46,9 +46,9 @@ rule trimmomatic_pe:
         extra="-phred33",
     shell:
         """
-        java -jar {config[trimmomatic][trimmomatic_jar]} PE {input.r1} {input.r2} {output.r1_paired} \
+        java -jar {config[trimmomatic][trimmomatic_jar]} PE -threads {config[trimmomatic][threads]} {config[trimmomatic][phred]} {input.r1} {input.r2} {output.r1_paired} \
         {output.r1_unpaired} {output.r2_paired} {output.r2_unpaired} \
-        ILLUMINACLIP:{config[trimmomatic][adapter]} LEADING:{config[trimmomatic][leading]} TRAILING:{config[trimmomatic][trailing]} SLIDINGWINDOW:{config[trimmomatic][window]} MINLEN:{config[trimmomatic][minlen]}
+        ILLUMINACLIP:{config[trimmomatic][adapter]}{config[trimmomatic][adapter_param]} LEADING:{config[trimmomatic][leading]} TRAILING:{config[trimmomatic][trailing]} SLIDINGWINDOW:{config[trimmomatic][window_size]}:{config[trimmomatic][window_quality]} MINLEN:{config[trimmomatic][minlen]}
         """
 
 #------------ include rules -----------

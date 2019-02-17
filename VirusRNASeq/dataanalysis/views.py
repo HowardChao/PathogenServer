@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 from django.views import View
 from django.conf import settings
+from django.urls import reverse
 import yaml
 from django.core.files import File
 import glob
@@ -80,22 +81,27 @@ def simple_upload(request):
     if request.method == 'POST':
         print("Inside POST")
         if 'snakefile-creation' in request.POST:
-            print("Inside snakefile-creation !!")
+            prefix_dir = "/Users/chaokuan-hao/Documents/bioinformatics/Virus"
             project_name = "Project62a7db0029ba11e9b31a60f81dacbf14_6bab321a29ba11e9b31a60f81dacbf14"
-            trimmomatic_jar = "/Users/chaokuan-hao/Documents/bioinformatics/Virus/tools/Trimmomatic/trimmomatic-0.38.jar"
+            trimmomatic_jar = os.path.join(prefix_dir, "tools/Trimmomatic/trimmomatic-0.38.jar")
             datadir = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name)
-            adapter = "/Users/chaokuan-hao/Documents/bioinformatics/Virus/tools/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10"
+            threads = 8
+            phred = "-phred33"
+            trimlog = "trimmomatic_log"
+            adapter = os.path.join(prefix_dir, "tools/Trimmomatic/adapters/TruSeq3-PE.fa")
+            adapter_param = ":2:30:10"
             leading = 3
             trailing = 3
             minlen = 36
-            window = "4:15"
+            window_size = 4
+            window_quality = 20
             config_file_path = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, 'config.yaml')
             if os.path.exists(os.path.join(datadir, 'pe')):
                 se_or_pe = 'pe'
-                snakemake_file = "/Users/chaokuan-hao/Documents/bioinformatics/Virus/VirusRNASeq/VirusRNASeq/Snakefile_pe"
+                snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_pe")
             elif os.path.exists(os.path.join(datadir, 'se')):
                 se_or_pe = 'se'
-                snakemake_file = "/Users/chaokuan-hao/Documents/bioinformatics/Virus/VirusRNASeq/VirusRNASeq/Snakefile_se"
+                snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_se")
             destination_snakemake_file = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, 'Snakefile')
             data = dict(
                 project_name = project_name,
@@ -103,8 +109,12 @@ def simple_upload(request):
                 se_or_pe = se_or_pe,
                 trimmomatic = dict(
                     trimmomatic_jar = trimmomatic_jar,
+                    threads = threads,
+                    phred = phred,
                     adapter = adapter,
-                    window = window,
+                    adapter_param = adapter_param,
+                    window_size = window_size,
+                    window_quality = window_quality,
                     leading = leading,
                     trailing = trailing,
                     minlen = minlen,
@@ -135,7 +145,7 @@ def paired_end_upload(request):
         analysis_code = request.session['analysis_code']
         print("analysis_code: ", analysis_code)
     (uploaded_file_url_pe_1, uploaded_file_url_pe_2, uploaded_file_url_se) = Check_Uploaded_File_Name(
-        project_name)
+        project_name, analysis_code)
     if request.method == 'POST' :
         base_dir = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name + '_' + analysis_code)
         if 'upload-paired-end-file' in request.POST:
@@ -229,6 +239,58 @@ def paired_end_upload(request):
                 'uploaded_file_url_se': uploaded_file_url_se,
                 'remove_file': True,
             })
+        
+        elif 'start-analysis' in request.POST:
+            print('    * Inside start-analysis')
+            prefix_dir = "/Users/chaokuan-hao/Documents/bioinformatics/Virus"
+            project_name = "Project62a7db0029ba11e9b31a60f81dacbf14_6bab321a29ba11e9b31a60f81dacbf14"
+            trimmomatic_jar = os.path.join(prefix_dir, "tools/Trimmomatic/trimmomatic-0.38.jar")
+            datadir = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name)
+            threads = 8
+            phred = "-phred33"
+            select_adapter = request.POST.get('trimmomatic_illuminaclip')
+            adapter = os.path.join(prefix_dir, "tools/Trimmomatic/adapters", select_adapter)
+            adapter_param = ":2:30:10"
+            leading = request.POST.get('trimmomatic_leading_quality')
+            trailing = request.POST.get('trimmomatic_trailing_quality')
+            minlen = request.POST.get('trimmomatic_minlen')
+            window_size = request.POST.get('trimmomatic_slidingwindow_size')
+            window_quality = request.POST.get('trimmomatic_slidingwindow_quality')
+            config_file_path = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, 'config.yaml')
+            if os.path.exists(os.path.join(datadir, 'pe')):
+                se_or_pe = 'pe'
+                snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_pe")
+            elif os.path.exists(os.path.join(datadir, 'se')):
+                se_or_pe = 'se'
+                snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_se")
+            destination_snakemake_file = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, 'Snakefile')
+            data = dict(
+                project_name = project_name,
+                datadir = datadir,
+                se_or_pe = se_or_pe,
+                trimmomatic = dict(
+                    trimmomatic_jar = trimmomatic_jar,
+                    threads = threads,
+                    phred = phred,
+                    adapter = adapter,
+                    adapter_param = adapter_param,
+                    window_size = window_size,
+                    window_quality = window_quality,
+                    leading = leading,
+                    trailing = trailing,
+                    minlen = minlen,
+                )
+            )
+            print("Data result: ", data)
+            with open(config_file_path, 'w') as ymlfile:
+                yaml.dump(data, ymlfile, default_flow_style=False)
+            shutil.copyfile(snakemake_file, destination_snakemake_file)
+            subprocess.call(['snakemake'], shell=True, cwd=datadir)
+            print(subprocess.call(['pwd']))
+            return HttpResponseRedirect(reverse('dataanalysis_result'))
+            # return render(request, "dataanalysis/analysis_result.html")
+
+
     return render(request, "dataanalysis/home.html", {
         'which': "normal",
         'project_name': project_name,
@@ -238,6 +300,8 @@ def paired_end_upload(request):
         'remove_file': False,
     })
 
+def show_result(request):
+    return render(request, "dataanalysis/analysis_result.html")
 
 def hello_world(request):
     return HttpResponse('Hello World!')
@@ -264,35 +328,31 @@ def upload_progress(request):
         return HttpResponse(json.dumps(data))
 
 
-def Check_Uploaded_File_Name(project_name):
+def Check_Uploaded_File_Name(project_name, analysis_code):
     uploaded_file_url_pe_1 = None
     uploaded_file_url_pe_2 = None
     uploaded_file_url_se = None
     pe_files = []
     se_files = []
-    upload_dir_pe = os.path.join(
-        settings.MEDIA_ROOT, 'tmp', project_name, "pe")
+    datadir = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name + '_' + analysis_code)
+    upload_dir_pe = os.path.join(datadir, "pe")
     if os.path.exists(upload_dir_pe):
         pe_files = os.listdir(upload_dir_pe)
         print(pe_files)
         for file_check in pe_files:
             print(file_check)
             if ".R1.fastq" in file_check:
-                uploaded_file_url_pe_1 = os.path.join(
-                    "/media", 'tmp', project_name, "pe", file_check)
+                uploaded_file_url_pe_1 = os.path.join(datadir, "pe", file_check)
             if ".R2.fastq" in file_check:
-                uploaded_file_url_pe_2 = os.path.join(
-                    "/media", 'tmp', project_name, "pe", file_check)
+                uploaded_file_url_pe_2 = os.path.join(datadir, "pe", file_check)
         print("uploaded_file_url_pe_1: ", uploaded_file_url_pe_1)
         print("uploaded_file_url_pe_2: ", uploaded_file_url_pe_2)
         # uploaded_file_url_pe_1 = os.path.join(upload_dir_pe, pe_files[0])
         # uploaded_file_url_pe_2 = os.path.join(upload_dir_pe, pe_files[1])
-    upload_dir_se = os.path.join(
-        settings.MEDIA_ROOT, 'tmp', project_name, "se")
+    upload_dir_se = os.path.join(datadir, "se")
     if os.path.exists(upload_dir_se):
         se_files = os.listdir(upload_dir_se)
-        uploaded_file_url_se = os.path.join(
-            "/media", 'tmp', project_name, "se", se_files[0])
+        uploaded_file_url_se = os.path.join(datadir, "se", se_files[0])
 
     # files = glob.glob(upload_dir)
 

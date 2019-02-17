@@ -5,6 +5,7 @@ from dataanalysis import views
 
 urlpatterns = [
     path('', views.paired_end_upload, name='dataanalysis_home'),
+    path('result', views.show_result, name="dataanalysis_result"),
     path('upload/simple/', views.simple_upload, name='simple_upload'),
     path('upload/form/', views.model_form_upload, name='model_form_upload'),
     path('upload-progress/', views.upload_progress, name='upload_progress')
