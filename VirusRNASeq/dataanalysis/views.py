@@ -130,7 +130,7 @@ def simple_upload(request):
 
 
 
-def paired_end_upload(request, slug):
+def paired_end_upload(request, slug_project):
     print("Inside data_analysis_home !!!")
 
     ## Check if file exist !!
@@ -141,14 +141,18 @@ def paired_end_upload(request, slug):
     if 'project_name' in request.session:
         project_name = request.session['project_name']
         print("project_name: ", project_name)
+        request.session["project_name"] = project_name
     if 'analysis_code' in request.session:
         analysis_code = request.session['analysis_code']
         print("analysis_code: ", analysis_code)
+        request.session["analysis_code"] = analysis_code
     if 'email' in request.session:
         email = request.session['email']
         print("email: ", email)
+        request.session["email"] = email
     (uploaded_file_url_pe_1, uploaded_file_url_pe_2, uploaded_file_url_se) = Check_Uploaded_File_Name(
         project_name, email, analysis_code)
+    url_parameter = project_name + '_' + email.split("@")[0]
     if request.method == 'POST' :
         base_dir = os.path.join(settings.MEDIA_ROOT,
                                 'tmp', project_name + '_' + email + '_' + analysis_code)
@@ -180,6 +184,7 @@ def paired_end_upload(request, slug):
             return render(request, "dataanalysis/home.html", {
                 'which': "paired-end",
                 'project_name': project_name,
+                'email': email,
                 'uploaded_file_url_pe_1': uploaded_file_url_pe_1,
                 'uploaded_file_url_pe_2': uploaded_file_url_pe_2,
                 'uploaded_file_url_se': uploaded_file_url_se,
@@ -204,6 +209,7 @@ def paired_end_upload(request, slug):
             return render(request, "dataanalysis/home.html", {
                 'which': "single-end",
                 'project_name': project_name,
+                'email': email,
                 'uploaded_file_url_pe_1': uploaded_file_url_pe_1,
                 'uploaded_file_url_pe_2': uploaded_file_url_pe_2,
                 'uploaded_file_url_se': uploaded_file_url_se,
@@ -221,6 +227,7 @@ def paired_end_upload(request, slug):
             return render(request, "dataanalysis/home.html", {
                 'which': "single-end",
                 'project_name': project_name,
+                'email': email,
                 'uploaded_file_url_pe_1': uploaded_file_url_pe_1,
                 'uploaded_file_url_pe_2': uploaded_file_url_pe_2,
                 'uploaded_file_url_se': uploaded_file_url_se,
@@ -238,6 +245,7 @@ def paired_end_upload(request, slug):
             return render(request, "dataanalysis/home.html", {
                 'which': "single-end",
                 'project_name': project_name,
+                'email': email,
                 'uploaded_file_url_pe_1': uploaded_file_url_pe_1,
                 'uploaded_file_url_pe_2': uploaded_file_url_pe_2,
                 'uploaded_file_url_se': uploaded_file_url_se,
@@ -291,21 +299,44 @@ def paired_end_upload(request, slug):
             shutil.copyfile(snakemake_file, destination_snakemake_file)
             subprocess.call(['snakemake'], shell=True, cwd=datadir)
             print(subprocess.call(['pwd']))
-            return HttpResponseRedirect(reverse('dataanalysis_result'))
+            # return render(reverse('dataanalysis_result', kwargs={
+            #         'slug_project': url_parameter}))
+            print((reverse('dataanalysis_result', kwargs={
+                  'slug_project': url_parameter})))
+            return redirect((reverse('dataanalysis_result', kwargs={
+                'slug_project': url_parameter})))
             # return render(request, "dataanalysis/analysis_result.html")
 
 
     return render(request, "dataanalysis/home.html", {
         'which': "normal",
         'project_name': project_name,
+        'email': email,
         'uploaded_file_url_pe_1': uploaded_file_url_pe_1,
         'uploaded_file_url_pe_2': uploaded_file_url_pe_2,
         'uploaded_file_url_se': uploaded_file_url_se,
         'remove_file': False,
     })
 
-def show_result(request):
-    return render(request, "dataanalysis/analysis_result.html")
+
+def show_result(request, slug_project):
+    if 'project_name' in request.session:
+        project_name = request.session['project_name']
+        print("project_name: ", project_name)
+        request.session["project_name"] = project_name
+    if 'analysis_code' in request.session:
+        analysis_code = request.session['analysis_code']
+        print("analysis_code: ", analysis_code)
+        request.session["analysis_code"] = analysis_code
+    if 'email' in request.session:
+        email = request.session['email']
+        print("email: ", email)
+        request.session["email"] = email
+    
+    return render(request, "dataanalysis/analysis_result.html", {
+        'project_name': project_name,
+        'email': email,
+    })
 
 def hello_world(request):
     return HttpResponse('Hello World!')

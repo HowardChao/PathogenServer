@@ -22,19 +22,15 @@
                     {% if variable.inside_or_outside %}
                         <script language="javascript" type="text/javascript">
                         function popitup(url) {
+                            console.log(url)
                             var project_name=window.open(url,'Your project','height=1000,width=1200');
-                            var form = document.createElement("form");
-                            var hiddenField1 = document.createElement("input");
-
-                            var project_name = {{ variable.project_name }}
-
                             if (window.focus) {newwindow.focus()}
                             return false;
                         }
-                        popitup("{% url 'dataanalysis_home' %}")
+                        {% comment %} popitup("{% url 'dataanalysis_home' variable.url_parameter %}") {% endcomment %}
                         </script>
                         <br>
-                        <a><button type="button" class="btn btn-success btn-block btn-lg" onclick="return popitup({% url 'dataanalysis_home' %})">Link to your Project!</button></a>
+                        <a><button type="button" class="btn btn-success btn-block btn-lg" onclick="return popitup('{% url 'dataanalysis_home' variable.url_parameter %}')">Link to your Project</button></a>
                         <br>
                         <a href={% url 'new_analysis' %}><button type="button" class="btn btn-outline-success">Back to homepage</button></a>
                     {% else %}

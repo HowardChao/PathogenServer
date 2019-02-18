@@ -72,6 +72,8 @@ def check_project(request):
     form = forms.NewsletterUserCheck(request.POST or None)
     inside_or_outside = False
     project_name = "None"
+    email = "None"
+    url_parameter = "None"
     if form.is_valid():
         instance = form.save(commit=False)
         if models.NewsletterUser.objects.filter(analysis_code=instance.analysis_code).exists():
@@ -79,6 +81,7 @@ def check_project(request):
             project_name = query_instance.project_name
             analysis_code = instance.analysis_code
             email = query_instance.email
+            url_parameter = project_name + '_' + email.split("@")[0]
             print("project_name: ", project_name)
             print("analysis_code: ", analysis_code)
             print("email: ", email)
@@ -100,6 +103,8 @@ def check_project(request):
     variable = {
         "inside_or_outside": inside_or_outside,
         "project_name": project_name,
+        "email": email,
+        "url_parameter": url_parameter,
     }
     context = {
         "variable": variable,
