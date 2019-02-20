@@ -58,7 +58,7 @@
             <div class="content-section">
                 <ul id="side-nav" class="list-group nav nav-pills nav-stacked" style="top: 120px;">
                     <a class="list-group-item list-group-item-action" href="#list-item-1">1. Files Upload</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-2">2. Read Trimming</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-2">2. Quality Control</a>
                     <a class="list-group-item list-group-item-action" href="#list-item-3">3. Read Subtraction</a>
                     <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
                 </ul>
@@ -67,8 +67,8 @@
         <div class="col-md-8">
             <div class=" scrollspy-example">
                 <div id="list-item-1" >
-                    <div class="card bg-light mt-5 mb-3 w-100 p-3">
-                        <div class="card-header">
+                    <div class="card border-info bg-light mt-5 mb-3 w-100">
+                        <div class="card-header border-info">
                             <p class="h2"><i class="fas fa-file-upload"></i> &nbsp &nbsp Read Files Upload {{ variable.inside_or_outside }} </p>
                         </div>
                         <div class="card-body w-100">
@@ -267,189 +267,222 @@
                   {% csrf_token %}
                   <div id="start_analysis_wrapper">
                     <div id="list-item-2">
-                        <div class="card bg-light mt-5 mb-3 w-100 p-3">
-                            <div class="card-header"><p class="h2"><i class="fas fa-cut"></i> &nbsp &nbsp Read Trimming  {{ variable.inside_or_outside }} </p></div>
+                        <div class="card border-info bg-light mt-5 mb-3 w-100">
+                            <div class="card-header border-info"><p class="h2"><i class="fas fa-cut"></i> &nbsp &nbsp Quality Control  {{ variable.inside_or_outside }} </p></div>
                             <div class="card-body w-100">
-                                <h5 class="card-title">Read with low quality would be deleted</h5>
-                                <p class="card-text"></p>
-                                <!-- <label for="trimmomatic_stringency">stringency</label>
-                                <div id="trimmomatic_stringency" class="btn-group" role="group" aria-label="Basic example">
-                                  <button type="button" class="btn btn-secondary">High</button>
-                                  <button type="button" class="btn btn-secondary">Middle</button>
-                                  <button type="button" class="btn btn-secondary">Low</button>
-                                </div> -->
-                                <div class="trimmomatic_adapter">
-                                  <label for="trimmomatic_illuminaclip">Target Adapter</label>
-                                  <select class="form-control" name="trimmomatic_illuminaclip" id="trimmomatic_illuminaclip">
-                                    <option value="TruSeq2-PE.fa">TruSeq2-PE.fa</option>
-                                    <option selected="selected" value="TruSeq3-PE.fa">TruSeq3-PE.fa</option>
-                                    <option value="TruSeq3-PE-2.fa">TruSeq3-PE-2.fa</option>
-                                    <option value="NexteraPE-PE.fa">NexteraPE-PE.fa</option>
-                                  </select>
+                                <p class="card-text">This step is to ensure that quality meets the quality requirement.
+                                   <strong>FastQC</strong> is used to acquire quality information. <strong>Trimmomatic</strong> is used to remove adapter and trim low quality parts of reads
+                                </p><br>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp Quality Assessment</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
                                 </div>
+                                <p class="card-text"><strong>FastqQC</strong> would be run.</p>
 
-                                <div class="trimmomatic_slidingwindow">
-                                  <label class="my-1 mr-2" for="trimmomatic_slidingwindow_size">Sliding Window Size</label>
-                                  <select class="custom-select my-1 mr-sm-2" name="trimmomatic_slidingwindow_size" id="trimmomatic_slidingwindow_size">
-                                    <option value="3">3</option>
-                                    <option value="4" selected="selected">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                  </select>
-                                  <label for="trimmomatic_slidingwindow_quality">Sliding Window Quality</label>
-                                  <select class="form-control" name="trimmomatic_slidingwindow_quality" id="trimmomatic_slidingwindow_quality">
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                    <option value="17">17</option>
-                                    <option value="18">18</option>
-                                    <option value="19">19</option>
-                                    <option value="20" selected="selected">20</option>
-                                    <option value="21">21</option>
-                                    <option value="22">22</option>
-                                    <option value="23">23</option>
-                                    <option value="24">24</option>
-                                    <option value="25">25</option>
-                                    <option value="26">26</option>
-                                    <option value="27">27</option>
-                                    <option value="28">28</option>
-                                    <option value="29">29</option>
-                                    <option value="30">30</option>
-                                    <option value="31">31</option>
-                                    <option value="32">32</option>
-                                    <option value="33">33</option>
-                                    <option value="34">34</option>
-                                    <option value="35">35</option>
-                                    <option value="36">36</option>
-                                    <option value="37">37</option>
-                                    <option value="38">38</option>
-                                    <option value="39">39</option>
-                                    <option value="40">40</option>
-                                  </select>
-                                </div>
+                                <br>
 
-                                <div class="trimmomatic_leading">
-                                <label for="trimmomatic_leading_quality">Leading Quality</label>
-                                <select class="form-control" name="trimmomatic_leading_quality" id="trimmomatic_leading_quality">
-                                  <option value="2">2</option>
-                                  <option value="3">3</option>
-                                  <option value="4">4</option>
-                                  <option value="5">5</option>
-                                  <option value="6">6</option>
-                                  <option value="7">7</option>
-                                  <option value="8" selected="selected">8</option>
-                                  <option value="9">9</option>
-                                  <option value="10">10</option>
-                                  <option value="11">11</option>
-                                  <option value="12">12</option>
-                                  <option value="13">13</option>
-                                  <option value="14">14</option>
-                                  <option value="15">15</option>
-                                  <option value="16">16</option>
-                                  <option value="17">17</option>
-                                  <option value="18">18</option>
-                                  <option value="19">19</option>
-                                  <option value="20">20</option>
-                                </select>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp Read Trimming</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
                                 </div>
-                                <div class="trimmomatic_trailing">
-                                <label for="trimmomatic_trailing_quality">Trailing Quality</label>
-                                <select class="form-control" name="trimmomatic_trailing_quality" id="trimmomatic_trailing_quality">
-                                  <option value="2">2</option>
-                                  <option value="3">3</option>
-                                  <option value="4">4</option>
-                                  <option value="5">5</option>
-                                  <option value="6">6</option>
-                                  <option value="7">7</option>
-                                  <option value="8" selected="selected">8</option>
-                                  <option value="9">9</option>
-                                  <option value="10">10</option>
-                                  <option value="11">11</option>
-                                  <option value="12">12</option>
-                                  <option value="13">13</option>
-                                  <option value="14">14</option>
-                                  <option value="15">15</option>
-                                  <option value="16">16</option>
-                                  <option value="17">17</option>
-                                  <option value="18">18</option>
-                                  <option value="19">19</option>
-                                  <option value="20">20</option>
-                                </select>
+                                <p class="card-text"><strong>Trimmomatic</strong> would be run.</p>
+                                <div class="trimmomatic">
+                                  <div class="row trimmomatic_adapter">
+                                    <label class="col-md-4 control-label" for="trimmomatic_illuminaclip">Target Adapter</label>
+                                    <div class="col-md-6">
+                                      <select class="custom-select my-1 mr-sm-2" name="trimmomatic_illuminaclip" id="trimmomatic_illuminaclip">
+                                        <option value="TruSeq2-PE.fa">TruSeq2-PE.fa</option>
+                                        <option selected="selected" value="TruSeq3-PE.fa">TruSeq3-PE.fa</option>
+                                        <option value="TruSeq3-PE-2.fa">TruSeq3-PE-2.fa</option>
+                                        <option value="NexteraPE-PE.fa">NexteraPE-PE.fa</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="trimmomatic_slidingwindow">
+                                    <div class="row trimmomatic_slidingwindow_size_1">
+                                      <label class="col-md-4" for="trimmomatic_slidingwindow_size">Sliding Window Size</label>
+                                      <div class="col-md-6">
+                                        <select class="custom-select my-1 mr-sm-2" name="trimmomatic_slidingwindow_size" id="trimmomatic_slidingwindow_size">
+                                          <option value="3">3</option>
+                                          <option value="4" selected="selected">4</option>
+                                          <option value="5">5</option>
+                                          <option value="6">6</option>
+                                          <option value="7">7</option>
+                                          <option value="8">8</option>
+                                          <option value="9">9</option>
+                                          <option value="10">10</option>
+                                          <option value="11">11</option>
+                                          <option value="12">12</option>
+                                          <option value="13">13</option>
+                                          <option value="14">14</option>
+                                          <option value="15">15</option>
+                                          <option value="16">16</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="row trimmomatic_slidingwindow_quality_2">
+                                      <label class="col-md-4" for="trimmomatic_slidingwindow_quality">Sliding Window Quality</label>
+                                      <div class="col-md-6">
+                                        <select class="custom-select my-1 mr-sm-2" name="trimmomatic_slidingwindow_quality" id="trimmomatic_slidingwindow_quality">
+                                          <option value="6">6</option>
+                                          <option value="7">7</option>
+                                          <option value="8">8</option>
+                                          <option value="9">9</option>
+                                          <option value="10">10</option>
+                                          <option value="11">11</option>
+                                          <option value="12">12</option>
+                                          <option value="13">13</option>
+                                          <option value="14">14</option>
+                                          <option value="15">15</option>
+                                          <option value="16">16</option>
+                                          <option value="17">17</option>
+                                          <option value="18">18</option>
+                                          <option value="19">19</option>
+                                          <option value="20" selected="selected">20</option>
+                                          <option value="21">21</option>
+                                          <option value="22">22</option>
+                                          <option value="23">23</option>
+                                          <option value="24">24</option>
+                                          <option value="25">25</option>
+                                          <option value="26">26</option>
+                                          <option value="27">27</option>
+                                          <option value="28">28</option>
+                                          <option value="29">29</option>
+                                          <option value="30">30</option>
+                                          <option value="31">31</option>
+                                          <option value="32">32</option>
+                                          <option value="33">33</option>
+                                          <option value="34">34</option>
+                                          <option value="35">35</option>
+                                          <option value="36">36</option>
+                                          <option value="37">37</option>
+                                          <option value="38">38</option>
+                                          <option value="39">39</option>
+                                          <option value="40">40</option>
+                                        </select>
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                  <div class="row trimmomatic_leading">
+                                  <label class="col-md-4" for="trimmomatic_leading_quality">Leading Quality</label>
+                                  <div class="col-md-6">
+                                    <select class="custom-select my-1 mr-sm-2" name="trimmomatic_leading_quality" id="trimmomatic_leading_quality">
+                                      <option value="2">2</option>
+                                      <option value="3">3</option>
+                                      <option value="4">4</option>
+                                      <option value="5">5</option>
+                                      <option value="6">6</option>
+                                      <option value="7">7</option>
+                                      <option value="8" selected="selected">8</option>
+                                      <option value="9">9</option>
+                                      <option value="10">10</option>
+                                      <option value="11">11</option>
+                                      <option value="12">12</option>
+                                      <option value="13">13</option>
+                                      <option value="14">14</option>
+                                      <option value="15">15</option>
+                                      <option value="16">16</option>
+                                      <option value="17">17</option>
+                                      <option value="18">18</option>
+                                      <option value="19">19</option>
+                                      <option value="20">20</option>
+                                    </select>
+                                  </div>
+
+                                  </div>
+                                  <div class="row trimmomatic_trailing">
+                                  <label class="col-md-4" for="trimmomatic_trailing_quality">Trailing Quality</label>
+                                  <div class="col-md-6">
+                                    <select class="custom-select my-1 mr-sm-2" name="trimmomatic_trailing_quality" id="trimmomatic_trailing_quality">
+                                      <option value="2">2</option>
+                                      <option value="3">3</option>
+                                      <option value="4">4</option>
+                                      <option value="5">5</option>
+                                      <option value="6">6</option>
+                                      <option value="7">7</option>
+                                      <option value="8" selected="selected">8</option>
+                                      <option value="9">9</option>
+                                      <option value="10">10</option>
+                                      <option value="11">11</option>
+                                      <option value="12">12</option>
+                                      <option value="13">13</option>
+                                      <option value="14">14</option>
+                                      <option value="15">15</option>
+                                      <option value="16">16</option>
+                                      <option value="17">17</option>
+                                      <option value="18">18</option>
+                                      <option value="19">19</option>
+                                      <option value="20">20</option>
+                                    </select>
+                                  </div>
+                                  </div>
+                                  <div class="row trimmomatic_minimum_length">
+                                  <label class="col-md-4" for="trimmomatic_minlen">Minimum Length</label>
+                                  <div class="col-md-6">
+                                    <select class="custom-select my-1 mr-sm-2" name="trimmomatic_minlen"  id="trimmomatic_minlen">
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option value="29">29</option>
+                                        <option value="30">30</option>
+                                        <option value="31">31</option>
+                                        <option value="32">32</option>
+                                        <option value="33">33</option>
+                                        <option value="34">34</option>
+                                        <option value="35">35</option>
+                                        <option value="36" selected="selected">36</option>
+                                        <option value="37">37</option>
+                                        <option value="38">38</option>
+                                        <option value="39">39</option>
+                                        <option value="40">40</option>
+                                        <option value="41">41</option>
+                                        <option value="42">42</option>
+                                        <option value="43">43</option>
+                                        <option value="44">44</option>
+                                        <option value="45">45</option>
+                                        <option value="46">46</option>
+                                        <option value="47">47</option>
+                                        <option value="48">48</option>
+                                        <option value="49">49</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                  </div>
+                                  </div>
                                 </div>
-                                <div class="trimmomatic_minimum_length">
-                                <label for="trimmomatic_minlen">Minimum Length</label>
-                                <select class="form-control" name="trimmomatic_minlen"  id="trimmomatic_minlen">
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                    <option value="17">17</option>
-                                    <option value="18">18</option>
-                                    <option value="19">19</option>
-                                    <option value="20">20</option>
-                                    <option value="21">21</option>
-                                    <option value="22">22</option>
-                                    <option value="23">23</option>
-                                    <option value="24">24</option>
-                                    <option value="25">25</option>
-                                    <option value="26">26</option>
-                                    <option value="27">27</option>
-                                    <option value="28">28</option>
-                                    <option value="29">29</option>
-                                    <option value="30">30</option>
-                                    <option value="31">31</option>
-                                    <option value="32">32</option>
-                                    <option value="33">33</option>
-                                    <option value="34">34</option>
-                                    <option value="35">35</option>
-                                    <option value="36" selected="selected">36</option>
-                                    <option value="37">37</option>
-                                    <option value="38">38</option>
-                                    <option value="39">39</option>
-                                    <option value="40">40</option>
-                                    <option value="41">41</option>
-                                    <option value="42">42</option>
-                                    <option value="43">43</option>
-                                    <option value="44">44</option>
-                                    <option value="45">45</option>
-                                    <option value="46">46</option>
-                                    <option value="47">47</option>
-                                    <option value="48">48</option>
-                                    <option value="49">49</option>
-                                    <option value="50">50</option>
-                                </select>
+                                <br><br>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 3: &nbsp Quality Re-Assessment</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
                                 </div>
-                                {% comment %} <p>Upload files:</p>
-                                <ul>
-                                    {% for obj in documents %}
-                                        <li>
-                                            <a href="{{ obj.document.url }}">{{ obj.document.name }}</a>
-                                            <small>(Upload at: {{ obj.uploaded_at }})</small>
-                                        </li>
-                                    {% endfor %}
-                                </ul> {% endcomment %}
+                                <p class="card-text"><strong>FastqQC</strong> would be run.</p>
+                                <br>
                             </div>
                         </div>
                     </div>
                     <div id="list-item-3">
-                        <div class="card bg-light mt-5 mb-3 w-100 p-3">
-                            <div class="card-header"><p class="h2"><i class="fas fa-search-minus"></i> &nbsp &nbsp Read Subtraction {{ variable.inside_or_outside }} </p></div>
+                        <div class="card bg-light border-info mt-5 mb-3 w-100">
+                            <div class="card-header border-info"><p class="h2"><i class="fas fa-search-minus"></i> &nbsp &nbsp Read Subtraction {{ variable.inside_or_outside }} </p></div>
                             <div class="card-body w-100">
                                 <h5 class="card-title">Check the progress of your analysis project by analysis code</h5>
                                 <br>
@@ -475,8 +508,8 @@
                         </div>
                     </div>
                     <div id="list-item-4">
-                        <div class="card bg-light mt-5 mb-3 w-100 p-3">
-                            <div class="card-header"><p class="h2"><i class="fas fa-search"></i> &nbsp &nbsp File Upload {{ variable.inside_or_outside }} </p></div>
+                        <div class="card bg-light border-info mt-5 mb-3 w-100">
+                            <div class="card-header border-info"><p class="h2"><i class="fas fa-search"></i> &nbsp &nbsp File Upload {{ variable.inside_or_outside }} </p></div>
                             <div class="card-body w-100">
                                 <h5 class="card-title">Check the progress of your analysis project by analysis code</h5>
                                 <br>

@@ -24,7 +24,22 @@ print(samples)
 
 rule targets:
     input:
-        expand(os.path.join("trimmed_paired", "{sample}_r1_paired.fastq.gz"), sample=samples)
+        expand(os.path.join("fastqc", "pre", "{sample}.R1_fastqc.html"), sample=samples),
+        expand(os.path.join("trimmed_paired", "{sample}_r1_paired.fastq.gz"), sample=samples),
+
+rule first_fastqc:
+    input:
+        r1 = os.path.join(config["se_or_pe"], "{sample}.R1.fastq.gz"),
+        r2 = os.path.join(config["se_or_pe"], "{sample}.R2.fastq.gz"),
+    output:
+        html_r1 = os.path.join("fastqc", "pre", "{sample}.R1_fastqc.html"),
+        zip_r1 = os.path.join("fastqc", "pre", "{sample}.R1_fastqc.zip"),
+        html_r2 = os.path.join("fastqc", "pre", "{sample}.R2_fastqc.html"),
+        zip_r2 = os.path.join("fastqc", "pre", "{sample}.R2_fastqc.zip"),
+    shell:
+        """
+        {config[fastqc][fastqc_command]} {input.r1} {input.r2} --outdir=fastqc/pre
+        """
 
 rule trimmomatic_pe:
     input:

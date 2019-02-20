@@ -85,6 +85,8 @@ def simple_upload(request):
             project_name = "Project62a7db0029ba11e9b31a60f81dacbf14_6bab321a29ba11e9b31a60f81dacbf14"
             trimmomatic_jar = os.path.join(prefix_dir, "tools/Trimmomatic/trimmomatic-0.38.jar")
             datadir = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name)
+            tool_dir = os.path.join(prefix_dir, "tools")
+            fastqc_command = os.path.join(".", tool_dir, "FastQC", "fastqc")
             threads = 8
             phred = "-phred33"
             trimlog = "trimmomatic_log"
@@ -105,7 +107,9 @@ def simple_upload(request):
             destination_snakemake_file = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, 'Snakefile')
             data = dict(
                 project_name = project_name,
+                Fuck = "Fucl",
                 datadir = datadir,
+                tool_dir = tool_dir,
                 se_or_pe = se_or_pe,
                 trimmomatic = dict(
                     trimmomatic_jar = trimmomatic_jar,
@@ -118,7 +122,10 @@ def simple_upload(request):
                     leading = leading,
                     trailing = trailing,
                     minlen = minlen,
-                )
+                ),
+                fastqc = dict(
+                    fastqc_command = fastqc_command,
+                ),
             )
             with open(config_file_path, 'w') as ymlfile:
                 yaml.dump(data, ymlfile, default_flow_style=False)
@@ -251,13 +258,15 @@ def paired_end_upload(request, slug_project):
                 'uploaded_file_url_se': uploaded_file_url_se,
                 'remove_file': True,
             })
-        
+
         elif 'start-analysis' in request.POST:
             print('    * Inside start-analysis')
             prefix_dir = "/Users/chaokuan-hao/Documents/bioinformatics/Virus"
             trimmomatic_jar = os.path.join(prefix_dir, "tools/Trimmomatic/trimmomatic-0.38.jar")
             datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
                                 project_name + '_' + email + '_' + analysis_code)
+            tool_dir = os.path.join(prefix_dir, "tools")
+            fastqc_command = os.path.join(".", tool_dir, "FastQC", "fastqc")
             threads = 8
             phred = "-phred33"
             select_adapter = request.POST.get('trimmomatic_illuminaclip')
@@ -280,6 +289,9 @@ def paired_end_upload(request, slug_project):
                 project_name = project_name,
                 datadir = datadir,
                 se_or_pe = se_or_pe,
+                fastqc = dict(
+                    fastqc_command = fastqc_command,
+                ),
                 trimmomatic = dict(
                     trimmomatic_jar = trimmomatic_jar,
                     threads = threads,
@@ -332,7 +344,7 @@ def show_result(request, slug_project):
         email = request.session['email']
         print("email: ", email)
         request.session["email"] = email
-    
+
     return render(request, "dataanalysis/analysis_result.html", {
         'project_name': project_name,
         'email': email,
