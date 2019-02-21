@@ -344,10 +344,35 @@ def show_result(request, slug_project):
         email = request.session['email']
         print("email: ", email)
         request.session["email"] = email
+    url_parameter = project_name + '_' + email.split("@")[0]
+
 
     return render(request, "dataanalysis/analysis_result.html", {
         'project_name': project_name,
         'email': email,
+        'url_parameter': url_parameter,
+    })
+
+
+def show_result_overview(request, slug_project):
+    if 'project_name' in request.session:
+        project_name = request.session['project_name']
+        print("project_name: ", project_name)
+        request.session["project_name"] = project_name
+    if 'analysis_code' in request.session:
+        analysis_code = request.session['analysis_code']
+        print("analysis_code: ", analysis_code)
+        request.session["analysis_code"] = analysis_code
+    if 'email' in request.session:
+        email = request.session['email']
+        print("email: ", email)
+        request.session["email"] = email
+    url_parameter = project_name + '_' + email.split("@")[0]
+
+    return render(request, "dataanalysis/analysis_result_overview.html", {
+        'project_name': project_name,
+        'email': email,
+        'url_parameter': url_parameter,
     })
 
 def hello_world(request):
