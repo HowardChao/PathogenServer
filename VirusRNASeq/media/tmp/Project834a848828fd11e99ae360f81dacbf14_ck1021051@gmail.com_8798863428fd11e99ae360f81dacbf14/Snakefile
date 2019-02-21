@@ -26,6 +26,7 @@ rule targets:
     input:
         expand(os.path.join("fastqc", "pre", "{sample}.R1_fastqc.html"), sample=samples),
         expand(os.path.join("trimmed_paired", "{sample}_r1_paired.fastq.gz"), sample=samples),
+        expand(os.path.join("fastqc", "post", "{sample}_r1_paired_fastqc.html"), sample=samples),
 
 rule first_fastqc:
     input:
@@ -65,6 +66,28 @@ rule trimmomatic_pe:
         {output.r1_unpaired} {output.r2_paired} {output.r2_unpaired} \
         ILLUMINACLIP:{config[trimmomatic][adapter]}{config[trimmomatic][adapter_param]} LEADING:{config[trimmomatic][leading]} TRAILING:{config[trimmomatic][trailing]} SLIDINGWINDOW:{config[trimmomatic][window_size]}:{config[trimmomatic][window_quality]} MINLEN:{config[trimmomatic][minlen]}
         """
+
+
+rule second_fastqc:
+    input:
+        r1_paired = os.path.join("trimmed_paired", "{sample}_r1_paired.fastq.gz"),
+        r1_unpaired = os.path.join("trimmed_unpaired", "{sample}_r1_unpaired.fastq.gz"),
+        r2_paired = os.path.join("trimmed_paired", "{sample}_r2_paired.fastq.gz"),
+        r2_unpaired = os.path.join("trimmed_unpaired", "{sample}_r2_unpaired.fastq.gz"),
+    output:
+        html_r1_paired = os.path.join("fastqc", "post", "{sample}_r1_paired_fastqc.html"),
+        zip_r1_paired = os.path.join("fastqc", "post", "{sample}_r1_paired_fastqc.zip"),
+        html_r1_unpaired = os.path.join("fastqc", "post", "{sample}_r1_unpaired_fastqc.html"),
+        zip_r1_unpaired = os.path.join("fastqc", "post", "{sample}_r1_unpaired_fastqc.zip"),
+        html_r2_paired = os.path.join("fastqc", "post", "{sample}_r2_paired_fastqc.html"),
+        zip_r2_paired = os.path.join("fastqc", "post", "{sample}_r2_paired_fastqc.zip"),
+        html_r2_unpaired = os.path.join("fastqc", "post", "{sample}_r2_unpaired_fastqc.html"),
+        zip_r2_unpaired = os.path.join("fastqc", "post", "{sample}_r2_unpaired_fastqc.zip"),
+    shell:
+        """
+        {config[fastqc][fastqc_command]} {input.r1_paired} {input.r1_unpaired} {input.r2_paired} {input.r2_unpaired} --outdir=fastqc/post
+        """
+
 
 #------------ include rules -----------
 # include: "./rules/trimmomatic_trimming_PE.snakefile"
