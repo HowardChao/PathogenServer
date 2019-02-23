@@ -484,17 +484,29 @@
                         <div class="card bg-light border-info mt-5 mb-3 w-100">
                             <div class="card-header border-info"><p class="h2"><i class="fas fa-search-minus"></i> &nbsp &nbsp Read Subtraction {{ variable.inside_or_outside }} </p></div>
                             <div class="card-body w-100">
-                                <h5 class="card-title">Check the progress of your analysis project by analysis code</h5>
                                 <br>
                                 <p class="card-text">Please enter your 'Analysis code' below. After you press the "Find  Project" button, you can go into your project page!</p>
-                                <ul>
-                                    <li>
-                                        <a href="{% url 'simple_upload' %}">Simple Upload</a>
-                                    </li>
-                                    <li>
-                                        <a href="{% url 'model_form_upload' %}">Model Form Upload</a>
-                                    </li>
-                                </ul>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp Remove rRNAs (16S, 18S, 23S, 28S, 5S, and ITS rRNA)</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp Remove Bacteria genomes </h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 3: &nbsp Remove Host Genome</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
                                 {% comment %} <p>Upload files:</p>
                                 <ul>
                                     {% for obj in documents %}

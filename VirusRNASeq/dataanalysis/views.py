@@ -309,7 +309,7 @@ def paired_end_upload(request, slug_project):
             with open(config_file_path, 'w') as ymlfile:
                 yaml.dump(data, ymlfile, default_flow_style=False)
             shutil.copyfile(snakemake_file, destination_snakemake_file)
-            subprocess.call(['snakemake'], shell=True, cwd=datadir)
+            # subprocess.call(['snakemake'], shell=True, cwd=datadir)
             print(subprocess.call(['pwd']))
             # return render(reverse('dataanalysis_result', kwargs={
             #         'slug_project': url_parameter}))
@@ -368,7 +368,9 @@ def show_result_overview(request, slug_project):
         print("email: ", email)
         request.session["email"] = email
     url_parameter = project_name + '_' + email.split("@")[0]
-
+    datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
+                           project_name + '_' + email + '_' + analysis_code)
+    subprocess.call(['snakemake'], shell=True, cwd=datadir)
     return render(request, "dataanalysis/analysis_result_overview.html", {
         'project_name': project_name,
         'email': email,
