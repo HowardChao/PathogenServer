@@ -313,9 +313,9 @@ def paired_end_upload(request, slug_project):
             print(subprocess.call(['pwd']))
             # return render(reverse('dataanalysis_result', kwargs={
             #         'slug_project': url_parameter}))
-            print((reverse('dataanalysis_result', kwargs={
+            print((reverse('dataanalysis_result_overview', kwargs={
                   'slug_project': url_parameter})))
-            return redirect((reverse('dataanalysis_result', kwargs={
+            return redirect((reverse('dataanalysis_result_overview', kwargs={
                 'slug_project': url_parameter})))
             # return render(request, "dataanalysis/analysis_result.html")
 
@@ -371,6 +371,7 @@ def show_result_overview(request, slug_project):
     datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
                            project_name + '_' + email + '_' + analysis_code)
     subprocess.call(['snakemake'], shell=True, cwd=datadir)
+    
     return render(request, "dataanalysis/analysis_result_overview.html", {
         'project_name': project_name,
         'email': email,
