@@ -58,7 +58,7 @@ rule first_fastqc:
         log = os.path.join("logs", "fastqc_pre", "{sample}.log")
     shell:
         """
-        {config[fastqc][fastqc_command]} {input.r1} {input.r2} --outdir=QC/pre --printshellcmds
+        {config[fastqc][fastqc_command]} {input.r1} {input.r2} --outdir=QC/pre 
         """
 
 rule first_multiqc:

@@ -18,6 +18,8 @@ import subprocess
 from dataanalysis.models import Document, PairedEnd, SingleEnd
 from dataanalysis.forms import DocumentForm, PairedEndForm, SingleEndForm
 
+from . import utils_func
+
 TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_project"
 
 # Creating GET and POST functions!! When we access page, we are going to
@@ -176,6 +178,13 @@ def paired_end_upload(request, slug_project):
             if fs.exists(os.path.join(base_dir, "se")):
                 print("Removing files")
                 shutil.rmtree(os.path.join(base_dir, "se"))
+            ## Found split sample name
+            sample_name = os.path.splitext(os.path.splitext(
+                os.path.splitext(myfile1.name)[0])[0])[0]
+            request.session["sample_name"] = sample_name
+            print("pe_sample_name: ", sample_name)
+            request.session["se_or_pe"] = "pe"
+            print("se_or_pe: ", "pe")
             filename1 = fs.save(os.path.join(base_dir, "pe", myfile1.name), myfile1)
             filename2 = fs.save(os.path.join(base_dir, "pe", myfile2.name), myfile2)
             uploaded_file_url_pe_1 = fs.url(filename1)
@@ -210,6 +219,12 @@ def paired_end_upload(request, slug_project):
             if fs.exists(os.path.join(base_dir, "se")):
                 print("Removing files")
                 shutil.rmtree(os.path.join(base_dir, "se"))
+            ## Found split sample name
+            sample_name = os.path.splitext(os.path.splitext(myfile1.name)[0])[0]
+            request.session["sample_name"] = sample_name
+            print("se_sample_name: ", sample_name)
+            request.session["se_or_pe"] = "se"
+            print("se_or_pe: ", "se")
             filename1 = fs.save(os.path.join(base_dir, "se", myfile1.name), myfile1)
             uploaded_file_url_se = fs.url(filename1)
             print("uploaded_file_url_se: ", uploaded_file_url_se)
@@ -353,6 +368,7 @@ def show_result(request, slug_project):
 
 
 def show_result_overview(request, slug_project):
+    print("** Inside show_result_overview()")
     if 'project_name' in request.session:
         project_name = request.session['project_name']
         print("project_name: ", project_name)
@@ -365,12 +381,54 @@ def show_result_overview(request, slug_project):
         email = request.session['email']
         print("email: ", email)
         request.session["email"] = email
+    if 'sample_name' in request.session:
+        sample_name = request.session['sample_name']
+        print("sample_name: ", sample_name)
+        request.session["sample_name"] = sample_name
+    if 'se_or_pe' in request.session:
+        se_or_pe = request.session['se_or_pe']
+        print("se_or_pe: ", se_or_pe)
+        request.session["se_or_pe"] = se_or_pe
     url_parameter = project_name + '_' + email.split("@")[0]
     datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
                            project_name + '_' + email + '_' + analysis_code)
     # subprocess.call(['snakemake'], shell=True, cwd=datadir)
-    snake_process = subprocess.Popen(['snakemake'], cwd=datadir)
-    print(snake_process.returncode)
+    ## If every file is not exist! Run first step!
+    # if not(utils_func.check_first_qc(datadir, sample_name, se_or_pe)) and not(utils_func.check_trimming_qc(datadir, sample_name, se_or_pe)) and not(utils_func.check_second_qc(datadir, sample_name, se_or_pe)) is True:
+    #     snake_process = subprocess.Popen(
+    #         ['snakemake', 'first_fastqc_target'], cwd=datadir)
+    #     print(snake_process.returncode)
+    #     return render(request, "dataanalysis/analysis_result_overview.html", {
+    #         'project_name': project_name,
+    #         'email': email,
+    #         'url_parameter': url_parameter,
+    #     })
+    ## If first step is Finished!
+    if utils_func.check_first_qc(datadir, sample_name, se_or_pe) is False:
+        snake_process = subprocess.Popen(
+            ['snakemake', 'first_fastqc_target'], cwd=datadir)
+        print("Start running First step")
+        return render(request, "dataanalysis/analysis_result_overview.html", {
+            'project_name': project_name,
+            'email': email,
+            'url_parameter': url_parameter,
+        })
+    if utils_func.check_trimming_qc(datadir, sample_name, se_or_pe) is False:
+        snake_process = subprocess.Popen(
+            ['snakemake', 'trimmomatic_pe_target'], cwd=datadir)
+        print("Start running Second step")
+        return render(request, "dataanalysis/analysis_result_overview.html", {
+            'project_name': project_name,
+            'email': email,
+            'url_parameter': url_parameter,
+        })
+    if utils_func.check_second_qc(datadir, sample_name, se_or_pe) is False:
+        return render(request, "dataanalysis/analysis_result_overview.html", {
+            'project_name': project_name,
+            'email': email,
+            'url_parameter': url_parameter,
+        })
+
     return render(request, "dataanalysis/analysis_result_overview.html", {
         'project_name': project_name,
         'email': email,
