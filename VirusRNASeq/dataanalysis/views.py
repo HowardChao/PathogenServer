@@ -130,7 +130,7 @@ def simple_upload(request):
             with open(config_file_path, 'w') as ymlfile:
                 yaml.dump(data, ymlfile, default_flow_style=False)
             shutil.copyfile(snakemake_file, destination_snakemake_file)
-            subprocess.call(['snakemake'], shell=True, cwd=datadir)
+            # subprocess.call(['snakemake'], shell=True, cwd=datadir)
             print(subprocess.call(['pwd']))
             return render(request, 'dataanalysis/simple_upload.html')
     return render(request, 'dataanalysis/simple_upload.html')
@@ -311,8 +311,6 @@ def paired_end_upload(request, slug_project):
             shutil.copyfile(snakemake_file, destination_snakemake_file)
             # subprocess.call(['snakemake'], shell=True, cwd=datadir)
             print(subprocess.call(['pwd']))
-            # return render(reverse('dataanalysis_result', kwargs={
-            #         'slug_project': url_parameter}))
             print((reverse('dataanalysis_result_overview', kwargs={
                   'slug_project': url_parameter})))
             return redirect((reverse('dataanalysis_result_overview', kwargs={
@@ -370,8 +368,9 @@ def show_result_overview(request, slug_project):
     url_parameter = project_name + '_' + email.split("@")[0]
     datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
                            project_name + '_' + email + '_' + analysis_code)
-    subprocess.call(['snakemake'], shell=True, cwd=datadir)
-    
+    # subprocess.call(['snakemake'], shell=True, cwd=datadir)
+    snake_process = subprocess.Popen(['snakemake'], cwd=datadir)
+    print(snake_process.returncode)
     return render(request, "dataanalysis/analysis_result_overview.html", {
         'project_name': project_name,
         'email': email,

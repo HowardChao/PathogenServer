@@ -24,40 +24,61 @@ print(samples)
 
 rule targets:
     input:
-        expand(os.path.join("fastqc", "pre", "{sample}.R1_fastqc.html"), sample=samples),
-        os.path.join("fastqc", "pre", "multiqc.html"),
-        expand(os.path.join("trimmed_paired", "{sample}_r1_paired.fastq.gz"), sample=samples),
-        expand(os.path.join("fastqc", "post", "{sample}_r1_paired_fastqc.html"), sample=samples),
+        expand(os.path.join("trimmed_paired",
+                            "{sample}_r1_paired.fastq.gz"), sample=samples),
+        expand(os.path.join("QC", "pre",
+                            "{sample}_multiqc.html"), sample=samples),
+        expand(os.path.join(
+            "QC", "post", "{sample}_multiqc.html"), sample=samples),
+
+rule first_fastqc_target:
+    input:
+        expand(os.path.join("QC", "pre", "{sample}_multiqc.html"), sample=samples),
+
+rule second_fastqc_target:
+    input:
+        expand(os.path.join("QC", "post", "{sample}_multiqc.html"), sample=samples),
+
+rule trimmomatic_pe_target:
+    input:
+        expand(os.path.join("trimmed_paired","{sample}_r1_paired.fastq.gz"), sample=samples),
+
 
 rule first_fastqc:
     input:
         r1 = os.path.join(config["se_or_pe"], "{sample}.R1.fastq.gz"),
         r2 = os.path.join(config["se_or_pe"], "{sample}.R2.fastq.gz"),
     output:
-        html_r1 = os.path.join("fastqc", "pre", "{sample}.R1_fastqc.html"),
-        zip_r1 = os.path.join("fastqc", "pre", "{sample}.R1_fastqc.zip"),
-        html_r2 = os.path.join("fastqc", "pre", "{sample}.R2_fastqc.html"),
-        zip_r2 = os.path.join("fastqc", "pre", "{sample}.R2_fastqc.zip"),
+        html_r1 = os.path.join("QC", "pre", "{sample}.R1_fastqc.html"),
+        zip_r1 = os.path.join("QC", "pre", "{sample}.R1_fastqc.zip"),
+        html_r2 = os.path.join("QC", "pre", "{sample}.R2_fastqc.html"),
+        zip_r2 = os.path.join("QC", "pre", "{sample}.R2_fastqc.zip"),
+    priority: 1,
     log:
         log = os.path.join("logs", "fastqc_pre", "{sample}.log")
     shell:
         """
-        {config[fastqc][fastqc_command]} {input.r1} {input.r2} --outdir=fastqc/pre
+        {config[fastqc][fastqc_command]} {input.r1} {input.r2} --outdir=QC/pre --printshellcmds
         """
 
 rule first_multiqc:
     input:
-        html_r1 = os.path.join("fastqc", "pre", "{sample}.R1_fastqc.html"),
-        zip_r1 = os.path.join("fastqc", "pre", "{sample}.R1_fastqc.zip"),
-        html_r2 = os.path.join("fastqc", "pre", "{sample}.R2_fastqc.html"),
-        zip_r2 = os.path.join("fastqc", "pre", "{sample}.R2_fastqc.zip"),
+        html_r1 = os.path.join("QC", "pre", "{sample}.R1_fastqc.html"),
+        zip_r1 = os.path.join("QC", "pre", "{sample}.R1_fastqc.zip"),
+        html_r2 = os.path.join("QC", "pre", "{sample}.R2_fastqc.html"),
+        zip_r2 = os.path.join("QC", "pre", "{sample}.R2_fastqc.zip"),
     output:
-        multiqc_file = os.path.join("fastqc", "pre", "multiqc.html"),
+        multiqc_file = os.path.join("QC", "pre", "{sample}_multiqc.html"),
+        multiqc_dir = os.path.join("QC", "pre", "{sample}_multiqc_data"),
+    params:
+        directory = os.path.join("QC", "pre"),
+        filename = os.path.join("QC", "pre", "{sample}_multiqc"),
+    priority: 2,
     log:
-        log = os.path.join("logs", "multiqc", "{sample}.log"),
+        log = os.path.join("logs", "multiqc_pre", "{sample}.log"),
     shell:
         """
-        multiqc --force {os.path.join("fastqc", "pre")}
+        multiqc --force {params.directory} -n {params.filename}
         """
 
 rule trimmomatic_pe:
@@ -69,6 +90,7 @@ rule trimmomatic_pe:
         r1_unpaired = os.path.join("trimmed_unpaired", "{sample}_r1_unpaired.fastq.gz"),
         r2_paired = os.path.join("trimmed_paired", "{sample}_r2_paired.fastq.gz"),
         r2_unpaired = os.path.join("trimmed_unpaired", "{sample}_r2_unpaired.fastq.gz"),
+    priority: 3,
     log:
         log = os.path.join("logs", "trimmomatic_pe", "{sample}.log")
     message: "Trimming Illumina adapters from {input.r1} and {input.r2}"
@@ -93,19 +115,60 @@ rule second_fastqc:
         r2_paired = os.path.join("trimmed_paired", "{sample}_r2_paired.fastq.gz"),
         r2_unpaired = os.path.join("trimmed_unpaired", "{sample}_r2_unpaired.fastq.gz"),
     output:
-        html_r1_paired = os.path.join("fastqc", "post", "{sample}_r1_paired_fastqc.html"),
-        zip_r1_paired = os.path.join("fastqc", "post", "{sample}_r1_paired_fastqc.zip"),
-        html_r1_unpaired = os.path.join("fastqc", "post", "{sample}_r1_unpaired_fastqc.html"),
-        zip_r1_unpaired = os.path.join("fastqc", "post", "{sample}_r1_unpaired_fastqc.zip"),
-        html_r2_paired = os.path.join("fastqc", "post", "{sample}_r2_paired_fastqc.html"),
-        zip_r2_paired = os.path.join("fastqc", "post", "{sample}_r2_paired_fastqc.zip"),
-        html_r2_unpaired = os.path.join("fastqc", "post", "{sample}_r2_unpaired_fastqc.html"),
-        zip_r2_unpaired = os.path.join("fastqc", "post", "{sample}_r2_unpaired_fastqc.zip"),
+        html_r1_paired = os.path.join(
+            "QC", "post", "{sample}_r1_paired_fastqc.html"),
+        zip_r1_paired = os.path.join(
+            "QC", "post", "{sample}_r1_paired_fastqc.zip"),
+        html_r1_unpaired = os.path.join(
+            "QC", "post", "{sample}_r1_unpaired_fastqc.html"),
+        zip_r1_unpaired = os.path.join(
+            "QC", "post", "{sample}_r1_unpaired_fastqc.zip"),
+        html_r2_paired = os.path.join(
+            "QC", "post", "{sample}_r2_paired_fastqc.html"),
+        zip_r2_paired = os.path.join(
+            "QC", "post", "{sample}_r2_paired_fastqc.zip"),
+        html_r2_unpaired = os.path.join(
+            "QC", "post", "{sample}_r2_unpaired_fastqc.html"),
+        zip_r2_unpaired = os.path.join(
+            "QC", "post", "{sample}_r2_unpaired_fastqc.zip"),
+    priority: 4,
     log:
         log = os.path.join("logs", "fastqc_post", "{sample}.log")
     shell:
         """
-        {config[fastqc][fastqc_command]} {input.r1_paired} {input.r1_unpaired} {input.r2_paired} {input.r2_unpaired} --outdir=fastqc/post
+        {config[fastqc][fastqc_command]} {input.r1_paired} {input.r1_unpaired} {input.r2_paired} {input.r2_unpaired} --outdir=QC/post
+        """
+
+rule second_multiqc:
+    input:
+        html_r1_paired = os.path.join(
+            "QC", "post", "{sample}_r1_paired_fastqc.html"),
+        zip_r1_paired = os.path.join(
+            "QC", "post", "{sample}_r1_paired_fastqc.zip"),
+        html_r1_unpaired = os.path.join(
+            "QC", "post", "{sample}_r1_unpaired_fastqc.html"),
+        zip_r1_unpaired = os.path.join(
+            "QC", "post", "{sample}_r1_unpaired_fastqc.zip"),
+        html_r2_paired = os.path.join(
+            "QC", "post", "{sample}_r2_paired_fastqc.html"),
+        zip_r2_paired = os.path.join(
+            "QC", "post", "{sample}_r2_paired_fastqc.zip"),
+        html_r2_unpaired = os.path.join(
+            "QC", "post", "{sample}_r2_unpaired_fastqc.html"),
+        zip_r2_unpaired = os.path.join(
+            "QC", "post", "{sample}_r2_unpaired_fastqc.zip"),
+    output:
+        multiqc_file = os.path.join("QC", "post", "{sample}_multiqc.html"),
+        multiqc_dir = os.path.join("QC", "post", "{sample}_multiqc_data"),
+    params:
+        directory = os.path.join("QC", "post"),
+        filename = os.path.join("QC", "post", "{sample}_multiqc"),
+    priority: 5,
+    log:
+        log = os.path.join("logs", "multiqc_post", "{sample}.log"),
+    shell:
+        """
+        multiqc --force {params.directory} -n {params.filename}
         """
 
 # rule bwa_mem:
