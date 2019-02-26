@@ -62,17 +62,45 @@
             <h1 id="timeline">Overview</h1>
         </div>
         <ul class="timeline" style="margin-top: 30px;">
-        <li class="timeline-inverted">
+            <li class="timeline-inverted">
             <div class="timeline-badge warning"><i class="fas fa-search fa-3x" style="margin-top: 25px"></i></div>
             <div class="timeline-panel">
                 <div class="timeline-heading">
                 <h4 class="timeline-title">Quality Control</h4>
                 </div>
                 <div class="timeline-body">
-                {% comment %} {% if  %}
+                {% if check_first_qc_ans is False %}
+                    <p>check_first_qc_ans:  Running !!!!</p>
+                {% elif check_first_qc_ans is True %}
+                    <p>check_first_qc_ans:  Finished !!!!</p>
+                {% endif %}
+                {% if check_trimming_qc_ans is False %}
+                    <p>check_trimming_qc_ans:  Running !!!!</p>
+                {% elif check_trimming_qc_ans is True %}
+                    <p>check_trimming_qc_ans:  Finished !!!!</p>
+                {% endif %}
+                {% if check_second_qc_ans is False %}
+                    <p>check_second_qc_ans:  Running !!!!</p>
+                {% elif check_second_qc_ans is True %}
+                    <p>check_second_qc_ans:  Finished !!!!</p>
+                {% endif %}
+                <script>
+                function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+                }
+
+                </script>
+                {% if check_first_qc_ans and check_trimming_qc_ans and check_second_qc_ans %}
                 {% else %}
-                {% endif %} {% endcomment %}
-                <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                <script>
+                console.log("check_first_qc_ans", "{{check_first_qc_ans}}");
+                console.log("check_trimming_qc_ans", "{{check_trimming_qc_ans}}");
+                console.log("check_second_qc_ans", "{{check_second_qc_ans}}");
+                setTimeout(function(){
+                window.location.reload(1);
+                }, 8000);
+                </script>
+                {% endif %}
                 </div>
             </div>
             </li>
@@ -84,7 +112,17 @@
                 <h4 class="timeline-title">Read Subtraction</h4>
                 </div>
                 <div class="timeline-body">
-                <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                </div>
+            </div>
+            </li>
+
+            <li class="timeline-inverted">
+            <div class="timeline-badge warning"><i class="fas fa-cut fa-3x" style="margin-top: 25px"></i></div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                <h4 class="timeline-title">Testing</h4>
+                </div>
+                <div class="timeline-body">
                 </div>
             </div>
             </li>

@@ -31,17 +31,17 @@ rule targets:
         expand(os.path.join(
             "QC", "post", "{sample}_multiqc.html"), sample=samples),
 
-rule first_fastqc_target:
-    input:
-        expand(os.path.join("QC", "pre", "{sample}_multiqc.html"), sample=samples),
+# rule first_fastqc_target:
+#     input:
+#         expand(os.path.join("QC", "pre", "{sample}_multiqc.html"), sample=samples),
 
-rule second_fastqc_target:
-    input:
-        expand(os.path.join("QC", "post", "{sample}_multiqc.html"), sample=samples),
+# rule second_fastqc_target:
+#     input:
+#         expand(os.path.join("QC", "post", "{sample}_multiqc.html"), sample=samples),
 
-rule trimmomatic_pe_target:
-    input:
-        expand(os.path.join("trimmed_paired","{sample}_r1_paired.fastq.gz"), sample=samples),
+# rule trimmomatic_pe_target:
+#     input:
+#         expand(os.path.join("trimmed_paired","{sample}_r1_paired.fastq.gz"), sample=samples),
 
 
 rule first_fastqc:

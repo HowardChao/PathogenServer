@@ -407,42 +407,14 @@ def show_result_overview(request, slug_project):
     check_first_qc_ans = False
     check_trimming_qc_ans = False
     check_second_qc_ans = False
-    if utils_func.check_first_qc(datadir, sample_name, se_or_pe) is False:
-        snake_process = subprocess.Popen(
-            ['snakemake', 'first_fastqc_target'], cwd=datadir)
-        print("Start running First step")
+    snake_process = subprocess.Popen(
+        ['snakemake', 'targets'], cwd=datadir)
+    if utils_func.check_first_qc(datadir, sample_name, se_or_pe) is True:
         check_first_qc_ans = True
-        return render(request, "dataanalysis/analysis_result_overview.html", {
-            'project_name': project_name,
-            'email': email,
-            'url_parameter': url_parameter,
-            'check_first_qc_ans': check_first_qc_ans,
-            'check_trimming_qc_ans': check_trimming_qc_ans,
-            'check_second_qc_ans': check_second_qc_ans,
-        })
-    if utils_func.check_trimming_qc(datadir, sample_name, se_or_pe) is False:
-        snake_process = subprocess.Popen(
-            ['snakemake', 'trimmomatic_pe_target'], cwd=datadir)
-        print("Start running Second step")
+    if utils_func.check_trimming_qc(datadir, sample_name, se_or_pe) is True:
         check_trimming_qc_ans = True
-        return render(request, "dataanalysis/analysis_result_overview.html", {
-            'project_name': project_name,
-            'email': email,
-            'url_parameter': url_parameter,
-            'check_first_qc_ans': check_first_qc_ans,
-            'check_trimming_qc_ans': check_trimming_qc_ans,
-            'check_second_qc_ans': check_second_qc_ans,
-        })
-    if utils_func.check_second_qc(datadir, sample_name, se_or_pe) is False:
+    if utils_func.check_second_qc(datadir, sample_name, se_or_pe) is True:
         check_second_qc_ans = True
-        return render(request, "dataanalysis/analysis_result_overview.html", {
-            'project_name': project_name,
-            'email': email,
-            'url_parameter': url_parameter,
-            'check_first_qc_ans': check_first_qc_ans,
-            'check_trimming_qc_ans': check_trimming_qc_ans,
-            'check_second_qc_ans': check_second_qc_ans,
-        })  
     print("check_first_qc_ans: ", check_first_qc_ans)
     print("check_trimming_qc_ans: ", check_trimming_qc_ans)
     print("check_second_qc_ans: ", check_second_qc_ans)
