@@ -70,4 +70,63 @@ def check_trimming_qc(datadir, sample_name, se_or_pe):
 
 
 def check_second_qc(datadir, sample_name, se_or_pe):
-    return False
+    root_dir = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, 'QC', 'post')
+    if se_or_pe == 'pe':
+        print("**** Inside check_first_qc function:")
+        print("R1 paired html: ", os.path.join(
+            root_dir, sample_name+"_r1_paired_fastqc.html"))
+        print("R1 unpaired html: ", os.path.join(
+            root_dir, sample_name+"_r1_unpaired_fastqc.html"))
+        print("R2 paired html: ", os.path.join(
+            root_dir, sample_name+"_r2_paired_fastqc.html"))
+        print("R2 unpaired html: ", os.path.join(
+            root_dir, sample_name+"_r2_unpaired_fastqc.html"))
+        print("R1 paired zip: ", os.path.join(
+            root_dir, sample_name+"_r1_paired_fastqc.zip"))
+        print("R1 unpaired zip: ", os.path.join(
+            root_dir, sample_name+"_r1_unpaired_fastqc.zip"))
+        print("R2 paired zip: ", os.path.join(
+            root_dir, sample_name+"_r2_paired_fastqc.zip"))
+        print("R2 unpaired zip: ", os.path.join(
+            root_dir, sample_name+"_r2_unpaired_fastqc.zip"))
+        print("multiqc html: ", os.path.join(
+            root_dir, sample_name+"_multiqc.html"))
+        print("multiqc dir: ", os.path.join(
+            root_dir, sample_name+"_multiqc_data"))
+        r1_paired_html = os.path.exists(os.path.join(
+            root_dir, sample_name+"_r1_paired_fastqc.html"))
+        r1_unpaired_html = os.path.exists(os.path.join(
+            root_dir, sample_name+"_r1_unpaired_fastqc.html"))
+        r2_paired_html = os.path.exists(os.path.join(
+            root_dir, sample_name+"_r2_paired_fastqc.html"))
+        r2_unpaired_html = os.path.exists(os.path.join(
+            root_dir, sample_name+"_r2_unpaired_fastqc.html"))
+        r1_paired_zip = os.path.exists(os.path.join(
+            root_dir, sample_name+"_r1_paired_fastqc.zip"))
+        r1_unpaired_zip = os.path.exists(os.path.join(
+            root_dir, sample_name+"_r1_unpaired_fastqc.zip"))
+        r2_paired_zip = os.path.exists(os.path.join(
+            root_dir, sample_name+"_r2_paired_fastqc.zip"))
+        r2_unpaired_zip = os.path.exists(os.path.join(
+            root_dir, sample_name+"_r2_unpaired_fastqc.zip"))
+        multiqc_html = os.path.exists(os.path.join(
+            root_dir, sample_name+"_multiqc.html"))
+        multiqc_dir = os.path.exists(os.path.join(
+            root_dir, sample_name+"_multiqc_data"))
+        print("r1_paired_html: ", r1_paired_html)
+        print("r1_unpaired_html: ", r1_unpaired_html)
+        print("r2_paired_html: ", r2_paired_html)
+        print("r2_unpaired_html: ", r2_unpaired_html)
+        print("r1_paired_zip: ", r1_paired_zip)
+        print("r1_unpaired_zip: ", r1_unpaired_zip)
+        print("r2_paired_zip: ", r2_paired_zip)
+        print("r2_unpaired_zip: ", r2_unpaired_zip)
+        print("multiqc_html: ", multiqc_html)
+        print("multiqc_dir: ", multiqc_dir)
+        if r1_paired_html and r1_unpaired_html and r2_paired_html and r2_unpaired_html and r1_paired_zip and r1_unpaired_zip and r2_paired_zip and r2_unpaired_zip and multiqc_html and multiqc_dir:
+            return True
+        else:
+            return False
+    elif se_or_pe == 'se':
+        # Will be added in the future
+        return True
