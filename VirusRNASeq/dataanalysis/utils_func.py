@@ -143,3 +143,17 @@ def check_read_subtraction_bwa_align(datadir, sample_name):
         return True
     else:
         return True
+
+
+def get_pe_sample_name(se_or_pe, project_name, email, analysis_code):
+    if se_or_pe == 'pe':
+        datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
+                            project_name + '_' + email + '_' + analysis_code)
+        files = os.listdir(os.path.join(datadir, se_or_pe))
+        sample_name = os.path.splitext(os.path.splitext(
+            os.path.splitext(files[0])[0])[0])[0]
+        return sample_name
+    elif se_or_pe == 'se':
+        pass
+
+    

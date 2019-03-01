@@ -296,6 +296,10 @@ def show_result_overview(request, slug_project):
         email = request.session['email']
         print("email: ", email)
         request.session["email"] = email
+    if 'se_or_pe' in request.session:
+        se_or_pe = request.session['se_or_pe']
+        print("se_or_pe: ", se_or_pe)
+        request.session["se_or_pe"] = se_or_pe
     if 'start_time' in request.session:
         start_time = request.session['start_time']
         print("start_time: ", start_time)
@@ -304,13 +308,41 @@ def show_result_overview(request, slug_project):
         end_time = request.session['end_time']
         print("end_time: ", end_time)
         request.session["end_time"] = end_time
-        
+
+    qc_datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
+                              project_name + '_' + email + '_' + analysis_code, 'QC')
+
+    if se_or_pe == 'pe':
+        sample_name = utils_func.get_pe_sample_name(se_or_pe, project_name, email, analysis_code)
+        fastqc_datadir_pre_r1 = os.path.join(qc_datadir, 'pre', sample_name+'.R1_fastqc.html')
+        fastqc_datadir_pre_r2 = os.path.join(
+            qc_datadir, 'pre', sample_name+'.R2_fastqc.html')
+        multiqc_datadir_pre = os.path.join(
+            qc_datadir, 'pre', sample_name+'_multiqc.html')
+
+        fastqc_datadir_post_r1 = os.path.join(
+            qc_datadir, 'post', sample_name+'.R1_fastqc.html')
+        fastqc_datadir_post_r2 = os.path.join(
+            qc_datadir, 'post', sample_name+'.R2_fastqc.html')
+        multiqc_datadir_post = os.path.join(
+            qc_datadir, 'post', sample_name+'_multiqc.html')
+    elif se_or_pe == 'se':
+        pass
+        qc_datadir_pre = os.path.join(qc_datadir, 'pre', )
+        qc_datadir_post = os.path.join(qc_datadir, 'post', )
+
     return render(request, "dataanalysis/analysis_result_overview.html", {
         "project_name": project_name,
         "analysis_code": analysis_code,
         "email": email,
         "start_time": start_time,
         "end_time": end_time,
+        "fastqc_datadir_pre_r1": fastqc_datadir_pre_r1,
+        "fastqc_datadir_pre_r2": fastqc_datadir_pre_r2,
+        "multiqc_datadir_pre": multiqc_datadir_pre,
+        "fastqc_datadir_post_r1": fastqc_datadir_post_r1,
+        "fastqc_datadir_post_r2": fastqc_datadir_post_r2,
+        "multiqc_datadir_post": multiqc_datadir_post,
     })
 
     
@@ -378,10 +410,12 @@ def current_status(request, slug_project):
 
     datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
                            project_name + '_' + email + '_' + analysis_code)
+
     if os.path.exists(os.path.join(datadir, 'pe')):
         se_or_pe = "pe"
     elif os.path.exists(os.path.join(datadir, 'se')):
         se_or_pe = "se"
+    request.session["se_or_pe"] = se_or_pe
     files = os.listdir(os.path.join(datadir, se_or_pe))
     sample_name = os.path.splitext(os.path.splitext(
         os.path.splitext(files[0])[0])[0])[0]

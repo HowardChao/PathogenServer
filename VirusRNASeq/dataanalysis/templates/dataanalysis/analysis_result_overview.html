@@ -23,16 +23,16 @@
         </div>
         <ul class="list-unstyled components">
             <li>
-                <a href={% url 'dataanalysis_result_overview' 'url_parameter' %}><i class="fas fa-file-contract"></i> &nbsp OverView</a>
+                <a href="#" onclick="loading(this.name)" name="overview_page_result"><i class="fas fa-file-contract"></i> &nbsp OverView</a>
             </li>
             <li>
-                <a href="#"><i class="fas fa-search"></i> &nbsp Quality Control</a>
+                <a href="#" onclick="loading(this.name)" name="quality_control_result"><i class="fas fa-search"></i> &nbsp Quality Control</a>
             </li>
             <li>
-                <a href="#"><i class="fas fa-cut"></i> &nbsp Read Subtraction</a>
+                <a href="#" onclick="loading(this.name)" name="read_subtraction_result"><i class="fas fa-cut"></i> &nbsp Read Subtraction</a>
             </li>
             <li>
-                <a href="#"><i class="fas fa-cut"></i> &nbsp Non-virus Removal</a>
+                <a href="#" onclick="loading(this.name)" name="non-virus_removal_result"><i class="fas fa-cut"></i> &nbsp Non-virus Removal</a>
             </li>
             <li>
                 <a href="#"><i class="fas fa-align-right"></i> &nbsp <i>de novo</i> Assembly</a>
@@ -57,67 +57,140 @@
             </button>
 
         </div>
-        <div class=" pipeline_result" id="overview_page">
-            <div class="w3-main" style="margin-left:100px;">
+        <div class="pipeline_result" id="overview_page_result">
+            <div class="w3-main" style="margin-left:130px; margin-right:130px;">
                 <header class="w3-container" style="padding-top:22px;">
-                    <h2><i class="fas fa-file-contract"></i> &nbsp<strong>Overview</strong></h2>
+                    <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-file-contract"></i> &nbsp<strong>Overview</strong></h1>
                 </header>
-                <div class="content-below-header-overview" style="margin-left:30px;margin-right:30px;">
+                <div class="content-below-header-overview" >
                     <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px;">
                         <div style="width:100%; outline: 5px solid #B07B41; outline-offset: 10px; outline-style: double;">
-                        <p>Congradulations! Your job has been completed successfully!</p>
-                        <p>The followings are details about your job, and the download link to all the logs/results.</p>
-                        <p>Please click the left navigation panel to show results of each step.</p>
+                        <p>Congradulations! Your job has been completed <strong style="font-size:20px; color: green;">successfully</strong>!</p>
+                        <p>The followings are the project information of your analysis job. You can click the download link to install all the logs and results.</p>
+                        <p>Click the buttons on the right navigation dashboard to show the results of each step.</p>
                         </div>
                     </div>
-                    <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:40px;">
-                    <h5>Information about your job:</h5>
-                    <table class="w3-table w3-striped w3-white" style="width:100%;">
-                        <tr>
-                            <td width="30%">Project name</td>
-                            <td>{{project_name}}</td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td>{{email}}</td>
-                        </tr>
-                        <tr>
-                            <td>Analysiscode</td>
-                            <td>{{analysis_code}}</td>
-                        </tr>
-                        <tr>
-                            <td>Submission time</td>
-                            <td>{{start_time}}</td>
-                        </tr>
-                        <tr>
-                            <td>Start time</td>
-                            <td>{{start_time}}</td>
-                        </tr>
-                        <tr>
-                            <td>End time</td>
-                            <td>{{end_time}}</td>
-                        </tr>
-                        <tr>
-                            <td>Download Link</td>
-                            <td>
-                                <button type="button" class="btn btn-success"> Download <i class="fas fa-arrow-down"></i></button>
+                    <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:70px;">
+                        <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Project Information</b></h4>
+                        <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
+                            <tr>
+                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Project Name :</b></td>
+                                <td style="font-family: Verdana, Geneva, sans-serif">{{project_name}}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Email :</b></td>
+                                <td style="font-family: Verdana, Geneva, sans-serif">{{email}}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Analysis Code :</b></td>
+                                <td style="font-family: Verdana, Geneva, sans-serif">{{analysis_code}}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Submission Time :</b></td>
+                                <td style="font-family: Verdana, Geneva, sans-serif">{{start_time}}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Start Time :</b></td>
+                                <td style="font-family: Verdana, Geneva, sans-serif">{{start_time}}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>End Time :</b></td>
+                                <td style="font-family: Verdana, Geneva, sans-serif">{{end_time}}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Download Link :</b></td>
+                                <td>
+                                    <button style="font-family: Verdana, Geneva, sans-serif" type="button" class="btn btn-success"> Download <i class="fas fa-arrow-down"></i></button>
 
-                                {% comment %} <a class="w3-button w3-round-large w3-border w3-tiny" style="background-color:#d6efeb;font-size:16px" href="/static/0436de14-7762-11e8-b3cc-d89d67f39fa9/myjob.tar.gz" role="button">
-                                Download  <i class="fa fa-arrow-down"></i>
-                                </a> {% endcomment %}
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                                    {% comment %} <a class="w3-button w3-round-large w3-border w3-tiny" style="background-color:#d6efeb;font-size:16px" href="/static/0436de14-7762-11e8-b3cc-d89d67f39fa9/myjob.tar.gz" role="button">
+                                    Download  <i class="fa fa-arrow-down"></i>
+                                    </a> {% endcomment %}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
+        </div>
+
+        <div class="pipeline_result" id="quality_control_result"  style="display: none;">
+            <div class="w3-main" style="margin-left:130px; margin-right:130px;">
+                <header class="w3-container" style="padding-top:22px;">
+                    <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-search"></i> &nbsp <strong>Quality Control</strong></h1>
+                </header>
+
+                <div class="content-below-header-overview" >
+                    <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px;">
+                        <div style="width:100%; outline: 5px solid #B07B41; outline-offset: 10px; outline-style: double;">
+                        <p>Congradulations! Your job has been completed <strong style="font-size:20px; color: green;">successfully</strong>!</p>
+                        </div>
+                    </div>
+
+
+                    <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:70px;">
+                        <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Before Trimming Quality Assessment</b></h4>
+
+
+                        <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
+                            <tr>
+                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> MultiQC Summary Report :</b></td>
+                                <td style="font-family: Verdana, Geneva, sans-serif"><a href={{multiqc_datadir_pre}} class="link_color"><u>Link</u></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> FastQC R1 (forward) :</b></td>
+                                <td style="font-family: Verdana, Geneva, sans-serif"><a href={{fastqc_datadir_pre_r1}} class="link_color"><u>Link</u></a>
+                                </td>
+                                {% comment %} <td style="font-family: Verdana, Geneva, sans-serif">{{fastqc_datadir_pre_r1}}</td> {% endcomment %}
+                            </tr>
+                            <tr>
+                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> FastQC R2 (reverse) :</b></td>
+                                <td style="font-family: Verdana, Geneva, sans-serif"><a href={{fastqc_datadir_pre_r2}} class="link_color"><u>Link</u></a>
+                                </td>
+                                {% comment %} <td style="font-family: Verdana, Geneva, sans-serif">{{fastqc_datadir_pre_r2}}</td> {% endcomment %}
+                            </tr>
+                        </table>   
+                    </div>
+                    <hr>
+                    <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:40px;">
+                        <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>After Trimming Quality Assessment</b></h4>
+                        <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
+                            <tr>
+                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> MultiQC Summary Report :</b></td>
+                                <td style="font-family: Verdana, Geneva, sans-serif"><a href={{multiqc_datadir_post}} class="link_color"><u>Link</u></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> FastQC R1 (forward) :</b></td>
+                                <td style="font-family: Verdana, Geneva, sans-serif"><a href={{fastqc_datadir_post_r1}} class="link_color"><u>Link</u></a>
+                                </td>
+                                {% comment %} <td style="font-family: Verdana, Geneva, sans-serif">{{fastqc_datadir_pre_r1}}</td> {% endcomment %}
+                            </tr>
+                            <tr>
+                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> FastQC R2 (reverse) :</b></td>
+                                <td style="font-family: Verdana, Geneva, sans-serif"><a href={{fastqc_datadir_post_r2}} class="link_color"><u>Link</u></a>
+                                </td>
+                                {% comment %} <td style="font-family: Verdana, Geneva, sans-serif">{{fastqc_datadir_pre_r2}}</td> {% endcomment %}
+                            </tr>
+                        </table>   
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pipeline_result" id="read_subtraction_result" style="display: none;">
+            <h2>read_subtraction_result</h2>
+        </div>
+
+        <div class="pipeline_result" id="non-virus_removal_result" style="display: none;">
+            <h2>non-virus_removal_result</h2>
         </div>
 
 
         <div class="w3-main" style="margin-top:50px;">
         <div class="w3-container w3-dark-grey w3-padding-32">
             <div class="w3-row">
-            <p style="color: #e2e2e2;"><center><i>Developed by Bioinformatics and Biostatistics Core Lab, Center of Genomic Medicine, National Taiwan University.</i></center></p>
+            <p style="color: #e2e2e2;"><center style="font-size:15px;"><i>Developed by Bioinformatics and Biostatistics Core Lab, Center of Genomic Medicine, National Taiwan University.</i></center></p>
             </div>
         </div>
         </div>
@@ -161,7 +234,7 @@
         </main>
     </div> {% endcomment %}
 </div>
-<script>
+<script type="text/javascript">
 $(document).ready(function () {
 
     $('#sidebarCollapse').on('click', function () {
@@ -178,6 +251,14 @@ $(document).ready(function () {
     });
 
 });
+
+    // This script is to show different page
+    function loading(clicked_name)
+    {
+        $(".pipeline_result").hide();
+        $("#"+clicked_name).show();
+        
+    }
 
 </script>
 
