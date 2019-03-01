@@ -130,3 +130,16 @@ def check_second_qc(datadir, sample_name, se_or_pe):
     elif se_or_pe == 'se':
         # Will be added in the future
         return True
+
+
+def check_read_subtraction_bwa_align(datadir, sample_name):
+    root_dir = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, "Read_Subtraction", "bwa", "sam")
+    print("bwa sam file: ", os.path.join(
+        root_dir, sample_name+".sam"))
+    bwa_read_subtraction_sam = os.path.exists(os.path.join(
+        root_dir, sample_name+".sam"))
+    print("bwa_read_subtraction_sam: ", bwa_read_subtraction_sam)
+    if bwa_read_subtraction_sam:
+        return True
+    else:
+        return True

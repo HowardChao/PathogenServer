@@ -14,6 +14,7 @@ import os
 import shutil
 import re
 import subprocess
+from django.utils import timezone
 
 from dataanalysis.models import Document, PairedEnd, SingleEnd
 from dataanalysis.forms import DocumentForm, PairedEndForm, SingleEndForm
@@ -66,80 +67,8 @@ def data_analysis_home(request):
     # documents = Document.objects.all()
     # return render(request, 'dataanalysis/home.html', { 'documents': documents })
 
-def model_form_upload(request):
-    if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('dataanalysis_home')
-    else:
-        form = DocumentForm()
-    return render(request, 'dataanalysis/model_form_upload.html', {
-        'form': form
-    })
 
-def simple_upload(request):
-    print("Inside simple_upload()")
-    if request.method == 'POST':
-        print("Inside POST")
-        if 'snakefile-creation' in request.POST:
-            prefix_dir = "/Users/chaokuan-hao/Documents/bioinformatics/Virus"
-            project_name = "Project62a7db0029ba11e9b31a60f81dacbf14_6bab321a29ba11e9b31a60f81dacbf14"
-            trimmomatic_jar = os.path.join(prefix_dir, "tools/Trimmomatic/trimmomatic-0.38.jar")
-            datadir = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name)
-            tool_dir = os.path.join(prefix_dir, "tools")
-            fastqc_command = os.path.join(".", tool_dir, "FastQC", "fastqc")
-            threads = 8
-            phred = "-phred33"
-            trimlog = "trimmomatic_log"
-            adapter = os.path.join(prefix_dir, "tools/Trimmomatic/adapters/TruSeq3-PE.fa")
-            adapter_param = ":2:30:10"
-            leading = 3
-            trailing = 3
-            minlen = 36
-            window_size = 4
-            window_quality = 20
-            config_file_path = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, 'config.yaml')
-            if os.path.exists(os.path.join(datadir, 'pe')):
-                se_or_pe = 'pe'
-                snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_pe")
-            elif os.path.exists(os.path.join(datadir, 'se')):
-                se_or_pe = 'se'
-                snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_se")
-            destination_snakemake_file = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name, 'Snakefile')
-            data = dict(
-                project_name = project_name,
-                Fuck = "Fucl",
-                datadir = datadir,
-                tool_dir = tool_dir,
-                se_or_pe = se_or_pe,
-                trimmomatic = dict(
-                    trimmomatic_jar = trimmomatic_jar,
-                    threads = threads,
-                    phred = phred,
-                    adapter = adapter,
-                    adapter_param = adapter_param,
-                    window_size = window_size,
-                    window_quality = window_quality,
-                    leading = leading,
-                    trailing = trailing,
-                    minlen = minlen,
-                ),
-                fastqc = dict(
-                    fastqc_command = fastqc_command,
-                ),
-            )
-            with open(config_file_path, 'w') as ymlfile:
-                yaml.dump(data, ymlfile, default_flow_style=False)
-            shutil.copyfile(snakemake_file, destination_snakemake_file)
-            # subprocess.call(['snakemake'], shell=True, cwd=datadir)
-            print(subprocess.call(['pwd']))
-            return render(request, 'dataanalysis/simple_upload.html')
-    return render(request, 'dataanalysis/simple_upload.html')
-
-
-
-def paired_end_upload(request, slug_project):
+def whole_dataanalysis(request, slug_project):
     print("Inside data_analysis_home !!!")
 
     ## Check if file exist !!
@@ -277,6 +206,7 @@ def paired_end_upload(request, slug_project):
         elif 'start-analysis' in request.POST:
             print('    * Inside start-analysis')
             prefix_dir = "/Users/chaokuan-hao/Documents/bioinformatics/Virus"
+            ### Trimmomatics
             trimmomatic_jar = os.path.join(prefix_dir, "tools/Trimmomatic/trimmomatic-0.38.jar")
             datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
                                 project_name + '_' + email + '_' + analysis_code)
@@ -292,6 +222,12 @@ def paired_end_upload(request, slug_project):
             minlen = request.POST.get('trimmomatic_minlen')
             window_size = request.POST.get('trimmomatic_slidingwindow_size')
             window_quality = request.POST.get('trimmomatic_slidingwindow_quality')
+
+            ### BWA
+            bwa_ref = os.path.join(prefix_dir, "host_ref")
+            bwa_species = "homo_sapiens.fa"
+            host_ref = os.path.join(bwa_ref, bwa_species)
+
             config_file_path = os.path.join(datadir, 'config.yaml')
             if os.path.exists(os.path.join(datadir, 'pe')):
                 se_or_pe = 'pe'
@@ -318,6 +254,9 @@ def paired_end_upload(request, slug_project):
                     leading = leading,
                     trailing = trailing,
                     minlen = minlen,
+                ),
+                bwa = dict(
+                    host_ref=host_ref,
                 )
             )
             print("Data result: ", data)
@@ -326,9 +265,9 @@ def paired_end_upload(request, slug_project):
             shutil.copyfile(snakemake_file, destination_snakemake_file)
             # subprocess.call(['snakemake'], shell=True, cwd=datadir)
             print(subprocess.call(['pwd']))
-            print((reverse('dataanalysis_result_overview', kwargs={
+            print((reverse('dataanalysis_result_current_status', kwargs={
                   'slug_project': url_parameter})))
-            return redirect((reverse('dataanalysis_result_overview', kwargs={
+            return redirect((reverse('dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
             # return render(request, "dataanalysis/analysis_result.html")
 
@@ -344,6 +283,35 @@ def paired_end_upload(request, slug_project):
     })
 
 
+def show_result_overview(request, slug_project):
+    if 'project_name' in request.session:
+        project_name = request.session['project_name']
+        print("project_name: ", project_name)
+        request.session["project_name"] = project_name
+    if 'analysis_code' in request.session:
+        analysis_code = request.session['analysis_code']
+        print("analysis_code: ", analysis_code)
+        request.session["analysis_code"] = analysis_code
+    if 'email' in request.session:
+        email = request.session['email']
+        print("email: ", email)
+        request.session["email"] = email
+    if 'start_time' in request.session:
+        start_time = request.session['start_time']
+        print("start_time: ", start_time)
+        request.session["start_time"] = start_time
+    if 'end_time' in request.session:
+        end_time = request.session['end_time']
+        print("end_time: ", end_time)
+        request.session["end_time"] = end_time
+        
+    return render(request, "dataanalysis/analysis_result_overview.html", {
+        "project_name": project_name,
+        "analysis_code": analysis_code,
+        "email": email,
+    })
+
+    
 def show_result(request, slug_project):
     if 'project_name' in request.session:
         project_name = request.session['project_name']
@@ -367,8 +335,7 @@ def show_result(request, slug_project):
     })
 
 
-def show_result_overview(request, slug_project):
-    print("** Inside show_result_overview()")
+def current_status(request, slug_project):
     if 'project_name' in request.session:
         project_name = request.session['project_name']
         print("project_name: ", project_name)
@@ -381,14 +348,51 @@ def show_result_overview(request, slug_project):
         email = request.session['email']
         print("email: ", email)
         request.session["email"] = email
-    if 'sample_name' in request.session:
-        sample_name = request.session['sample_name']
-        print("sample_name: ", sample_name)
-        request.session["sample_name"] = sample_name
-    if 'se_or_pe' in request.session:
-        se_or_pe = request.session['se_or_pe']
-        print("se_or_pe: ", se_or_pe)
-        request.session["se_or_pe"] = se_or_pe
+
+    if 'start_time' in request.session:
+        start_time = request.session['start_time']
+        print("start_time: ", start_time)
+        request.session["start_time"] = start_time
+    if 'end_time' in request.session:
+        end_time = request.session['end_time']
+        print("end_time: ", end_time)
+        request.session["end_time"] = end_time
+
+    url_parameter = project_name + '_' + email.split("@")[0]
+
+    if ('view_counter_%s' % url_parameter) in request.session:
+        view_counter = request.session['view_counter_%s' % url_parameter]
+        view_counter = view_counter + 1
+        print("&&&&&&&&&view_counter: ", view_counter)
+        request.session['view_counter_%s' % url_parameter] = view_counter
+    else:
+        view_counter = 1
+        print("&&&&&&&&&view_counter: ", view_counter)
+        request.session['view_counter_%s' % url_parameter] = view_counter
+    if request.method == 'POST':
+        if 'go-to-overview-button' in request.POST:
+            print("clicked button")
+            return redirect((reverse('dataanalysis_result_overview', kwargs={
+                'slug_project': url_parameter})))
+
+    datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
+                           project_name + '_' + email + '_' + analysis_code)
+    if os.path.exists(os.path.join(datadir, 'pe')):
+        se_or_pe = "pe"
+    elif os.path.exists(os.path.join(datadir, 'se')):
+        se_or_pe = "se"
+    files = os.listdir(os.path.join(datadir, se_or_pe))
+    sample_name = os.path.splitext(os.path.splitext(
+        os.path.splitext(files[0])[0])[0])[0]
+    print("&&&&&sample_name: ", sample_name)
+    # if 'sample_name' in request.session:
+    #     sample_name = request.session['sample_name']
+    #     print("sample_name: ", sample_name)
+    #     request.session["sample_name"] = sample_name
+    # if 'se_or_pe' in request.session:
+    #     se_or_pe = request.session['se_or_pe']
+    #     print("se_or_pe: ", se_or_pe)
+    #     request.session["se_or_pe"] = se_or_pe
     url_parameter = project_name + '_' + email.split("@")[0]
     datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
                            project_name + '_' + email + '_' + analysis_code)
@@ -407,24 +411,55 @@ def show_result_overview(request, slug_project):
     check_first_qc_ans = False
     check_trimming_qc_ans = False
     check_second_qc_ans = False
-    snake_process = subprocess.Popen(
-        ['snakemake', 'targets'], cwd=datadir)
+    check_read_subtraction_bwa_align_ans = False
+    view_counter_end = "Not Start Counting"
+
+    if view_counter is 1:
+        start_time = str(timezone.now())
+        request.session["start_time"] = start_time
+        snake_process = subprocess.Popen(['snakemake', 'targets'], cwd=datadir)
+
     if utils_func.check_first_qc(datadir, sample_name, se_or_pe) is True:
         check_first_qc_ans = True
     if utils_func.check_trimming_qc(datadir, sample_name, se_or_pe) is True:
         check_trimming_qc_ans = True
     if utils_func.check_second_qc(datadir, sample_name, se_or_pe) is True:
         check_second_qc_ans = True
+    if utils_func.check_read_subtraction_bwa_align(datadir, sample_name) is True:
+        check_read_subtraction_bwa_align_ans = True
+
+    if check_first_qc_ans and check_trimming_qc_ans and check_second_qc_ans and check_read_subtraction_bwa_align_ans:
+        if ('view_counter_end_%s' % url_parameter) in request.session:
+            view_counter_end = request.session['view_counter_end_%s' % url_parameter]
+            view_counter_end = view_counter_end + 1
+            print("&&&&&&&&&view_counter: ", view_counter)
+            request.session['view_counter_end_%s' % url_parameter] = view_counter_end
+        else:
+            view_counter_end = 1
+            end_time = str(timezone.now())
+            request.session["end_time"] = end_time
+            print("&&&&&&&&&view_counter_end: ", view_counter_end)
+            request.session['view_counter_end_%s' % url_parameter] = view_counter_end
+    else:
+        end_time = "Not Finish yet"
+
     print("check_first_qc_ans: ", check_first_qc_ans)
     print("check_trimming_qc_ans: ", check_trimming_qc_ans)
     print("check_second_qc_ans: ", check_second_qc_ans)
-    return render(request, "dataanalysis/analysis_result_overview.html", {
+    print("check_read_subtraction_bwa_align_ans: ",
+          check_read_subtraction_bwa_align_ans)
+    return render(request, "dataanalysis/analysis_result_status.html", {
         'project_name': project_name,
         'email': email,
         'url_parameter': url_parameter,
         'check_first_qc_ans': check_first_qc_ans,
         'check_trimming_qc_ans': check_trimming_qc_ans,
         'check_second_qc_ans': check_second_qc_ans,
+        'check_read_subtraction_bwa_align_ans': check_read_subtraction_bwa_align_ans,
+        'start_time': start_time,
+        'end_time': end_time,
+        'view_counter_end': view_counter_end,
+        'view_counter': view_counter,
     })
 
 def hello_world(request):

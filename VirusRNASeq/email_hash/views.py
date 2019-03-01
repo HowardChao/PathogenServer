@@ -8,6 +8,9 @@ from email_hash import models
 from email_hash import forms
 import uuid
 import os
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+import shutil
 
 TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_project"
 
@@ -53,8 +56,13 @@ def newsletter_unsubscribe(request):
         if models.NewsletterUser.objects.filter(project_name=instance.project_name,email=instance.email, analysis_code=instance.analysis_code).exists():
             inside_or_outside = True
             print("You successfully delete your project!")
+            base_dir = os.path.join(settings.MEDIA_ROOT,
+                                    'tmp', instance.project_name + '_' + instance.email + '_' + instance.analysis_code)
             models.NewsletterUser.objects.filter(
-                project_name=instance.project_name, email=instance.email, analysis_code=instance.analysis_code).delete()
+                project_name=instance.project_name, email=instance.email, analysis_code=instance.analysis_code).delete()    
+            fs = FileSystemStorage()
+            if fs.exists(base_dir):
+                shutil.rmtree(base_dir)
             messages.success(request, 'Your analysis project has been removed from database. Thank you for using VirusRNASeq!',
                              extra_tags="alert alert-success alert-dismissible fade show")
         else:

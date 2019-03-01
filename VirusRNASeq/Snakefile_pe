@@ -28,6 +28,8 @@ rule targets:
                             "{sample}_r1_paired.fastq.gz"), sample=samples),
         expand(os.path.join("QC", "pre",
                             "{sample}_multiqc.html"), sample=samples),
+        # expand(os.path.join(
+        #     config["datadir"], "Read_Subtraction", "bwa", "sam", "{sample}.sam"), sample=samples),
         expand(os.path.join(
             "QC", "post", "{sample}_multiqc.html"), sample=samples),
 
@@ -171,25 +173,19 @@ rule second_multiqc:
         multiqc --force {params.directory} -n {params.filename}
         """
 
-# rule bwa_mem:
+# rule read_subtraction_bwa_mem:
 #     input:
 #         trimmed_r1 = os.path.join("trimmed_paired", "{sample}_r1_paired.fastq.gz"),
 #         trimmed_r2 = os.path.join("trimmed_paired", "{sample}_r2_paired.fastq.gz"),
+#         host_ref = config["bwa"]["host_ref"],
 #     output:
-#         "mapped/{sample}.bam"
-#         sam = os.path.join("bam", "{sample}.bam"),
+#         bwa_sam = os.path.join(config["datadir"], "Read_Subtraction", "bwa", "sam","{sample}.sam"),
 #     log:
-#         log = os.path.join("logs", "bwa_mem", "{sample}.log")
-#     params:
-#         index="genome",
-#         extra=r"-R '@RG\tID:{sample}\tSM:{sample}'",
-#         sort="none",             # Can be 'none', 'samtools' or 'picard'.
-#         sort_order="queryname",  # Can be 'queryname' or 'coordinate'.
-#         sort_extra=""            # Extra args for samtools/picard.
+#         log = os.path.join("logs", "bwa_mem", "{sample}.log"),
 #     threads: 8
 #     shell:
 #         """
-#         bwa mem ./ref/chlSab2.fa ./trim/P96_S12_R1_paired.fastq.gz ./trim/P96_S12_R2_paired.fastq.gz > ./sam/P96.sam;
+#         bwa mem {input.host_ref} {input.trimmed_r1} {input.trimmed_r2} > {output.bwa_sam}
 #         """
 
 #------------ include rules -----------

@@ -3,7 +3,6 @@
 {% block extraheader %}
 {% load staticfiles %}
 {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/dataanalysis_result.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/dataanalysis_result_overview.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -51,83 +50,75 @@
 
     </nav>
     <!-- Page Content -->
-            <div id="content" >
-                <button type="button" id="sidebarCollapse" class="btn btn-info ">
-                    <i id="toggle_button" class="fas fa-angle-double-left"></i>
-                </button>
-            </div>
-            
-    <div class="container" style="margin-left: 100px; margin-top: 50px; margin-right: 50px">
-        <div class="page-header">
-            <h1 id="timeline">Overview</h1>
+    <div id="right-content-overview">
+        <div id="content" >
+            <button type="button" id="sidebarCollapse" class="btn btn-info ">
+                <i id="toggle_button" class="fas fa-angle-double-left"></i>
+            </button>
         </div>
-        <ul class="timeline" style="margin-top: 30px;">
-            <li class="timeline-inverted">
-            <div class="timeline-badge warning"><i class="fas fa-search fa-3x" style="margin-top: 25px"></i></div>
-            <div class="timeline-panel">
-                <div class="timeline-heading">
-                <h4 class="timeline-title">Quality Control</h4>
+        <div class="w3-main" style="margin-left:100px;">
+            <header class="w3-container" style="padding-top:22px;">
+            <h2><i class="fas fa-file-contract"></i> &nbsp<strong>Overview</strong></h2>
+            </header>
+            <div class="content-below-header-overview" style="margin-left:30px;margin-right:30px;">
+                <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px;">
+                    <div style="width:100%; outline: 5px solid #B07B41; outline-offset: 10px; outline-style: double;">
+                    <p>Congradulations! Your job has been completed successfully!</p>
+                    <p>The followings are details about your job, and the download link to all the logs/results.</p>
+                    <p>Please click the left navigation panel to show results of each step.</p>
+                    </div>
                 </div>
-                <div class="timeline-body">
-                {% if check_first_qc_ans is False %}
-                    <p>check_first_qc_ans:  Running !!!!</p>
-                {% elif check_first_qc_ans is True %}
-                    <p>check_first_qc_ans:  Finished !!!!</p>
-                {% endif %}
-                {% if check_trimming_qc_ans is False %}
-                    <p>check_trimming_qc_ans:  Running !!!!</p>
-                {% elif check_trimming_qc_ans is True %}
-                    <p>check_trimming_qc_ans:  Finished !!!!</p>
-                {% endif %}
-                {% if check_second_qc_ans is False %}
-                    <p>check_second_qc_ans:  Running !!!!</p>
-                {% elif check_second_qc_ans is True %}
-                    <p>check_second_qc_ans:  Finished !!!!</p>
-                {% endif %}
-                <script>
-                function sleep(ms) {
-                return new Promise(resolve => setTimeout(resolve, ms));
-                }
+                <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:40px;">
+                <h5>Information about your job:</h5>
+                <table class="w3-table w3-striped w3-white" style="width:100%;">
+                    <tr>
+                        <td width="30%">Job ID</td>
+                        <td>0436de14-7762-11e8-b3cc-d89d67f39fa9</td>
+                    </tr>
+                    <tr>
+                        <td>Submission time</td>
+                        <td>June 24, 2018, 11:52 a.m.</td>
+                    </tr>
+                    <tr>
+                        <td>Start time</td>
+                        <td>June 24, 2018, 11:52 a.m.</td>
+                    </tr>
+                    <tr>
+                        <td>End time</td>
+                        <td>June 25, 2018, 8:30 a.m.</td>
+                    </tr>
+                    <tr>
+                        <td>Download Link</td>
+                        <td>
+                            <button type="button" class="btn btn-success"> Download <i class="fas fa-arrow-down"></i></button>
 
-                </script>
-                {% if check_first_qc_ans and check_trimming_qc_ans and check_second_qc_ans %}
-                {% else %}
-                <script>
-                console.log("check_first_qc_ans", "{{check_first_qc_ans}}");
-                console.log("check_trimming_qc_ans", "{{check_trimming_qc_ans}}");
-                console.log("check_second_qc_ans", "{{check_second_qc_ans}}");
-                setTimeout(function(){
-                window.location.reload(1);
-                }, 8000);
-                </script>
-                {% endif %}
-                </div>
+                            {% comment %} <a class="w3-button w3-round-large w3-border w3-tiny" style="background-color:#d6efeb;font-size:16px" href="/static/0436de14-7762-11e8-b3cc-d89d67f39fa9/myjob.tar.gz" role="button">
+                            Download  <i class="fa fa-arrow-down"></i>
+                            </a> {% endcomment %}
+                        </td>
+                    </tr>
+                </table>
             </div>
-            </li>
-    
-            <li class="timeline-inverted">
-            <div class="timeline-badge warning"><i class="fas fa-cut fa-3x" style="margin-top: 25px"></i></div>
-            <div class="timeline-panel">
-                <div class="timeline-heading">
-                <h4 class="timeline-title">Read Subtraction</h4>
-                </div>
-                <div class="timeline-body">
-                </div>
             </div>
-            </li>
-
-            <li class="timeline-inverted">
-            <div class="timeline-badge warning"><i class="fas fa-cut fa-3x" style="margin-top: 25px"></i></div>
-            <div class="timeline-panel">
-                <div class="timeline-heading">
-                <h4 class="timeline-title">Testing</h4>
-                </div>
-                <div class="timeline-body">
-                </div>
-            </div>
-            </li>
-        </ul>
+        </div>
     </div>
+
+
+
+    {% comment %} 
+    This is the place to reload the page base on the current status
+    {% if check_first_qc_ans and check_trimming_qc_ans and check_second_qc_ans and check_read_subtraction_bwa_align_ans%}
+    {% else %}
+        <script>
+        console.log("check_first_qc_ans", "{{check_first_qc_ans}}");
+        console.log("check_trimming_qc_ans", "{{check_trimming_qc_ans}}");
+        console.log("check_second_qc_ans", "{{check_second_qc_ans}}");
+        console.log("check_read_subtraction_bwa_align_ans", "{{check_read_subtraction_bwa_align_ans}}")
+        setTimeout(function(){
+        window.location.reload(1);
+        }, 8000);
+        </script>
+    {% endif %} {% endcomment %}
 
 
     {% comment %} <div id="content" class="w-100" >
