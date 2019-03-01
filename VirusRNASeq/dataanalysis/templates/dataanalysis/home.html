@@ -52,6 +52,7 @@
     </script> {% endcomment %}
 {% endblock extraheader %}
 {% block content %}
+<div id="whole-page-message-container"></div>
 <main role="main" class="container">
     <div class="row">
         <nav class="col-md-4" id="list-example" >
@@ -544,6 +545,23 @@
                     <button id="start-analysis-button" name="start-analysis" type="submit" class="btn btn-primary btn-lg btn-block">Start Analysis</button>
                     <!-- <button id="paired-end-button" name="upload-paired-end-file" class="btn btn-info btn-block" type="submit">Upload Paired-End Files</button> -->
                   </div>
+                  <script>
+
+                    $('#start-analysis-button').click(function(){
+                        console.log("{{uploaded_file_url_pe_1}}"!="None" && "{{uploaded_file_url_pe_2}}"!="None"  || "{{uploaded_file_url_se}}"!="None");
+                        if ("{{uploaded_file_url_pe_1}}"!="None" && "{{uploaded_file_url_pe_2}}"!="None"  || "{{uploaded_file_url_se}}"!="None") {
+                            return true;
+                        } else {
+                            $('html,body').scrollTop(0);
+                            var myNode = document.getElementById("whole-page-message-container");
+                            myNode.innerHTML = '';
+                            $('#whole-page-message-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><center>You do not upload <strong>paired-end files</strong> or <strong>single-end file</strong> yet !</center><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+                            console.log("File is not upload yet!!");
+                            return false;
+                        }
+                    })
+                   
+                  </script>
                 </form>
 
 

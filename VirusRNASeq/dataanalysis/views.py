@@ -309,6 +309,8 @@ def show_result_overview(request, slug_project):
         "project_name": project_name,
         "analysis_code": analysis_code,
         "email": email,
+        "start_time": start_time,
+        "end_time": end_time,
     })
 
     
@@ -350,14 +352,13 @@ def current_status(request, slug_project):
         request.session["email"] = email
 
     if 'start_time' in request.session:
-        start_time = request.session['start_time']
-        print("start_time: ", start_time)
-        request.session["start_time"] = start_time
+        start_time_strip = request.session['start_time']
+        print("start_time: ", start_time_strip)
+        request.session["start_time"] = start_time_strip
     if 'end_time' in request.session:
-        end_time = request.session['end_time']
-        print("end_time: ", end_time)
-        request.session["end_time"] = end_time
-
+        end_time_strip = request.session['end_time']
+        print("end_time: ", end_time_strip)
+        request.session["end_time"] = end_time_strip
     url_parameter = project_name + '_' + email.split("@")[0]
 
     if ('view_counter_%s' % url_parameter) in request.session:
@@ -415,8 +416,10 @@ def current_status(request, slug_project):
     view_counter_end = "Not Start Counting"
 
     if view_counter is 1:
-        start_time = str(timezone.now())
-        request.session["start_time"] = start_time
+        start_time = timezone.now()
+        start_time_strip = start_time.strftime("%B %d, %Y, %I:%M:%S %p")
+        print("**** start_time_strip: ", start_time_strip)
+        request.session["start_time"] = start_time_strip
         snake_process = subprocess.Popen(['snakemake', 'targets'], cwd=datadir)
 
     if utils_func.check_first_qc(datadir, sample_name, se_or_pe) is True:
@@ -432,16 +435,16 @@ def current_status(request, slug_project):
         if ('view_counter_end_%s' % url_parameter) in request.session:
             view_counter_end = request.session['view_counter_end_%s' % url_parameter]
             view_counter_end = view_counter_end + 1
-            print("&&&&&&&&&view_counter: ", view_counter)
             request.session['view_counter_end_%s' % url_parameter] = view_counter_end
         else:
             view_counter_end = 1
-            end_time = str(timezone.now())
-            request.session["end_time"] = end_time
-            print("&&&&&&&&&view_counter_end: ", view_counter_end)
+            end_time = timezone.now()
+            end_time_strip = end_time.strftime("%B %d, %Y, %I:%M:%S %p")
+            print("**** end_time_strip: ", end_time_strip)
+            request.session["end_time"] = end_time_strip
             request.session['view_counter_end_%s' % url_parameter] = view_counter_end
     else:
-        end_time = "Not Finish yet"
+        end_time_strip = "Not Finish yet"
 
     print("check_first_qc_ans: ", check_first_qc_ans)
     print("check_trimming_qc_ans: ", check_trimming_qc_ans)
@@ -456,8 +459,8 @@ def current_status(request, slug_project):
         'check_trimming_qc_ans': check_trimming_qc_ans,
         'check_second_qc_ans': check_second_qc_ans,
         'check_read_subtraction_bwa_align_ans': check_read_subtraction_bwa_align_ans,
-        'start_time': start_time,
-        'end_time': end_time,
+        'start_time': start_time_strip,
+        'end_time': end_time_strip,
         'view_counter_end': view_counter_end,
         'view_counter': view_counter,
     })
