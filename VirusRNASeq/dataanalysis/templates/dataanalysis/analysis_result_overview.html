@@ -12,9 +12,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 {% endblock extraheader %}
 
 {% block content %}
+
+
+
 <div class="wrapper">
     <!-- Sidebar -->
     <nav id="sidebar">
@@ -174,8 +178,16 @@
                             </tr>
                         </table>   
                     </div>
+                    <hr>
+                    <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:40px;">
+                        <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Trimmomatic Visualization Report</b></h4>
+                        <div class="w-100" id="piechart_3d" style="height: 300px;">
+                            <!--<img src="/w3images/region.jpg" style="width:100%" alt="Google Regional Map">-->
+                        </div>   
+                    </div>
                 </div>
             </div>
+
         </div>
 
         <div class="pipeline_result" id="read_subtraction_result" style="display: none;">
@@ -261,5 +273,25 @@ $(document).ready(function () {
     }
 
 </script>
+
+<script type="text/javascript">
+ google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([["status", "reads number"], ["Both Surviving", 4794729], ["Forward Only Surviving", 2950615], ["Reverse Only Surviving", 457832], ["Dropped", 1836063]]);
+
+        var options = {
+          'title': 'Trimmomatic Report',
+          is3D: true,
+          chartArea:{width:'60%',height:'75%'},
+          'width':700,
+          'height':300,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+</script>
+
 
 {% endblock content %}

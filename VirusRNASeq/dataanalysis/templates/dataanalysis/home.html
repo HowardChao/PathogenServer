@@ -1,9 +1,10 @@
 {% extends 'base_checkfile.html' %}
-{% load progress_bar %}
+{% comment %} {% load progress_bar %} {% endcomment %}
 {% block extraheader %}
 {% load static %}
 {% load staticfiles %}
-{% progress_bar_media %}
+{% comment %} {% progress_bar_media %} {% endcomment %}
+    <!-- pace animation -->
     <link rel="stylesheet" href="{% static 'dataanalysis/css/home.css' %}">
     {# JQUERY FILE UPLOAD SCRIPTS #}
     <script src="{% static 'js/jquery_file_upload/vendor/jquery.ui.widget.js' %}"></script>
@@ -116,7 +117,13 @@
                                                 <input type="file" name="r2" class="custom-file-input" id="inputGroupFile02">
                                                 <label class="custom-file-label" for="inputGroupFile02">Choose R2 file (*.1.fastq.gz)</label>
                                             </div>
-                                            {% progress_bar %}
+
+
+
+
+
+
+
                                             <br><br>
                                             <button id="paired-end-button" name="upload-paired-end-file" class="btn btn-info btn-block" type="submit">Upload Paired-End Files</button>
                                             <script>
@@ -189,7 +196,16 @@
                                                 <input type="file" name="s1" class="custom-file-input" id="inputGroupFileSin">
                                                 <label class="custom-file-label" for="inputGroupFileSin">Choose R1 file (*.1.fastq.gz)</label>
                                             </div>
-                                            {% progress_bar %}
+
+
+
+
+
+
+
+
+
+
                                             <br><br>
                                             <button id="single-end-button" name="upload-single-end-file" class="btn btn-info btn-block" type="submit">Upload Single-End Files</button>
                                             <script>

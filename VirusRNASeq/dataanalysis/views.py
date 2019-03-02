@@ -449,13 +449,6 @@ def current_status(request, slug_project):
     check_read_subtraction_bwa_align_ans = False
     view_counter_end = "Not Start Counting"
 
-    if view_counter is 1:
-        start_time = timezone.now()
-        start_time_strip = start_time.strftime("%B %d, %Y, %I:%M:%S %p")
-        print("**** start_time_strip: ", start_time_strip)
-        request.session["start_time"] = start_time_strip
-        snake_process = subprocess.Popen(['snakemake', 'targets'], cwd=datadir)
-
     if utils_func.check_first_qc(datadir, sample_name, se_or_pe) is True:
         check_first_qc_ans = True
     if utils_func.check_trimming_qc(datadir, sample_name, se_or_pe) is True:
@@ -465,21 +458,48 @@ def current_status(request, slug_project):
     if utils_func.check_read_subtraction_bwa_align(datadir, sample_name) is True:
         check_read_subtraction_bwa_align_ans = True
 
-    if check_first_qc_ans and check_trimming_qc_ans and check_second_qc_ans and check_read_subtraction_bwa_align_ans:
-        if ('view_counter_end_%s' % url_parameter) in request.session:
-            view_counter_end = request.session['view_counter_end_%s' % url_parameter]
-            view_counter_end = view_counter_end + 1
-            request.session['view_counter_end_%s' % url_parameter] = view_counter_end
-        else:
-            view_counter_end = 1
-            end_time = timezone.now()
-            end_time_strip = end_time.strftime("%B %d, %Y, %I:%M:%S %p")
-            print("**** end_time_strip: ", end_time_strip)
-            request.session["end_time"] = end_time_strip
-            request.session['view_counter_end_%s' % url_parameter] = view_counter_end
-    else:
-        end_time_strip = "Not Finish yet"
+    whole_file_check = check_first_qc_ans and check_trimming_qc_ans and check_second_qc_ans and check_read_subtraction_bwa_align_ans
 
+    print("((((((((((((((:", view_counter)
+    print("((((((((((((((:", view_counter_end)
+    print("((((((((((((((:", start_time_strip)
+    print("((((((((((((((:", end_time_strip)
+    print("((((((((((((((:", whole_file_check)
+
+    if view_counter is 1:
+        start_time = timezone.now()
+        start_time_strip = start_time.strftime("%B %d, %Y, %I:%M:%S %p")
+        print("**** start_time_strip: ", start_time_strip)
+        request.session["start_time"] = start_time_strip
+        snake_process = subprocess.Popen(['snakemake', 'targets'], cwd=datadir)
+    else:
+        if whole_file_check:
+            if ('view_counter_end_%s' % url_parameter) in request.session:
+                view_counter_end = request.session['view_counter_end_%s' % url_parameter]
+                view_counter_end = view_counter_end + 1
+                request.session['view_counter_end_%s' % url_parameter] = view_counter_end
+            else:
+                view_counter_end = 1
+                request.session['view_counter_end_%s' % url_parameter] = view_counter_end
+                end_time = timezone.now()
+                end_time_strip = end_time.strftime("%B %d, %Y, %I:%M:%S %p")
+                print("**** end_time_strip: ", end_time_strip)
+                request.session["end_time"] = end_time_strip
+        else:
+            if end_time_strip != "Not Finish yet":
+                pass
+                # ## This is user delete the files
+                # end_time_strip = "User delete files and run again
+                view_counter = 0
+                end_time_strip = "Not Finish yet"
+                print("**** end_time_strip: ", end_time_strip)
+                request.session["end_time"] = end_time_strip
+                print("&&&&&&&&&view_counter: ", view_counter)
+                request.session['view_counter_%s' % url_parameter] = view_counter
+                del request.session['view_counter_end_%s' % url_parameter]
+            else:
+                ## This is the process is not finish yet
+                end_time_strip = "Not Finish yet"
     print("check_first_qc_ans: ", check_first_qc_ans)
     print("check_trimming_qc_ans: ", check_trimming_qc_ans)
     print("check_second_qc_ans: ", check_second_qc_ans)

@@ -17,14 +17,207 @@
 {% block content %}
 <div class="wrapper">
     <!-- Sidebar -->
-    <div class="container" style="margin-left: 100px; margin-top: 50px; margin-right: 50px">
-        <div class="page-header">
-            <h1 id="timeline">Overview</h1>
+
+
+
+
+
+
+
+    <div class="row">
+        <div class="card bg-light mt-5 mb-3 w-100 p-3" style="margin-left: 100px; margin-top: 50px; margin-right: 50px">
+            <div class="card-header"><p class="h2"><i class="fas fa-search"></i> &nbsp &nbsp Current Status of Pipeline {{ variable.inside_or_outside }} </p></div>
+            <div class="card-body w-100">
+                <div class="container">
+                    <script>
+                        function animation() {
+                            console.log("pressed")
+                        }
+                    </script>
+                    <ul class="timeline" style="margin-top: 30px; margin-left: 30px">
+                        <li class="timeline-inverted">
+                        <div id="quality_control_progress" class="timeline-badge warning" onclick=animation()><i class="fas fa-search fa-3x" style="margin-top: 25px"></i></div>
+                        <div id="quality_control_progress_detail" class="timeline-panel">
+                            <div class="timeline-heading">
+                            <h4 class="timeline-title">Quality Control</h4>
+                            </div>
+                            <div id="quality_control_progress_body" class="timeline-body" style="margin-left:30px">
+                                {% if check_first_qc_ans is False %}
+                                <div class="row">
+                                    <div class=".col-12 .col-md-8">
+                                        <p>check_first_qc_ans:  Running !!!!</p>
+                                    </div>
+                                </div>
+                                {% elif check_first_qc_ans is True %}
+                                <div class="row">
+                                    <div class=".col-12 .col-md-8">
+                                        <p>check_first_qc_ans:  Finished !!!!</p>
+                                    </div>
+                                    <div class=".col-6 .col-md-4">
+                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                            <div class="sa-icon sa-success animate">
+                                                <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                <span class="sa-line sa-long animateSuccessLong"></span>
+                                                <div class="sa-placeholder"></div>
+                                                <div class="sa-fix"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if check_trimming_qc_ans is False %}
+                                <div class="row">
+                                    <div class=".col-12 .col-md-8">
+                                        <p>check_trimming_qc_ans:  Running !!!!</p>
+                                    </div>
+                                </div>
+                                {% elif check_trimming_qc_ans is True %}
+                                <div class="row">
+                                    <div class=".col-12 .col-md-8">
+                                        <p>check_trimming_qc_ans:  Finished !!!!</p>
+                                    </div>
+                                    <div class=".col-6 .col-md-4">
+                                    <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                        <div class="sa-icon sa-success animate">
+                                            <span class="sa-line sa-tip animateSuccessTip"></span>
+                                            <span class="sa-line sa-long animateSuccessLong"></span>
+                                            <div class="sa-placeholder"></div>
+                                            <div class="sa-fix"></div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if check_second_qc_ans is False %}
+                                <div class="row">
+                                    <div class=".col-12 .col-md-8">
+                                        <p>check_second_qc_ans:  Running !!!!</p>
+                                    </div>
+                                </div>
+                                {% elif check_second_qc_ans is True %}
+                                <div class="row">
+                                    <div class=".col-12 .col-md-8">
+                                        <p>check_second_qc_ans:  Finished !!!!</p>
+                                    </div>
+                                    <div class=".col-6 .col-md-4">
+                                    <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                        <div class="sa-icon sa-success animate">
+                                            <span class="sa-line sa-tip animateSuccessTip"></span>
+                                            <span class="sa-line sa-long animateSuccessLong"></span>
+                                            <div class="sa-placeholder"></div>
+                                            <div class="sa-fix"></div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                        </li>
+                
+                        <li class="timeline-inverted">
+                            <div id="read_subtraction_progress" class="timeline-badge warning"><i class="fas fa-cut fa-3x" style="margin-top: 25px"></i></div>
+                            <div id="read_subtraction_progress_detail" class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4 class="timeline-title">Read Subtraction</h4>
+                                </div>
+                                <div id="read_subtraction_progress_body" class="timeline-body" style="margin-left:30px">
+                                    {% if check_read_subtraction_bwa_align_ans is False %}
+                                    <div class="row">
+                                        <div class=".col-12 .col-md-8">
+                                            <p>check_read_subtraction_bwa_align_ans:  Running !!!!</p>
+                                        </div>
+                                    </div>
+                                    {% elif check_read_subtraction_bwa_align_ans is True %}
+                                    <div class="row">
+                                        <div class=".col-12 .col-md-8">
+                                            <p>check_read_subtraction_bwa_align_ans:  Finished !!!!</p>
+                                        </div>
+                                        <div class=".col-6 .col-md-4">
+                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                            <div class="sa-icon sa-success animate">
+                                                <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                <span class="sa-line sa-long animateSuccessLong"></span>
+                                                <div class="sa-placeholder"></div>
+                                                <div class="sa-fix"></div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="timeline-inverted">
+                        <div class="timeline-badge warning"><i class="fas fa-cut fa-3x" style="margin-top: 25px"></i></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                            <h4 class="timeline-title">Testing</h4>
+                            </div>
+                            <div class="timeline-body">
+                            </div>
+                        </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
+    </div>
+
+
+                        <form method="POST" enctype="multipart/form-data" required="True">
+                    {% csrf_token%}
+                    <button type="submit" id="go-to-overview" name="go-to-overview-button" class="btn btn-primary btn-lg btn-block">Block level button</button>
+                    </form>
+
+                    <h1>Start time: {{ start_time }}</h1>
+                    <h1>End time: {{ end_time }}</h1>
+                    <h1>view_counter: {{ view_counter }}</h1>
+                    <h1>view_counter_end: {{ view_counter_end }}</h1>
+
+
+    <script>
+    function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    </script>
+
+    {% if check_first_qc_ans and check_trimming_qc_ans and check_second_qc_ans and check_read_subtraction_bwa_align_ans%}
+    {% else %}
         <script>
-            function animation() {
-                console.log("pressed")
-            }
+        console.log("check_first_qc_ans", "{{check_first_qc_ans}}");
+        console.log("check_trimming_qc_ans", "{{check_trimming_qc_ans}}");
+        console.log("check_second_qc_ans", "{{check_second_qc_ans}}");
+        console.log("check_read_subtraction_bwa_align_ans", "{{check_read_subtraction_bwa_align_ans}}")
+        setTimeout(function(){
+        window.location.reload(1);
+        }, 8000);
+        </script>
+    {% endif %}
+
+
+    {% comment %} <div id="content" class="w-100" >
+        <main role="main" class="container">
+
+            <div class="row">
+                <div id="card_trimmomatic" class="card bg-light mt-5 mb-3 w-100 ">
+                    <div class="card-header"><p class="h2"><i class="fas fa-cut"></i> &nbsp &nbsp OverView {{ variable.inside_or_outside }} </p></div>
+                    <div class="card-body w-100">
+                        <h5 class="card-title">Read with low quality would be deleted</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+
+
+            </div>
+        </main>
+    </div> {% endcomment %}
+</div>
+{% endblock content %}
+
+
 
 {% comment %} $(document).ready(function () {
     $('#quality_control_progress').on('click', function () {
@@ -93,165 +286,3 @@ $(document).ready(function () {
         }
     });
 }); {% endcomment %}
-        </script>
-
-        <form method="POST" enctype="multipart/form-data" required="True">
-        {% csrf_token%}
-        <button type="submit" id="go-to-overview" name="go-to-overview-button" class="btn btn-primary btn-lg btn-block">Block level button</button>
-        </form>
-
-        <h1>Start time: {{ start_time }}</h1>
-        <h1>End time: {{ end_time }}</h1>
-        <h1>view_counter: {{ view_counter }}</h1>
-        <h1>view_counter_end: {{ view_counter_end }}</h1>
-        <ul class="timeline" style="margin-top: 30px;">
-            <li class="timeline-inverted">
-            <div id="quality_control_progress" class="timeline-badge warning" onclick=animation()><i class="fas fa-search fa-3x" style="margin-top: 25px"></i></div>
-            <div id="quality_control_progress_detail" class="timeline-panel">
-                <div class="timeline-heading">
-                <h4 class="timeline-title">Quality Control</h4>
-                </div>
-                <div id="quality_control_progress_body" class="timeline-body">
-                    {% if check_first_qc_ans is False %}
-                        <p>check_first_qc_ans:  Running !!!!</p>
-                    {% elif check_first_qc_ans is True %}
-                    <div class="row">
-                        <div class=".col-12 .col-md-8">
-                            <p>check_first_qc_ans:  Finished !!!!</p>
-                        </div>
-                        <div class=".col-6 .col-md-4">
-                            <div class="check_mark" style="transform: scale(0.35,0.35);">
-                                <div class="sa-icon sa-success animate">
-                                    <span class="sa-line sa-tip animateSuccessTip"></span>
-                                    <span class="sa-line sa-long animateSuccessLong"></span>
-                                    <div class="sa-placeholder"></div>
-                                    <div class="sa-fix"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                    {% if check_trimming_qc_ans is False %}
-                        <p>check_trimming_qc_ans:  Running !!!!</p>
-                    {% elif check_trimming_qc_ans is True %}
-                    <div class="row">
-                        <div class=".col-12 .col-md-8">
-                            <p>check_trimming_qc_ans:  Finished !!!!</p>
-                        </div>
-                        <div class=".col-6 .col-md-4">
-                        <div class="check_mark" style="transform: scale(0.35,0.35);">
-                            <div class="sa-icon sa-success animate">
-                                <span class="sa-line sa-tip animateSuccessTip"></span>
-                                <span class="sa-line sa-long animateSuccessLong"></span>
-                                <div class="sa-placeholder"></div>
-                                <div class="sa-fix"></div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                    {% if check_second_qc_ans is False %}
-                        <p>check_second_qc_ans:  Running !!!!</p>
-                    {% elif check_second_qc_ans is True %}
-                    <div class="row">
-                        <div class=".col-12 .col-md-8">
-                            <p>check_second_qc_ans:  Finished !!!!</p>
-                        </div>
-                        <div class=".col-6 .col-md-4">
-                        <div class="check_mark" style="transform: scale(0.35,0.35);">
-                            <div class="sa-icon sa-success animate">
-                                <span class="sa-line sa-tip animateSuccessTip"></span>
-                                <span class="sa-line sa-long animateSuccessLong"></span>
-                                <div class="sa-placeholder"></div>
-                                <div class="sa-fix"></div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    {% endif %}
-
-                </div>
-            </div>
-            </li>
-    
-            <li class="timeline-inverted">
-                <div id="read_subtraction_progress" class="timeline-badge warning"><i class="fas fa-cut fa-3x" style="margin-top: 25px"></i></div>
-                <div id="read_subtraction_progress_detail" class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">Read Subtraction</h4>
-                    </div>
-                    <div id="read_subtraction_progress_body" class="timeline-body">
-                        {% if check_read_subtraction_bwa_align_ans is False %}
-                            <p>check_read_subtraction_bwa_align_ans:  Running !!!!</p>
-                        {% elif check_read_subtraction_bwa_align_ans is True %}
-                        <div class="row">
-                            <div class=".col-12 .col-md-8">
-                                <p>check_read_subtraction_bwa_align_ans:  Finished !!!!</p>
-                            </div>
-                            <div class=".col-6 .col-md-4">
-                            <div class="check_mark" style="transform: scale(0.35,0.35);">
-                                <div class="sa-icon sa-success animate">
-                                    <span class="sa-line sa-tip animateSuccessTip"></span>
-                                    <span class="sa-line sa-long animateSuccessLong"></span>
-                                    <div class="sa-placeholder"></div>
-                                    <div class="sa-fix"></div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </li>
-
-            <li class="timeline-inverted">
-            <div class="timeline-badge warning"><i class="fas fa-cut fa-3x" style="margin-top: 25px"></i></div>
-            <div class="timeline-panel">
-                <div class="timeline-heading">
-                <h4 class="timeline-title">Testing</h4>
-                </div>
-                <div class="timeline-body">
-                </div>
-            </div>
-            </li>
-        </ul>
-    </div>
-
-    <script>
-    function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-    }
-    </script>
-
-    {% if check_first_qc_ans and check_trimming_qc_ans and check_second_qc_ans and check_read_subtraction_bwa_align_ans%}
-    {% else %}
-        <script>
-        console.log("check_first_qc_ans", "{{check_first_qc_ans}}");
-        console.log("check_trimming_qc_ans", "{{check_trimming_qc_ans}}");
-        console.log("check_second_qc_ans", "{{check_second_qc_ans}}");
-        console.log("check_read_subtraction_bwa_align_ans", "{{check_read_subtraction_bwa_align_ans}}")
-        setTimeout(function(){
-        window.location.reload(1);
-        }, 8000);
-        </script>
-    {% endif %}
-
-
-    {% comment %} <div id="content" class="w-100" >
-        <main role="main" class="container">
-
-            <div class="row">
-                <div id="card_trimmomatic" class="card bg-light mt-5 mb-3 w-100 ">
-                    <div class="card-header"><p class="h2"><i class="fas fa-cut"></i> &nbsp &nbsp OverView {{ variable.inside_or_outside }} </p></div>
-                    <div class="card-body w-100">
-                        <h5 class="card-title">Read with low quality would be deleted</h5>
-                        <p class="card-text"></p>
-                    </div>
-                </div>
-
-
-            </div>
-        </main>
-    </div> {% endcomment %}
-</div>
-{% endblock content %}
