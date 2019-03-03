@@ -45,17 +45,16 @@
                         {% csrf_token %}
                         {{ form|crispy }}
                         <span class="input-group-btn">
-                            <button class="btn btn-outline-info" type="submit">Find Project</button>
+                            <button class="btn btn-success" type="submit">Find Project</button>
                         </span>
                     </form>
                 </div>
                 {% endif %}
             </div>
         </div>
-
-{% comment %} Here will be in dataanalysis page!! {% endcomment %}
     </div>
 </div>
-
+<div style="margin-bottom: 100px">
+</div>
 
 {% endblock content %}

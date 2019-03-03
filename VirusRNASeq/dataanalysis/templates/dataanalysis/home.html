@@ -64,7 +64,7 @@
                     <a class="list-group-item list-group-item-action" href="#list-item-3">3. Read Subtraction</a>
                     <a class="list-group-item list-group-item-action" href="#list-item-4">4. Remove Non-virus Reads</a>
                     <a class="list-group-item list-group-item-action" href="#list-item-5">5. <i>de novo</i> assembly</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-6">6. Realignment to Scaffolds</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-6">6. Scaffolds Realignment</a>
                     <a class="list-group-item list-group-item-action" href="#list-item-7">7. Homology Search</a>
                     <a class="list-group-item list-group-item-action" href="#list-item-8">8. Variant Calling</a>
                 </ul>
@@ -73,20 +73,19 @@
         <div class="col-md-8">
             <div class=" scrollspy-example">
                 <div id="list-item-1" >
-                    <div class="card border-info bg-light mt-5 mb-3 w-100">
-                        <div class="card-header border-info">
+                    <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
+                        <div class="card-header" style="border-color: #afafaf; border-width:4px">
                             <p class="h2"><i class="fas fa-file-upload"></i> &nbsp &nbsp Read Files Upload {{ variable.inside_or_outside }} </p>
                         </div>
                         <div class="card-body w-100">
-                            <h5 class="card-title">VirusRNASeq</h5>
-                            <br>
-                            <p class="card-text">VirusRNASeq can accept:</p>
-                            <p>&nbsp &nbsp 1) .fastq.gz format.</p>
-                            <p>&nbsp &nbsp 2) ≤20.0 GBytes in total.</p>
-                            <p>&nbsp &nbsp 3) Original raw sequenceing read files only.</p>
-                            <p>&nbsp &nbsp 4) Cannot accept fastq.gz paired-end file from SRA.</p>
-                            <p>&nbsp &nbsp 5) Cannot accept nanopore data.</p>
-                            <p>&nbsp &nbsp 6) rules.</p>
+                            <p class="card-text">VirusNGS can only accept:</p>
+                            <p>&nbsp &nbsp 1) &nbsp<b><i>.fastq.gz</i></b> format.</p>
+                            <p>&nbsp &nbsp 2) &nbsp<b>≤10.0 GBytes</b> for each file. </p>
+                            <p>&nbsp &nbsp 3) &nbspOriginal raw sequenceing read files only.</p>
+                            <p>&nbsp &nbsp 4) &nbspCannot accept fastq.gz paired-end file from SRA.</p>
+                            <!-- <p>&nbsp &nbsp 5) Cannot accept nanopore data.</p> -->
+                            <p>&nbsp &nbsp 5) &nbspMust upload data to start the analysis.</p>
+                            <p>&nbsp &nbsp 6) &nbspUsers can delete the uploaded data.</p>
 
                             <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -125,7 +124,7 @@
 
 
                                             <br><br>
-                                            <button id="paired-end-button" name="upload-paired-end-file" class="btn btn-info btn-block" type="submit">Upload Paired-End Files</button>
+                                            <button id="paired-end-button" name="upload-paired-end-file" class="btn btn-success btn-block" type="submit">Upload Paired-End Files</button>
                                             <script>
                                             // Change color would be done in the future !!! (It is not working right now!)
                                                 $('#inputGroupFile01').on('change',function(){
@@ -137,10 +136,10 @@
                                                     reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz)$/i
                                                     if (cleanFileName.match(reg_exp_1)) {
                                                         console.log("Change color to green");
-                                                        $(this).css("background-color", "rgba(175, 201, 99, 0.2)");
+                                                        $('#inputGroupFile01').css("background-color", "#97dbac");
                                                     } else {
                                                         console.log("Change color to red");
-                                                        $(event.delegateTarget).css("background-color", "rgba(175, 201, 99, 0.2)");
+                                                        $('#inputGroupFile01').css("background-color", "#db9797");
                                                     }
                                                 })
 
@@ -207,7 +206,7 @@
 
 
                                             <br><br>
-                                            <button id="single-end-button" name="upload-single-end-file" class="btn btn-info btn-block" type="submit">Upload Single-End Files</button>
+                                            <button id="single-end-button" name="upload-single-end-file" class="btn btn-success btn-block" type="submit">Upload Single-End Files</button>
                                             <script>
                                                 $('#inputGroupFileSin').on('change',function(){
                                                     //get the file name
@@ -288,8 +287,8 @@
                   {% csrf_token %}
                   <div id="start_analysis_wrapper">
                     <div id="list-item-2">
-                        <div class="card border-info bg-light mt-5 mb-3 w-100">
-                            <div class="card-header border-info"><p class="h2"><i class="fas fa-cut"></i> &nbsp &nbsp Quality Control  {{ variable.inside_or_outside }} </p></div>
+                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-cut"></i> &nbsp &nbsp Quality Control  {{ variable.inside_or_outside }} </p></div>
                             <div class="card-body w-100">
                                 <p class="card-text">This step is to ensure that quality meets the quality requirement.
                                    <strong>FastQC</strong> is used to acquire quality information. <strong>Trimmomatic</strong> is used to remove adapter and trim low quality parts of reads
@@ -314,7 +313,7 @@
                                 <p class="card-text" style="margin-left:40px;"><strong>Trimmomatic</strong> would be run. You can set your own variable.</p>
                                 <div class="trimmomatic" style="margin-left:40px;">
                                   <div class="row trimmomatic_adapter">
-                                    <label class="col-md-4 control-label" for="trimmomatic_illuminaclip">Target Adapter</label>
+                                    <label class="col-md-4 control-label" for="trimmomatic_illuminaclip"><i class="far fa-dot-circle"></i>&nbsp&nbspTarget Adapter</label>
                                     <div class="col-md-6">
                                       <select class="custom-select my-1 mr-sm-2" name="trimmomatic_illuminaclip" id="trimmomatic_illuminaclip">
                                         <option value="TruSeq2-PE.fa">TruSeq2-PE.fa</option>
@@ -326,7 +325,7 @@
                                   </div>
                                   <div class="trimmomatic_slidingwindow">
                                     <div class="row trimmomatic_slidingwindow_size_1">
-                                      <label class="col-md-4" for="trimmomatic_slidingwindow_size">Sliding Window Size</label>
+                                      <label class="col-md-4" for="trimmomatic_slidingwindow_size"><i class="far fa-dot-circle"></i>&nbsp&nbspSliding Window Size</label>
                                       <div class="col-md-6">
                                         <select class="custom-select my-1 mr-sm-2" name="trimmomatic_slidingwindow_size" id="trimmomatic_slidingwindow_size">
                                           <option value="3">3</option>
@@ -347,7 +346,7 @@
                                       </div>
                                     </div>
                                     <div class="row trimmomatic_slidingwindow_quality_2">
-                                      <label class="col-md-4" for="trimmomatic_slidingwindow_quality">Sliding Window Quality</label>
+                                      <label class="col-md-4" for="trimmomatic_slidingwindow_quality"><i class="far fa-dot-circle"></i>&nbsp&nbspSliding Window Quality</label>
                                       <div class="col-md-6">
                                         <select class="custom-select my-1 mr-sm-2" name="trimmomatic_slidingwindow_quality" id="trimmomatic_slidingwindow_quality">
                                           <option value="6">6</option>
@@ -391,7 +390,7 @@
 
                                   </div>
                                   <div class="row trimmomatic_leading">
-                                  <label class="col-md-4" for="trimmomatic_leading_quality">Leading Quality</label>
+                                  <label class="col-md-4" for="trimmomatic_leading_quality"><i class="far fa-dot-circle"></i>&nbsp&nbspLeading Quality</label>
                                   <div class="col-md-6">
                                     <select class="custom-select my-1 mr-sm-2" name="trimmomatic_leading_quality" id="trimmomatic_leading_quality">
                                       <option value="2">2</option>
@@ -418,7 +417,7 @@
 
                                   </div>
                                   <div class="row trimmomatic_trailing">
-                                  <label class="col-md-4" for="trimmomatic_trailing_quality">Trailing Quality</label>
+                                  <label class="col-md-4" for="trimmomatic_trailing_quality"><i class="far fa-dot-circle"></i>&nbsp&nbspTrailing Quality</label>
                                   <div class="col-md-6">
                                     <select class="custom-select my-1 mr-sm-2" name="trimmomatic_trailing_quality" id="trimmomatic_trailing_quality">
                                       <option value="2">2</option>
@@ -444,7 +443,7 @@
                                   </div>
                                   </div>
                                   <div class="row trimmomatic_minimum_length">
-                                  <label class="col-md-4" for="trimmomatic_minlen">Minimum Length</label>
+                                  <label class="col-md-4" for="trimmomatic_minlen"><i class="far fa-dot-circle"></i>&nbsp&nbspMinimum Length</label>
                                   <div class="col-md-6">
                                     <select class="custom-select my-1 mr-sm-2" name="trimmomatic_minlen"  id="trimmomatic_minlen">
                                         <option value="15">15</option>
@@ -487,7 +486,7 @@
                                   </div>
                                   </div>
                                 </div>
-                                <br><br>
+                                <br>
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                       <div class="col-auto">
@@ -496,16 +495,15 @@
                                     <div class="col"><hr></div>
                                 </div>
                                 <p class="card-text" style="margin-left:40px;"><strong>FastqQC</strong> and <strong>MultiQC</strong> would be run.</p>
-                                <br>
                             </div>
                         </div>
                     </div>
                     <div id="list-item-3">
-                        <div class="card bg-light border-info mt-5 mb-3 w-100">
-                            <div class="card-header border-info"><p class="h2"><i class="fas fa-search-minus"></i> &nbsp &nbsp Read Subtraction {{ variable.inside_or_outside }} </p></div>
+                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-minus"></i> &nbsp &nbsp Read Subtraction {{ variable.inside_or_outside }} </p></div>
                             <div class="card-body w-100">
+                                <p class="card-text">Reads subtraction is aligned against ribosomal RNAs, bacteria genome, and selected host genome. The tools used in this step is <b>BWA-MEM</b></p>
                                 <br>
-                                <p class="card-text">Please enter your 'Analysis code' below. After you press the "Find  Project" button, you can go into your project page!</p>
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                       <div class="col-auto">
@@ -513,13 +511,20 @@
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
+                                <p class="card-text" style="margin-left:40px;"><strong>rRNASs</strong> reads would be removed.</p>
+                                <br>
+
+
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                       <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp Remove Bacteria genomes </h5>
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp Remove Bacteria Genomes </h5>
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
+                                <p class="card-text" style="margin-left:40px;"><strong>Bacteria</strong> reads would be removed.</p>
+                                <br>
+
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                       <div class="col-auto">
@@ -527,38 +532,120 @@
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
-                                {% comment %} <p>Upload files:</p>
-                                <ul>
-                                    {% for obj in documents %}
-                                        <li>
-                                            <a href="{{ obj.document.url }}">{{ obj.document.name }}</a>
-                                            <small>(Upload at: {{ obj.uploaded_at }})</small>
-                                        </li>
-                                    {% endfor %}
-                                </ul> {% endcomment %}
+                                <div class="reads-subtraction-host" style="margin-left:40px;">
+                                  <div class="row">
+                                    <label class="col-md-4 control-label" for="reads_subtraction_host"><i class="far fa-dot-circle"></i>&nbsp&nbsp Select Target Host</label>
+                                    <div class="col-md-6">
+                                      <select class="custom-select my-1 mr-sm-2" name="reads_subtraction_host" id="reads_subtraction_host">
+                                        <option value="bovine">bovine (Bos taurus)</option>
+                                        <option value="chicken">chicken (Gallus gallus)</option>
+                                        <option value="dog">dog (Canis lupus familiaris)</option>
+                                        <option value="dog">dog (Canis lupus familiaris)</option>
+                                        <option selected="selected" value="human">human (Homo sapiens)</option>
+                                        <option value="mosquito">mosquito (Aedes aegypti)</option>
+                                        <option value="mouse">mouse (Mus musculus)</option>
+                                        <option value="pig">pig (Sus scrofa)</option>
+                                        <option value="tick">tick (Ixodes scapularis)</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                     <div id="list-item-4">
-                        <div class="card bg-light border-info mt-5 mb-3 w-100">
-                            <div class="card-header border-info"><p class="h2"><i class="fas fa-search"></i> &nbsp &nbsp Remove Non-virus Reads </p></div>
+                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-search-minus"></i> &nbsp &nbsp Remove Non-virus Reads </p></div>
                             <div class="card-body w-100">
-                                <h5 class="card-title">Check the progress of your analysis project by analysis code</h5>
+                                <p class="card-text">The subtracted reads from the previous step would be assembled with <b>IDBA-UD</b>. Non-virus reads would be filtered with <b>megablast</b> and <b>RAPSearch</b>. </p>
                                 <br>
-                                <p class="card-text">Please enter your 'Analysis code' below. After you press the "Find  Project" button, you can go into your project page!</p>
-                                {% comment %} <p>Upload files:</p>
-                                <ul>
-                                    {% for obj in documents %}
-                                        <li>
-                                            <a href="{{ obj.document.url }}">{{ obj.document.name }}</a>
-                                            <small>(Upload at: {{ obj.uploaded_at }})</small>
-                                        </li>
-                                    {% endfor %}
-                                </ul> {% endcomment %}
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp Remove Non-Virus Reads (first <i>de novo</i> assembly)</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <p class="card-text" style="margin-left:40px;">search against the customized viral nucleotide/protein sequences from NCBI nt/nr database.</p>
                             </div>
                         </div>
                     </div>
-                    <button id="start-analysis-button" name="start-analysis" type="submit" class="btn btn-primary btn-lg btn-block">Start Analysis</button>
+
+                    <div id="list-item-5">
+                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-align-right"></i> &nbsp &nbsp <b><i>De novo</i></b> assembly</p></div>
+                            <div class="card-body w-100">
+                                <p class="card-text">The subtracted reads from the previous step would be assembled with <b>IDBA-UD</b>. Non-virus reads would be filtered with <b>megablast</b> and <b>RAPSearch</b>. </p>
+                                <br>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp Remove Non-Virus Reads (first <i>de novo</i> assembly)</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <p class="card-text" style="margin-left:40px;">search against the customized viral nucleotide/protein sequences from NCBI nt/nr database.</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="list-item-6">
+                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-reply"></i> &nbsp &nbsp Scaffolds Realignment</p></div>
+                            <div class="card-body w-100">
+                                <p class="card-text">The subtracted reads from the previous step would be assembled with <b>IDBA-UD</b>. Non-virus reads would be filtered with <b>megablast</b> and <b>RAPSearch</b>. </p>
+                                <br>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp Remove Non-Virus Reads (first <i>de novo</i> assembly)</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <p class="card-text" style="margin-left:40px;">search against the customized viral nucleotide/protein sequences from NCBI nt/nr database.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="list-item-7">
+                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-database"></i> &nbsp &nbsp homology Search</p></div>
+                            <div class="card-body w-100">
+                                <p class="card-text">The subtracted reads from the previous step would be assembled with <b>IDBA-UD</b>. Non-virus reads would be filtered with <b>megablast</b> and <b>RAPSearch</b>. </p>
+                                <br>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp Remove Non-Virus Reads (first <i>de novo</i> assembly)</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <p class="card-text" style="margin-left:40px;">search against the customized viral nucleotide/protein sequences from NCBI nt/nr database.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="list-item-7">
+                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-dna"></i>  &nbsp &nbsp Variant Calling</p></div>
+                            <div class="card-body w-100">
+                                <p class="card-text">The subtracted reads from the previous step would be assembled with <b>IDBA-UD</b>. Non-virus reads would be filtered with <b>megablast</b> and <b>RAPSearch</b>. </p>
+                                <br>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp Remove Non-Virus Reads (first <i>de novo</i> assembly)</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <p class="card-text" style="margin-left:40px;">search against the customized viral nucleotide/protein sequences from NCBI nt/nr database.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="start-analysis-button" name="start-analysis" type="submit" class="btn btn-success btn-lg btn-block" style="margin-bottom: 100px">Start Analysis</button>
                     <!-- <button id="paired-end-button" name="upload-paired-end-file" class="btn btn-info btn-block" type="submit">Upload Paired-End Files</button> -->
                   </div>
                   <script>
@@ -576,15 +663,13 @@
                             return false;
                         }
                     })
-                   
+
                   </script>
                 </form>
 
 
             </div>
         </div>
-
-
     </div>
 </main>
 

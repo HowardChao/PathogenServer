@@ -33,16 +33,16 @@
                 <a href="#" onclick="loading(this.name)" name="quality_control_result"><i class="fas fa-search"></i> &nbsp Quality Control</a>
             </li>
             <li>
-                <a href="#" onclick="loading(this.name)" name="read_subtraction_result"><i class="fas fa-cut"></i> &nbsp Read Subtraction</a>
+                <a href="#" onclick="loading(this.name)" name="read_subtraction_result"><i class="fas fa-minus"></i>  &nbsp Read Subtraction</a>
             </li>
             <li>
-                <a href="#" onclick="loading(this.name)" name="non-virus_removal_result"><i class="fas fa-cut"></i> &nbsp Non-virus Removal</a>
+                <a href="#" onclick="loading(this.name)" name="non-virus_removal_result"><i class="fas fa-search-minus"></i> &nbsp Non-virus Removal</a>
             </li>
             <li>
                 <a href="#"><i class="fas fa-align-right"></i> &nbsp <i>de novo</i> Assembly</a>
             </li>
             <li>
-                <a href="#"><i class="fas fa-align-right"></i> &nbsp Reads Realignment</a>
+                <a href="#"><i class="fas fa-reply"></i> &nbsp Reads Realignment</a>
             </li>
             <li>
                 <a href="#"><i class="fas fa-database"></i> &nbsp Homology Search</a>
@@ -61,7 +61,7 @@
             </button>
 
         </div>
-        <div class="pipeline_result" id="overview_page_result">
+        <div class="pipeline_result" id="overview_page_result" >
             <div class="w3-main" style="margin-left:130px; margin-right:130px;">
                 <header class="w3-container" style="padding-top:22px;">
                     <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-file-contract"></i> &nbsp<strong>Overview</strong></h1>
@@ -91,7 +91,7 @@
                             </tr>
                             <tr>
                                 <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Submission Time :</b></td>
-                                <td style="font-family: Verdana, Geneva, sans-serif">{{start_time}}</td>
+                                <td style="font-family: Verdana, Geneva, sans-serif">{{submission_time}}</td>
                             </tr>
                             <tr>
                                 <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Start Time :</b></td>
@@ -112,6 +112,8 @@
                                 </td>
                             </tr>
                         </table>
+                        <div style="margin-bottom: 100px">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -153,7 +155,7 @@
                                 </td>
                                 {% comment %} <td style="font-family: Verdana, Geneva, sans-serif">{{fastqc_datadir_pre_r2}}</td> {% endcomment %}
                             </tr>
-                        </table>   
+                        </table>
                     </div>
                     <hr>
                     <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:40px;">
@@ -176,14 +178,16 @@
                                 </td>
                                 {% comment %} <td style="font-family: Verdana, Geneva, sans-serif">{{fastqc_datadir_pre_r2}}</td> {% endcomment %}
                             </tr>
-                        </table>   
+                        </table>
                     </div>
                     <hr>
                     <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:40px;">
                         <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Trimmomatic Visualization Report</b></h4>
                         <div class="w-100" id="piechart_3d" style="height: 300px;">
                             <!--<img src="/w3images/region.jpg" style="width:100%" alt="Google Regional Map">-->
-                        </div>   
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 100px">
                     </div>
                 </div>
             </div>
@@ -192,19 +196,14 @@
 
         <div class="pipeline_result" id="read_subtraction_result" style="display: none;">
             <h2>read_subtraction_result</h2>
+            <div style="margin-bottom: 100px">
+            </div>
         </div>
 
         <div class="pipeline_result" id="non-virus_removal_result" style="display: none;">
             <h2>non-virus_removal_result</h2>
-        </div>
-
-
-        <div class="w3-main" style="margin-top:50px;">
-        <div class="w3-container w3-dark-grey w3-padding-32">
-            <div class="w3-row">
-            <p style="color: #e2e2e2;"><center style="font-size:15px;"><i>Developed by Bioinformatics and Biostatistics Core Lab, Center of Genomic Medicine, National Taiwan University.</i></center></p>
+            <div style="margin-bottom: 100px">
             </div>
-        </div>
         </div>
     </div>
 
@@ -213,7 +212,7 @@
 
 
 
-    {% comment %} 
+    {% comment %}
     This is the place to reload the page base on the current status
     {% if check_first_qc_ans and check_trimming_qc_ans and check_second_qc_ans and check_read_subtraction_bwa_align_ans%}
     {% else %}
@@ -269,7 +268,7 @@ $(document).ready(function () {
     {
         $(".pipeline_result").hide();
         $("#"+clicked_name).show();
-        
+
     }
 
 </script>

@@ -48,10 +48,6 @@ def data_analysis_home(request):
     if request.method == 'POST' and request.FILES['myfile1']:
         project_name = "None"
         analysis_code = "None"
-        # upload_dir = os.path.join(TMP_DIR, tmp_project_id, "reads")
-        # print("upload_dir id: ", upload_dir)
-        # if not os.path.exists(upload_dir):
-        #     os.makedirs(upload_dir)
         myfile = request.FILES['myfile1']
         myfile2 = request.FILES['myfile2']
         fs = FileSystemStorage()
@@ -69,8 +65,6 @@ def data_analysis_home(request):
 
 
 def whole_dataanalysis(request, slug_project):
-    print("Inside data_analysis_home !!!")
-
     ## Check if file exist !!
     # os.listdir(settings)
     uploaded_file_url_pe_1 = None
@@ -95,37 +89,23 @@ def whole_dataanalysis(request, slug_project):
         base_dir = os.path.join(settings.MEDIA_ROOT,
                                 'tmp', project_name + '_' + email + '_' + analysis_code)
         if 'upload-paired-end-file' in request.POST:
-            print("    * Inside upload-paired-end-file")
             myfile1 = request.FILES['r1']
             myfile2 = request.FILES['r2']
             fs = FileSystemStorage()
-            print("Checker path: ", os.path.join(base_dir, 'pe'))
-            print("Checker path: ", os.path.join(base_dir, 'se'))
+            # Removing files
             if fs.exists(os.path.join(base_dir, 'pe')):
-                print("Removing files")
                 shutil.rmtree(os.path.join(base_dir, "pe"))
             if fs.exists(os.path.join(base_dir, "se")):
-                print("Removing files")
                 shutil.rmtree(os.path.join(base_dir, "se"))
             ## Found split sample name
             sample_name = os.path.splitext(os.path.splitext(
                 os.path.splitext(myfile1.name)[0])[0])[0]
             request.session["sample_name"] = sample_name
-            print("pe_sample_name: ", sample_name)
             request.session["se_or_pe"] = "pe"
-            print("se_or_pe: ", "pe")
             filename1 = fs.save(os.path.join(base_dir, "pe", myfile1.name), myfile1)
             filename2 = fs.save(os.path.join(base_dir, "pe", myfile2.name), myfile2)
             uploaded_file_url_pe_1 = fs.url(filename1)
             uploaded_file_url_pe_2 = fs.url(filename2)
-            print("uploaded_file_url_pe_1: ", uploaded_file_url_pe_1)
-            print("uploaded_file_url_pe_2: ", uploaded_file_url_pe_2)
-            # return HttpResponseRedirect(request.path_info, {
-            #     'paired_end': check_files[0],
-            #     'single_end': check_files[1],
-            #     'uploaded_file_url_1': uploaded_file_url_1,
-            #     'uploaded_file_url_2': uploaded_file_url_2,
-            # })
             return render(request, "dataanalysis/home.html", {
                 'which': "paired-end",
                 'project_name': project_name,
@@ -137,26 +117,19 @@ def whole_dataanalysis(request, slug_project):
             })
 
         elif 'upload-single-end-file' in request.POST:
-            print("    * Inside upload-single-end-file")
             myfile1 = request.FILES['s1']
             fs = FileSystemStorage()
-            print("Checker path: ", os.path.join(base_dir, "pe"))
-            print("Checker path: ", os.path.join(base_dir, "se"))
+            # Removing pe or se dir
             if fs.exists(os.path.join(base_dir, "pe")):
-                print("Removing files")
                 shutil.rmtree(os.path.join(base_dir, "pe"))
             if fs.exists(os.path.join(base_dir, "se")):
-                print("Removing files")
                 shutil.rmtree(os.path.join(base_dir, "se"))
             ## Found split sample name
             sample_name = os.path.splitext(os.path.splitext(myfile1.name)[0])[0]
             request.session["sample_name"] = sample_name
-            print("se_sample_name: ", sample_name)
             request.session["se_or_pe"] = "se"
-            print("se_or_pe: ", "se")
             filename1 = fs.save(os.path.join(base_dir, "se", myfile1.name), myfile1)
             uploaded_file_url_se = fs.url(filename1)
-            print("uploaded_file_url_se: ", uploaded_file_url_se)
             return render(request, "dataanalysis/home.html", {
                 'which': "single-end",
                 'project_name': project_name,
@@ -168,12 +141,8 @@ def whole_dataanalysis(request, slug_project):
             })
 
         elif 'remove-paired-end-file' in request.POST:
-            print("    * Inside remove-paired-end-file")
             fs = FileSystemStorage()
-            print("Checker path: ", os.path.join(base_dir, "pe"))
-            print("Checker path: ", os.path.join(base_dir, "se"))
             if fs.exists(base_dir):
-                print("Removing files")
                 shutil.rmtree(base_dir)
             return render(request, "dataanalysis/home.html", {
                 'which': "single-end",
@@ -186,12 +155,8 @@ def whole_dataanalysis(request, slug_project):
             })
 
         elif 'remove-single-end-file' in request.POST:
-            print('    * Inside remove-single-end-file')
             fs = FileSystemStorage()
-            print("Checker path: ", os.path.join(base_dir, "pe"))
-            print("Checker path: ", os.path.join(base_dir, "se"))
             if fs.exists(base_dir):
-                print("Removing files")
                 shutil.rmtree(base_dir)
             return render(request, "dataanalysis/home.html", {
                 'which': "single-end",
@@ -204,7 +169,6 @@ def whole_dataanalysis(request, slug_project):
             })
 
         elif 'start-analysis' in request.POST:
-            print('    * Inside start-analysis')
             prefix_dir = "/home/bioinfo/Virus/"
             ### Trimmomatics
             trimmomatic_jar = os.path.join(prefix_dir, "tools/Trimmomatic/trimmomatic-0.38.jar")
@@ -224,8 +188,9 @@ def whole_dataanalysis(request, slug_project):
             window_quality = request.POST.get('trimmomatic_slidingwindow_quality')
 
             ### BWA
-            bwa_ref = os.path.join(prefix_dir, "host_ref")
+            species_dir = "homo_sapiens"
             bwa_species = "homo_sapiens.fa"
+            bwa_ref = os.path.join(prefix_dir, "host_ref", species_dir)
             host_ref = os.path.join(bwa_ref, bwa_species)
 
             config_file_path = os.path.join(datadir, 'config.yaml')
@@ -259,7 +224,6 @@ def whole_dataanalysis(request, slug_project):
                     host_ref=host_ref,
                 )
             )
-            print("Data result: ", data)
             with open(config_file_path, 'w') as ymlfile:
                 yaml.dump(data, ymlfile, default_flow_style=False)
             shutil.copyfile(snakemake_file, destination_snakemake_file)
@@ -268,20 +232,12 @@ def whole_dataanalysis(request, slug_project):
             for name in ['start', 'end']:
                 get_time_script = os.path.join(
                     prefix_dir, "VirusRNASeq/VirusRNASeq/script/get_" + name + "_time.py")
-                print("get_time_script: ", get_time_script)
                 destination_get_time_script = os.path.join(
                     datadir, 'script/get_' + name + '_time.py')
-                print("destination_get_time_script: ", destination_get_time_script)
                 shutil.copyfile(get_time_script, destination_get_time_script)
             # subprocess.call(['snakemake'], shell=True, cwd=datadir)
-            print(subprocess.call(['pwd']))
-            print((reverse('dataanalysis_result_current_status', kwargs={
-                  'slug_project': url_parameter})))
             return redirect((reverse('dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
-            # return render(request, "dataanalysis/analysis_result.html")
-
-
     return render(request, "dataanalysis/home.html", {
         'which': "normal",
         'project_name': project_name,
@@ -382,8 +338,6 @@ def show_result(request, slug_project):
         print("email: ", email)
         request.session["email"] = email
     url_parameter = project_name + '_' + email.split("@")[0]
-
-
     return render(request, "dataanalysis/analysis_result.html", {
         'project_name': project_name,
         'email': email,
@@ -410,25 +364,16 @@ def current_status(request, slug_project):
     if os.path.exists(submission_time_file):
         f_submission = open(submission_time_file, "r")
         submission_time_strip = f_submission.read()
-
-    # if 'end_time' in request.session:
-    #     end_time_strip = request.session['end_time']
-    #     print("end_time: ", end_time_strip)
-    #     request.session["end_time"] = end_time_strip
     url_parameter = project_name + '_' + email.split("@")[0]
-
     if ('view_counter_%s' % url_parameter) in request.session:
         view_counter = request.session['view_counter_%s' % url_parameter]
         view_counter = view_counter + 1
-        print("&&&&&&&&&view_counter: ", view_counter)
         request.session['view_counter_%s' % url_parameter] = view_counter
     else:
         view_counter = 1
-        print("&&&&&&&&&view_counter: ", view_counter)
         request.session['view_counter_%s' % url_parameter] = view_counter
     if request.method == 'POST':
         if 'go-to-overview-button' in request.POST:
-            print("clicked button")
             return redirect((reverse('dataanalysis_result_overview', kwargs={
                 'slug_project': url_parameter})))
 
@@ -462,26 +407,15 @@ def current_status(request, slug_project):
     if utils_func.check_read_subtraction_bwa_align(datadir, sample_name) is True:
         check_read_subtraction_bwa_align_ans = True
     whole_file_check = check_first_qc_ans and check_trimming_qc_ans and check_second_qc_ans and check_read_subtraction_bwa_align_ans
-    print("Whether first time: ", (view_counter is 1) or (
-        check_first_qc_ans is False and check_trimming_qc_ans is False and check_second_qc_ans is False and check_read_subtraction_bwa_align_ans is False) or submission_time_strip == 'no submission time')
     if ((view_counter is 1) or (check_first_qc_ans is False and check_trimming_qc_ans is False and check_second_qc_ans is False and check_read_subtraction_bwa_align_ans is False) or submission_time_strip == 'no submission time'):
         # This is the first time to run (with the submission time stamp)
         submission_time = timezone.now()
         submission_time_strip = submission_time.strftime("%B %d, %Y, %I:%M:%S %p")
-        print("**** submission_time_strip: ", submission_time_strip)
         f_submission = open(submission_time_file, 'w')
         f_submission.writelines(submission_time_strip)
         f_submission.close()
         # request.session["submission_time"] = submission_time_strip
         subprocess.Popen(['snakemake', 'targets'], cwd=datadir)
-
-    print("((((((((((((((:", view_counter)
-    # print("((((((((((((((:", view_counter_end)
-    print("((((((((((((((:", submission_time_strip)
-    # print("((((((((((((((:", end_time_strip)
-    # print("((((((((((((((:", whole_file_check)
-
-
     # else:
     #     if whole_file_check:
     #         if ('view_counter_end_%s' % url_parameter) in request.session:
@@ -563,15 +497,11 @@ def Check_Uploaded_File_Name(project_name, email, analysis_code):
     upload_dir_pe = os.path.join(datadir, "pe")
     if os.path.exists(upload_dir_pe):
         pe_files = os.listdir(upload_dir_pe)
-        print(pe_files)
         for file_check in pe_files:
-            print(file_check)
             if ".R1.fastq" in file_check:
                 uploaded_file_url_pe_1 = os.path.join(datadir, "pe", file_check)
             if ".R2.fastq" in file_check:
                 uploaded_file_url_pe_2 = os.path.join(datadir, "pe", file_check)
-        print("uploaded_file_url_pe_1: ", uploaded_file_url_pe_1)
-        print("uploaded_file_url_pe_2: ", uploaded_file_url_pe_2)
         # uploaded_file_url_pe_1 = os.path.join(upload_dir_pe, pe_files[0])
         # uploaded_file_url_pe_2 = os.path.join(upload_dir_pe, pe_files[1])
     upload_dir_se = os.path.join(datadir, "se")

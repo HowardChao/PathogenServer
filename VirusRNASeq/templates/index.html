@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="jumbotron" style="background-image: url('/static/background.png');">
-    <h1 class="display-4">Welcome to VirusRNASeq</h1>
+    <h1 class="display-4"><b>Welcome to VirusNGS</b></h1>
     <h3 class="lead">Virus detection and integration site discovery</h3>
     <hr />
     Designed and maintained by
@@ -11,6 +11,7 @@
     <br/>
     <!--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>style="background:#0044BB" -->
 </div>
+<img src="{% static "images/workflow.png" %}" alt="My image" style="width:100%">
 
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -37,5 +38,7 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
+</div>
+<div style="margin-bottom: 100px">
 </div>
 {% endblock content %}

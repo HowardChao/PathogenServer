@@ -34,6 +34,7 @@ rule targets:
         #     config["datadir"], "Read_Subtraction", "bwa", "sam", "{sample}.sam"), sample=samples),
         expand(os.path.join(
             "QC", "post", "{sample}_multiqc.html"), sample=samples),
+        expand(os.path.join(config["datadir"], "Read_Subtraction", "bwa", "sam","{sample}.sam"), sample=samples),
 
 # rule first_fastqc_target:
 #     input:
@@ -53,7 +54,7 @@ rule get_start_time:
     priority: 100
     shell:
         '''
-        python script/get_start_time.py 
+        python script/get_start_time.py
         '''
 
 rule first_fastqc:
@@ -70,7 +71,7 @@ rule first_fastqc:
         log = os.path.join("logs", "fastqc_pre", "{sample}.log")
     shell:
         """
-        {config[fastqc][fastqc_command]} {input.r1} {input.r2} --outdir=QC/pre 
+        {config[fastqc][fastqc_command]} {input.r1} {input.r2} --outdir=QC/pre
         """
 
 rule first_multiqc:
@@ -183,20 +184,21 @@ rule second_multiqc:
         multiqc --force {params.directory} -n {params.filename}
         """
 
-# rule read_subtraction_bwa_mem:
-#     input:
-#         trimmed_r1 = os.path.join("trimmed_paired", "{sample}_r1_paired.fastq.gz"),
-#         trimmed_r2 = os.path.join("trimmed_paired", "{sample}_r2_paired.fastq.gz"),
-#         host_ref = config["bwa"]["host_ref"],
-#     output:
-#         bwa_sam = os.path.join(config["datadir"], "Read_Subtraction", "bwa", "sam","{sample}.sam"),
-#     log:
-#         log = os.path.join("logs", "bwa_mem", "{sample}.log"),
-#     threads: 8
-#     shell:
-#         """
-#         bwa mem {input.host_ref} {input.trimmed_r1} {input.trimmed_r2} > {output.bwa_sam}
-#         """
+rule read_subtraction_bwa_mem:
+    input:
+        trimmed_r1 = os.path.join("trimmed_paired", "{sample}_r1_paired.fastq.gz"),
+        trimmed_r2 = os.path.join("trimmed_paired", "{sample}_r2_paired.fastq.gz"),
+        host_ref = config["bwa"]["host_ref"],
+    output:
+        bwa_sam = os.path.join(config["datadir"], "Read_Subtraction", "bwa", "sam","{sample}.sam"),
+    log:
+        log = os.path.join("logs", "bwa_mem", "{sample}.log"),
+    priority: 94,
+    threads: 10
+    shell:
+        """
+        bwa mem -t {threads} {input.host_ref} {input.trimmed_r1} {input.trimmed_r2} > {output.bwa_sam}
+        """
 
 
 rule get_end_time:
@@ -205,7 +207,7 @@ rule get_end_time:
     priority: 0,
     shell:
         '''
-        python script/get_end_time.py 
+        python script/get_end_time.py
         '''
 
 #------------ include rules -----------

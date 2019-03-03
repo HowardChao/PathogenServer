@@ -142,7 +142,7 @@ def check_read_subtraction_bwa_align(datadir, sample_name):
     if bwa_read_subtraction_sam:
         return True
     else:
-        return True
+        return False
 
 
 def get_pe_sample_name(se_or_pe, project_name, email, analysis_code):
@@ -155,5 +155,3 @@ def get_pe_sample_name(se_or_pe, project_name, email, analysis_code):
         return sample_name
     elif se_or_pe == 'se':
         pass
-
-    
