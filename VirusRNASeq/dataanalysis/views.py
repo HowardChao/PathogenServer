@@ -205,7 +205,7 @@ def whole_dataanalysis(request, slug_project):
 
         elif 'start-analysis' in request.POST:
             print('    * Inside start-analysis')
-            prefix_dir = "/Users/chaokuan-hao/Documents/bioinformatics/Virus"
+            prefix_dir = "/home/bioinfo/Virus/"
             ### Trimmomatics
             trimmomatic_jar = os.path.join(prefix_dir, "tools/Trimmomatic/trimmomatic-0.38.jar")
             datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
@@ -310,18 +310,29 @@ def show_result_overview(request, slug_project):
         se_or_pe = request.session['se_or_pe']
         print("se_or_pe: ", se_or_pe)
         request.session["se_or_pe"] = se_or_pe
-    if 'submission_time' in request.session:
-        submission_time = request.session['submission_time']
-        print("submission_time: ", submission_time)
-        request.session["submission_time"] = submission_time
-    if 'end_time' in request.session:
-        end_time = request.session['end_time']
-        print("end_time: ", end_time)
-        request.session["end_time"] = end_time
-
+    # Get submission time
+    submission_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp',
+                                        project_name + '_' + email + '_' + analysis_code, 'submision_time.txt')
+    submission_time_strip = 'no submission time'
+    if os.path.exists(submission_time_file):
+        f_submission = open(submission_time_file, "r")
+        submission_time_strip = f_submission.read()
+    # Get start time
+    start_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp',
+                                   project_name + '_' + email + '_' + analysis_code, 'start_time.txt')
+    start_time_strip = 'no start time'
+    if os.path.exists(start_time_file):
+        f_start = open(start_time_file, "r")
+        start_time_strip = f_start.read()
+    # Get end time
+    end_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp',
+                                   project_name + '_' + email + '_' + analysis_code, 'end_time.txt')
+    end_time_strip = 'no end time'
+    if os.path.exists(end_time_file):
+        f_end = open(end_time_file, "r")
+        end_time_strip = f_end.read()
     qc_datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
                               project_name + '_' + email + '_' + analysis_code, 'QC')
-
     if se_or_pe == 'pe':
         sample_name = utils_func.get_pe_sample_name(se_or_pe, project_name, email, analysis_code)
         fastqc_datadir_pre_r1 = os.path.join(qc_datadir, 'pre', sample_name+'.R1_fastqc.html')
@@ -345,8 +356,9 @@ def show_result_overview(request, slug_project):
         "project_name": project_name,
         "analysis_code": analysis_code,
         "email": email,
-        "submission_time": submission_time,
-        "end_time": end_time,
+        "submission_time": submission_time_strip,
+        "start_time": start_time_strip,
+        "end_time": end_time_strip,
         "fastqc_datadir_pre_r1": fastqc_datadir_pre_r1,
         "fastqc_datadir_pre_r2": fastqc_datadir_pre_r2,
         "multiqc_datadir_pre": multiqc_datadir_pre,
@@ -355,7 +367,7 @@ def show_result_overview(request, slug_project):
         "multiqc_datadir_post": multiqc_datadir_post,
     })
 
-    
+
 def show_result(request, slug_project):
     if 'project_name' in request.session:
         project_name = request.session['project_name']

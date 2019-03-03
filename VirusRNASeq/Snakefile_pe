@@ -81,7 +81,7 @@ rule first_multiqc:
         zip_r2 = os.path.join("QC", "pre", "{sample}.R2_fastqc.zip"),
     output:
         multiqc_file = os.path.join("QC", "pre", "{sample}_multiqc.html"),
-        multiqc_dir = os.path.join("QC", "pre", "{sample}_multiqc_data"),
+        multiqc_dir = directory(os.path.join("QC", "pre", "{sample}_multiqc_data")),
     params:
         directory = os.path.join("QC", "pre"),
         filename = os.path.join("QC", "pre", "{sample}_multiqc"),
@@ -171,7 +171,7 @@ rule second_multiqc:
             "QC", "post", "{sample}_r2_unpaired_fastqc.zip"),
     output:
         multiqc_file = os.path.join("QC", "post", "{sample}_multiqc.html"),
-        multiqc_dir = os.path.join("QC", "post", "{sample}_multiqc_data"),
+        multiqc_dir = directory(os.path.join("QC", "post", "{sample}_multiqc_data")),
     params:
         directory = os.path.join("QC", "post"),
         filename = os.path.join("QC", "post", "{sample}_multiqc"),
