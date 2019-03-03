@@ -263,6 +263,16 @@ def whole_dataanalysis(request, slug_project):
             with open(config_file_path, 'w') as ymlfile:
                 yaml.dump(data, ymlfile, default_flow_style=False)
             shutil.copyfile(snakemake_file, destination_snakemake_file)
+            if (not os.path.exists(os.path.join(datadir, 'script'))):
+                os.mkdir((os.path.join(datadir, 'script')))
+            for name in ['start', 'end']:
+                get_time_script = os.path.join(
+                    prefix_dir, "VirusRNASeq/VirusRNASeq/script/get_" + name + "_time.py")
+                print("get_time_script: ", get_time_script)
+                destination_get_time_script = os.path.join(
+                    datadir, 'script/get_' + name + '_time.py')
+                print("destination_get_time_script: ", destination_get_time_script)
+                shutil.copyfile(get_time_script, destination_get_time_script)
             # subprocess.call(['snakemake'], shell=True, cwd=datadir)
             print(subprocess.call(['pwd']))
             print((reverse('dataanalysis_result_current_status', kwargs={
@@ -300,10 +310,10 @@ def show_result_overview(request, slug_project):
         se_or_pe = request.session['se_or_pe']
         print("se_or_pe: ", se_or_pe)
         request.session["se_or_pe"] = se_or_pe
-    if 'start_time' in request.session:
-        start_time = request.session['start_time']
-        print("start_time: ", start_time)
-        request.session["start_time"] = start_time
+    if 'submission_time' in request.session:
+        submission_time = request.session['submission_time']
+        print("submission_time: ", submission_time)
+        request.session["submission_time"] = submission_time
     if 'end_time' in request.session:
         end_time = request.session['end_time']
         print("end_time: ", end_time)
@@ -335,7 +345,7 @@ def show_result_overview(request, slug_project):
         "project_name": project_name,
         "analysis_code": analysis_code,
         "email": email,
-        "start_time": start_time,
+        "submission_time": submission_time,
         "end_time": end_time,
         "fastqc_datadir_pre_r1": fastqc_datadir_pre_r1,
         "fastqc_datadir_pre_r2": fastqc_datadir_pre_r2,
@@ -382,15 +392,17 @@ def current_status(request, slug_project):
         email = request.session['email']
         print("email: ", email)
         request.session["email"] = email
+    submission_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp',
+                                        project_name + '_' + email + '_' + analysis_code, 'submision_time.txt')
+    submission_time_strip = 'no submission time'
+    if os.path.exists(submission_time_file):
+        f_submission = open(submission_time_file, "r")
+        submission_time_strip = f_submission.read()
 
-    if 'start_time' in request.session:
-        start_time_strip = request.session['start_time']
-        print("start_time: ", start_time_strip)
-        request.session["start_time"] = start_time_strip
-    if 'end_time' in request.session:
-        end_time_strip = request.session['end_time']
-        print("end_time: ", end_time_strip)
-        request.session["end_time"] = end_time_strip
+    # if 'end_time' in request.session:
+    #     end_time_strip = request.session['end_time']
+    #     print("end_time: ", end_time_strip)
+    #     request.session["end_time"] = end_time_strip
     url_parameter = project_name + '_' + email.split("@")[0]
 
     if ('view_counter_%s' % url_parameter) in request.session:
@@ -419,30 +431,10 @@ def current_status(request, slug_project):
     files = os.listdir(os.path.join(datadir, se_or_pe))
     sample_name = os.path.splitext(os.path.splitext(
         os.path.splitext(files[0])[0])[0])[0]
-    print("&&&&&sample_name: ", sample_name)
-    # if 'sample_name' in request.session:
-    #     sample_name = request.session['sample_name']
-    #     print("sample_name: ", sample_name)
-    #     request.session["sample_name"] = sample_name
-    # if 'se_or_pe' in request.session:
-    #     se_or_pe = request.session['se_or_pe']
-    #     print("se_or_pe: ", se_or_pe)
-    #     request.session["se_or_pe"] = se_or_pe
     url_parameter = project_name + '_' + email.split("@")[0]
     datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
                            project_name + '_' + email + '_' + analysis_code)
-    # subprocess.call(['snakemake'], shell=True, cwd=datadir)
-    ## If every file is not exist! Run first step!
-    # if not(utils_func.check_first_qc(datadir, sample_name, se_or_pe)) and not(utils_func.check_trimming_qc(datadir, sample_name, se_or_pe)) and not(utils_func.check_second_qc(datadir, sample_name, se_or_pe)) is True:
-    #     snake_process = subprocess.Popen(
-    #         ['snakemake', 'first_fastqc_target'], cwd=datadir)
-    #     print(snake_process.returncode)
-    #     return render(request, "dataanalysis/analysis_result_overview.html", {
-    #         'project_name': project_name,
-    #         'email': email,
-    #         'url_parameter': url_parameter,
-    #     })
-    ## If first step is Finished!
+    # Check the process of files
     check_first_qc_ans = False
     check_trimming_qc_ans = False
     check_second_qc_ans = False
@@ -457,49 +449,55 @@ def current_status(request, slug_project):
         check_second_qc_ans = True
     if utils_func.check_read_subtraction_bwa_align(datadir, sample_name) is True:
         check_read_subtraction_bwa_align_ans = True
-
     whole_file_check = check_first_qc_ans and check_trimming_qc_ans and check_second_qc_ans and check_read_subtraction_bwa_align_ans
+    print("Whether first time: ", (view_counter is 1) or (
+        check_first_qc_ans is False and check_trimming_qc_ans is False and check_second_qc_ans is False and check_read_subtraction_bwa_align_ans is False) or submission_time_strip == 'no submission time')
+    if ((view_counter is 1) or (check_first_qc_ans is False and check_trimming_qc_ans is False and check_second_qc_ans is False and check_read_subtraction_bwa_align_ans is False) or submission_time_strip == 'no submission time'):
+        # This is the first time to run (with the submission time stamp)
+        submission_time = timezone.now()
+        submission_time_strip = submission_time.strftime("%B %d, %Y, %I:%M:%S %p")
+        print("**** submission_time_strip: ", submission_time_strip)
+        f_submission = open(submission_time_file, 'w')
+        f_submission.writelines(submission_time_strip)
+        f_submission.close()
+        # request.session["submission_time"] = submission_time_strip
+        subprocess.Popen(['snakemake', 'targets'], cwd=datadir)
 
     print("((((((((((((((:", view_counter)
-    print("((((((((((((((:", view_counter_end)
-    print("((((((((((((((:", start_time_strip)
-    print("((((((((((((((:", end_time_strip)
-    print("((((((((((((((:", whole_file_check)
+    # print("((((((((((((((:", view_counter_end)
+    print("((((((((((((((:", submission_time_strip)
+    # print("((((((((((((((:", end_time_strip)
+    # print("((((((((((((((:", whole_file_check)
 
-    if view_counter is 1:
-        start_time = timezone.now()
-        start_time_strip = start_time.strftime("%B %d, %Y, %I:%M:%S %p")
-        print("**** start_time_strip: ", start_time_strip)
-        request.session["start_time"] = start_time_strip
-        snake_process = subprocess.Popen(['snakemake', 'targets'], cwd=datadir)
-    else:
-        if whole_file_check:
-            if ('view_counter_end_%s' % url_parameter) in request.session:
-                view_counter_end = request.session['view_counter_end_%s' % url_parameter]
-                view_counter_end = view_counter_end + 1
-                request.session['view_counter_end_%s' % url_parameter] = view_counter_end
-            else:
-                view_counter_end = 1
-                request.session['view_counter_end_%s' % url_parameter] = view_counter_end
-                end_time = timezone.now()
-                end_time_strip = end_time.strftime("%B %d, %Y, %I:%M:%S %p")
-                print("**** end_time_strip: ", end_time_strip)
-                request.session["end_time"] = end_time_strip
-        else:
-            if end_time_strip != "Not Finish yet":
-                pass
-                # ## This is user delete the files
-                # end_time_strip = "User delete files and run again
-                view_counter = 0
-                end_time_strip = "Not Finish yet"
-                print("**** end_time_strip: ", end_time_strip)
-                request.session["end_time"] = end_time_strip
-                print("&&&&&&&&&view_counter: ", view_counter)
-                request.session['view_counter_%s' % url_parameter] = view_counter
-                del request.session['view_counter_end_%s' % url_parameter]
-            else:
-                ## This is the process is not finish yet
-                end_time_strip = "Not Finish yet"
+
+    # else:
+    #     if whole_file_check:
+    #         if ('view_counter_end_%s' % url_parameter) in request.session:
+    #             view_counter_end = request.session['view_counter_end_%s' % url_parameter]
+    #             view_counter_end = view_counter_end + 1
+    #             request.session['view_counter_end_%s' % url_parameter] = view_counter_end
+    #         else:
+    #             view_counter_end = 1
+    #             request.session['view_counter_end_%s' % url_parameter] = view_counter_end
+    #             end_time = timezone.now()
+    #             end_time_strip = end_time.strftime("%B %d, %Y, %I:%M:%S %p")
+    #             print("**** end_time_strip: ", end_time_strip)
+    #             request.session["end_time"] = end_time_strip
+    #     else:
+    #         if end_time_strip != "Not Finish yet":
+    #             pass
+    #             # ## This is user delete the files
+    #             # end_time_strip = "User delete files and run again
+    #             view_counter = 0
+    #             end_time_strip = "Not Finish yet"
+    #             print("**** end_time_strip: ", end_time_strip)
+    #             request.session["end_time"] = end_time_strip
+    #             print("&&&&&&&&&view_counter: ", view_counter)
+    #             request.session['view_counter_%s' % url_parameter] = view_counter
+    #             del request.session['view_counter_end_%s' % url_parameter]
+    #         else:
+    #             ## This is the process is not finish yet
+    #             end_time_strip = "Not Finish yet"
     print("check_first_qc_ans: ", check_first_qc_ans)
     print("check_trimming_qc_ans: ", check_trimming_qc_ans)
     print("check_second_qc_ans: ", check_second_qc_ans)
@@ -513,8 +511,7 @@ def current_status(request, slug_project):
         'check_trimming_qc_ans': check_trimming_qc_ans,
         'check_second_qc_ans': check_second_qc_ans,
         'check_read_subtraction_bwa_align_ans': check_read_subtraction_bwa_align_ans,
-        'start_time': start_time_strip,
-        'end_time': end_time_strip,
+        'submission_time': submission_time_strip,
         'view_counter_end': view_counter_end,
         'view_counter': view_counter,
     })

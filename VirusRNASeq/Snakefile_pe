@@ -24,6 +24,8 @@ print(samples)
 
 rule targets:
     input:
+        "start_time.txt",
+        'end_time.txt',
         expand(os.path.join("trimmed_paired",
                             "{sample}_r1_paired.fastq.gz"), sample=samples),
         expand(os.path.join("QC", "pre",
@@ -45,6 +47,14 @@ rule targets:
 #     input:
 #         expand(os.path.join("trimmed_paired","{sample}_r1_paired.fastq.gz"), sample=samples),
 
+rule get_start_time:
+    output:
+        start_time = 'start_time.txt'
+    priority: 100
+    shell:
+        '''
+        python script/get_start_time.py 
+        '''
 
 rule first_fastqc:
     input:
@@ -55,7 +65,7 @@ rule first_fastqc:
         zip_r1 = os.path.join("QC", "pre", "{sample}.R1_fastqc.zip"),
         html_r2 = os.path.join("QC", "pre", "{sample}.R2_fastqc.html"),
         zip_r2 = os.path.join("QC", "pre", "{sample}.R2_fastqc.zip"),
-    priority: 1,
+    priority: 99,
     log:
         log = os.path.join("logs", "fastqc_pre", "{sample}.log")
     shell:
@@ -75,7 +85,7 @@ rule first_multiqc:
     params:
         directory = os.path.join("QC", "pre"),
         filename = os.path.join("QC", "pre", "{sample}_multiqc"),
-    priority: 2,
+    priority: 98,
     log:
         log = os.path.join("logs", "multiqc_pre", "{sample}.log"),
     shell:
@@ -92,7 +102,7 @@ rule trimmomatic_pe:
         r1_unpaired = os.path.join("trimmed_unpaired", "{sample}_r1_unpaired.fastq.gz"),
         r2_paired = os.path.join("trimmed_paired", "{sample}_r2_paired.fastq.gz"),
         r2_unpaired = os.path.join("trimmed_unpaired", "{sample}_r2_unpaired.fastq.gz"),
-    priority: 3,
+    priority: 97,
     log:
         log = os.path.join("logs", "trimmomatic_pe", "{sample}.log")
     message: "Trimming Illumina adapters from {input.r1} and {input.r2}"
@@ -133,7 +143,7 @@ rule second_fastqc:
             "QC", "post", "{sample}_r2_unpaired_fastqc.html"),
         zip_r2_unpaired = os.path.join(
             "QC", "post", "{sample}_r2_unpaired_fastqc.zip"),
-    priority: 4,
+    priority: 96,
     log:
         log = os.path.join("logs", "fastqc_post", "{sample}.log")
     shell:
@@ -165,7 +175,7 @@ rule second_multiqc:
     params:
         directory = os.path.join("QC", "post"),
         filename = os.path.join("QC", "post", "{sample}_multiqc"),
-    priority: 5,
+    priority: 95,
     log:
         log = os.path.join("logs", "multiqc_post", "{sample}.log"),
     shell:
@@ -187,6 +197,16 @@ rule second_multiqc:
 #         """
 #         bwa mem {input.host_ref} {input.trimmed_r1} {input.trimmed_r2} > {output.bwa_sam}
 #         """
+
+
+rule get_end_time:
+    output:
+        end_time = 'end_time.txt',
+    priority: 0,
+    shell:
+        '''
+        python script/get_end_time.py 
+        '''
 
 #------------ include rules -----------
 # include: "./rules/trimmomatic_trimming_PE.snakefile"
