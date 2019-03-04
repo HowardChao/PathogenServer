@@ -9,9 +9,9 @@
         bottom: 0;
         position: absolute;
         content: " ";
-        width: 3px;
-        background-color: #eeeeee;
-        left: 5%;
+        width: 4px;
+        background-color: #bcbcbc;
+        left: 4%;
         margin-left: -10px;
     }
 
@@ -69,8 +69,8 @@
                 right: -14px;
                 display: inline-block;
                 border-top: 14px solid transparent;
-                border-left: 14px solid #fff;
-                border-right: 0 solid #fff;
+                border-left: 14px solid #F8F9FA;
+                border-right: 0 solid #F8F9FA;
                 border-bottom: 14px solid transparent;
                 content: " ";
             }
@@ -215,7 +215,7 @@
   position: absolute;
   width: 60px;
   height: 120px;
-  background: white;
+  background: #F8F9FA;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
