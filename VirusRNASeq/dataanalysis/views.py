@@ -14,8 +14,8 @@ import os
 import shutil
 import re
 import subprocess
-from django.utils import timezone
 
+from django.utils import timezone
 from dataanalysis.models import Document, PairedEnd, SingleEnd
 from dataanalysis.forms import DocumentForm, PairedEndForm, SingleEndForm
 
@@ -144,6 +144,9 @@ def whole_dataanalysis(request, slug_project):
             fs = FileSystemStorage()
             if fs.exists(base_dir):
                 shutil.rmtree(base_dir)
+            destination_QC_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code)
+            if os.path.exists(destination_QC_html_dir):
+                shutil.rmtree(destination_QC_html_dir)
             return render(request, "dataanalysis/home.html", {
                 'which': "single-end",
                 'project_name': project_name,
@@ -158,6 +161,9 @@ def whole_dataanalysis(request, slug_project):
             fs = FileSystemStorage()
             if fs.exists(base_dir):
                 shutil.rmtree(base_dir)
+            destination_QC_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code)
+            if os.path.exists(destination_QC_html_dir):
+                shutil.rmtree(destination_QC_html_dir)
             return render(request, "dataanalysis/home.html", {
                 'which': "single-end",
                 'project_name': project_name,
@@ -298,11 +304,30 @@ def show_result_overview(request, slug_project):
             qc_datadir, 'pre', sample_name+'_multiqc.html')
 
         fastqc_datadir_post_r1 = os.path.join(
-            qc_datadir, 'post', sample_name+'.R1_fastqc.html')
+            qc_datadir, 'post', sample_name+'_r1_paired_fastqc.html')
         fastqc_datadir_post_r2 = os.path.join(
-            qc_datadir, 'post', sample_name+'.R2_fastqc.html')
+            qc_datadir, 'post', sample_name+'_r2_paired_fastqc.html')
         multiqc_datadir_post = os.path.join(
             qc_datadir, 'post', sample_name+'_multiqc.html')
+
+
+        destination_QC_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC')
+        destination_fastqc_datadir_pre_r1 = os.path.join(destination_QC_html_dir, 'pre', sample_name+'.R1_fastqc.html')
+        destination_fastqc_datadir_pre_r2 = os.path.join(destination_QC_html_dir, 'pre', sample_name+'.R2_fastqc.html')
+        destination_multiqc_datadir_pre = os.path.join(destination_QC_html_dir, 'pre', sample_name+'_multiqc.html')
+        destination_fastqc_datadir_post_r1 = os.path.join(destination_QC_html_dir, 'post', sample_name+'_r1_paired_fastqc.html')
+        destination_fastqc_datadir_post_r2 = os.path.join(destination_QC_html_dir, 'post', sample_name+'_r2_paired_fastqc.html')
+        destination_multiqc_datadir_post = os.path.join(destination_QC_html_dir, 'post', sample_name+'_multiqc.html')
+        if not os.path.exists(destination_QC_html_dir):
+            os.makedirs(destination_QC_html_dir)
+            os.makedirs(os.path.join(destination_QC_html_dir, 'pre'))
+            os.makedirs(os.path.join(destination_QC_html_dir, 'post'))
+            shutil.copyfile(fastqc_datadir_pre_r1, destination_fastqc_datadir_pre_r1)
+            shutil.copyfile(fastqc_datadir_pre_r2, destination_fastqc_datadir_pre_r2)
+            shutil.copyfile(multiqc_datadir_pre, destination_multiqc_datadir_pre)
+            shutil.copyfile(fastqc_datadir_post_r1, destination_fastqc_datadir_post_r1)
+            shutil.copyfile(fastqc_datadir_post_r2, destination_fastqc_datadir_post_r2)
+            shutil.copyfile(multiqc_datadir_post, destination_multiqc_datadir_post)
     elif se_or_pe == 'se':
         pass
         qc_datadir_pre = os.path.join(qc_datadir, 'pre', )
@@ -416,34 +441,6 @@ def current_status(request, slug_project):
         f_submission.close()
         # request.session["submission_time"] = submission_time_strip
         subprocess.Popen(['snakemake', 'targets'], cwd=datadir)
-    # else:
-    #     if whole_file_check:
-    #         if ('view_counter_end_%s' % url_parameter) in request.session:
-    #             view_counter_end = request.session['view_counter_end_%s' % url_parameter]
-    #             view_counter_end = view_counter_end + 1
-    #             request.session['view_counter_end_%s' % url_parameter] = view_counter_end
-    #         else:
-    #             view_counter_end = 1
-    #             request.session['view_counter_end_%s' % url_parameter] = view_counter_end
-    #             end_time = timezone.now()
-    #             end_time_strip = end_time.strftime("%B %d, %Y, %I:%M:%S %p")
-    #             print("**** end_time_strip: ", end_time_strip)
-    #             request.session["end_time"] = end_time_strip
-    #     else:
-    #         if end_time_strip != "Not Finish yet":
-    #             pass
-    #             # ## This is user delete the files
-    #             # end_time_strip = "User delete files and run again
-    #             view_counter = 0
-    #             end_time_strip = "Not Finish yet"
-    #             print("**** end_time_strip: ", end_time_strip)
-    #             request.session["end_time"] = end_time_strip
-    #             print("&&&&&&&&&view_counter: ", view_counter)
-    #             request.session['view_counter_%s' % url_parameter] = view_counter
-    #             del request.session['view_counter_end_%s' % url_parameter]
-    #         else:
-    #             ## This is the process is not finish yet
-    #             end_time_strip = "Not Finish yet"
     print("check_first_qc_ans: ", check_first_qc_ans)
     print("check_trimming_qc_ans: ", check_trimming_qc_ans)
     print("check_second_qc_ans: ", check_second_qc_ans)
@@ -461,6 +458,73 @@ def current_status(request, slug_project):
         'view_counter_end': view_counter_end,
         'view_counter': view_counter,
     })
+
+
+# def pre_qc_html_view(request, slug_project, slug_filename):
+#     if 'project_name' in request.session:
+#         project_name = request.session['project_name']
+#         print("project_name: ", project_name)
+#         request.session["project_name"] = project_name
+#     if 'analysis_code' in request.session:
+#         analysis_code = request.session['analysis_code']
+#         print("analysis_code: ", analysis_code)
+#         request.session["analysis_code"] = analysis_code
+#     if 'email' in request.session:
+#         email = request.session['email']
+#         print("email: ", email)
+#     url_parameter = project_name + '_' + email.split("@")[0]
+#     if request.method == 'POST':
+#         if 'certain id !!!!!' in request.POST:
+#             return redirect((reverse('dataanalysis_result_current_status_pre_qc_html', kwargs={
+#                 'slug_project': url_parameter,
+#                 'slug_filename': url_parameter})))
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+# def post_qc_html_view(request, slug_project, slug_filename):
+#     if 'project_name' in request.session:
+#         project_name = request.session['project_name']
+#         print("project_name: ", project_name)
+#         request.session["project_name"] = project_name
+#     if 'analysis_code' in request.session:
+#         analysis_code = request.session['analysis_code']
+#         print("analysis_code: ", analysis_code)
+#         request.session["analysis_code"] = analysis_code
+#     if 'email' in request.session:
+#         email = request.session['email']
+#         print("email: ", email)
+#     url_parameter = project_name + '_' + email.split("@")[0]
+#     if request.method == 'POST':
+#         if 'certain id !!!!!' in request.POST:
+#             return redirect((reverse('dataanalysis_result_current_status_pre_qc_html', kwargs={
+#                 'slug_project': url_parameter,
+#                 'slug_filename': url_parameter})))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def hello_world(request):
     return HttpResponse('Hello World!')

@@ -11,6 +11,7 @@ import os
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 import shutil
+import dataanalysis
 
 TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_project"
 
@@ -50,16 +51,21 @@ def newsletter_singup(request):
 
 def newsletter_unsubscribe(request):
     form = forms.NewsletterUserDeleteAnalysisForm(request.POST or None)
+
+
     if form.is_valid():
         instance = form.save(commit=False)
         inside_or_outside = False
         if models.NewsletterUser.objects.filter(project_name=instance.project_name,email=instance.email, analysis_code=instance.analysis_code).exists():
+            destination_QC_html_dir = os.path.join(os.path.dirname(dataanalysis.__file__), 'templates', 'dataanalysis', 'tmp', instance.project_name + '_' + instance.email + '_' + instance.analysis_code)
+            if os.path.exists(destination_QC_html_dir):
+                shutil.rmtree(destination_QC_html_dir)
             inside_or_outside = True
             print("You successfully delete your project!")
             base_dir = os.path.join(settings.MEDIA_ROOT,
                                     'tmp', instance.project_name + '_' + instance.email + '_' + instance.analysis_code)
             models.NewsletterUser.objects.filter(
-                project_name=instance.project_name, email=instance.email, analysis_code=instance.analysis_code).delete()    
+                project_name=instance.project_name, email=instance.email, analysis_code=instance.analysis_code).delete()
             fs = FileSystemStorage()
             if fs.exists(base_dir):
                 shutil.rmtree(base_dir)
@@ -120,3 +126,11 @@ def check_project(request):
     }
     template = "email_hash/check_project.html"
     return render(request, template, context)
+
+def help_view(request):
+    template = "email_hash/help.html"
+    return render(request, template)
+
+def about_view(request):
+    template = "email_hash/about.html"
+    return render(request, template)

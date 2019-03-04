@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% crispy form form.helper %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="card bg-light mt-5 mb-3 w-100 p-3">
+            <div class="card-header"><p class="h2"><i class="fas fa-hands-helping"></i> &nbsp &nbsp Help </p></div>
+            <div class="card-body w-100">
+                <h5 class="card-title">This is the help page</h5>
+                <br>
+                <p class="card-text">Please enter your 'Analysis code' below. After you press the "Find  Project" button, you can go into your project page!</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="margin-bottom: 100px">
+</div>
+
+{% endblock content %}

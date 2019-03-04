@@ -68,10 +68,10 @@
                         </li>
                     {% endif %}
                         <li class="nav-item nav-middle">
-                            <a class="nav-link" href="dataanalysis"><i class="fas fa-question"></i> Help<span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href={% url 'help' %}><i class="fas fa-question"></i> Help<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item nav-middle">
-                            <a class="nav-link" href="dataanalysis"><i class="fas fa-info"></i> About</a>
+                            <a class="nav-link" href={% url 'about' %}><i class="fas fa-info"></i> About</a>
                         </li>
 
                 </ul>
