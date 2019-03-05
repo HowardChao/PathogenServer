@@ -15,6 +15,10 @@ import shutil
 import re
 import subprocess
 
+from .forms import PhotoForm
+from .models import Photo
+
+
 from django.utils import timezone
 from dataanalysis.models import Document, PairedEnd, SingleEnd
 from dataanalysis.forms import DocumentForm, PairedEndForm, SingleEndForm
@@ -25,23 +29,16 @@ TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_pr
 
 # Creating GET and POST functions!! When we access page, we are going to
 # show the user a list of uploaded files
-class BasicUploadView(View):
-    def get(self, request):
-        files_list = Document.objects.all()
-        context = {
-            "files": files_list,
-        }
-        return render(self.request, 'dataanalysis/home.html', context=context)
 
-    def post(self, request):
-        form = DocumentForm(self.request.POST, self.request.FILES)
-        if form.is_valid():
-            getfile = form.save()
-            data = {'is_valid': True,
-                    'name': getfile.document.name, 'url': getfile.file.url}
-        else:
-            data = {'is_valid': False}
-        return JsonResponse(data)
+def post(self, request):
+    form = PhotoForm(self.request.POST, self.request.FILES)
+    if form.is_valid():
+        photo = form.save()
+        data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
+    else:
+        data = {'is_valid': False}
+    return JsonResponse(data)
+
 
 def data_analysis_home(request):
 
@@ -62,6 +59,41 @@ def data_analysis_home(request):
     return render(request, 'dataanalysis/home.html')
     # documents = Document.objects.all()
     # return render(request, 'dataanalysis/home.html', { 'documents': documents })
+
+class BasicUploadView(View):
+    def get(self, request):
+        print("Inside 'get !!!'")
+        photos_list = Photo.objects.all()
+        return render(self.request, 'dataanalysis/data_upload.html', {'photos': photos_list})
+
+    def post(self, request):
+        print("Inside 'post !!!'")
+        form = PhotoForm(self.request.POST, self.request.FILES)
+        if form.is_valid():
+            photo = form.save()
+            data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
+            print("inside form is valid")
+        else:
+            data = {'is_valid': False}
+            print("inside form is not valid")
+        return JsonResponse(data)
+
+
+def data_upload(request, slug_project):
+
+    if 'project_name' in request.session:
+        project_name = request.session['project_name']
+        print("project_name: ", project_name)
+        request.session["project_name"] = project_name
+    if 'analysis_code' in request.session:
+        analysis_code = request.session['analysis_code']
+        print("analysis_code: ", analysis_code)
+        request.session["analysis_code"] = analysis_code
+    if 'email' in request.session:
+        email = request.session['email']
+        print("email: ", email)
+        request.session["email"] = email
+
 
 
 def whole_dataanalysis(request, slug_project):

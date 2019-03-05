@@ -5,6 +5,7 @@ from dataanalysis import views
 
 urlpatterns = [
     path('<slug:slug_project>/', views.whole_dataanalysis, name='dataanalysis_home'),
+    path('data-upload', views.BasicUploadView.as_view(), name='dataanalysis_data_upload'),
     path('result/<slug:slug_project>/', views.show_result, name="dataanalysis_result"),
     path('result/<slug:slug_project>/overview/',
          views.show_result_overview, name="dataanalysis_result_overview"),

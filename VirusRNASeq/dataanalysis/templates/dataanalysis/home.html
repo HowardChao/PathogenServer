@@ -61,12 +61,11 @@
                 <ul id="side-nav" class="list-group nav nav-pills nav-stacked" style="top: 120px;">
                     <a class="list-group-item list-group-item-action" href="#list-item-1">1. Files Upload</a>
                     <a class="list-group-item list-group-item-action" href="#list-item-2">2. Quality Control</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-3">3. Read Subtraction</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-4">4. Remove Non-virus Reads</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-5">5. <i>de novo</i> assembly</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-6">6. Scaffolds Realignment</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-7">7. Homology Search</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-8">8. Variant Calling</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-3">3. Read Filtration</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-4">5. <i>de novo</i> assembly</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-5">6. Scaffolds Realignment</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-6">7. Homology Search</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-7">8. Variant Calling</a>
                 </ul>
             </div>
         </nav>
@@ -75,7 +74,7 @@
                 <div id="list-item-1" >
                     <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
                         <div class="card-header" style="border-color: #afafaf; border-width:4px">
-                            <p class="h2"><i class="fas fa-file-upload"></i> &nbsp &nbsp Read Files Upload {{ variable.inside_or_outside }} </p>
+                            <p class="h2"><i class="fas fa-file-upload"></i> &nbsp &nbsp Read Files Upload</p>
                         </div>
                         <div class="card-body w-100">
                             <p class="card-text">VirusNGS can only accept:</p>
@@ -288,7 +287,7 @@
                   <div id="start_analysis_wrapper">
                     <div id="list-item-2">
                         <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
-                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-cut"></i> &nbsp &nbsp Quality Control  {{ variable.inside_or_outside }} </p></div>
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-cut"></i> &nbsp &nbsp Quality Control</p></div>
                             <div class="card-body w-100">
                                 <p class="card-text">This step is to ensure that quality meets the quality requirement.
                                    <strong>FastQC</strong> is used to acquire quality information. <strong>Trimmomatic</strong> is used to remove adapter and trim low quality parts of reads
@@ -306,7 +305,7 @@
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                       <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp Read Trimming</h5>
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp Reads Trimming</h5>
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
@@ -500,29 +499,40 @@
                     </div>
                     <div id="list-item-3">
                         <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
-                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-minus"></i> &nbsp &nbsp Read Subtraction {{ variable.inside_or_outside }} </p></div>
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-minus"></i> &nbsp &nbsp Read Filtration </p></div>
                             <div class="card-body w-100">
                                 <p class="card-text">Reads subtraction is aligned against ribosomal RNAs, bacteria genome, and selected host genome. The tools used in this step is <b>BWA-MEM</b></p>
                                 <br>
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                       <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp Remove rRNAs (16S, 18S, 23S, 28S, 5S, and ITS rRNA)</h5>
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp Remove rRNAs</h5>
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
-                                <p class="card-text" style="margin-left:40px;"><strong>rRNASs</strong> reads would be removed.</p>
+                                <p class="card-text" style="margin-left:40px;"><strong>5S, 18S, 23S, 28S, and ITS rRNAs</strong> reads would be removed.<br>Database: <a href="ftp://ftp.ncbi.nlm.nih.gov/genomes/TARGET/">ftp://ftp.ncbi.nlm.nih.gov/genomes/TARGET/</a> <br>(Updated on Tue Dec 26 13:56:59 2017)</p>
                                 <br>
-
-
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                       <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp Remove Bacteria Genomes </h5>
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp Select Target Bacteria</h5>
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
-                                <p class="card-text" style="margin-left:40px;"><strong>Bacteria</strong> reads would be removed.</p>
+                                <div class="reads-subtraction-host" style="margin-left:40px;">
+                                  <div class="row">
+                                    <label class="col-md-4 control-label" for="reads_subtraction_host"><i class="far fa-dot-circle"></i>&nbsp&nbsp Target Bacteria</label>
+                                    <div class="col-md-6">
+                                      <select class="custom-select my-1 mr-sm-2" name="reads_subtraction_host" id="reads_subtraction_host">
+                                        <option selected="selected" value="TB">Tuberculosis (TB)</option>
+                                        <option value="mosquito">mosquito (Aedes aegypti)</option>
+                                        <option value="mouse">mouse (Mus musculus)</option>
+                                        <option value="pig">pig (Sus scrofa)</option>
+                                        <option value="tick">tick (Ixodes scapularis)</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
                                 <br>
 
                                 <div class="row">
@@ -550,79 +560,82 @@
                                     </div>
                                   </div>
                                 </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div id="list-item-4">
-                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
-                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-search-minus"></i> &nbsp &nbsp Remove Non-virus Reads </p></div>
-                            <div class="card-body w-100">
-                                <p class="card-text">The subtracted reads from the previous step would be assembled with <b>IDBA-UD</b>. Non-virus reads would be filtered with <b>megablast</b> and <b>RAPSearch</b>. </p>
                                 <br>
+
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                       <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp Remove Non-Virus Reads (first <i>de novo</i> assembly)</h5>
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 4: &nbsp Remove Duplicated Reads</h5>
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
-                                <p class="card-text" style="margin-left:40px;">search against the customized viral nucleotide/protein sequences from NCBI nt/nr database.</p>
+                                <p class="card-text" style="margin-left:40px;"><strong>Duplicated reads</strong> would be remove by <b>fastuniq</b> program.</p>
+
+
                             </div>
                         </div>
                     </div>
 
-                    <div id="list-item-5">
+                    <div id="list-item-4">
                         <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
                             <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-align-right"></i> &nbsp &nbsp <b><i>De novo</i></b> assembly</p></div>
                             <div class="card-body w-100">
-                                <p class="card-text">The subtracted reads from the previous step would be assembled with <b>IDBA-UD</b>. Non-virus reads would be filtered with <b>megablast</b> and <b>RAPSearch</b>. </p>
+                                <p class="card-text"><b>A5-miseq</b> <i>de novo</i> assembly</p>
                                 <br>
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                       <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp Remove Non-Virus Reads (first <i>de novo</i> assembly)</h5>
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp <b><i>De novo</i></b> Assembly </h5>
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
-                                <p class="card-text" style="margin-left:40px;">search against the customized viral nucleotide/protein sequences from NCBI nt/nr database.</p>
+                                <p class="card-text" style="margin-left:40px;">Description</p>
+                                <br>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp Qualuty Trimming</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <p class="card-text" style="margin-left:40px;">Description</p>
                             </div>
                         </div>
                     </div>
 
 
-                    <div id="list-item-6">
+                    <div id="list-item-5">
                         <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
                             <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-reply"></i> &nbsp &nbsp Scaffolds Realignment</p></div>
                             <div class="card-body w-100">
-                                <p class="card-text">The subtracted reads from the previous step would be assembled with <b>IDBA-UD</b>. Non-virus reads would be filtered with <b>megablast</b> and <b>RAPSearch</b>. </p>
+                                <p class="card-text"> Final scaffolds were subjected to <b>BWA-MEM</b> reads re-mapping. </p>
                                 <br>
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                       <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp Remove Non-Virus Reads (first <i>de novo</i> assembly)</h5>
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp <b>BWA-MEM</b> Reads Re-mapping</h5>
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
-                                <p class="card-text" style="margin-left:40px;">search against the customized viral nucleotide/protein sequences from NCBI nt/nr database.</p>
+                                <p class="card-text" style="margin-left:40px;">Description.</p>
                             </div>
                         </div>
                     </div>
 
-                    <div id="list-item-7">
+                    <div id="list-item-6">
                         <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
                             <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-database"></i> &nbsp &nbsp homology Search</p></div>
                             <div class="card-body w-100">
-                                <p class="card-text">The subtracted reads from the previous step would be assembled with <b>IDBA-UD</b>. Non-virus reads would be filtered with <b>megablast</b> and <b>RAPSearch</b>. </p>
+                                <p class="card-text">Description </p>
                                 <br>
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                       <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp Remove Non-Virus Reads (first <i>de novo</i> assembly)</h5>
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp </h5>
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
-                                <p class="card-text" style="margin-left:40px;">search against the customized viral nucleotide/protein sequences from NCBI nt/nr database.</p>
+                                <p class="card-text" style="margin-left:40px;">Description</p>
                             </div>
                         </div>
                     </div>
@@ -631,16 +644,16 @@
                         <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
                             <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-dna"></i>  &nbsp &nbsp Variant Calling</p></div>
                             <div class="card-body w-100">
-                                <p class="card-text">The subtracted reads from the previous step would be assembled with <b>IDBA-UD</b>. Non-virus reads would be filtered with <b>megablast</b> and <b>RAPSearch</b>. </p>
+                                <p class="card-text">Description</p>
                                 <br>
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                       <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp Remove Non-Virus Reads (first <i>de novo</i> assembly)</h5>
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp </h5>
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
-                                <p class="card-text" style="margin-left:40px;">search against the customized viral nucleotide/protein sequences from NCBI nt/nr database.</p>
+                                <p class="card-text" style="margin-left:40px;">Description</p>
                             </div>
                         </div>
                     </div>
