@@ -1,6 +1,14 @@
 import os
 from django.conf import settings
 
+def check_submission_time_file(datadir, sample_name, se_or_pe):
+    submission_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, 'submision_time.txt')
+    submission_time_file_ans = os.path.exists(submission_time_file)
+    if submission_time_file_ans:
+        return True
+    else:
+        return False
+
 
 def check_first_qc(datadir, sample_name, se_or_pe):
     root_dir = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, 'QC', 'pre')
@@ -155,3 +163,11 @@ def get_pe_sample_name(se_or_pe, project_name, email, analysis_code):
         return sample_name
     elif se_or_pe == 'se':
         pass
+
+def check_end_time_file(datadir, sample_name, se_or_pe):
+    end_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, 'end_time.txt')
+    end_time_file_ans = os.path.exists(end_time_file)
+    if end_time_file_ans:
+        return True
+    else:
+        return False

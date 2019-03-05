@@ -35,7 +35,12 @@ rule targets:
         expand(os.path.join(
             "QC", "post", "{sample}_multiqc.html"), sample=samples),
         expand(os.path.join(config["datadir"], "Read_Subtraction", "bwa", "sam","{sample}.sam"), sample=samples),
-
+        expand(os.path.join(config["datadir"], "Extract_non_host_reads", "bam","{sample}.bam"), sample=samples),
+        expand(os.path.join(config["datadir"], "Extract_non_host_reads", "txt","{sample}.txt"), sample=samples),
+        expand(os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_bam", "{sample}.unmapped.bam"), sample=samples),
+        expand(os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_fastq", "{sample}.unmapped.R1.fastq"), sample=samples),
+        expand(os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_fastq", "{sample}.unmapped.R2.fastq"), sample=samples),
+        'end_time.txt',
 # rule first_fastqc_target:
 #     input:
 #         expand(os.path.join("QC", "pre", "{sample}_multiqc.html"), sample=samples),
@@ -103,6 +108,7 @@ rule trimmomatic_pe:
         r1_unpaired = os.path.join("trimmed_unpaired", "{sample}_r1_unpaired.fastq.gz"),
         r2_paired = os.path.join("trimmed_paired", "{sample}_r2_paired.fastq.gz"),
         r2_unpaired = os.path.join("trimmed_unpaired", "{sample}_r2_unpaired.fastq.gz"),
+        output_command = os.path.join("logs", "trimmomatic_pe", "{sample}.command.log"),
     priority: 97,
     log:
         log = os.path.join("logs", "trimmomatic_pe", "{sample}.log")
@@ -117,7 +123,7 @@ rule trimmomatic_pe:
         """
         java -jar {config[trimmomatic][trimmomatic_jar]} PE -threads {config[trimmomatic][threads]} {config[trimmomatic][phred]} -trimlog {log.log} {input.r1} {input.r2} {output.r1_paired} \
         {output.r1_unpaired} {output.r2_paired} {output.r2_unpaired} \
-        ILLUMINACLIP:{config[trimmomatic][adapter]}{config[trimmomatic][adapter_param]} LEADING:{config[trimmomatic][leading]} TRAILING:{config[trimmomatic][trailing]} SLIDINGWINDOW:{config[trimmomatic][window_size]}:{config[trimmomatic][window_quality]} MINLEN:{config[trimmomatic][minlen]}
+        ILLUMINACLIP:{config[trimmomatic][adapter]}{config[trimmomatic][adapter_param]} LEADING:{config[trimmomatic][leading]} TRAILING:{config[trimmomatic][trailing]} SLIDINGWINDOW:{config[trimmomatic][window_size]}:{config[trimmomatic][window_quality]} MINLEN:{config[trimmomatic][minlen]} &> {output.output_command}
         """
 
 
@@ -199,6 +205,59 @@ rule read_subtraction_bwa_mem:
         """
         bwa mem -t {threads} {input.host_ref} {input.trimmed_r1} {input.trimmed_r2} > {output.bwa_sam}
         """
+
+# Not using yet ~~~
+#
+#
+#
+
+rule extract_non_host_reads_1:
+    input:
+        bwa_sam = os.path.join(config["datadir"], "Read_Subtraction", "bwa", "sam","{sample}.sam"),
+    output:
+        bwa_bam = os.path.join(config["datadir"], "Extract_non_host_reads", "bam","{sample}.bam"),
+    priority: 93,
+    threads: 8
+    shell:
+        """
+        samtools sort -@ {threads} -o {output.bwa_bam} {input.bwa_sam}
+        """
+
+rule extract_non_host_reads_2:
+    input:
+        bwa_bam = os.path.join(config["datadir"], "Extract_non_host_reads", "bam","{sample}.bam"),
+    output:
+        txt = os.path.join(config["datadir"], "Extract_non_host_reads", "txt","{sample}.txt"),
+    priority: 92,
+    shell:
+        """
+        samtools flagstat {input.bwa_bam} > {output.txt}
+        """
+
+rule extract_non_host_reads_3:
+    input:
+        bwa_bam = os.path.join(config["datadir"], "Extract_non_host_reads", "bam","{sample}.bam"),
+    output:
+        unmapped_bam = os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_bam", "{sample}.unmapped.bam"),
+    priority: 91,
+    shell:
+        """
+        samtools view -b -f 4 {input.bwa_bam} > {output.unmapped_bam}
+        """
+
+
+rule extract_non_host_reads_4:
+    input:
+        unmapped_bam = os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_bam", "{sample}.unmapped.bam"),
+    output:
+        unmapped_fastq_r1 = os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_fastq", "{sample}.unmapped.R1.fastq"),
+        unmapped_fastq_r2 = os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_fastq", "{sample}.unmapped.R2.fastq"),
+    priority: 90,
+    shell:
+        """
+        bedtools bamtofastq -i {input.unmapped_bam} -fq {output.unmapped_fastq_r1} -fq2 {output.unmapped_fastq_r2}
+        """
+
 
 
 rule get_end_time:

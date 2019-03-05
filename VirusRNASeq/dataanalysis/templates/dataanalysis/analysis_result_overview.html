@@ -126,30 +126,23 @@
                 <div class="content-below-header-overview" >
                     <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px;">
                         <div style="width:100%; outline: 5px solid #B07B41; outline-offset: 10px; outline-style: double;">
-                        <p>Congradulations! Your job has been completed <strong style="font-size:20px; color: green;">successfully</strong>!</p>
+                          <p>Congradulations! Your job has been completed <strong style="font-size:20px; color: green;">successfully</strong>!</p>
                         </div>
                     </div>
-
-
                     <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:70px;">
                         <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Before Trimming Quality Assessment</b></h4>
-
-
                         <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
                             <tr>
                                 <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> MultiQC Summary Report :</b></td>
-                                <td style="font-family: Verdana, Geneva, sans-serif"><a href={% url "dataanalysis_result_current_status_pre_qc_html" slug_project=url_parameter slug_filename="d" %} class="link_color"><u>Link</u></a>
-                                </td>
+                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "dataanalysis_result_current_status_pre_multiqc_html" slug_project=url_parameter %} class="link_color"><u>Link</u></a></td>
                             </tr>
                             <tr>
                                 <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> FastQC R1 (forward) :</b></td>
-                                <td style="font-family: Verdana, Geneva, sans-serif"><a href={% url "dataanalysis_result_current_status_pre_qc_html" slug_project=url_parameter slug_filename="d" %} class="link_color"><u>Link</u></a>
-                                </td>
+                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "dataanalysis_result_current_status_pre_fastqc_r1_html" slug_project=url_parameter %} class="link_color"><u>Link</u></a></td>
                             </tr>
                             <tr>
                                 <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> FastQC R2 (reverse) :</b></td>
-                                <td style="font-family: Verdana, Geneva, sans-serif"><a href={% url "dataanalysis_result_current_status_pre_qc_html" slug_project=url_parameter slug_filename="d" %} class="link_color"><u>Link</u></a>
-                                </td>
+                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "dataanalysis_result_current_status_pre_fastqc_r2_html" slug_project=url_parameter %} class="link_color"><u>Link</u></a></td>
                             </tr>
                         </table>
                     </div>
@@ -159,17 +152,17 @@
                         <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
                             <tr>
                                 <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> MultiQC Summary Report :</b></td>
-                                <td style="font-family: Verdana, Geneva, sans-serif"><a href={% url "dataanalysis_result_current_status_pre_qc_html" slug_project=url_parameter slug_filename="d" %} class="link_color"><u>Link</u></a>
+                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "dataanalysis_result_current_status_post_multiqc_html" slug_project=url_parameter %} class="link_color"><u>Link</u></a>
                                 </td>
                             </tr>
                             <tr>
                                 <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> FastQC R1 (forward) :</b></td>
-                                <td style="font-family: Verdana, Geneva, sans-serif"><a href={% url "dataanalysis_result_current_status_pre_qc_html" slug_project=url_parameter slug_filename="d" %} class="link_color"><u>Link</u></a>
+                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "dataanalysis_result_current_status_post_fastqc_r1_html" slug_project=url_parameter %} class="link_color"><u>Link</u></a>
                                 </td>
                             </tr>
                             <tr>
                                 <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> FastQC R2 (reverse) :</b></td>
-                                <td style="font-family: Verdana, Geneva, sans-serif"><a href={% url "dataanalysis_result_current_status_pre_qc_html" slug_project=url_parameter slug_filename="d" %} class="link_color"><u>Link</u></a>
+                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "dataanalysis_result_current_status_post_fastqc_r2_html" slug_project=url_parameter %} class="link_color"><u>Link</u></a>
                                 </td>
                             </tr>
                         </table>
@@ -189,15 +182,55 @@
         </div>
 
         <div class="pipeline_result" id="read_subtraction_result" style="display: none;">
-            <h2>read_subtraction_result</h2>
-            <div style="margin-bottom: 100px">
+            <div class="w3-main" style="margin-left:130px; margin-right:130px;">
+                <header class="w3-container" style="padding-top:22px;">
+                    <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-minus"></i>  &nbsp<strong>Read Subtraction</strong></h1>
+                </header>
+                <div class="content-below-header-overview" >
+                    <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px;">
+                        <div style="width:100%; outline: 5px solid #B07B41; outline-offset: 10px; outline-style: double;">
+                          <p>Reads subtraction description here !</p>
+                        </div>
+                    </div>
+                    <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:70px;">
+                        <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Title</b></h4>
+                        <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
+                            <tr>
+                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Project Name :</b></td>
+                                <td style="font-family: Verdana, Geneva, sans-serif">{{project_name}}</td>
+                            </tr>
+                        </table>
+                        <div style="margin-bottom: 100px">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="pipeline_result" id="non-virus_removal_result" style="display: none;">
-            <h2>non-virus_removal_result</h2>
-            <div style="margin-bottom: 100px">
-            </div>
+          <div class="w3-main" style="margin-left:130px; margin-right:130px;">
+              <header class="w3-container" style="padding-top:22px;">
+                  <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-search-minus"></i> &nbsp<strong>Non-Virus Reads Removal</strong></h1>
+              </header>
+              <div class="content-below-header-overview" >
+                  <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px;">
+                      <div style="width:100%; outline: 5px solid #B07B41; outline-offset: 10px; outline-style: double;">
+                        <p>Reads subtraction description here !</p>
+                      </div>
+                  </div>
+                  <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:70px;">
+                      <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Title</b></h4>
+                      <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
+                          <tr>
+                              <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Project Name :</b></td>
+                              <td style="font-family: Verdana, Geneva, sans-serif">{{project_name}}</td>
+                          </tr>
+                      </table>
+                      <div style="margin-bottom: 100px">
+                      </div>
+                  </div>
+              </div>
+          </div>
         </div>
     </div>
 
@@ -271,8 +304,7 @@ $(document).ready(function () {
  google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
-        var data = google.visualization.arrayToDataTable([["status", "reads number"], ["Both Surviving", 4794729], ["Forward Only Surviving", 2950615], ["Reverse Only Surviving", 457832], ["Dropped", 1836063]]);
-
+        var data = google.visualization.arrayToDataTable([["status", "reads number"], ["Both Surviving", {{trimmo_both_surviving}}], ["Forward Only Surviving", {{trimmo_forward_only_surviving}}], ["Reverse Only Surviving", {{trimmo_reverse_only_surviving}}], ["Dropped", {{trimmo_dropped}}]]);
         var options = {
           'title': 'Trimmomatic Report',
           is3D: true,

@@ -256,6 +256,19 @@ def whole_dataanalysis(request, slug_project):
 
 
 def show_result_overview(request, slug_project):
+    project_name = "No value"
+    analysis_code = "No value"
+    email = "No value"
+    submission_time_strip = "No value"
+    start_time_strip = "No value"
+    end_time_strip = "No value"
+    url_parameter = "No value"
+    sample_name = "No value"
+    trimmo_intput_read_pairs = "No value"
+    trimmo_both_surviving = "No value"
+    trimmo_forward_only_surviving = "No value"
+    trimmo_reverse_only_surviving = "No value"
+    trimmo_dropped = "No value"
     if 'project_name' in request.session:
         project_name = request.session['project_name']
         print("project_name: ", project_name)
@@ -333,6 +346,19 @@ def show_result_overview(request, slug_project):
         pass
         qc_datadir_pre = os.path.join(qc_datadir, 'pre', )
         qc_datadir_post = os.path.join(qc_datadir, 'post', )
+
+    trimmomatic_command_log = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name + '_' + email + '_' + analysis_code, 'logs', 'trimmomatic_'+se_or_pe, sample_name+'.command.log')
+    if os.path.exists(trimmomatic_command_log):
+        f_trimmomatic_command_log = open(trimmomatic_command_log, "r")
+        output_string = f_trimmomatic_command_log.readlines()
+        tmp_1 = re.findall("[\:]\s+[0-9]*", output_string[-2])
+        tmp_2 = ''.join(tmp_1)
+        ans_list=tmp_2.split(': ')
+        trimmo_intput_read_pairs = ans_list[1]
+        trimmo_both_surviving = ans_list[2]
+        trimmo_forward_only_surviving = ans_list[3]
+        trimmo_reverse_only_surviving = ans_list[4]
+        trimmo_dropped = ans_list[5]
     return render(request, "dataanalysis/analysis_result_overview.html", {
         "project_name": project_name,
         "analysis_code": analysis_code,
@@ -347,6 +373,11 @@ def show_result_overview(request, slug_project):
         "fastqc_datadir_post_r1": sample_name+'_r1_paired_fastqc.html',
         "fastqc_datadir_post_r2": sample_name+'_r2_paired_fastqc.html',
         "multiqc_datadir_post": sample_name+'_multiqc.html',
+        "trimmo_intput_read_pairs": trimmo_intput_read_pairs,
+        "trimmo_both_surviving": trimmo_both_surviving,
+        "trimmo_forward_only_surviving": trimmo_forward_only_surviving,
+        "trimmo_reverse_only_surviving": trimmo_reverse_only_surviving,
+        "trimmo_dropped": trimmo_dropped,
     })
 
 
@@ -420,12 +451,16 @@ def current_status(request, slug_project):
     datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
                            project_name + '_' + email + '_' + analysis_code)
     # Check the process of files
+    check_submission_time_ans = False
     check_first_qc_ans = False
     check_trimming_qc_ans = False
     check_second_qc_ans = False
     check_read_subtraction_bwa_align_ans = False
-    view_counter_end = "Not Start Counting"
+    check_end_time_ans = False
 
+    view_counter_end = "Not Start Counting"
+    if utils_func.check_submission_time_file(datadir, sample_name, se_or_pe) is True:
+        check_submission_time_ans = True
     if utils_func.check_first_qc(datadir, sample_name, se_or_pe) is True:
         check_first_qc_ans = True
     if utils_func.check_trimming_qc(datadir, sample_name, se_or_pe) is True:
@@ -434,8 +469,10 @@ def current_status(request, slug_project):
         check_second_qc_ans = True
     if utils_func.check_read_subtraction_bwa_align(datadir, sample_name) is True:
         check_read_subtraction_bwa_align_ans = True
+    if utils_func.check_end_time_file(datadir, sample_name, se_or_pe) is True:
+        check_end_time_ans = True
     whole_file_check = check_first_qc_ans and check_trimming_qc_ans and check_second_qc_ans and check_read_subtraction_bwa_align_ans
-    if ((view_counter is 1) or (check_first_qc_ans is False and check_trimming_qc_ans is False and check_second_qc_ans is False and check_read_subtraction_bwa_align_ans is False) or submission_time_strip == 'no submission time'):
+    if ((view_counter is 1) or (check_submission_time_ans is False and check_first_qc_ans is False and check_trimming_qc_ans is False and check_second_qc_ans is False and check_read_subtraction_bwa_align_ans is False and check_end_time_ans is False) or submission_time_strip == 'no submission time'):
         # This is the first time to run (with the submission time stamp)
         submission_time = timezone.now()
         submission_time_strip = submission_time.strftime("%B %d, %Y, %I:%M:%S %p")
@@ -461,84 +498,6 @@ def current_status(request, slug_project):
         'view_counter_end': view_counter_end,
         'view_counter': view_counter,
     })
-
-
-def pre_qc_html_view(request, slug_project, slug_filename):
-    print("&&&&&&slug_project: ", slug_project)
-    print("&&&&&&slug_filename: ", slug_filename)
-
-    if 'project_name' in request.session:
-        project_name = request.session['project_name']
-        print("project_name: ", project_name)
-        request.session["project_name"] = project_name
-    if 'analysis_code' in request.session:
-        analysis_code = request.session['analysis_code']
-        print("analysis_code: ", analysis_code)
-        request.session["analysis_code"] = analysis_code
-    if 'email' in request.session:
-        email = request.session['email']
-        print("email: ", email)
-
-    url_parameter = project_name + '_' + email.split("@")[0]
-    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC', 'pre', 'Tochigi-7_S6_L001_multiqc.html')
-    return render(request, html_file, {
-        'project_name': project_name,
-        'email': email,
-        'url_parameter': url_parameter,
-    })
-
-
-    # if request.method == 'POST':
-    #     if 'certain id !!!!!' in request.POST:
-    #         return redirect((reverse('dataanalysis_result_current_status_pre_qc_html', kwargs={
-    #             'slug_project': url_parameter,
-    #             'slug_filename': url_parameter})))
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-# def post_qc_html_view(request, slug_project, slug_filename):
-#     if 'project_name' in request.session:
-#         project_name = request.session['project_name']
-#         print("project_name: ", project_name)
-#         request.session["project_name"] = project_name
-#     if 'analysis_code' in request.session:
-#         analysis_code = request.session['analysis_code']
-#         print("analysis_code: ", analysis_code)
-#         request.session["analysis_code"] = analysis_code
-#     if 'email' in request.session:
-#         email = request.session['email']
-#         print("email: ", email)
-#     url_parameter = project_name + '_' + email.split("@")[0]
-#     if request.method == 'POST':
-#         if 'certain id !!!!!' in request.POST:
-#             return redirect((reverse('dataanalysis_result_current_status_pre_qc_html', kwargs={
-#                 'slug_project': url_parameter,
-#                 'slug_filename': url_parameter})))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def hello_world(request):
@@ -591,3 +550,131 @@ def Check_Uploaded_File_Name(project_name, email, analysis_code):
     # files = glob.glob(upload_dir)
 
     return (uploaded_file_url_pe_1, uploaded_file_url_pe_2, uploaded_file_url_se)
+
+
+
+def pre_qc_html_view_multiqc(request, slug_project):
+    if 'project_name' in request.session:
+        project_name = request.session['project_name']
+        print("project_name: ", project_name)
+        request.session["project_name"] = project_name
+    if 'analysis_code' in request.session:
+        analysis_code = request.session['analysis_code']
+        print("analysis_code: ", analysis_code)
+        request.session["analysis_code"] = analysis_code
+    if 'email' in request.session:
+        email = request.session['email']
+        print("email: ", email)
+    url_parameter = project_name + '_' + email.split("@")[0]
+    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC', 'pre', 'Tochigi-7_S6_L001_multiqc.html')
+    return render(request, html_file, {
+        'project_name': project_name,
+        'analysis_code': analysis_code,
+        'email': email,
+        'url_parameter': url_parameter,
+    })
+
+def pre_qc_html_view_r1(request, slug_project):
+    if 'project_name' in request.session:
+        project_name = request.session['project_name']
+        print("project_name: ", project_name)
+        request.session["project_name"] = project_name
+    if 'analysis_code' in request.session:
+        analysis_code = request.session['analysis_code']
+        print("analysis_code: ", analysis_code)
+        request.session["analysis_code"] = analysis_code
+    if 'email' in request.session:
+        email = request.session['email']
+        print("email: ", email)
+    url_parameter = project_name + '_' + email.split("@")[0]
+    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC', 'pre', 'Tochigi-7_S6_L001.R1_fastqc.html')
+    return render(request, html_file, {
+        'project_name': project_name,
+        'analysis_code': analysis_code,
+        'email': email,
+        'url_parameter': url_parameter,
+    })
+
+def pre_qc_html_view_r2(request, slug_project):
+    if 'project_name' in request.session:
+        project_name = request.session['project_name']
+        print("project_name: ", project_name)
+        request.session["project_name"] = project_name
+    if 'analysis_code' in request.session:
+        analysis_code = request.session['analysis_code']
+        print("analysis_code: ", analysis_code)
+        request.session["analysis_code"] = analysis_code
+    if 'email' in request.session:
+        email = request.session['email']
+        print("email: ", email)
+    url_parameter = project_name + '_' + email.split("@")[0]
+    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC', 'pre', 'Tochigi-7_S6_L001.R2_fastqc.html')
+    return render(request, html_file, {
+        'project_name': project_name,
+        'analysis_code': analysis_code,
+        'email': email,
+        'url_parameter': url_parameter,
+    })
+
+def post_qc_html_view_multiqc(request, slug_project):
+    if 'project_name' in request.session:
+        project_name = request.session['project_name']
+        print("project_name: ", project_name)
+        request.session["project_name"] = project_name
+    if 'analysis_code' in request.session:
+        analysis_code = request.session['analysis_code']
+        print("analysis_code: ", analysis_code)
+        request.session["analysis_code"] = analysis_code
+    if 'email' in request.session:
+        email = request.session['email']
+        print("email: ", email)
+    url_parameter = project_name + '_' + email.split("@")[0]
+    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC', 'post', 'Tochigi-7_S6_L001_multiqc.html')
+    return render(request, html_file, {
+        'project_name': project_name,
+        'analysis_code': analysis_code,
+        'email': email,
+        'url_parameter': url_parameter,
+    })
+
+def post_qc_html_view_r1(request, slug_project):
+    if 'project_name' in request.session:
+        project_name = request.session['project_name']
+        print("project_name: ", project_name)
+        request.session["project_name"] = project_name
+    if 'analysis_code' in request.session:
+        analysis_code = request.session['analysis_code']
+        print("analysis_code: ", analysis_code)
+        request.session["analysis_code"] = analysis_code
+    if 'email' in request.session:
+        email = request.session['email']
+        print("email: ", email)
+    url_parameter = project_name + '_' + email.split("@")[0]
+    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC', 'post', 'Tochigi-7_S6_L001_r1_paired_fastqc.html')
+    return render(request, html_file, {
+        'project_name': project_name,
+        'analysis_code': analysis_code,
+        'email': email,
+        'url_parameter': url_parameter,
+    })
+
+def post_qc_html_view_r2(request, slug_project):
+    if 'project_name' in request.session:
+        project_name = request.session['project_name']
+        print("project_name: ", project_name)
+        request.session["project_name"] = project_name
+    if 'analysis_code' in request.session:
+        analysis_code = request.session['analysis_code']
+        print("analysis_code: ", analysis_code)
+        request.session["analysis_code"] = analysis_code
+    if 'email' in request.session:
+        email = request.session['email']
+        print("email: ", email)
+    url_parameter = project_name + '_' + email.split("@")[0]
+    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC', 'post', 'Tochigi-7_S6_L001_r2_paired_fastqc.html')
+    return render(request, html_file, {
+        'project_name': project_name,
+        'analysis_code': analysis_code,
+        'email': email,
+        'url_parameter': url_parameter,
+    })
