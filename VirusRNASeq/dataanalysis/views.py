@@ -15,8 +15,8 @@ import shutil
 import re
 import subprocess
 
-from .forms import PhotoForm
-from .models import Photo
+from .forms import DataForm
+from .models import Data
 
 
 from django.utils import timezone
@@ -31,10 +31,10 @@ TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_pr
 # show the user a list of uploaded files
 
 def post(self, request):
-    form = PhotoForm(self.request.POST, self.request.FILES)
+    form = DataForm(self.request.POST, self.request.FILES)
     if form.is_valid():
-        photo = form.save()
-        data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
+        data = form.save()
+        data = {'is_valid': True, 'name': data.file.name, 'url': data.file.url}
     else:
         data = {'is_valid': False}
     return JsonResponse(data)
@@ -63,15 +63,15 @@ def data_analysis_home(request):
 class BasicUploadView(View):
     def get(self, request):
         print("Inside 'get !!!'")
-        photos_list = Photo.objects.all()
-        return render(self.request, 'dataanalysis/data_upload.html', {'photos': photos_list})
+        data_list = Data.objects.all()
+        return render(self.request, 'dataanalysis/data_upload.html', {'datas': data_list})
 
     def post(self, request):
         print("Inside 'post !!!'")
-        form = PhotoForm(self.request.POST, self.request.FILES)
+        form = DataForm(self.request.POST, self.request.FILES)
         if form.is_valid():
-            photo = form.save()
-            data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
+            data = form.save()
+            data = {'is_valid': True, 'name': data.file.name, 'url': data.file.url}
             print("inside form is valid")
         else:
             data = {'is_valid': False}

@@ -20,7 +20,7 @@ class SingleEnd(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
 
-class Photo(models.Model):
+class Data(models.Model):
     title = models.CharField(max_length=255, blank=True)
     file = models.FileField(upload_to='photos/')
     uploaded_at = models.DateTimeField(auto_now_add=True)

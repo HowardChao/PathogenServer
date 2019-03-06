@@ -1,5 +1,5 @@
 from django import forms
-from .models import Photo
+from .models import Data
 from dataanalysis.models import Document, PairedEnd, SingleEnd
 
 class DocumentForm(forms.ModelForm):
@@ -19,7 +19,7 @@ class SingleEndForm(forms.ModelForm):
         fields = ('file1',)
 
 
-class PhotoForm(forms.ModelForm):
+class DataForm(forms.ModelForm):
     class Meta:
-        model = Photo
+        model = Data
         fields = ('file', )
