@@ -33,17 +33,56 @@
   </div>
 </div>
 
-<div class="well text-muted text-center" style="padding-top: 4rem; padding-bottom: 4rem;">
-  <span class="glyphicon glyphicon-arrow-down" style="font-size: 4rem;"></span>
-  <h3>Drop Photos Here to Upload</h3>
-</div>
+<!-- <div class="well text-muted text-center js-upload-photos" style="margin: 5%; padding-top: 4rem; padding-bottom: 4rem; border-width:5px;border-style:dashed;border-color:#6B757D; border-radius:25px; background: #e2e2e2">
+  <i class="fas fa-cloud-upload-alt fa-5x"></i><h2>Drop Photos Here to Upload</h2>
+</div> -->
+<!-- <button type="button" class="btn btn-primary js-upload-photos">
+  <i class="fas fa-cloud-upload-alt fa-5x"></i> Upload photos
+</button> -->
+
+<!-- <input id="fileupload" type="file" name="file" multiple
+       style="display: none;"> -->
+
+       <form method="post" enctype="multipart/form-data" required="True">
+           <div id="paired-end-container"></div>
+           {% csrf_token %}
+           <div class="custom-file">
+               <!-- <input type="hidden" value="paired" name="paired_or_single"> -->
+               <input type="file" name="file" class="custom-file-input" id="fileupload" multiple>
+               <label class="custom-file-label" for="inputGroupFile01">Choose R1 file (*.1.fastq.gz)</label>
+           </div>
+       </form>
+
+
+<button id="up_btn">Upload</button>
+
+
+        <script>
+        // Change color would be done in the future !!! (It is not working right now!)
+            $('#fileupload').on('change',function(){
+                //get the file name
+                var fileName = $(this).val();
+                var cleanFileName = fileName.replace('C:\\fakepath\\', " ");
+                //replace the "Choose a file" label
+                $(this).next('.custom-file-label').html(cleanFileName);
+                reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz)$/i
+                if (cleanFileName.match(reg_exp_1)) {
+                    console.log("Change color to green");
+                    $('#inputGroupFile01').css("background-color", "#97dbac");
+                } else {
+                    console.log("Change color to red");
+                    $('#inputGroupFile01').css("background-color", "#db9797");
+                }
+            })
+        </script>
 
 
 
-<input id="fileupload" type="file" name="file" multiple
+<!-- <input id="fileupload" type="file" name="file" multiple
        style="display: none;"
        data-url="{% url 'dataanalysis_data_upload' %}"
-       data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+       data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'> -->
+
 
 
 
