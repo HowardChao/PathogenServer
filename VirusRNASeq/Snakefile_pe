@@ -40,7 +40,9 @@ rule targets:
         expand(os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_bam", "{sample}.unmapped.bam"), sample=samples),
         expand(os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_fastq", "{sample}.unmapped.R1.fastq"), sample=samples),
         expand(os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_fastq", "{sample}.unmapped.R2.fastq"), sample=samples),
+        expand('{sample}_a5_miseq_de_novo.out', sample=samples), 
         'end_time.txt',
+
 # rule first_fastqc_target:
 #     input:
 #         expand(os.path.join("QC", "pre", "{sample}_multiqc.html"), sample=samples),
@@ -190,7 +192,7 @@ rule second_multiqc:
         multiqc --force {params.directory} -n {params.filename}
         """
 
-rule read_subtraction_bwa_mem:
+rule align_against_host_genome_bwa_mem:
     input:
         trimmed_r1 = os.path.join("trimmed_paired", "{sample}_r1_paired.fastq.gz"),
         trimmed_r2 = os.path.join("trimmed_paired", "{sample}_r2_paired.fastq.gz"),
@@ -257,8 +259,20 @@ rule extract_non_host_reads_4:
         """
         bedtools bamtofastq -i {input.unmapped_bam} -fq {output.unmapped_fastq_r1} -fq2 {output.unmapped_fastq_r2}
         """
-
-
+rule a5_miseq_de_novo_assembly:
+    input:
+        unmapped_fastq_r1 = os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_fastq", "{sample}.unmapped.R1.fastq"),
+        unmapped_fastq_r2 = os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_fastq", "{sample}.unmapped.R2.fastq"),
+    output:
+        output_genome = "{sample}_a5_miseq_de_novo.out",
+    threads: 10,
+    priority: 89,
+    log:
+        log = os.path.join("logs", "a5_miseq_de_novo_assembly", "{sample}.log"),
+    shell:
+        """
+        a5_pipeline.pl --threads={threads} {input.unmapped_fastq_r1} {input.unmapped_fastq_r2} {output.output_genome} &> {log.log}
+        """
 
 rule get_end_time:
     output:

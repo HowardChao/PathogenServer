@@ -2,9 +2,10 @@ from django.core.cache import cache
 from django.http import HttpResponse
 import json
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.files.storage import FileSystemStorage
 from django.views import View
+from django.views.generic.detail import DetailView
 from django.conf import settings
 from django.urls import reverse
 import yaml
@@ -60,13 +61,53 @@ def data_analysis_home(request):
     # documents = Document.objects.all()
     # return render(request, 'dataanalysis/home.html', { 'documents': documents })
 
-class BasicUploadView(View):
-    def get(self, request):
+class BasicUploadView(DetailView):
+    # slug_field = 'my_cool_field'
+    template_name = 'dataanalysis/data_upload.html'
+    def get(self, request, slug_project):
+        # slug_project = self.kwargs.get("slug_project")
+        print("slug_project: ", slug_project)
+        if 'project_name' in request.session:
+            project_name = request.session['project_name']
+            print("project_name: ", project_name)
+            request.session["project_name"] = project_name
+        if 'analysis_code' in request.session:
+            analysis_code = request.session['analysis_code']
+            print("analysis_code: ", analysis_code)
+            request.session["analysis_code"] = analysis_code
+        if 'email' in request.session:
+            email = request.session['email']
+            print("email: ", email)
+            request.session["email"] = email
+        url_parameter = project_name + '_' + email.split("@")[0]
         print("Inside 'get !!!'")
         data_list = Data.objects.all()
-        return render(self.request, 'dataanalysis/data_upload.html', {'datas': data_list})
+        print("data_list: ", data_list)
+        # return redirect((reverse('dataanalysis_data_upload', kwargs={
+        #     'slug_project': url_parameter,
+        #     'datas': data_list})))
+        return render(self.request, "dataanalysis/file_upload.html", {
+            'project_name': project_name,
+            'email': email,
+            'slug_project': url_parameter,
+            'datas': data_list
+        })
+        # return render(self.request, 'dataanalysis/data_upload.html', {'url_parameter': url_parameter, 'datas': data_list})
 
-    def post(self, request):
+    def post(self, request, slug_project):
+        if 'project_name' in request.session:
+            project_name = request.session['project_name']
+            print("project_name: ", project_name)
+            request.session["project_name"] = project_name
+        if 'analysis_code' in request.session:
+            analysis_code = request.session['analysis_code']
+            print("analysis_code: ", analysis_code)
+            request.session["analysis_code"] = analysis_code
+        if 'email' in request.session:
+            email = request.session['email']
+            print("email: ", email)
+            request.session["email"] = email
+        url_parameter = project_name + '_' + email.split("@")[0]
         print("Inside 'post !!!'")
         form = DataForm(self.request.POST, self.request.FILES)
         if form.is_valid():
@@ -80,7 +121,6 @@ class BasicUploadView(View):
 
 
 def data_upload(request, slug_project):
-
     if 'project_name' in request.session:
         project_name = request.session['project_name']
         print("project_name: ", project_name)
@@ -93,6 +133,12 @@ def data_upload(request, slug_project):
         email = request.session['email']
         print("email: ", email)
         request.session["email"] = email
+    url_parameter = project_name + '_' + email.split("@")[0]
+    return render(request, "dataanalysis/data_upload.html", {
+        'project_name': project_name,
+        'email': email,
+        'url_parameter': url_parameter,
+    })
 
 
 
