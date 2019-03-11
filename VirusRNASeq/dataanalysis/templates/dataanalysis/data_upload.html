@@ -57,24 +57,49 @@
 <button id="up_btn">Upload</button>
 
 
-        <script>
+        <!-- <script>
         // Change color would be done in the future !!! (It is not working right now!)
+            var selectedFiles = {};
+            function reply_click(clicked_id){
+              // Remove selected file
+              console.log("clicked_id: ", clicked_id);
+              var key_id = clicked_id.replace('button_file_', '');
+              console.log("remove element id: ", "file_" + key_id);
+              document.getElementById("file_" + key_id).remove();
+              console.log("Before deleting: ", selectedFiles);
+              delete selectedFiles[key_id];
+              console.log("After deleting: ", selectedFiles);
+            }
             $('#fileupload').on('change',function(){
                 //get the file name
-                var fileName = $(this).val();
-                var cleanFileName = fileName.replace('C:\\fakepath\\', " ");
-                //replace the "Choose a file" label
-                $(this).next('.custom-file-label').html(cleanFileName);
-                reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz)$/i
-                if (cleanFileName.match(reg_exp_1)) {
-                    console.log("Change color to green");
-                    $('#inputGroupFile01').css("background-color", "#97dbac");
-                } else {
-                    console.log("Change color to red");
-                    $('#inputGroupFile01').css("background-color", "#db9797");
+                var fileList = document.getElementById("fileupload").files;
+                var myNode = document.getElementById("data_selected_body");
+                // myNode.innerHTML = '';
+                for (var i=0; i<fileList.length; i++) {
+                  selectedFiles[i] = fileList[i]
+                  // <tr>
+                  //   <td><a href="{{ data.file.url }}">{{ data.file.name }}</a></td>
+                  // </tr>
+                  $('#data_selected_body').append('<tr id="file_'+i.toString() +'"><td><b>Filename: </b><a href=""> '+ fileList[i].name + '</a> &nbsp&nbsp&nbsp&nbsp <b>File Size: </b>'+ fileList[i].size +' byte &nbsp&nbsp&nbsp&nbsp <button id="button_file_'+i.toString() +'" onClick="reply_click(this.id)">remove selected file</button></td></tr>')
+                  console.log(fileList[i]);
+                  console.log(selectedFiles);
                 }
+
+                //
+                // var fileName = $(this).val();
+                // var cleanFileName = fileName.replace('C:\\fakepath\\', " ");
+                // //replace the "Choose a file" label
+                // $(this).next('.custom-file-label').html(cleanFileName);
+                // reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz)$/i
+                // if (cleanFileName.match(reg_exp_1)) {
+                //     console.log("Change color to green");
+                //     $('#inputGroupFile01').css("background-color", "#97dbac");
+                // } else {
+                //     console.log("Change color to red");
+                //     $('#inputGroupFile01').css("background-color", "#db9797");
+                // }
             })
-        </script>
+        </script> -->
 
 
 
@@ -82,7 +107,15 @@
        style="display: none;"
        data-url="{% url 'dataanalysis_data_upload' %}"
        data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'> -->
-
+<table id="data_selected" class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Data</th>
+    </tr>
+  </thead>
+  <tbody id="data_selected_body">
+  </tbody>
+</table>
 
 
 
