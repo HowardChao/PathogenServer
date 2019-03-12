@@ -16,6 +16,3 @@ class NewsletterUser(models.Model):
     analysis_code = models.CharField(max_length=32)
     def __str__(self):
         return self.email
-
-
-

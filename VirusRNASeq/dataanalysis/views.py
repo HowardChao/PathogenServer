@@ -109,7 +109,8 @@ class BasicUploadView(DetailView):
             request.session["email"] = email
         url_parameter = project_name + '_' + email.split("@")[0]
         print("Inside 'post !!!'")
-        form = DataForm(self.request.POST, self.request.FILES)
+        form = DataForm(self.request.POST, self.request.FILES, project_name=project_name, analysis_code=analysis_code, email=email, initial={'project_name': project_name, 'analysis_code': analysis_code, 'email':email })
+
         if form.is_valid():
             data = form.save()
             data = {'is_valid': True, 'name': data.file.name, 'url': data.file.url}

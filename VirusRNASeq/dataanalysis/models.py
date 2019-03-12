@@ -21,7 +21,10 @@ class SingleEnd(models.Model):
 
 
 class Data(models.Model):
-    title = models.CharField(max_length=255, blank=True)
+    title = models.CharField(max_length=255)
+    project_name = models.CharField(max_length=255)
+    analysis_code = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
     file = models.FileField(upload_to='photos/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):

@@ -12,7 +12,6 @@
 $(function () {
 
   $(".js-upload-photos").click(function () {
-
     $("#fileupload").click();
   });
 
@@ -58,7 +57,8 @@ $(function () {
       console.log("datadata: ", data);
       $.each(data.files, function (index, file) {
         // var newFileDiv = $("<div class='uploadBox' id='fileDiv_" + file.name + "'><div class='leftEle'><a href='#' id='link_" + index + "' class='removeFile'>Remove</a></div><div class='midEle'>" + file.name + "</div></div>");
-        var newFilepulgin = $('<tr id="file_'+ file.name +'"><td><b>Filename: </b><a href="#" id="link_' + index + '" class="removeFile"> '+ file.name + '</a> &nbsp&nbsp&nbsp&nbsp <b>File Size: </b>'+ file.size +' byte &nbsp&nbsp&nbsp&nbsp <button id="button_file_'+ file.name +'">remove selected file</button></td></tr>');
+        var newFilepulgin = $('<tr id="file_'+ file.name +'"><td><button type="button" class="btn btn-outline-danger" id="button_file_'+ file.name +'">remove selected file</button>&nbsp&nbsp&nbsp&nbsp <b>Filename: </b><a href="#" id="link_' + index + '" class="removeFile"> '+ file.name + '</a> &nbsp&nbsp&nbsp&nbsp <b>File Size: </b>'+ file.size +' byte </td></tr>');
+
         $('#data_selected_body').append(newFilepulgin);
         console.log('#button_file_'+ file.name);
         newFilepulgin.find('button').on('click', { filename: file.name, files: data.files }, function (event) {
@@ -98,7 +98,7 @@ $(function () {
      if (data.result.is_valid) {
        $("#gallery tbody").prepend(
          // "<tr><td><a href='" + data.result.url + "'>" + data.result.name + "</a></td></tr>"
-         '<tr id="upload_'+ data.result.name +'"><td><b>Filename: </b><a href="'+ data.result.url + '" id="link_' + data.result.name + '" class="removeFile"> '+ data.result.name + '</a> &nbsp&nbsp&nbsp&nbsp <b>File Size: </b> byte &nbsp&nbsp&nbsp&nbsp <button id="button_file_'+ data.result.name +'">remove selected file</button></td></tr>'
+         '<tr id="upload_'+ data.result.name +'"><td><div class="row"><div class="col-6 col-md-4"><b>Filename: </b><a href="'+ data.result.url + '" id="link_' + data.result.name + '" class="removeFile"> '+ data.result.name + '</a>  </div><div class="col-6 col-md-4"><b>File Size: </b> byte &nbsp&nbsp&nbsp&nbsp </div><div class="col-6 col-md-4"><button id="button_file_'+ data.result.name +'">remove selected file</button> </div></div></td></tr>'
        )
      }
    }

@@ -40,7 +40,7 @@ rule targets:
         expand(os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_bam", "{sample}.unmapped.bam"), sample=samples),
         expand(os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_fastq", "{sample}.unmapped.R1.fastq"), sample=samples),
         expand(os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_fastq", "{sample}.unmapped.R2.fastq"), sample=samples),
-        expand('{sample}_a5_miseq_de_novo.out', sample=samples), 
+        expand('{sample}_a5_miseq_de_novo.out', sample=samples),
         'end_time.txt',
 
 # rule first_fastqc_target:

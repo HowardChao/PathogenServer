@@ -1,0 +1,23 @@
+.navbar-nav > li{
+  padding-left: 5px;
+  padding-right:20px;
+}
+
+body {
+  position: relative;
+}
+
+nav.col-sm-3 {
+    top: 20px;
+    position: fixed;
+}
+
+ul.nav-pills {
+    top: 20px;
+    position: fixed;
+}
+
+div.col-sm-9 div {
+    height: 250px;
+    font-size: 28px;
+}

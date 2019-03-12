@@ -33,25 +33,33 @@
   </div>
 </div>
 
-       <form method="post" enctype="multipart/form-data" required="True">
+<div class="well text-muted text-center js-upload-photos" style="margin: 5%; padding-top: 4rem; padding-bottom: 4rem; border-width:5px;border-style:dashed;border-color:#6B757D; border-radius:25px; background: #e2e2e2">
+  <i class="fas fa-cloud-upload-alt fa-5x"></i><h2>Drop Photos Here to Upload</h2>
+</div>
+<!-- <button type="button" class="btn btn-primary js-upload-photos">
+  <i class="fas fa-cloud-upload-alt fa-5x"></i> Upload photos
+</button> -->
+<button id="up_btn" type="up_btn" class="btn btn-success btn-lg btn-block">Upload</button>
+
+       <!-- <form method="post" enctype="multipart/form-data" required="True">
            <div id="paired-end-container"></div>
            {% csrf_token %}
            <div class="custom-file">
-               <!-- <input type="hidden" value="paired" name="paired_or_single"> -->
                <input type="file" name="file" class="custom-file-input" id="fileupload" multiple>
                <label class="custom-file-label" for="inputGroupFile01">Choose R1 file (*.1.fastq.gz)</label>
            </div>
-       </form>
+       </form> -->
 
 
-<button id="up_btn">Upload</button>
-
+       <input id="fileupload" type="file" name="file" multiple
+              style="display: none;"
+              data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
 
 
 <table id="data_selected" class="table table-bordered">
   <thead>
     <tr>
-      <th>Data</th>
+      <th>Selected files</th>
     </tr>
   </thead>
   <tbody id="data_selected_body">
@@ -63,17 +71,24 @@
 <table id="gallery" class="table table-bordered">
   <thead>
     <tr>
-      <th>Data</th>
+      <th>Uploaded files</th>
     </tr>
   </thead>
   <tbody>
     {% for data in datas %}
       <tr>
-        <td><a href="{{ data.file.url }}">{{ data.file.name }}</a></td>
+        <td>
+          <div class="row">
+            <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data.file.name }}</a></div>
+            <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data.file.name }}</a></div>
+            <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data.file.name }}</a></div>
+          </div>
+        </td>
       </tr>
     {% endfor %}
   </tbody>
 </table>
 
-
+<div style="margin-bottom: 100px">
+</div>
 {% endblock content %}
