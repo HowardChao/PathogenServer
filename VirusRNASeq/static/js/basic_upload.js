@@ -58,9 +58,7 @@ $(function () {
       $.each(data.files, function (index, file) {
         // var newFileDiv = $("<div class='uploadBox' id='fileDiv_" + file.name + "'><div class='leftEle'><a href='#' id='link_" + index + "' class='removeFile'>Remove</a></div><div class='midEle'>" + file.name + "</div></div>");
         var newFilepulgin = $('<tr id="file_'+ file.name +'"><td><button type="button" class="btn btn-outline-danger" id="button_file_'+ file.name +'">remove selected file</button>&nbsp&nbsp&nbsp&nbsp <b>Filename: </b><a href="#" id="link_' + index + '" class="removeFile"> '+ file.name + '</a> &nbsp&nbsp&nbsp&nbsp <b>File Size: </b>'+ file.size +' byte </td></tr>');
-
         $('#data_selected_body').append(newFilepulgin);
-        console.log('#button_file_'+ file.name);
         newFilepulgin.find('button').on('click', { filename: file.name, files: data.files }, function (event) {
             console.log("Button clicked!");
             event.preventDefault();
@@ -68,6 +66,7 @@ $(function () {
             var remDiv = $(document.getElementById("file_" + event.data.filename));
             remDiv.remove();
             data.files.length = 0;    //zero out the files array
+
         });
         data.context = newFilepulgin;
       });
@@ -75,10 +74,14 @@ $(function () {
        $("#up_btn").click(function () {
            if (data.files.length > 0) {     //only submit if we have something to upload
                data.submit();
+               console.log("$$$$$data.files.name: ", data.files[0].name);
+               var myNode = document.getElementById("file_" + data.files[0].name);
+               console.log("myNode: ", myNode);
+               myNode.innerHTML = '';
            }
            // var myNode = $("#data_selected_body");
-           var myNode = document.getElementById("data_selected_body");
-           myNode.innerHTML = '';
+           // var myNode = document.getElementById("data_selected_body");
+           // myNode.innerHTML = '';
        });
    },
    start: function (e) {  /* 2. WHEN THE UPLOADING PROCESS STARTS, SHOW THE MODAL */
@@ -95,10 +98,12 @@ $(function () {
      $(".progress-bar").text(strProgress);
    },
    done: function (e, data) {
+     console.log("data.result.is_valid:", data)
      if (data.result.is_valid) {
        $("#gallery tbody").prepend(
          // "<tr><td><a href='" + data.result.url + "'>" + data.result.name + "</a></td></tr>"
          '<tr id="upload_'+ data.result.name +'"><td><div class="row"><div class="col-6 col-md-4"><b>Filename: </b><a href="'+ data.result.url + '" id="link_' + data.result.name + '" class="removeFile"> '+ data.result.name + '</a>  </div><div class="col-6 col-md-4"><b>File Size: </b> byte &nbsp&nbsp&nbsp&nbsp </div><div class="col-6 col-md-4"><button id="button_file_'+ data.result.name +'">remove selected file</button> </div></div></td></tr>'
+         // '<tr><td>111</td></tr>'
        )
      }
    }

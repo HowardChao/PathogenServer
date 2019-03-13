@@ -79,6 +79,8 @@ class BasicUploadView(DetailView):
             email = request.session['email']
             print("email: ", email)
             request.session["email"] = email
+        uploaded_file = check_upload_sample_name(project_name, email, analysis_code)
+        print("uploaded_file: ", uploaded_file)
         url_parameter = project_name + '_' + email.split("@")[0]
         print("Inside 'get !!!'")
         data_list = Data.objects.all()
@@ -94,7 +96,21 @@ class BasicUploadView(DetailView):
         })
         # return render(self.request, 'dataanalysis/data_upload.html', {'url_parameter': url_parameter, 'datas': data_list})
 
+
+
+
     def post(self, request, slug_project):
+        # uploaded_file_url_pe_1 = None
+        # uploaded_file_url_pe_2 = None
+        # uploaded_file_url_se = None
+        # (uploaded_file_url_pe_1, uploaded_file_url_pe_2, uploaded_file_url_se) = Check_Uploaded_File_Name(
+        #     project_name, email, analysis_code)
+        # url_parameter = project_name + '_' + email.split("@")[0]
+
+
+
+
+
         if 'project_name' in request.session:
             project_name = request.session['project_name']
             print("project_name: ", project_name)
@@ -109,16 +125,51 @@ class BasicUploadView(DetailView):
             request.session["email"] = email
         url_parameter = project_name + '_' + email.split("@")[0]
         print("Inside 'post !!!'")
-        form = DataForm(self.request.POST, self.request.FILES, project_name=project_name, analysis_code=analysis_code, email=email, initial={'project_name': project_name, 'analysis_code': analysis_code, 'email':email })
+        base_dir = os.path.join(settings.MEDIA_ROOT,
+                                'tmp', project_name + '_' + email + '_' + analysis_code)
 
-        if form.is_valid():
-            data = form.save()
-            data = {'is_valid': True, 'name': data.file.name, 'url': data.file.url}
-            print("inside form is valid")
-        else:
-            data = {'is_valid': False}
-            print("inside form is not valid")
+        myfile = request.FILES['file_choose']
+        fs = FileSystemStorage()
+
+        sample_name = os.path.splitext(os.path.splitext(os.path.splitext(myfile.name)[0])[0])[0]
+        # Removing files
+        if not fs.exists(os.path.join(base_dir, 'Uploaded_files')):
+            os.mkdir((os.path.join(base_dir, 'Uploaded_files')))
+            if not fs.exists(os.path.join(base_dir, 'Uploaded_files', sample_name)):
+                os.mkdir((os.path.join(base_dir, 'Uploaded_files', sample_name)))
+        # Found split sample name
+        sample_name = os.path.splitext(os.path.splitext(os.path.splitext(myfile.name)[0])[0])[0]
+        filename = fs.save(os.path.join(base_dir, "Uploaded_files", sample_name, myfile.name), myfile)
+        uploaded_file_url = fs.url(filename)
+
+
+        # form = DataForm(self.request.POST, self.request.FILES, project_name=project_name, analysis_code=analysis_code, email=email, initial={'project_name': project_name, 'analysis_code': analysis_code, 'email':email })
+        # print("form: ", form)
+        data = {'is_valid': True, 'name': myfile.name}
         return JsonResponse(data)
+
+def check_upload_sample_name(project_name, email, analysis_code):
+    uploaded_file = {}
+    datadir = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name + '_' + email + '_' + analysis_code)
+    upload_dir = os.path.join(datadir, "Uploaded_files")
+    if os.path.exists(upload_dir):
+        samples_dir = os.listdir(upload_dir)
+        for sample in samples_dir:
+            fastqs_in_sample = []
+            for fastq in os.listdir(os.path.join(upload_dir, sample)):
+                print("fastq", fastq)
+                if ".R1.fastq.gz" in fastq:
+                    fastq_pe_1 = os.path.join(datadir, "Uploaded_files", sample, fastq)
+                    fastqs_in_sample.append(fastq_pe_1)
+                if ".R2.fastq.gz" in fastq:
+                    fastq_pe_2 = os.path.join(datadir, "Uploaded_files", sample, fastq)
+                    fastqs_in_sample.append(fastq_pe_2)
+            uploaded_file[sample] = fastqs_in_sample
+    return uploaded_file
+
+
+
+
 
 
 def data_upload(request, slug_project):

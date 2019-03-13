@@ -45,13 +45,15 @@
            <div id="paired-end-container"></div>
            {% csrf_token %}
            <div class="custom-file">
+               <input type="title" name="title" class="custom-file-input" multiple>
                <input type="file" name="file" class="custom-file-input" id="fileupload" multiple>
-               <label class="custom-file-label" for="inputGroupFile01">Choose R1 file (*.1.fastq.gz)</label>
            </div>
        </form> -->
+       <!-- <input type="project_name" name="project_name" multiple
+              style="display: none;"
+              data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'> -->
 
-
-       <input id="fileupload" type="file" name="file" multiple
+       <input id="fileupload" type="file" name="file_choose" multiple
               style="display: none;"
               data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
 
@@ -78,11 +80,11 @@
     {% for data in datas %}
       <tr>
         <td>
-          <div class="row">
-            <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data.file.name }}</a></div>
-            <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data.file.name }}</a></div>
-            <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data.file.name }}</a></div>
-          </div>
+        <div class="row">
+          <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data.file.name }}</a></div>
+          <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data.file.name }}</a></div>
+          <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data.file.name }}</a></div>
+        </div>
         </td>
       </tr>
     {% endfor %}
