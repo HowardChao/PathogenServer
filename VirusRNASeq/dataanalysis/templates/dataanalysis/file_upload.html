@@ -18,78 +18,267 @@
 {% endblock extraheader %}
 {% block content %}
 
-<div class="modal fade" id="modal-progress" data-backdrop="static" data-keyboard="false">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Uploading...</h4>
-      </div>
-      <div class="modal-body">
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+<div class="container">
+    <div class="row">
+        <div class="card bg-light mt-5 mb-3 w-100 p-3">
+            <div class="card-header"><p class="h2"><i class="fas fa-info-circle"></i>  &nbsp &nbsp Files Upload </p></div>
+            <div class="card-body w-100">
+                <h5 class="card-title">This is the help page</h5>
+                <br>
+                <p class="card-text">Please enter your 'Analysis code' below. After you press the "Find  Project" button, you can go into your project page!</p>
+                <div class="modal fade" id="modal-progress" data-backdrop="static" data-keyboard="false">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title">Uploading...</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-multiple-sample-tab" data-toggle="tab" href="#nav-multiple-sample" role="tab" aria-controls="nav-multiple-sample" aria-selected="false"><b style="font-size: 20px">Multiple Samples</b></a>
+                    <a class="nav-item nav-link" id="nav-one-sample-tab" data-toggle="tab" href="#nav-one-sample" role="tab" aria-controls="nav-one-sample" aria-selected="true"><b style="font-size: 20px">One Sample</b></a>
+                </div>
+
+
+
+                <div class="not-upload tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade" id="nav-one-sample" role="tabpanel" aria-labelledby="nav-one-sample-tab">
+                        <br>
+                        <form method="post" enctype="multipart/form-data" required="True">
+                            <div id="paired-end-container"></div>
+                            {% csrf_token %}
+                            <div style="margin-right:30px;margin-left:30px;">
+                              <div class="custom-file" style="margin-top: 10px">
+                                  <input type="hidden" value="paired" name="paired_or_single">
+                                  <input type="file" name="r1" class="custom-file-input" id="inputGroupFile01">
+                                  <label class="custom-file-label" for="inputGroupFile01">Choose R1 file (*.1.fastq.gz)</label>
+                              </div>
+                              <div class="custom-file" style="margin-top: 10px">
+                                  <input type="file" name="r2" class="custom-file-input" id="inputGroupFile02">
+                                  <label class="custom-file-label" for="inputGroupFile02">Choose R2 file (*.1.fastq.gz)</label>
+                              </div>
+                              <br><br>
+                                <button id="paired-end-button" name="upload-paired-end-file" class="btn btn-success btn-lg btn-block" type="submit">Upload Paired-End Files</button>
+                            </div>
+
+                            <script>
+                            // Change color would be done in the future !!! (It is not working right now!)
+                                $('#inputGroupFile01').on('change',function(){
+                                    //get the file name
+                                    var fileName = $(this).val();
+                                    var cleanFileName = fileName.replace('C:\\fakepath\\', " ");
+                                    //replace the "Choose a file" label
+                                    $(this).next('.custom-file-label').html(cleanFileName);
+                                    reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz)$/i
+                                    if (cleanFileName.match(reg_exp_1)) {
+                                        console.log("Change color to green");
+                                        $('#inputGroupFile01').css("background-color", "#97dbac");
+                                    } else {
+                                        console.log("Change color to red");
+                                        $('#inputGroupFile01').css("background-color", "#db9797");
+                                    }
+                                })
+
+                                $('#inputGroupFile02').on('change',function(){
+                                    //get the file name
+                                    var fileName = $(this).val();
+                                    var cleanFileName = fileName.replace('C:\\fakepath\\', " ");
+                                    //replace the "Choose a file" label
+                                    $(this).next('.custom-file-label').html(cleanFileName);
+                                })
+
+                                $('#paired-end-button').click(function(){
+                                    var myNode = document.getElementById("paired-end-container");
+                                    myNode.innerHTML = '';
+                                    file_1_size = document.getElementById("inputGroupFile01").files.length
+                                    file_2_size = document.getElementById("inputGroupFile02").files.length
+                                    file_name1 = document.getElementById("inputGroupFile01").value;
+                                    file_name2 = document.getElementById("inputGroupFile02").value;
+                                    reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz)$/i
+                                    reg_exp_2 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R2.fastq.gz)$/i
+                                    checker = true;
+                                    if (file_1_size == 0) {
+                                        console.log("File 1 have not selected");
+                                        $('#paired-end-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">You do not select <strong>R1 file</strong> !<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+                                        checker = false;
+                                    }
+                                    if (file_1_size == 1 & !file_name1.match(reg_exp_1)) {
+                                        $('#paired-end-container').append('<div class="alert alert-warning alert-dismissible fade show" role="alert">R1 file name is <strong>INVALID</strong> ! (clue: <strong>"*.R1.fastq.gz"</strong>)<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+                                        checker = false;
+                                    }
+                                    if (file_2_size == 0) {
+                                        console.log("File 2 have not selected");
+                                        $('#paired-end-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">You do not select <strong>R2 file</strong> !<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+                                        checker = false;
+                                    }
+                                    if (file_2_size == 1 & !file_name2.match(reg_exp_2)) {
+                                        $('#paired-end-container').append('<div class="alert alert-warning alert-dismissible fade show" role="alert">R2 file name is <strong>INVALID</strong> ! (clue: <strong>"*.R2.fastq.gz"</strong>)<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+                                        checker = false;
+                                    }
+                                    return checker
+                                })
+                            </script>
+                        </form>
+                        <br>
+                    </div>
+
+                    <div class="tab-pane fade show active" id="nav-multiple-sample" role="tabpanel" aria-labelledby="nav-multiple-sample-tab">
+
+
+                      {% if samples_txt_file_name == None %}
+                        <form method="post" enctype="multipart/form-data">
+                            <div  id="multifile-descript-file-container"></div>
+                            {% csrf_token %}
+                            <div class="custom-file" style="margin-top: 30px">
+                                <input type="hidden" value="description" name="multifile-descript-file">
+                                <input type="file" name="samples-files-selected" class="custom-file-input" id="description-file">
+                                <label class="custom-file-label" for="description-file" style="color: #bfbfbf;" >Choose sample groups file (CSV format)</label>
+                            </div>
+
+
+
+
+                            <br><br>
+                            <button id="samples-files-upload-button" name="samples-files-upload" class="btn btn-success btn-lg btn-block" type="submit">Upload Single-End Files</button>
+                            <script>
+                                $('#description-file').on('change',function(){
+                                    //get the file name
+                                    var fileName = $(this).val();
+                                    var cleanFileName = fileName.replace('C:\\fakepath\\', " ");
+                                    //replace the "Choose a file" label
+                                    $(this).next('.custom-file-label').html(cleanFileName);
+                                    reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.fastq.gz)$/i
+                                    if (reg_exp_1.test(cleanFileName)) {
+                                        console.log("Change color to green");
+                                        $(this).css("background-color", "rgba(175, 201, 99, 0.2)");
+                                    } else {
+                                        console.log("Change color to red");
+                                        $(event.delegateTarget).css("background-color", "rgba(175, 201, 99, 0.2)");
+                                    }
+                                })
+
+                                $('#samples-files-upload-button').click(function(){
+                                    var myNode = document.getElementById("single-end-container");
+                                    myNode.innerHTML = '';
+                                    file_1_size = document.getElementById("inputGroupFileSin").files.length
+                                    file_name1 = document.getElementById("inputGroupFileSin").value;
+                                    reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.fastq.gz)$/i
+                                    checker = true;
+                                    if (file_1_size == 0) {
+                                        console.log("File 1 have not selected");
+                                        $('#single-end-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">You do not select <strong>R1 file</strong> !<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+                                        checker = false;
+                                    }
+                                    if (file_1_size == 1 & !file_name1.match(reg_exp_1)) {
+                                        $('#single-end-container').append('<div class="alert alert-warning alert-dismissible fade show" role="alert">R1 file name is <strong>INVALID</strong> ! (clue: <strong>"*.fastq.gz"</strong>)<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+                                        checker = false;
+                                    }
+                                    return checker
+                                })
+                            </script>
+                        </form>
+                      {% else %}
+                        <p>Upload files:</p>
+                        <ul>
+                            <li>
+                                <small>Upload at: <a href=#>{{ samples_txt_file_name }}</a></small>
+                            </li>
+                        </ul>
+                      {% endif %}
+
+
+
+
+
+
+
+                        <br>
+                        <div class="well text-muted text-center js-upload-photos" style="margin: 5%; padding-top: 4rem; padding-bottom: 4rem; border-width:5px;border-style:dashed;border-color:#6B757D; border-radius:25px; background: #e2e2e2">
+                          <i class="fas fa-cloud-upload-alt fa-5x"></i><h2>Drop Photos Here to Upload</h2>
+                        </div>
+                        <!-- <button type="button" class="btn btn-primary js-upload-photos">
+                          <i class="fas fa-cloud-upload-alt fa-5x"></i> Upload photos
+                        </button> -->
+                        <div style="margin-right:50px;margin-left:50px;">
+                          <button name="sample-each-upload" id="up_btn" type="up_btn" class="btn btn-success btn-lg btn-block">Upload</button>
+                        </div>
+
+                               <!-- <form method="post" enctype="multipart/form-data" required="True">
+                                   <div id="paired-end-container"></div>
+                                   {% csrf_token %}
+                                   <div class="custom-file">
+                                       <input type="title" name="title" class="custom-file-input" multiple>
+                                       <input type="file" name="file" class="custom-file-input" id="fileupload" multiple>
+                                   </div>
+                               </form> -->
+                               <!-- <input type="project_name" name="project_name" multiple
+                                      style="display: none;"
+                                      data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'> -->
+
+                               <input id="fileupload" type="file" name="file_choose" multiple
+                                      style="display: none;"
+                                      accept="fastq.gz"
+                                      data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+
+
+                        <table id="data_selected" class="table table-bordered">
+                          <thead>
+                            <tr>
+                              <th>Selected files</th>
+                            </tr>
+                          </thead>
+                          <tbody id="data_selected_body">
+                          </tbody>
+                        </table>
+
+
+
+                        <table id="gallery" class="table table-bordered">
+                          <thead>
+                            <tr>
+                              <th>Uploaded files</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for data in datas %}
+                              <tr>
+                                <td>
+                                <div class="row">
+                                  <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data }}</a></div>
+                                  <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data }}</a></div>
+                                  <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data }}</a></div>
+                                </div>
+                                </td>
+                              </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
+<div style="margin-bottom: 100px">
 </div>
 
-<div class="well text-muted text-center js-upload-photos" style="margin: 5%; padding-top: 4rem; padding-bottom: 4rem; border-width:5px;border-style:dashed;border-color:#6B757D; border-radius:25px; background: #e2e2e2">
-  <i class="fas fa-cloud-upload-alt fa-5x"></i><h2>Drop Photos Here to Upload</h2>
-</div>
-<!-- <button type="button" class="btn btn-primary js-upload-photos">
-  <i class="fas fa-cloud-upload-alt fa-5x"></i> Upload photos
-</button> -->
-<button id="up_btn" type="up_btn" class="btn btn-success btn-lg btn-block">Upload</button>
-
-       <!-- <form method="post" enctype="multipart/form-data" required="True">
-           <div id="paired-end-container"></div>
-           {% csrf_token %}
-           <div class="custom-file">
-               <input type="title" name="title" class="custom-file-input" multiple>
-               <input type="file" name="file" class="custom-file-input" id="fileupload" multiple>
-           </div>
-       </form> -->
-       <!-- <input type="project_name" name="project_name" multiple
-              style="display: none;"
-              data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'> -->
-
-       <input id="fileupload" type="file" name="file_choose" multiple
-              style="display: none;"
-              data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
-
-
-<table id="data_selected" class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Selected files</th>
-    </tr>
-  </thead>
-  <tbody id="data_selected_body">
-  </tbody>
-</table>
 
 
 
-<table id="gallery" class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Uploaded files</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for data in datas %}
-      <tr>
-        <td>
-        <div class="row">
-          <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data.file.name }}</a></div>
-          <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data.file.name }}</a></div>
-          <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data.file.name }}</a></div>
-        </div>
-        </td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+
 
 <div style="margin-bottom: 100px">
 </div>

@@ -154,6 +154,101 @@
                                         </div>
                                     </div>
                                     {% endif %}
+                                    {% if check_extract_non_host_reads_1_ans is False %}
+                                    <div class="row">
+                                        <div class=".col-12 .col-md-8">
+                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools</b> converting from BAM to SAM:  Running ! <i class="fas fa-ellipsis-h"></i></p>
+                                        </div>
+                                    </div>
+                                    {% elif check_extract_non_host_reads_1_ans is True %}
+                                    <div class="row">
+                                        <div class=".col-12 .col-md-8">
+                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools sort</b> converting from BAM to SAM:  Finished !</p>
+                                        </div>
+                                        <div class=".col-6 .col-md-4">
+                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                            <div class="sa-icon sa-success animate">
+                                                <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                <span class="sa-line sa-long animateSuccessLong"></span>
+                                                <div class="sa-placeholder"></div>
+                                                <div class="sa-fix"></div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if check_extract_non_host_reads_2_ans is False %}
+                                    <div class="row">
+                                        <div class=".col-12 .col-md-8">
+                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools flagstat</b> calculating statistics to TXT file:  Running ! <i class="fas fa-ellipsis-h"></i></p>
+                                        </div>
+                                    </div>
+                                    {% elif check_extract_non_host_reads_2_ans is True %}
+                                    <div class="row">
+                                        <div class=".col-12 .col-md-8">
+                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools flagstat</b> calculating statistics to TXT file:  Finished !</p>
+                                        </div>
+                                        <div class=".col-6 .col-md-4">
+                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                            <div class="sa-icon sa-success animate">
+                                                <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                <span class="sa-line sa-long animateSuccessLong"></span>
+                                                <div class="sa-placeholder"></div>
+                                                <div class="sa-fix"></div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if check_extract_non_host_reads_3_ans is False %}
+                                    <div class="row">
+                                        <div class=".col-12 .col-md-8">
+                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools view</b> getting unmapped BAM:  Running ! <i class="fas fa-ellipsis-h"></i></p>
+                                        </div>
+                                    </div>
+                                    {% elif check_extract_non_host_reads_3_ans is True %}
+                                    <div class="row">
+                                        <div class=".col-12 .col-md-8">
+                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools view</b> getting unmapped BAM:  Finished !</p>
+                                        </div>
+                                        <div class=".col-6 .col-md-4">
+                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                            <div class="sa-icon sa-success animate">
+                                                <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                <span class="sa-line sa-long animateSuccessLong"></span>
+                                                <div class="sa-placeholder"></div>
+                                                <div class="sa-fix"></div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if check_extract_non_host_reads_4_ans is False %}
+                                    <div class="row">
+                                        <div class=".col-12 .col-md-8">
+                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>bedtools bamtofastq</b> converting BAM to FASTQ:  Running ! <i class="fas fa-ellipsis-h"></i></p>
+                                        </div>
+                                    </div>
+                                    {% elif check_extract_non_host_reads_4_ans is True %}
+                                    <div class="row">
+                                        <div class=".col-12 .col-md-8">
+                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>bedtools bamtofastq</b> converting BAM to FASTQ:  Finished !</p>
+                                        </div>
+                                        <div class=".col-6 .col-md-4">
+                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                            <div class="sa-icon sa-success animate">
+                                                <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                <span class="sa-line sa-long animateSuccessLong"></span>
+                                                <div class="sa-placeholder"></div>
+                                                <div class="sa-fix"></div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </li>

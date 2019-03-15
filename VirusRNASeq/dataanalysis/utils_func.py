@@ -1,6 +1,17 @@
 import os
 from django.conf import settings
 
+
+def check_samples_txt_file(datadir):
+    samples_txt_file_name = None
+    samples_txt_file = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, 'samples.txt')
+    samples_txt_file_ans = os.path.exists(samples_txt_file)
+    if samples_txt_file_ans:
+        samples_txt_file_name = samples_txt_file
+        return samples_txt_file_name
+    else:
+        return samples_txt_file_name
+
 def check_submission_time_file(datadir, sample_name, se_or_pe):
     submission_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, 'submision_time.txt')
     submission_time_file_ans = os.path.exists(submission_time_file)
@@ -152,6 +163,53 @@ def check_read_subtraction_bwa_align(datadir, sample_name):
     else:
         return False
 
+
+def check_extract_non_host_reads_1(datadir, sample_name):
+    root_dir = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, "Extract_non_host_reads", "bam")
+    print("bwa bam file: ", os.path.join(
+        root_dir, sample_name+".bam"))
+    extract_non_host_reads_1_bam = os.path.exists(os.path.join(
+        root_dir, sample_name+".bam"))
+    print("extract_non_host_reads_1_bam: ", extract_non_host_reads_1_bam)
+    if extract_non_host_reads_1_bam:
+        return True
+    else:
+        return False
+
+def check_extract_non_host_reads_2(datadir, sample_name):
+    root_dir = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, "Extract_non_host_reads", "txt")
+    print("bwa txt file: ", os.path.join(
+        root_dir, sample_name+".txt"))
+    extract_non_host_reads_2_txt = os.path.exists(os.path.join(
+        root_dir, sample_name+".txt"))
+    print("extract_non_host_reads_2_txt: ", extract_non_host_reads_2_txt)
+    if extract_non_host_reads_2_txt:
+        return True
+    else:
+        return False
+
+def check_extract_non_host_reads_3(datadir, sample_name):
+    root_dir = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, "Extract_non_host_reads", "unmapped_bam")
+    print("bwa unmapped_bam file: ", os.path.join(
+        root_dir, sample_name+".unmapped.bam"))
+    extract_non_host_reads_3_unmapped_bam = os.path.exists(os.path.join(
+        root_dir, sample_name+".unmapped.bam"))
+    print("extract_non_host_reads_3_unmapped_bam: ", extract_non_host_reads_3_unmapped_bam)
+    if extract_non_host_reads_3_unmapped_bam:
+        return True
+    else:
+        return False
+
+def check_extract_non_host_reads_4(datadir, sample_name):
+    root_dir = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, "Extract_non_host_reads", "unmapped_fastq")
+    extract_non_host_reads_4_unmapped_fastq_r1 = os.path.exists(os.path.join(root_dir, sample_name+".unmapped.R1.fastq"))
+    extract_non_host_reads_4_unmapped_fastq_r2 = os.path.exists(os.path.join(root_dir, sample_name+".unmapped.R2.fastq"))
+    print("extract_non_host_reads_4_unmapped_fastq_r1: ", extract_non_host_reads_4_unmapped_fastq_r1)
+    print("extract_non_host_reads_4_unmapped_fastq_r2: ", extract_non_host_reads_4_unmapped_fastq_r2)
+    if extract_non_host_reads_4_unmapped_fastq_r1 and extract_non_host_reads_4_unmapped_fastq_r2:
+        return True
+    else:
+        return False
 
 def get_pe_sample_name(se_or_pe, project_name, email, analysis_code):
     if se_or_pe == 'pe':

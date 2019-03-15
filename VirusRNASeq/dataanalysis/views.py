@@ -83,8 +83,11 @@ class BasicUploadView(DetailView):
         print("uploaded_file: ", uploaded_file)
         url_parameter = project_name + '_' + email.split("@")[0]
         print("Inside 'get !!!'")
-        data_list = Data.objects.all()
-        print("data_list: ", data_list)
+        data_list = []
+        for key in uploaded_file:
+            for file in uploaded_file[key]:
+                data_list.append(key + file)
+        print(data_list)
         # return redirect((reverse('dataanalysis_data_upload', kwargs={
         #     'slug_project': url_parameter,
         #     'datas': data_list})))
@@ -106,11 +109,6 @@ class BasicUploadView(DetailView):
         # (uploaded_file_url_pe_1, uploaded_file_url_pe_2, uploaded_file_url_se) = Check_Uploaded_File_Name(
         #     project_name, email, analysis_code)
         # url_parameter = project_name + '_' + email.split("@")[0]
-
-
-
-
-
         if 'project_name' in request.session:
             project_name = request.session['project_name']
             print("project_name: ", project_name)
@@ -124,29 +122,52 @@ class BasicUploadView(DetailView):
             print("email: ", email)
             request.session["email"] = email
         url_parameter = project_name + '_' + email.split("@")[0]
-        print("Inside 'post !!!'")
         base_dir = os.path.join(settings.MEDIA_ROOT,
                                 'tmp', project_name + '_' + email + '_' + analysis_code)
 
-        myfile = request.FILES['file_choose']
-        fs = FileSystemStorage()
-
-        sample_name = os.path.splitext(os.path.splitext(os.path.splitext(myfile.name)[0])[0])[0]
-        # Removing files
-        if not fs.exists(os.path.join(base_dir, 'Uploaded_files')):
-            os.mkdir((os.path.join(base_dir, 'Uploaded_files')))
-            if not fs.exists(os.path.join(base_dir, 'Uploaded_files', sample_name)):
-                os.mkdir((os.path.join(base_dir, 'Uploaded_files', sample_name)))
-        # Found split sample name
-        sample_name = os.path.splitext(os.path.splitext(os.path.splitext(myfile.name)[0])[0])[0]
-        filename = fs.save(os.path.join(base_dir, "Uploaded_files", sample_name, myfile.name), myfile)
-        uploaded_file_url = fs.url(filename)
+        samples_txt_file_name = utils_func.check_samples_txt_file(base_dir)
 
 
-        # form = DataForm(self.request.POST, self.request.FILES, project_name=project_name, analysis_code=analysis_code, email=email, initial={'project_name': project_name, 'analysis_code': analysis_code, 'email':email })
-        # print("form: ", form)
-        data = {'is_valid': True, 'name': myfile.name}
-        return JsonResponse(data)
+
+
+
+
+
+
+
+
+
+
+        
+        if 'samples-files-upload' in request.POST:
+            myfile = request.FILES['samples-files-selected']
+            fs = FileSystemStorage()
+            filename = fs.save(os.path.join(base_dir, myfile.name), myfile)
+            uploaded_file_url_se = fs.url(filename)
+            return render(request, "dataanalysis/file_upload.html", {
+                'project_name': project_name,
+                'analysis_code': analysis_code,
+                'email': email,
+                'samples_txt_file_name': samples_txt_file_name,
+            })
+
+        if 'sample-each-upload' in request.POST:
+            myfile = request.FILES['file_choose']
+            fs = FileSystemStorage()
+            sample_name = os.path.splitext(os.path.splitext(os.path.splitext(myfile.name)[0])[0])[0]
+            # Removing files
+            if not fs.exists(os.path.join(base_dir, 'Uploaded_files')):
+                os.mkdir((os.path.join(base_dir, 'Uploaded_files')))
+                if not fs.exists(os.path.join(base_dir, 'Uploaded_files', sample_name)):
+                    os.mkdir((os.path.join(base_dir, 'Uploaded_files', sample_name)))
+                    # Found split sample name
+            sample_name = os.path.splitext(os.path.splitext(os.path.splitext(myfile.name)[0])[0])[0]
+            filename = fs.save(os.path.join(base_dir, "Uploaded_files", sample_name, myfile.name), myfile)
+            uploaded_file_url = fs.url(filename)
+            # form = DataForm(self.request.POST, self.request.FILES, project_name=project_name, analysis_code=analysis_code, email=email, initial={'project_name': project_name, 'analysis_code': analysis_code, 'email':email })
+            # print("form: ", form)
+            data = {'is_valid': True, 'name': myfile.name}
+            return JsonResponse(data)
 
 def check_upload_sample_name(project_name, email, analysis_code):
     uploaded_file = {}
@@ -305,7 +326,7 @@ def whole_dataanalysis(request, slug_project):
             })
 
         elif 'start-analysis' in request.POST:
-            prefix_dir = "/home/bioinfo/Virus/"
+            prefix_dir = "/ssd/Howard/Virus/"
             ### Trimmomatics
             trimmomatic_jar = os.path.join(prefix_dir, "tools/Trimmomatic/trimmomatic-0.38.jar")
             datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
@@ -586,6 +607,10 @@ def current_status(request, slug_project):
     check_trimming_qc_ans = False
     check_second_qc_ans = False
     check_read_subtraction_bwa_align_ans = False
+    check_extract_non_host_reads_1_ans = False
+    check_extract_non_host_reads_2_ans = False
+    check_extract_non_host_reads_3_ans = False
+    check_extract_non_host_reads_4_ans = False
     check_end_time_ans = False
 
     view_counter_end = "Not Start Counting"
@@ -599,6 +624,14 @@ def current_status(request, slug_project):
         check_second_qc_ans = True
     if utils_func.check_read_subtraction_bwa_align(datadir, sample_name) is True:
         check_read_subtraction_bwa_align_ans = True
+    if utils_func.check_extract_non_host_reads_1(datadir, sample_name) is True:
+        check_extract_non_host_reads_1_ans = True
+    if utils_func.check_extract_non_host_reads_2(datadir, sample_name) is True:
+        check_extract_non_host_reads_2_ans = True
+    if utils_func.check_extract_non_host_reads_3(datadir, sample_name) is True:
+        check_extract_non_host_reads_3_ans = True
+    if utils_func.check_extract_non_host_reads_4(datadir, sample_name) is True:
+        check_extract_non_host_reads_4_ans = True
     if utils_func.check_end_time_file(datadir, sample_name, se_or_pe) is True:
         check_end_time_ans = True
     whole_file_check = check_first_qc_ans and check_trimming_qc_ans and check_second_qc_ans and check_read_subtraction_bwa_align_ans
@@ -624,6 +657,10 @@ def current_status(request, slug_project):
         'check_trimming_qc_ans': check_trimming_qc_ans,
         'check_second_qc_ans': check_second_qc_ans,
         'check_read_subtraction_bwa_align_ans': check_read_subtraction_bwa_align_ans,
+        'check_extract_non_host_reads_1_ans': check_extract_non_host_reads_1_ans,
+        'check_extract_non_host_reads_2_ans': check_extract_non_host_reads_2_ans,
+        'check_extract_non_host_reads_3_ans': check_extract_non_host_reads_3_ans,
+        'check_extract_non_host_reads_4_ans': check_extract_non_host_reads_4_ans,
         'submission_time': submission_time_strip,
         'view_counter_end': view_counter_end,
         'view_counter': view_counter,

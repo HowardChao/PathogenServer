@@ -41,34 +41,84 @@ $(function () {
       $("#up_btn").trigger( "customName_submit_all_file");
   });
 
-
+  file_list_final = {};
+  file_list_tmp = {};
   $("#fileupload").fileupload({
    dataType: 'json',
    sequentialUploads: true,  /* 1. SEND THE FILES ONE BY ONE */
-
-
-       // data.context = $('press-to-upload').text('Upload')
-       //     .appendTo(document.body)
-       //     .click(function () {
-       //         data.context = $('<p/>').text('Uploading...').replaceAll($(this));
-       //         data.submit();
-       //     });
    add: function (e, data) {
-      console.log("datadata: ", data);
+     console.log("###data.files: ", data.files);
       $.each(data.files, function (index, file) {
-        // var newFileDiv = $("<div class='uploadBox' id='fileDiv_" + file.name + "'><div class='leftEle'><a href='#' id='link_" + index + "' class='removeFile'>Remove</a></div><div class='midEle'>" + file.name + "</div></div>");
-        var newFilepulgin = $('<tr id="file_'+ file.name +'"><td><button type="button" class="btn btn-outline-danger" id="button_file_'+ file.name +'">remove selected file</button>&nbsp&nbsp&nbsp&nbsp <b>Filename: </b><a href="#" id="link_' + index + '" class="removeFile"> '+ file.name + '</a> &nbsp&nbsp&nbsp&nbsp <b>File Size: </b>'+ file.size +' byte </td></tr>');
-        $('#data_selected_body').append(newFilepulgin);
-        newFilepulgin.find('button').on('click', { filename: file.name, files: data.files }, function (event) {
-            console.log("Button clicked!");
-            event.preventDefault();
-            var uploadFilesBox = $("#data_selected_body");
-            var remDiv = $(document.getElementById("file_" + event.data.filename));
-            remDiv.remove();
-            data.files.length = 0;    //zero out the files array
+        // print("data.files: ", data.files);
+        // First make sure filename is correct !
+        reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz)$/i
+        reg_exp_2 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R2.fastq.gz)$/i
 
-        });
-        data.context = newFilepulgin;
+        if (reg_exp_1.test(file.name)) {
+          var sample_name = file.name.replace(".R1.fastq.gz", "");
+          file_list_tmp[file.name] = [file.name, file.size];
+          if (sample_name + ".R1.fastq.gz" in file_list_tmp && sample_name + ".R2.fastq.gz" in file_list_tmp) {
+            // The file is correct!! Add to final files pool
+            file_list_final[sample_name + ".R1.fastq.gz"] = file_list_tmp[sample_name + ".R1.fastq.gz"];
+            file_list_final[sample_name + ".R2.fastq.gz"] = file_list_tmp[sample_name + ".R2.fastq.gz"];
+            delete file_list_tmp[sample_name + ".R1.fastq.gz"];
+            delete file_list_tmp[sample_name + ".R2.fastq.gz"];
+          } else {
+            console.log("Only ", file.name, " in file_list_tmp");
+          }
+          console.log("file_list_tmp: ", file_list_tmp);
+        }
+        if (reg_exp_2.test(file.name)) {
+          var sample_name = file.name.replace(".R2.fastq.gz", "");
+          file_list_tmp[file.name] = [file.name, file.size];
+          if (sample_name + ".R1.fastq.gz" in file_list_tmp && sample_name + ".R2.fastq.gz" in file_list_tmp) {
+            // The file is correct!! Add to final files pool
+            file_list_final[sample_name + ".R1.fastq.gz"] = file_list_tmp[sample_name + ".R1.fastq.gz"];
+            file_list_final[sample_name + ".R2.fastq.gz"] = file_list_tmp[sample_name + ".R2.fastq.gz"];
+            delete file_list_tmp[sample_name + ".R1.fastq.gz"];
+            delete file_list_tmp[sample_name + ".R2.fastq.gz"];
+          } else {
+            console.log("Only ", file.name, " in file_list_tmp");
+          }
+          console.log("file_list_tmp: ", file_list_tmp);
+        }
+        for (var key in file_list_final) {
+          if (file_list_final.hasOwnProperty(key)) {
+            console.log(key, file_list_final[key]);
+            // console.log("file_list_final[key][0]: ", file_list_final[key][0]);
+            // console.log("file_list_final[key][1]: ", file_list_final[key][1]);
+
+            // var newFilepulgin = $('<tr id="file_'+ file_list_final[key][0] +'"><td><button type="button" class="btn btn-outline-danger" id="button_file_'+ file_list_final[key][0] +'">remove selected file</button>&nbsp&nbsp&nbsp&nbsp <b>Filename: </b><a href="#" id="link_' + file_list_final[key][0] + '" class="removeFile"> '+ file_list_final[key][0] + '</a> &nbsp&nbsp&nbsp&nbsp <b>File Size: </b>'+ file_list_final[key][1] +' byte </td></tr>');
+            // $('#data_selected_body').append(newFilepulgin);
+            // newFilepulgin.find('button').on('click', { filename: file.name, files: data.files }, function (event) {
+            //     console.log("Button clicked!");
+            //     event.preventDefault();
+            //     var uploadFilesBox = $("#data_selected_body");
+            //     var remDiv = $(document.getElementById("file_" + event.data.filename));
+            //     remDiv.remove();
+            //     data.files.length = 0;    //zero out the files array
+            // });
+            // data.context = newFilepulgin;
+          }
+        }
+        if (reg_exp_1.test(file.name) || reg_exp_2.test(file.name)) {
+          var newFilepulgin = $('<tr id="file_'+ file.name +'"><td><button type="button" class="btn btn-outline-danger" id="button_file_'+ file.name +'">remove selected file</button>&nbsp&nbsp&nbsp&nbsp <b>Filename: </b><a href="#" id="link_' + index + '" class="removeFile"> '+ file.name + '</a> &nbsp&nbsp&nbsp&nbsp <b>File Size: </b>'+ file.size +' byte </td></tr>');
+          $('#data_selected_body').append(newFilepulgin);
+          $('#data_selected_body').append(newFilepulgin);
+          newFilepulgin.find('button').on('click', { filename: file.name, files: data.files }, function (event) {
+              console.log("Button clicked!");
+              event.preventDefault();
+              var uploadFilesBox = $("#data_selected_body");
+              var remDiv = $(document.getElementById("file_" + event.data.filename));
+              remDiv.remove();
+              data.files.length = 0;    //zero out the files array
+
+          });
+          data.context = newFilepulgin;
+        }
+
+        var newFilepulgin = $('<tr id="file_'+ file.name +'"><td><button type="button" class="btn btn-outline-danger" id="button_file_'+ file.name +'">remove selected file</button>&nbsp&nbsp&nbsp&nbsp <b>Filename: </b><a href="#" id="link_' + index + '" class="removeFile"> '+ file.name + '</a> &nbsp&nbsp&nbsp&nbsp <b>File Size: </b>'+ file.size +' byte </td></tr>');
+
       });
 
        $("#up_btn").click(function () {
