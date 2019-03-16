@@ -1,16 +1,26 @@
 import os
+import csv
+import pandas
 from django.conf import settings
 
 
 def check_samples_txt_file(datadir):
     samples_txt_file_name = None
-    samples_txt_file = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, 'samples.txt')
+    samples_list_key = {}
+    samples_txt_file = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, 'samples.csv')
     samples_txt_file_ans = os.path.exists(samples_txt_file)
     if samples_txt_file_ans:
         samples_txt_file_name = samples_txt_file
-        return samples_txt_file_name
+        read_ans = pandas.read_csv(samples_txt_file)
+        samples_groups = read_ans['Groups'].unique()
+        for i in samples_groups:
+            group_samples = read_ans[read_ans['Groups'] == i]["ids"].tolist()
+            samples_list_key[i] = group_samples
+        print(samples_list_key)
+        return (samples_txt_file_name, samples_list_key)
+
     else:
-        return samples_txt_file_name
+        return (samples_txt_file_name, samples_list_key)
 
 def check_submission_time_file(datadir, sample_name, se_or_pe):
     submission_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, 'submision_time.txt')

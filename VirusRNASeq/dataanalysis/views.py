@@ -64,6 +64,8 @@ def data_analysis_home(request):
 class BasicUploadView(DetailView):
     # slug_field = 'my_cool_field'
     template_name = 'dataanalysis/data_upload.html'
+    samples_txt_file_name = None
+    samples_list_key = {}
     def get(self, request, slug_project):
         # slug_project = self.kwargs.get("slug_project")
         print("slug_project: ", slug_project)
@@ -79,6 +81,11 @@ class BasicUploadView(DetailView):
             email = request.session['email']
             print("email: ", email)
             request.session["email"] = email
+
+
+        base_dir = os.path.join(settings.MEDIA_ROOT,
+                                'tmp', project_name + '_' + email + '_' + analysis_code)
+        (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
         uploaded_file = check_upload_sample_name(project_name, email, analysis_code)
         print("uploaded_file: ", uploaded_file)
         url_parameter = project_name + '_' + email.split("@")[0]
@@ -88,14 +95,14 @@ class BasicUploadView(DetailView):
             for file in uploaded_file[key]:
                 data_list.append(key + file)
         print(data_list)
-        # return redirect((reverse('dataanalysis_data_upload', kwargs={
-        #     'slug_project': url_parameter,
-        #     'datas': data_list})))
+        print("!@#%^&*: ", samples_list_key)
         return render(self.request, "dataanalysis/file_upload.html", {
             'project_name': project_name,
             'email': email,
             'slug_project': url_parameter,
-            'datas': data_list
+            'datas': data_list,
+            'samples_txt_file_name': samples_txt_file_name,
+            'samples_list_key': samples_list_key,
         })
         # return render(self.request, 'dataanalysis/data_upload.html', {'url_parameter': url_parameter, 'datas': data_list})
 
@@ -103,12 +110,6 @@ class BasicUploadView(DetailView):
 
 
     def post(self, request, slug_project):
-        # uploaded_file_url_pe_1 = None
-        # uploaded_file_url_pe_2 = None
-        # uploaded_file_url_se = None
-        # (uploaded_file_url_pe_1, uploaded_file_url_pe_2, uploaded_file_url_se) = Check_Uploaded_File_Name(
-        #     project_name, email, analysis_code)
-        # url_parameter = project_name + '_' + email.split("@")[0]
         if 'project_name' in request.session:
             project_name = request.session['project_name']
             print("project_name: ", project_name)
@@ -124,34 +125,44 @@ class BasicUploadView(DetailView):
         url_parameter = project_name + '_' + email.split("@")[0]
         base_dir = os.path.join(settings.MEDIA_ROOT,
                                 'tmp', project_name + '_' + email + '_' + analysis_code)
-
-        samples_txt_file_name = utils_func.check_samples_txt_file(base_dir)
-
-
-
-
-
-
-
-
-
-
-
-
-        
+        (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
+        print("POST!!: ", samples_txt_file_name)
         if 'samples-files-upload' in request.POST:
             myfile = request.FILES['samples-files-selected']
+            print("myfile.name: ", myfile.name)
             fs = FileSystemStorage()
+            if os.path.exists(os.path.join(base_dir, myfile.name)):
+                os.remove(os.path.join(base_dir, myfile.name))
             filename = fs.save(os.path.join(base_dir, myfile.name), myfile)
             uploaded_file_url_se = fs.url(filename)
+            (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
+            print("!@#%^&*: ", samples_list_key)
             return render(request, "dataanalysis/file_upload.html", {
                 'project_name': project_name,
                 'analysis_code': analysis_code,
                 'email': email,
                 'samples_txt_file_name': samples_txt_file_name,
+                'samples_list_key': samples_list_key,
+            })
+        elif 'remove-samples-file' in request.POST:
+            samples_txt_file_name = None
+            fs = FileSystemStorage()
+            if fs.exists(base_dir):
+                shutil.rmtree(base_dir)
+            destination_QC_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code)
+            if os.path.exists(destination_QC_html_dir):
+                shutil.rmtree(destination_QC_html_dir)
+            print("!@#%^&*: ", samples_list_key)
+            return render(request, "dataanalysis/file_upload.html", {
+                'project_name': project_name,
+                'analysis_code': analysis_code,
+                'email': email,
+                'samples_txt_file_name': samples_txt_file_name,
+                'samples_list_key': samples_list_key,
             })
 
-        if 'sample-each-upload' in request.POST:
+
+        elif 'sample-each-upload' in request.POST:
             myfile = request.FILES['file_choose']
             fs = FileSystemStorage()
             sample_name = os.path.splitext(os.path.splitext(os.path.splitext(myfile.name)[0])[0])[0]
@@ -166,8 +177,16 @@ class BasicUploadView(DetailView):
             uploaded_file_url = fs.url(filename)
             # form = DataForm(self.request.POST, self.request.FILES, project_name=project_name, analysis_code=analysis_code, email=email, initial={'project_name': project_name, 'analysis_code': analysis_code, 'email':email })
             # print("form: ", form)
-            data = {'is_valid': True, 'name': myfile.name}
+            data = {'is_valid': True, 'name': myfile.name, 'samples_txt_file_name': samples_txt_file_name, 'samples_list_key': samples_list_key}
+            print("!@#%^&*: ", samples_txt_file_name)
             return JsonResponse(data)
+
+
+
+
+
+
+
 
 def check_upload_sample_name(project_name, email, analysis_code):
     uploaded_file = {}
