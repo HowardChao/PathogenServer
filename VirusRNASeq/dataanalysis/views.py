@@ -81,25 +81,20 @@ class BasicUploadView(DetailView):
             email = request.session['email']
             print("email: ", email)
             request.session["email"] = email
-
-
         base_dir = os.path.join(settings.MEDIA_ROOT,
                                 'tmp', project_name + '_' + email + '_' + analysis_code)
+        url_parameter = project_name + '_' + email.split("@")[0]
+        # Start checking files !!!
         (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
         uploaded_file = check_upload_sample_name(project_name, email, analysis_code)
-        print("uploaded_file: ", uploaded_file)
-        url_parameter = project_name + '_' + email.split("@")[0]
-        print("Inside 'get !!!'")
         data_list = []
         for key in uploaded_file:
             for file in uploaded_file[key]:
                 data_list.append(key + file)
-        print(data_list)
-        print("!@#%^&*: ", samples_list_key)
         return render(self.request, "dataanalysis/file_upload.html", {
             'project_name': project_name,
+            'analysis_code': analysis_code,
             'email': email,
-            'slug_project': url_parameter,
             'datas': data_list,
             'samples_txt_file_name': samples_txt_file_name,
             'samples_list_key': samples_list_key,
@@ -126,8 +121,8 @@ class BasicUploadView(DetailView):
         base_dir = os.path.join(settings.MEDIA_ROOT,
                                 'tmp', project_name + '_' + email + '_' + analysis_code)
         (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
-        print("POST!!: ", samples_txt_file_name)
         if 'samples-files-upload' in request.POST:
+            print("samples-files-upload!!!")
             myfile = request.FILES['samples-files-selected']
             print("myfile.name: ", myfile.name)
             fs = FileSystemStorage()
@@ -135,16 +130,23 @@ class BasicUploadView(DetailView):
                 os.remove(os.path.join(base_dir, myfile.name))
             filename = fs.save(os.path.join(base_dir, myfile.name), myfile)
             uploaded_file_url_se = fs.url(filename)
+            # Start checking files
             (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
-            print("!@#%^&*: ", samples_list_key)
+            uploaded_file = check_upload_sample_name(project_name, email, analysis_code)
+            data_list = []
+            for key in uploaded_file:
+                for file in uploaded_file[key]:
+                    data_list.append(key + file)
             return render(request, "dataanalysis/file_upload.html", {
                 'project_name': project_name,
                 'analysis_code': analysis_code,
                 'email': email,
+                'datas': data_list,
                 'samples_txt_file_name': samples_txt_file_name,
                 'samples_list_key': samples_list_key,
             })
         elif 'remove-samples-file' in request.POST:
+            print("remove-samples-file!!!")
             samples_txt_file_name = None
             fs = FileSystemStorage()
             if fs.exists(base_dir):
@@ -152,34 +154,55 @@ class BasicUploadView(DetailView):
             destination_QC_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code)
             if os.path.exists(destination_QC_html_dir):
                 shutil.rmtree(destination_QC_html_dir)
-            print("!@#%^&*: ", samples_list_key)
+            # Start checking files
+            (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
+            uploaded_file = check_upload_sample_name(project_name, email, analysis_code)
+            data_list = []
+            for key in uploaded_file:
+                for file in uploaded_file[key]:
+                    data_list.append(key + file)
             return render(request, "dataanalysis/file_upload.html", {
                 'project_name': project_name,
                 'analysis_code': analysis_code,
                 'email': email,
+                'datas': data_list,
                 'samples_txt_file_name': samples_txt_file_name,
                 'samples_list_key': samples_list_key,
             })
 
-
-        elif 'sample-each-upload' in request.POST:
-            myfile = request.FILES['file_choose']
-            fs = FileSystemStorage()
-            sample_name = os.path.splitext(os.path.splitext(os.path.splitext(myfile.name)[0])[0])[0]
-            # Removing files
-            if not fs.exists(os.path.join(base_dir, 'Uploaded_files')):
-                os.mkdir((os.path.join(base_dir, 'Uploaded_files')))
-                if not fs.exists(os.path.join(base_dir, 'Uploaded_files', sample_name)):
-                    os.mkdir((os.path.join(base_dir, 'Uploaded_files', sample_name)))
-                    # Found split sample name
-            sample_name = os.path.splitext(os.path.splitext(os.path.splitext(myfile.name)[0])[0])[0]
-            filename = fs.save(os.path.join(base_dir, "Uploaded_files", sample_name, myfile.name), myfile)
-            uploaded_file_url = fs.url(filename)
-            # form = DataForm(self.request.POST, self.request.FILES, project_name=project_name, analysis_code=analysis_code, email=email, initial={'project_name': project_name, 'analysis_code': analysis_code, 'email':email })
-            # print("form: ", form)
-            data = {'is_valid': True, 'name': myfile.name, 'samples_txt_file_name': samples_txt_file_name, 'samples_list_key': samples_list_key}
-            print("!@#%^&*: ", samples_txt_file_name)
-            return JsonResponse(data)
+        # if 'sample-each-upload-many' in request.POST:
+        # elif 'sample-each-upload-many' in request.POST:
+        print("Inside sample-each-upload!!!")
+        myfile = request.FILES['file_choose']
+        fs = FileSystemStorage()
+        sample_name = os.path.splitext(os.path.splitext(os.path.splitext(myfile.name)[0])[0])[0]
+        print("&&&&& sample_name: ", sample_name)
+        # Removing files
+        if not fs.exists(os.path.join(base_dir, 'Uploaded_files')):
+            os.mkdir((os.path.join(base_dir, 'Uploaded_files')))
+            if not fs.exists(os.path.join(base_dir, 'Uploaded_files', sample_name)):
+                os.mkdir((os.path.join(base_dir, 'Uploaded_files', sample_name)))
+                # Found split sample name
+        sample_name = os.path.splitext(os.path.splitext(os.path.splitext(myfile.name)[0])[0])[0]
+        filename = fs.save(os.path.join(base_dir, "Uploaded_files", sample_name, myfile.name), myfile)
+        uploaded_file_url = fs.url(filename)
+        # Start checking files
+        (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
+        uploaded_file = check_upload_sample_name(project_name, email, analysis_code)
+        data_list = []
+        for key in uploaded_file:
+            for file in uploaded_file[key]:
+                data_list.append(key + file)
+        data = {
+            'project_name': project_name,
+            'analysis_code': analysis_code,
+            'email': email,
+            'is_valid': True,
+            'name': myfile.name,
+            'datas': data_list,
+            'samples_txt_file_name': samples_txt_file_name,
+            'samples_list_key': samples_list_key}
+        return JsonResponse(data)
 
 
 

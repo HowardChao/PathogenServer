@@ -37,4 +37,4 @@ class DataForm(forms.ModelForm):
         super(DataForm,self).__init__(*args,**kwargs)
     class Meta:
         model = Data
-        fields = ('project_name', 'file',)
+        fields = ('file',)

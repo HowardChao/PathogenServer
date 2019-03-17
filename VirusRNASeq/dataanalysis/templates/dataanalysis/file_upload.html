@@ -4,6 +4,7 @@
 {% load static %}
 {% load staticfiles %}
 <!-- pace animation -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/dataanalysis_result_status.css' %}">
 <link rel="stylesheet" href="{% static 'dataanalysis/css/home.css' %}">
 {# JQUERY FILE UPLOAD SCRIPTS #}
 <script src="{% static 'js/jquery-file-upload/vendor/jquery.ui.widget.js' %}"></script>
@@ -12,11 +13,153 @@
 
 <!-- <script src="{% static 'dataanalysis/js/basic_upload.js' %}"></script> -->
 
-<script src="{% static 'js/basic_upload.js' %}"></script>
+<!-- <script src="{% static 'js/basic_upload.js' %}"></script> -->
 <script src="{% static 'dataanalysis/js/main.js' %}"></script>
 
 {% endblock extraheader %}
 {% block content %}
+
+
+<script>
+  $(function () {
+
+    $(".js-upload-photos").click(function () {
+      $("#fileupload").click();
+    });
+
+
+    $("#up_btn").on('click', function (e) {
+        e.preventDefault();
+        $("#up_btn").trigger( "customName_submit_all_file");
+    });
+
+    file_list_final = {};
+    file_list_tmp = {};
+    $("#fileupload").fileupload({
+     dataType: 'json',
+     sequentialUploads: true,  /* 1. SEND THE FILES ONE BY ONE */
+     add: function (e, data) {
+       console.log("###data.files: ", data.files);
+        $.each(data.files, function (index, file) {
+          // First make sure filename is correct !
+          // Start from here !!!!
+          dic = "{{ samples_list_key }}"
+          console.log();
+          for (var key in "{{ samples_list_key }}") {
+            console.log("key: ", key);
+            if (file_list_final.hasOwnProperty(key)) {
+              console.log(key, file_list_final[key]);
+            }
+          }
+
+          reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz)$/i
+          reg_exp_2 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R2.fastq.gz)$/i
+
+          // if (reg_exp_1.test(file.name)) {
+          //   var sample_name = file.name.replace(".R1.fastq.gz", "");
+          //   file_list_tmp[file.name] = [file.name, file.size];
+          //   if (sample_name + ".R1.fastq.gz" in file_list_tmp && sample_name + ".R2.fastq.gz" in file_list_tmp) {
+          //     // The file is correct!! Add to final files pool
+          //     file_list_final[sample_name + ".R1.fastq.gz"] = file_list_tmp[sample_name + ".R1.fastq.gz"];
+          //     file_list_final[sample_name + ".R2.fastq.gz"] = file_list_tmp[sample_name + ".R2.fastq.gz"];
+          //     delete file_list_tmp[sample_name + ".R1.fastq.gz"];
+          //     delete file_list_tmp[sample_name + ".R2.fastq.gz"];
+          //   } else {
+          //     console.log("Only ", file.name, " in file_list_tmp");
+          //   }
+          //   console.log("file_list_tmp: ", file_list_tmp);
+          // }
+          // if (reg_exp_2.test(file.name)) {
+          //   var sample_name = file.name.replace(".R2.fastq.gz", "");
+          //   file_list_tmp[file.name] = [file.name, file.size];
+          //   if (sample_name + ".R1.fastq.gz" in file_list_tmp && sample_name + ".R2.fastq.gz" in file_list_tmp) {
+          //     // The file is correct!! Add to final files pool
+          //     file_list_final[sample_name + ".R1.fastq.gz"] = file_list_tmp[sample_name + ".R1.fastq.gz"];
+          //     file_list_final[sample_name + ".R2.fastq.gz"] = file_list_tmp[sample_name + ".R2.fastq.gz"];
+          //     delete file_list_tmp[sample_name + ".R1.fastq.gz"];
+          //     delete file_list_tmp[sample_name + ".R2.fastq.gz"];
+          //   } else {
+          //     console.log("Only ", file.name, " in file_list_tmp");
+          //   }
+          //   console.log("file_list_tmp: ", file_list_tmp);
+          // }
+          // for (var key in file_list_final) {
+          //   if (file_list_final.hasOwnProperty(key)) {
+          //     console.log(key, file_list_final[key]);
+          //     // console.log("file_list_final[key][0]: ", file_list_final[key][0]);
+          //     // console.log("file_list_final[key][1]: ", file_list_final[key][1]);
+          //
+          //     // var newFilepulgin = $('<tr id="file_'+ file_list_final[key][0] +'"><td><button type="button" class="btn btn-outline-danger" id="button_file_'+ file_list_final[key][0] +'">remove selected file</button>&nbsp&nbsp&nbsp&nbsp <b>Filename: </b><a href="#" id="link_' + file_list_final[key][0] + '" class="removeFile"> '+ file_list_final[key][0] + '</a> &nbsp&nbsp&nbsp&nbsp <b>File Size: </b>'+ file_list_final[key][1] +' byte </td></tr>');
+          //     // $('#data_selected_body').append(newFilepulgin);
+          //     // newFilepulgin.find('button').on('click', { filename: file.name, files: data.files }, function (event) {
+          //     //     console.log("Button clicked!");
+          //     //     event.preventDefault();
+          //     //     var uploadFilesBox = $("#data_selected_body");
+          //     //     var remDiv = $(document.getElementById("file_" + event.data.filename));
+          //     //     remDiv.remove();
+          //     //     data.files.length = 0;    //zero out the files array
+          //     // });
+          //     // data.context = newFilepulgin;
+          //   }
+          // }
+          // if (reg_exp_1.test(file.name) || reg_exp_2.test(file.name)) {
+            var newFilepulgin = $('<tr id="file_'+ file.name +'"><td><button type="button" class="btn btn-outline-danger" id="button_file_'+ file.name +'">remove selected file</button>&nbsp&nbsp&nbsp&nbsp <b>Filename: </b><a href="#" id="link_' + index + '" class="removeFile"> '+ file.name + '</a> &nbsp&nbsp&nbsp&nbsp <b>File Size: </b>'+ file.size +' byte </td></tr>');
+            $('#data_selected_body').append(newFilepulgin);
+            newFilepulgin.find('button').on('click', { filename: file.name, files: data.files }, function (event) {
+                console.log("Button clicked!");
+                event.preventDefault();
+                var uploadFilesBox = $("#data_selected_body");
+                var remDiv = $(document.getElementById("file_" + event.data.filename));
+                remDiv.remove();
+                data.files.length = 0;    //zero out the files array
+
+            });
+            data.context = newFilepulgin;
+          // }
+        });
+
+         $("#up_btn").click(function () {
+             if (data.files.length > 0) {     //only submit if we have something to upload
+                 console.log("$$$$$data.files.name: ", data.files[0].name);
+                 data.submit();
+                 var myNode = document.getElementById("file_" + data.files[0].name);
+                 console.log("myNode: ", myNode);
+                 // myNode.innerHTML = '';
+             }
+             // var myNode = $("#data_selected_body");
+             // var myNode = document.getElementById("data_selected_body");
+             // myNode.innerHTML = '';
+         });
+     },
+     start: function (e) {  /* 2. WHEN THE UPLOADING PROCESS STARTS, SHOW THE MODAL */
+       $("#modal-progress").modal("show");
+     },
+     stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+       $("#modal-progress").modal("hide");
+       window.location.reload();
+     },
+     progressall: function (e, data) {  /* 4. UPDATE THE PROGRESS BAR */
+       var progress = parseInt(data.loaded / data.total * 100, 10);
+       var strProgress = progress + "%";
+       $(".progress-bar").css({"width": strProgress});
+       $(".progress-bar").text(strProgress);
+     },
+     done: function (e, data) {
+       console.log("data.result.is_valid:", data)
+       if (data.result.is_valid) {
+         $("#gallery tbody").prepend(
+           // "<tr><td><a href='" + data.result.url + "'>" + data.result.name + "</a></td></tr>"
+           '<tr id="upload_'+ data.result.name +'"><td><div class="row"><div class="col-6 col-md-4"><b>Filename: </b><a href="'+ data.result.url + '" id="link_' + data.result.name + '" class="removeFile"> '+ data.result.name + '</a>  </div><div class="col-6 col-md-4"><b>File Size: </b> byte &nbsp&nbsp&nbsp&nbsp </div><div class="col-6 col-md-4"><button id="button_file_'+ data.result.name +'">remove selected file</button> </div></div></td></tr>'
+           // '<tr><td>111</td></tr>'
+         )
+       }
+     }
+
+   });
+
+  });
+</script>
+
 
 <div class="container">
     <div class="row">
@@ -154,7 +297,7 @@
 
                     <div class="tab-pane fade show active" id="nav-multiple-sample" role="tabpanel" aria-labelledby="nav-multiple-sample-tab">
 
-                      <div class="row" style="margin-top:50px">
+                      <div class="row" style="margin-top:60px">
                           <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                             <div class="col-auto">
                               <h5><i class="fas fa-flag"></i> &nbsp<b> Step 2: </b>  &nbsp Upload "<i>samples.csv</i>"</h5>
@@ -218,11 +361,26 @@
                         </form>
 
                       {% else %}
-                      <ul>
-                          <li>
-                              Upload at: <a href=#>{{ samples_txt_file_name }}</a>
-                          </li>
-                      </ul>
+
+
+                      <div class="row" style="margin-left:30px">
+                          <div class=".col-12 .col-md-8">
+                            <div class="check_mark" style="margin-top:-3px; transform: scale(0.35,0.35);">
+                                <div class="sa-icon sa-success animate">
+                                    <span class="sa-line sa-tip animateSuccessTip"></span>
+                                    <span class="sa-line sa-long animateSuccessLong"></span>
+                                    <div class="sa-placeholder"></div>
+                                    <div class="sa-fix"></div>
+                                </div>
+                            </div>
+                          </div>
+                          <div class=".col-6 .col-md-4">
+                            <p style="font-size:20px"><i><b>Success!!</b></i></p>
+                          </div>
+                      </div>
+                      <div style="margin-left:60px">
+                        <p>&nbsp&nbspUpload at: <a href=#>{{ samples_txt_file_name }}</a></p>
+                      </div>
                       <div style="margin-left:30px">
                         <div class="row" style="margin:5px">
                           {% for key, value in samples_list_key.items %}
@@ -255,7 +413,7 @@
 
                       </div>
 
-                      <div class="row" style="margin-top:50px">
+                      <div class="row" style="margin-top:60px">
                           <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                             <div class="col-auto">
                               <h5><i class="fas fa-flag"></i> &nbsp<b> Step 3: </b> &nbsp Upload paired-end fastq.gz samples</h5>
@@ -267,9 +425,14 @@
                         <div class="well text-muted text-center js-upload-photos" style="margin: 2%; padding-top: 4rem; padding-bottom: 4rem; border-width:5px;border-style:dashed;border-color:#6B757D; border-radius:25px; background: #e2e2e2">
                           <i class="fas fa-cloud-upload-alt fa-5x"></i><h2>Drop Photos Here to Upload</h2>
                         </div>
-                        <div style="margin-right:50px;margin-left:50px;margin-bottom:15px">
-                          <button name="sample-each-upload" id="up_btn" type="up_btn" class="btn btn-success btn-lg btn-block">Upload</button>
-                        </div>
+
+                        <form method="post" enctype="multipart/form-data" required="True" style="margin-right:50px;margin-left:50px;">
+                        {% csrf_token %}
+                          <div style="margin-right:50px;margin-left:50px;margin-bottom:15px">
+                            <button id="up_btn" name="sample-each-upload-many" type="submit" class="btn btn-success btn-lg btn-block">Upload</button>
+                          </div>
+                        </form>
+
                           <input id="fileupload" type="file" name="file_choose" multiple
                                  style="display: none;"
                                  accept="fastq.gz"
