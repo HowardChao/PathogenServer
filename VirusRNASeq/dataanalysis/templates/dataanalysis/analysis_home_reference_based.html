@@ -1,0 +1,490 @@
+{% extends 'base_checkfile.html' %}
+{% comment %} {% load progress_bar %} {% endcomment %}
+{% block extraheader %}
+{% load static %}
+{% load staticfiles %}
+{% comment %} {% progress_bar_media %} {% endcomment %}
+    <!-- pace animation -->
+    <link rel="stylesheet" href="{% static 'dataanalysis/css/home.css' %}">
+    {# JQUERY FILE UPLOAD SCRIPTS #}
+    <script src="{% static 'js/jquery_file_upload/vendor/jquery.ui.widget.js' %}"></script>
+    <script src="{% static 'js/jquery_file_upload/jquery.iframe-transport.js' %}"></script>
+    <script src="{% static 'js/jquery_file_upload/jquery.fileupload.js' %}"></script>
+    {# PHOTOS PAGE SCRIPTS #}
+    <script src="{% static 'dataanalysis/js/basic_upload.js' %}"></script>
+    <script src="{% static 'dataanalysis/js/main.js' %}"></script>
+    {% comment %} <script>
+        function UrlExists(url){
+            var fso = new ActiveXObject("Scripting.FileSystemObject");
+            url_exist = fso.FolderExists(url)
+            console.log("url_exist: ", url_exist)
+        }
+            var http = new XMLHttpRequest();
+            http.open('HEAD', url, false);
+            http.send();
+            console.log(http.status)
+            return http.status == 200
+        var url_1 = "http://127.0.0.1:8000/media/" + "{{ project_name }}" + "/pe"
+        var url_2 = "http://127.0.0.1:8000/media/" + "{{ project_name }}" + "/pe"
+        console.log("url_1: " + url_1)
+        console.log("url_2: " + url_2)
+        url_1_value = UrlExists(url_1);
+        url_2_value = UrlExists(url_2);
+        console.log("url_1_value: "+ url_1_value);
+        console.log("url_2_value: "+ url_2_value);
+        if (url_1_value == false && url_1_value == false) {
+            console.log("Inside false, false");
+            $(".upload-file-paired-end.tab-content").remove();
+            $(".upload-file-single-end.tab-content").remove();
+        } else if (url_1_value == true && url_1_value == false) {
+            console.log("Inside true, false");
+            $(".upload-file-paired-end.tab-content").remove();
+            $(".not-upload.tab-content").remove();
+        } else if (url_1_value == true && url_1_value == true) {
+            console.log("Inside true, true");
+            $(".upload-file-single-end.tab-content").remove();
+            $(".not-upload.tab-content").remove();
+        } else {
+            console.log("Inside other");
+            $(".upload-file-paired-end.tab-content").remove();
+            $(".upload-file-single-end.tab-content").remove();
+            $(".not-upload.tab-content").remove();
+        }
+    </script> {% endcomment %}
+{% endblock extraheader %}
+{% block content %}
+
+
+
+<div id="whole-page-message-container"></div>
+<main role="main" class="container">
+    <div class="row">
+        <nav class="col-md-4" id="list-example" >
+            <div class="content-section">
+                <ul id="side-nav" class="list-group nav nav-pills nav-stacked" style="top: 120px;">
+                    <a class="list-group-item list-group-item-action" href="#list-item-1">1. </a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-2">2. Quality Control</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-3">3. Read Filtration</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-4">5. <i>de novo</i> assembly</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-5">6. Scaffolds Realignment</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-6">7. Homology Search</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-7">8. Variant Calling</a>
+                </ul>
+            </div>
+        </nav>
+        <div class="col-md-8">
+          <div class="jumbotron" style="margin: 10px; background-color: #f4f4f4;">
+            <center><h2 class="display-4"><b>Reference Genome Mapping</b></h2></center>
+          </div>
+            <div class=" scrollspy-example">
+                <div id="list-item-1" >
+                </div>
+
+                <form method="post" enctype="multipart/form-data" required="True">
+                  {% csrf_token %}
+                  <div id="start_analysis_wrapper">
+                    <div id="list-item-2">
+                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-cut"></i> &nbsp &nbsp Quality Control</p></div>
+                            <div class="card-body w-100">
+                                <p class="card-text">This step is to ensure that quality meets the quality requirement.
+                                   <strong>FastQC</strong> is used to acquire quality information. <strong>Trimmomatic</strong> is used to remove adapter and trim low quality parts of reads
+                                </p><br>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp Quality Assessment</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <p class="card-text"  style="margin-left:40px;"><strong>FastqQC</strong> and <strong>MultiQC</strong> would be run.</p>
+                                <br>
+
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp Reads Trimming</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <p class="card-text" style="margin-left:40px;"><strong>Trimmomatic</strong> would be run. You can set your own variable.</p>
+                                <div class="trimmomatic" style="margin-left:40px;">
+                                  <div class="row trimmomatic_adapter">
+                                    <label class="col-md-4 control-label" for="trimmomatic_illuminaclip"><i class="far fa-dot-circle"></i>&nbsp&nbspTarget Adapter</label>
+                                    <div class="col-md-6">
+                                      <select class="custom-select my-1 mr-sm-2" name="trimmomatic_illuminaclip" id="trimmomatic_illuminaclip">
+                                        <option value="TruSeq2-PE.fa">TruSeq2-PE.fa</option>
+                                        <option selected="selected" value="TruSeq3-PE.fa">TruSeq3-PE.fa</option>
+                                        <option value="TruSeq3-PE-2.fa">TruSeq3-PE-2.fa</option>
+                                        <option value="NexteraPE-PE.fa">NexteraPE-PE.fa</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="trimmomatic_slidingwindow">
+                                    <div class="row trimmomatic_slidingwindow_size_1">
+                                      <label class="col-md-4" for="trimmomatic_slidingwindow_size"><i class="far fa-dot-circle"></i>&nbsp&nbspSliding Window Size</label>
+                                      <div class="col-md-6">
+                                        <select class="custom-select my-1 mr-sm-2" name="trimmomatic_slidingwindow_size" id="trimmomatic_slidingwindow_size">
+                                          <option value="3">3</option>
+                                          <option value="4" selected="selected">4</option>
+                                          <option value="5">5</option>
+                                          <option value="6">6</option>
+                                          <option value="7">7</option>
+                                          <option value="8">8</option>
+                                          <option value="9">9</option>
+                                          <option value="10">10</option>
+                                          <option value="11">11</option>
+                                          <option value="12">12</option>
+                                          <option value="13">13</option>
+                                          <option value="14">14</option>
+                                          <option value="15">15</option>
+                                          <option value="16">16</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="row trimmomatic_slidingwindow_quality_2">
+                                      <label class="col-md-4" for="trimmomatic_slidingwindow_quality"><i class="far fa-dot-circle"></i>&nbsp&nbspSliding Window Quality</label>
+                                      <div class="col-md-6">
+                                        <select class="custom-select my-1 mr-sm-2" name="trimmomatic_slidingwindow_quality" id="trimmomatic_slidingwindow_quality">
+                                          <option value="6">6</option>
+                                          <option value="7">7</option>
+                                          <option value="8">8</option>
+                                          <option value="9">9</option>
+                                          <option value="10">10</option>
+                                          <option value="11">11</option>
+                                          <option value="12">12</option>
+                                          <option value="13">13</option>
+                                          <option value="14">14</option>
+                                          <option value="15" selected="selected" Leading Quality>15</option>
+                                          <option value="16">16</option>
+                                          <option value="17">17</option>
+                                          <option value="18">18</option>
+                                          <option value="19">19</option>
+                                          <option value="20">20</option>
+                                          <option value="21">21</option>
+                                          <option value="22">22</option>
+                                          <option value="23">23</option>
+                                          <option value="24">24</option>
+                                          <option value="25">25</option>
+                                          <option value="26">26</option>
+                                          <option value="27">27</option>
+                                          <option value="28">28</option>
+                                          <option value="29">29</option>
+                                          <option value="30">30</option>
+                                          <option value="31">31</option>
+                                          <option value="32">32</option>
+                                          <option value="33">33</option>
+                                          <option value="34">34</option>
+                                          <option value="35">35</option>
+                                          <option value="36">36</option>
+                                          <option value="37">37</option>
+                                          <option value="38">38</option>
+                                          <option value="39">39</option>
+                                          <option value="40">40</option>
+                                        </select>
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                  <div class="row trimmomatic_leading">
+                                  <label class="col-md-4" for="trimmomatic_leading_quality"><i class="far fa-dot-circle"></i>&nbsp&nbspLeading Quality</label>
+                                  <div class="col-md-6">
+                                    <select class="custom-select my-1 mr-sm-2" name="trimmomatic_leading_quality" id="trimmomatic_leading_quality">
+                                      <option value="2">2</option>
+                                      <option value="3" selected="selected">3</option>
+                                      <option value="4">4</option>
+                                      <option value="5">5</option>
+                                      <option value="6">6</option>
+                                      <option value="7">7</option>
+                                      <option value="8">8</option>
+                                      <option value="9">9</option>
+                                      <option value="10">10</option>
+                                      <option value="11">11</option>
+                                      <option value="12">12</option>
+                                      <option value="13">13</option>
+                                      <option value="14">14</option>
+                                      <option value="15">15</option>
+                                      <option value="16">16</option>
+                                      <option value="17">17</option>
+                                      <option value="18">18</option>
+                                      <option value="19">19</option>
+                                      <option value="20">20</option>
+                                    </select>
+                                  </div>
+
+                                  </div>
+                                  <div class="row trimmomatic_trailing">
+                                  <label class="col-md-4" for="trimmomatic_trailing_quality"><i class="far fa-dot-circle"></i>&nbsp&nbspTrailing Quality</label>
+                                  <div class="col-md-6">
+                                    <select class="custom-select my-1 mr-sm-2" name="trimmomatic_trailing_quality" id="trimmomatic_trailing_quality">
+                                      <option value="2">2</option>
+                                      <option value="3" selected="selected">3</option>
+                                      <option value="4">4</option>
+                                      <option value="5">5</option>
+                                      <option value="6">6</option>
+                                      <option value="7">7</option>
+                                      <option value="8">8</option>
+                                      <option value="9">9</option>
+                                      <option value="10">10</option>
+                                      <option value="11">11</option>
+                                      <option value="12">12</option>
+                                      <option value="13">13</option>
+                                      <option value="14">14</option>
+                                      <option value="15">15</option>
+                                      <option value="16">16</option>
+                                      <option value="17">17</option>
+                                      <option value="18">18</option>
+                                      <option value="19">19</option>
+                                      <option value="20">20</option>
+                                    </select>
+                                  </div>
+                                  </div>
+                                  <div class="row trimmomatic_minimum_length">
+                                  <label class="col-md-4" for="trimmomatic_minlen"><i class="far fa-dot-circle"></i>&nbsp&nbspMinimum Length</label>
+                                  <div class="col-md-6">
+                                    <select class="custom-select my-1 mr-sm-2" name="trimmomatic_minlen"  id="trimmomatic_minlen">
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option value="29">29</option>
+                                        <option value="30">30</option>
+                                        <option value="31">31</option>
+                                        <option value="32">32</option>
+                                        <option value="33">33</option>
+                                        <option value="34">34</option>
+                                        <option value="35">35</option>
+                                        <option value="36" selected="selected">36</option>
+                                        <option value="37">37</option>
+                                        <option value="38">38</option>
+                                        <option value="39">39</option>
+                                        <option value="40">40</option>
+                                        <option value="41">41</option>
+                                        <option value="42">42</option>
+                                        <option value="43">43</option>
+                                        <option value="44">44</option>
+                                        <option value="45">45</option>
+                                        <option value="46">46</option>
+                                        <option value="47">47</option>
+                                        <option value="48">48</option>
+                                        <option value="49">49</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                  </div>
+                                  </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 3: &nbsp Quality Re-Assessment</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <p class="card-text" style="margin-left:40px;"><strong>FastqQC</strong> and <strong>MultiQC</strong> would be run.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="list-item-3">
+                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-minus"></i> &nbsp &nbsp Read Filtration </p></div>
+                            <div class="card-body w-100">
+                                <p class="card-text">Reads subtraction is aligned against ribosomal RNAs, bacteria genome, and selected host genome. The tools used in this step is <b>BWA-MEM</b></p>
+                                <br>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp Remove rRNAs</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <p class="card-text" style="margin-left:40px;"><strong>5S, 18S, 23S, 28S, and ITS rRNAs</strong> reads would be removed.<br>Database: <a href="ftp://ftp.ncbi.nlm.nih.gov/genomes/TARGET/">ftp://ftp.ncbi.nlm.nih.gov/genomes/TARGET/</a> <br>(Updated on Tue Dec 26 13:56:59 2017)</p>
+                                <br>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp Select Target Bacteria</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <div class="reads-subtraction-host" style="margin-left:40px;">
+                                  <div class="row">
+                                    <label class="col-md-4 control-label" for="reads_subtraction_host"><i class="far fa-dot-circle"></i>&nbsp&nbsp Target Bacteria</label>
+                                    <div class="col-md-6">
+                                      <select class="custom-select my-1 mr-sm-2" name="reads_subtraction_host" id="reads_subtraction_host">
+                                        <option selected="selected" value="TB">Tuberculosis (TB)</option>
+                                        <option value="mosquito">mosquito (Aedes aegypti)</option>
+                                        <option value="mouse">mouse (Mus musculus)</option>
+                                        <option value="pig">pig (Sus scrofa)</option>
+                                        <option value="tick">tick (Ixodes scapularis)</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <br>
+
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 3: &nbsp Remove Host Genome</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <div class="reads-subtraction-host" style="margin-left:40px;">
+                                  <div class="row">
+                                    <label class="col-md-4 control-label" for="reads_subtraction_host"><i class="far fa-dot-circle"></i>&nbsp&nbsp Select Target Host</label>
+                                    <div class="col-md-6">
+                                      <select class="custom-select my-1 mr-sm-2" name="reads_subtraction_host" id="reads_subtraction_host">
+                                        <option value="bovine">bovine (Bos taurus)</option>
+                                        <option value="chicken">chicken (Gallus gallus)</option>
+                                        <option value="dog">dog (Canis lupus familiaris)</option>
+                                        <option value="dog">dog (Canis lupus familiaris)</option>
+                                        <option selected="selected" value="human">human (Homo sapiens)</option>
+                                        <option value="mosquito">mosquito (Aedes aegypti)</option>
+                                        <option value="mouse">mouse (Mus musculus)</option>
+                                        <option value="pig">pig (Sus scrofa)</option>
+                                        <option value="tick">tick (Ixodes scapularis)</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <br>
+
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 4: &nbsp Remove Duplicated Reads</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <p class="card-text" style="margin-left:40px;"><strong>Duplicated reads</strong> would be remove by <b>fastuniq</b> program.</p>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="list-item-4">
+                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-align-right"></i> &nbsp &nbsp <b><i>De novo</i></b> assembly</p></div>
+                            <div class="card-body w-100">
+                                <p class="card-text"><b>A5-miseq</b> <i>de novo</i> assembly</p>
+                                <br>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp <b><i>De novo</i></b> Assembly </h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <p class="card-text" style="margin-left:40px;">Description</p>
+                                <br>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp Qualuty Trimming</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <p class="card-text" style="margin-left:40px;">Description</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="list-item-5">
+                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-reply"></i> &nbsp &nbsp Scaffolds Realignment</p></div>
+                            <div class="card-body w-100">
+                                <p class="card-text"> Final scaffolds were subjected to <b>BWA-MEM</b> reads re-mapping. </p>
+                                <br>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp <b>BWA-MEM</b> Reads Re-mapping</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <p class="card-text" style="margin-left:40px;">Description.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="list-item-6">
+                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-database"></i> &nbsp &nbsp homology Search</p></div>
+                            <div class="card-body w-100">
+                                <p class="card-text">Description </p>
+                                <br>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp </h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <p class="card-text" style="margin-left:40px;">Description</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="list-item-7">
+                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-dna"></i>  &nbsp &nbsp Variant Calling</p></div>
+                            <div class="card-body w-100">
+                                <p class="card-text">Description</p>
+                                <br>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp </h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <p class="card-text" style="margin-left:40px;">Description</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="start-analysis-button" name="start-analysis" type="submit" class="btn btn-success btn-lg btn-block" style="margin-bottom: 100px">Start Analysis</button>
+                    <!-- <button id="paired-end-button" name="upload-paired-end-file" class="btn btn-info btn-block" type="submit">Upload Paired-End Files</button> -->
+                  </div>
+                  <script>
+
+                    $('#start-analysis-button').click(function(){
+                        console.log("{{uploaded_file_url_pe_1}}"!="None" && "{{uploaded_file_url_pe_2}}"!="None"  || "{{uploaded_file_url_se}}"!="None");
+                        if ("{{uploaded_file_url_pe_1}}"!="None" && "{{uploaded_file_url_pe_2}}"!="None"  || "{{uploaded_file_url_se}}"!="None") {
+                            return true;
+                        } else {
+                            $('html,body').scrollTop(0);
+                            var myNode = document.getElementById("whole-page-message-container");
+                            myNode.innerHTML = '';
+                            $('#whole-page-message-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><center>You do not upload <strong>paired-end files</strong> or <strong>single-end file</strong> yet !</center><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+                            console.log("File is not upload yet!!");
+                            return false;
+                        }
+                    })
+
+                  </script>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+
+{% endblock content %}
