@@ -25,6 +25,80 @@
 
 <body data-spy="scroll" data-target="#side-nav">
     <header>
+
+
+      <style>
+      #topheader .navbar-nav li > a {
+      	text-transform: capitalize;
+      	color: #333;
+      	transition: background-color .2s, color .2s;
+
+      	&:hover,
+      	&:focus {
+      		background-color: #333;
+      		color: #fff;
+      	}
+      }
+
+      #topheader .navbar-nav li.active > a {
+      	background-color: #333;
+      	color: #fff;
+      }
+      </style>
+      <script>
+      $( '#topheader .navbar-nav a' ).on( 'click', function () {
+      	$( '#topheader .navbar-nav' ).find( 'li.active' ).removeClass( 'active' );
+      	$( this ).parent( 'li' ).addClass( 'active' );
+      });
+      </script>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <img src="{% static "images/virus.png" %}" alt="My image" height="42" width="42">
+            <a class="navbar-brand" href={% url 'homepage' %}>Pathogen-NGS</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item nav-middle active" style="border-radius: 10px;">
+                        <a class="nav-link" href=#><i> &nbsp&nbsp de novo</i> Assembly</a>
+                    </li>
+                    <li class="nav-item nav-middle" style="border-radius: 10px;">
+                        <a class="nav-link" href=#></i> &nbsp&nbsp reference-based Assemblys</a>
+                    </li>
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item">
+                        <a class="nav-link" href="mailto:b05901180@ntu.edu.tw"><i class="far fa-envelope fa-1g"></i> Contact</a>
+                    </li>
+                </ul>
+            </div>
+
+            <script>
+            $( '#navbarSupportedContent .nav-item  a' ).on( 'click', function () {
+              console.log("clicked !!!!!")
+              $( '#navbarSupportedContent .navbar-nav' ).find( 'li.active' ).css("background-color", "");
+              $( '#navbarSupportedContent .navbar-nav' ).find( 'li.active > a' ).css("font-weight", "");
+            	$( '#navbarSupportedContent .navbar-nav' ).find( 'li.active' ).removeClass( 'active' );
+            	$( this ).parent( 'li' ).addClass( 'active' );
+              $( this ).parent( 'li' ).css("background-color", "#262626");
+              $( this ).css("font-weight", "bold");
+            });
+            </script>
+
+            <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <a class="nav-item nav-link" href={% url 'profile' %}>Profile</a>
+                    <a class="nav-item nav-link" href={% url 'logout' %}>Logout</a>
+                {% else %}
+                    <a class="nav-item nav-link" href={% url 'login' %}>Login</a>
+                    <a class="nav-item nav-link" href={% url 'register' %}>register</a>
+                {% endif %}
+            </div>
+        </nav>
+
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <img src="{% static "images/virus.png" %}" alt="My image" height="42" width="42">
             <a class="navbar-brand" href={% url 'homepage' %}>Pathogen-NGS</a>
@@ -34,24 +108,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    {% comment %} <li class="nav-item">
-                        <a class="nav-link" href="#">Email Code<span class="sr-only">(current)</span></a>
-                    </li> {% endcomment %}
-                    {% comment %} <li class="nav-item">
-                        <a class="nav-link" href="#">Upload Data<span class="sr-only">(current)</span></a>
-                    </li> {% endcomment %}
-                    {% comment %} <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            Analysis Step
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Upload Data</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li> {% endcomment %}
                     {% if user.is_authenticated %}
                         <li class="nav-item nav-middle">
                             <a class="nav-link" href={% url 'new_analysis' %}><i class="fas fa-list-ul"></i>  My Analysis List</a>
@@ -80,11 +136,9 @@
                         <a class="nav-link" href="mailto:b05901180@ntu.edu.tw"><i class="far fa-envelope fa-1g"></i> Contact</a>
                     </li>
                 </ul>
-                {% comment %} <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form> {% endcomment %}
             </div>
+
+
             <div class="navbar-nav">
                 {% if user.is_authenticated %}
                     <a class="nav-item nav-link" href={% url 'profile' %}>Profile</a>
@@ -95,14 +149,8 @@
                 {% endif %}
             </div>
         </nav>
+
     </header>
-    {% comment %} {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %} {% endcomment %}
     {% block content %}
     {% endblock content %}
     <div class="w3-main" style="margin-top:100px; position: fixed; bottom: 0;  width:100%; z-index: 100;">
