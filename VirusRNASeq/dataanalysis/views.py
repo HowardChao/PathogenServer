@@ -53,13 +53,13 @@ def data_analysis_home(request):
         filename2 = fs.save(myfile2.name, myfile2)
         uploaded_file_url = fs.url(filename)
         uploaded_file_url2 = fs.url(filename2)
-        return render(request, 'dataanalysis/home.html', {
+        return render(request, 'dataanalysis/analysis_home_denovo.html', {
             'uploaded_file_url': uploaded_file_url,
             'uploaded_file_url2': uploaded_file_url2,
         })
-    return render(request, 'dataanalysis/home.html')
+    return render(request, 'dataanalysis/analysis_home_denovo.html')
     # documents = Document.objects.all()
-    # return render(request, 'dataanalysis/home.html', { 'documents': documents })
+    # return render(request, 'dataanalysis/analysis_home_denovo.html', { 'documents': documents })
 
 class BasicUploadView(DetailView):
     # slug_field = 'my_cool_field'
@@ -81,6 +81,10 @@ class BasicUploadView(DetailView):
             email = request.session['email']
             print("email: ", email)
             request.session["email"] = email
+        if 'assembly_type_input' in request.session:
+            assembly_type_input = request.session['assembly_type_input']
+            print("assembly_type_input: ", assembly_type_input)
+            request.session["assembly_type_input"] = assembly_type_input
         base_dir = os.path.join(settings.MEDIA_ROOT,
                                 'tmp', project_name + '_' + email + '_' + analysis_code)
         url_parameter = project_name + '_' + email.split("@")[0]
@@ -95,6 +99,7 @@ class BasicUploadView(DetailView):
             'project_name': project_name,
             'analysis_code': analysis_code,
             'email': email,
+            'assembly_type_input': assembly_type_input,
             'datas': data_list,
             'samples_txt_file_name': samples_txt_file_name,
             'samples_list_key': samples_list_key,
@@ -117,6 +122,10 @@ class BasicUploadView(DetailView):
             email = request.session['email']
             print("email: ", email)
             request.session["email"] = email
+        if 'assembly_type_input' in request.session:
+            assembly_type_input = request.session['assembly_type_input']
+            print("assembly_type_input: ", assembly_type_input)
+            request.session["assembly_type_input"] = assembly_type_input
         url_parameter = project_name + '_' + email.split("@")[0]
         base_dir = os.path.join(settings.MEDIA_ROOT,
                                 'tmp', project_name + '_' + email + '_' + analysis_code)
@@ -141,6 +150,7 @@ class BasicUploadView(DetailView):
                 'project_name': project_name,
                 'analysis_code': analysis_code,
                 'email': email,
+                'assembly_type_input': assembly_type_input,
                 'datas': data_list,
                 'samples_txt_file_name': samples_txt_file_name,
                 'samples_list_key': samples_list_key,
@@ -165,6 +175,7 @@ class BasicUploadView(DetailView):
                 'project_name': project_name,
                 'analysis_code': analysis_code,
                 'email': email,
+                'assembly_type_input': assembly_type_input,
                 'datas': data_list,
                 'samples_txt_file_name': samples_txt_file_name,
                 'samples_list_key': samples_list_key,
@@ -197,14 +208,13 @@ class BasicUploadView(DetailView):
             'project_name': project_name,
             'analysis_code': analysis_code,
             'email': email,
+            'assembly_type_input': assembly_type_input,
             'is_valid': True,
             'name': myfile.name,
             'datas': data_list,
             'samples_txt_file_name': samples_txt_file_name,
             'samples_list_key': samples_list_key}
         return JsonResponse(data)
-
-
 
 
 
@@ -248,10 +258,16 @@ def data_upload(request, slug_project):
         email = request.session['email']
         print("email: ", email)
         request.session["email"] = email
+    if 'assembly_type_input' in request.session:
+        assembly_type_input = request.session['assembly_type_input']
+        print("assembly_type_input: ", assembly_type_input)
+        request.session["assembly_type_input"] = assembly_type_input
     url_parameter = project_name + '_' + email.split("@")[0]
     return render(request, "dataanalysis/data_upload.html", {
         'project_name': project_name,
+        'analysis_code': analysis_code,
         'email': email,
+        'assembly_type_input': assembly_type_input,
         'url_parameter': url_parameter,
     })
 
@@ -275,9 +291,17 @@ def whole_dataanalysis(request, slug_project):
         email = request.session['email']
         print("email: ", email)
         request.session["email"] = email
+    if 'assembly_type_input' in request.session:
+        assembly_type_input = request.session['assembly_type_input']
+        print("assembly_type_input: ", assembly_type_input)
+        request.session["assembly_type_input"] = assembly_type_input
     (uploaded_file_url_pe_1, uploaded_file_url_pe_2, uploaded_file_url_se) = Check_Uploaded_File_Name(
         project_name, email, analysis_code)
     url_parameter = project_name + '_' + email.split("@")[0]
+    if assembly_type_input == "de_novo_assembly":
+        template_html = "dataanalysis/analysis_home_denovo.html"
+    elif assembly_type_input == "reference_based_assembly":
+        template_html = "dataanalysis/analysis_home_reference_based.html"
     if request.method == 'POST' :
         base_dir = os.path.join(settings.MEDIA_ROOT,
                                 'tmp', project_name + '_' + email + '_' + analysis_code)
@@ -299,10 +323,11 @@ def whole_dataanalysis(request, slug_project):
             filename2 = fs.save(os.path.join(base_dir, "pe", myfile2.name), myfile2)
             uploaded_file_url_pe_1 = fs.url(filename1)
             uploaded_file_url_pe_2 = fs.url(filename2)
-            return render(request, "dataanalysis/home.html", {
+            return render(request, template_html, {
                 'which': "paired-end",
                 'project_name': project_name,
                 'email': email,
+                'assembly_type_input': assembly_type_input,
                 'uploaded_file_url_pe_1': uploaded_file_url_pe_1,
                 'uploaded_file_url_pe_2': uploaded_file_url_pe_2,
                 'uploaded_file_url_se': uploaded_file_url_se,
@@ -323,10 +348,11 @@ def whole_dataanalysis(request, slug_project):
             request.session["se_or_pe"] = "se"
             filename1 = fs.save(os.path.join(base_dir, "se", myfile1.name), myfile1)
             uploaded_file_url_se = fs.url(filename1)
-            return render(request, "dataanalysis/home.html", {
+            return render(request, template_html, {
                 'which': "single-end",
                 'project_name': project_name,
                 'email': email,
+                'assembly_type_input': assembly_type_input,
                 'uploaded_file_url_pe_1': uploaded_file_url_pe_1,
                 'uploaded_file_url_pe_2': uploaded_file_url_pe_2,
                 'uploaded_file_url_se': uploaded_file_url_se,
@@ -340,10 +366,11 @@ def whole_dataanalysis(request, slug_project):
             destination_QC_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code)
             if os.path.exists(destination_QC_html_dir):
                 shutil.rmtree(destination_QC_html_dir)
-            return render(request, "dataanalysis/home.html", {
+            return render(request, template_html, {
                 'which': "single-end",
                 'project_name': project_name,
                 'email': email,
+                'assembly_type_input': assembly_type_input,
                 'uploaded_file_url_pe_1': uploaded_file_url_pe_1,
                 'uploaded_file_url_pe_2': uploaded_file_url_pe_2,
                 'uploaded_file_url_se': uploaded_file_url_se,
@@ -357,10 +384,11 @@ def whole_dataanalysis(request, slug_project):
             destination_QC_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code)
             if os.path.exists(destination_QC_html_dir):
                 shutil.rmtree(destination_QC_html_dir)
-            return render(request, "dataanalysis/home.html", {
+            return render(request, template_html, {
                 'which': "single-end",
                 'project_name': project_name,
                 'email': email,
+                'assembly_type_input': assembly_type_input,
                 'uploaded_file_url_pe_1': uploaded_file_url_pe_1,
                 'uploaded_file_url_pe_2': uploaded_file_url_pe_2,
                 'uploaded_file_url_se': uploaded_file_url_se,
@@ -437,10 +465,11 @@ def whole_dataanalysis(request, slug_project):
             # subprocess.call(['snakemake'], shell=True, cwd=datadir)
             return redirect((reverse('dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
-    return render(request, "dataanalysis/home.html", {
+    return render(request, template_html, {
         'which': "normal",
         'project_name': project_name,
         'email': email,
+        'assembly_type_input': assembly_type_input,
         'uploaded_file_url_pe_1': uploaded_file_url_pe_1,
         'uploaded_file_url_pe_2': uploaded_file_url_pe_2,
         'uploaded_file_url_se': uploaded_file_url_se,
@@ -474,6 +503,10 @@ def show_result_overview(request, slug_project):
         email = request.session['email']
         print("email: ", email)
         request.session["email"] = email
+    if 'assembly_type_input' in request.session:
+        assembly_type_input = request.session['assembly_type_input']
+        print("assembly_type_input: ", assembly_type_input)
+        request.session["assembly_type_input"] = assembly_type_input
     if 'se_or_pe' in request.session:
         se_or_pe = request.session['se_or_pe']
         print("se_or_pe: ", se_or_pe)
@@ -556,6 +589,7 @@ def show_result_overview(request, slug_project):
         "project_name": project_name,
         "analysis_code": analysis_code,
         "email": email,
+        "assembly_type_input": assembly_type_input,
         "submission_time": submission_time_strip,
         "start_time": start_time_strip,
         "end_time": end_time_strip,
@@ -587,10 +621,15 @@ def show_result(request, slug_project):
         email = request.session['email']
         print("email: ", email)
         request.session["email"] = email
+    if 'assembly_type_input' in request.session:
+        assembly_type_input = request.session['assembly_type_input']
+        print("assembly_type_input: ", assembly_type_input)
+        request.session["assembly_type_input"] = assembly_type_input
     url_parameter = project_name + '_' + email.split("@")[0]
     return render(request, "dataanalysis/analysis_result.html", {
         'project_name': project_name,
         'email': email,
+        'assembly_type_input':assembly_type_input,
         'url_parameter': url_parameter,
     })
 
@@ -608,6 +647,10 @@ def current_status(request, slug_project):
         email = request.session['email']
         print("email: ", email)
         request.session["email"] = email
+    if 'assembly_type_input' in request.session:
+        assembly_type_input = request.session['assembly_type_input']
+        print("assembly_type_input: ", assembly_type_input)
+        request.session["assembly_type_input"] = assembly_type_input
     submission_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp',
                                         project_name + '_' + email + '_' + analysis_code, 'submision_time.txt')
     submission_time_strip = 'no submission time'
@@ -694,6 +737,7 @@ def current_status(request, slug_project):
     return render(request, "dataanalysis/analysis_result_status.html", {
         'project_name': project_name,
         'email': email,
+        'assembly_type_input': assembly_type_input,
         'url_parameter': url_parameter,
         'check_first_qc_ans': check_first_qc_ans,
         'check_trimming_qc_ans': check_trimming_qc_ans,
@@ -774,12 +818,17 @@ def pre_qc_html_view_multiqc(request, slug_project):
     if 'email' in request.session:
         email = request.session['email']
         print("email: ", email)
+    if 'assembly_type_input' in request.session:
+        assembly_type_input = request.session['assembly_type_input']
+        print("assembly_type_input: ", assembly_type_input)
+        request.session["assembly_type_input"] = assembly_type_input
     url_parameter = project_name + '_' + email.split("@")[0]
     html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC', 'pre', 'Tochigi-7_S6_L001_multiqc.html')
     return render(request, html_file, {
         'project_name': project_name,
         'analysis_code': analysis_code,
         'email': email,
+        'assembly_type_input': assembly_type_input,
         'url_parameter': url_parameter,
     })
 
@@ -795,12 +844,17 @@ def pre_qc_html_view_r1(request, slug_project):
     if 'email' in request.session:
         email = request.session['email']
         print("email: ", email)
+    if 'assembly_type_input' in request.session:
+        assembly_type_input = request.session['assembly_type_input']
+        print("assembly_type_input: ", assembly_type_input)
+        request.session["assembly_type_input"] = assembly_type_input
     url_parameter = project_name + '_' + email.split("@")[0]
     html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC', 'pre', 'Tochigi-7_S6_L001.R1_fastqc.html')
     return render(request, html_file, {
         'project_name': project_name,
         'analysis_code': analysis_code,
         'email': email,
+        'assembly_type_input': assembly_type_input,
         'url_parameter': url_parameter,
     })
 
@@ -816,12 +870,17 @@ def pre_qc_html_view_r2(request, slug_project):
     if 'email' in request.session:
         email = request.session['email']
         print("email: ", email)
+    if 'assembly_type_input' in request.session:
+        assembly_type_input = request.session['assembly_type_input']
+        print("assembly_type_input: ", assembly_type_input)
+        request.session["assembly_type_input"] = assembly_type_input
     url_parameter = project_name + '_' + email.split("@")[0]
     html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC', 'pre', 'Tochigi-7_S6_L001.R2_fastqc.html')
     return render(request, html_file, {
         'project_name': project_name,
         'analysis_code': analysis_code,
         'email': email,
+        'assembly_type_input': assembly_type_input,
         'url_parameter': url_parameter,
     })
 
@@ -837,12 +896,17 @@ def post_qc_html_view_multiqc(request, slug_project):
     if 'email' in request.session:
         email = request.session['email']
         print("email: ", email)
+    if 'assembly_type_input' in request.session:
+        assembly_type_input = request.session['assembly_type_input']
+        print("assembly_type_input: ", assembly_type_input)
+        request.session["assembly_type_input"] = assembly_type_input
     url_parameter = project_name + '_' + email.split("@")[0]
     html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC', 'post', 'Tochigi-7_S6_L001_multiqc.html')
     return render(request, html_file, {
         'project_name': project_name,
         'analysis_code': analysis_code,
         'email': email,
+        'assembly_type_input': assembly_type_input,
         'url_parameter': url_parameter,
     })
 
@@ -858,12 +922,17 @@ def post_qc_html_view_r1(request, slug_project):
     if 'email' in request.session:
         email = request.session['email']
         print("email: ", email)
+    if 'assembly_type_input' in request.session:
+        assembly_type_input = request.session['assembly_type_input']
+        print("assembly_type_input: ", assembly_type_input)
+        request.session["assembly_type_input"] = assembly_type_input
     url_parameter = project_name + '_' + email.split("@")[0]
     html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC', 'post', 'Tochigi-7_S6_L001_r1_paired_fastqc.html')
     return render(request, html_file, {
         'project_name': project_name,
         'analysis_code': analysis_code,
         'email': email,
+        'assembly_type_input': assembly_type_input,
         'url_parameter': url_parameter,
     })
 
@@ -879,11 +948,16 @@ def post_qc_html_view_r2(request, slug_project):
     if 'email' in request.session:
         email = request.session['email']
         print("email: ", email)
+    if 'assembly_type_input' in request.session:
+        assembly_type_input = request.session['assembly_type_input']
+        print("assembly_type_input: ", assembly_type_input)
+        request.session["assembly_type_input"] = assembly_type_input
     url_parameter = project_name + '_' + email.split("@")[0]
     html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC', 'post', 'Tochigi-7_S6_L001_r2_paired_fastqc.html')
     return render(request, html_file, {
         'project_name': project_name,
         'analysis_code': analysis_code,
         'email': email,
+        'assembly_type_input': assembly_type_input,
         'url_parameter': url_parameter,
     })

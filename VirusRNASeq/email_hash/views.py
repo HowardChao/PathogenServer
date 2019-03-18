@@ -24,17 +24,21 @@ def project_name_generator():
 def newsletter_singup(request):
     default_analysis_code = analysis_code_generator()
     # print(default_analysis_code)
+
     form = forms.NewsletterUserSignUpForm(
         initial={
             'analysis_code': default_analysis_code,
         }
     )
+    print("$$$$$$$$$$: ", form)
     form = forms.NewsletterUserSignUpForm(request.POST or None)
     if form.is_valid():
+        assembly_type = request.POST['assembly_type_get']
         instance = form.save(commit=False)
         instance.analysis_code = default_analysis_code
+        instance.assembly_type_input = assembly_type
         instance.save()
-        print(instance.analysis_code)
+        # print("$$$$$$$$$$: ", instance.assembly_type_input)
         user_project_number = models.NewsletterUser.objects.filter(email=instance.email).count()
         messages.warning(request, 'You have ' + str(user_project_number) + ' analysis project in VirusRNASeq', extra_tags="alert alert-warning alert-dismissible fade show")
         from_email = settings.EMAIL_HOST_USER
@@ -95,6 +99,7 @@ def check_project(request):
             project_name = query_instance.project_name
             analysis_code = instance.analysis_code
             email = query_instance.email
+            assembly_type_input = query_instance.assembly_type_input
             url_parameter = project_name + '_' + email.split("@")[0]
             print("project_name: ", project_name)
             print("analysis_code: ", analysis_code)
@@ -104,6 +109,7 @@ def check_project(request):
             request.session["project_name"] = project_name
             request.session["analysis_code"] = analysis_code
             request.session["email"] = email
+            request.session["assembly_type_input"] = assembly_type_input
             upload_dir = os.path.join(
                 settings.MEDIA_ROOT, project_name, "reads")
             print("***Upload_dir id: ", upload_dir)

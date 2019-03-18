@@ -51,103 +51,50 @@
       	$( this ).parent( 'li' ).addClass( 'active' );
       });
       </script>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(#000000, #343A40);">
             <img src="{% static "images/virus.png" %}" alt="My image" height="42" width="42">
-            <a class="navbar-brand" href={% url 'homepage' %}>Pathogen-NGS</a>
+            <a class="navbar-brand" href={% url 'homepage' %} style="font-size: 22px">Pathogen-NGS</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item nav-middle active" style="border-radius: 10px;">
-                        <a class="nav-link" href=#><i> &nbsp&nbsp de novo</i> Assembly</a>
-                    </li>
-                    <li class="nav-item nav-middle" style="border-radius: 10px;">
-                        <a class="nav-link" href=#></i> &nbsp&nbsp reference-based Assemblys</a>
-                    </li>
-
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="nav-item">
-                        <a class="nav-link" href="mailto:b05901180@ntu.edu.tw"><i class="far fa-envelope fa-1g"></i> Contact</a>
-                    </li>
-                </ul>
-            </div>
-
-            <script>
-            $( '#navbarSupportedContent .nav-item  a' ).on( 'click', function () {
-              console.log("clicked !!!!!")
-              $( '#navbarSupportedContent .navbar-nav' ).find( 'li.active' ).css("background-color", "");
-              $( '#navbarSupportedContent .navbar-nav' ).find( 'li.active > a' ).css("font-weight", "");
-            	$( '#navbarSupportedContent .navbar-nav' ).find( 'li.active' ).removeClass( 'active' );
-            	$( this ).parent( 'li' ).addClass( 'active' );
-              $( this ).parent( 'li' ).css("background-color", "#262626");
-              $( this ).css("font-weight", "bold");
-            });
-            </script>
-
-            <div class="navbar-nav">
-                {% if user.is_authenticated %}
-                    <a class="nav-item nav-link" href={% url 'profile' %}>Profile</a>
-                    <a class="nav-item nav-link" href={% url 'logout' %}>Logout</a>
-                {% else %}
-                    <a class="nav-item nav-link" href={% url 'login' %}>Login</a>
-                    <a class="nav-item nav-link" href={% url 'register' %}>register</a>
-                {% endif %}
-            </div>
-        </nav>
-
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <img src="{% static "images/virus.png" %}" alt="My image" height="42" width="42">
-            <a class="navbar-brand" href={% url 'homepage' %}>Pathogen-NGS</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    {% if user.is_authenticated %}
-                        <li class="nav-item nav-middle">
-                            <a class="nav-link" href={% url 'new_analysis' %}><i class="fas fa-list-ul"></i>  My Analysis List</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item nav-middle">
-                            <a class="nav-link" href={% url 'new_analysis' %}><i class="fas fa-plus"></i> Start New Project</a>
-                        </li>
-                        <li class="nav-item nav-middle">
-                            <a class="nav-link" href={% url 'delete_analysis' %}><i class="fas fa-times"></i> Delete Project</a>
-                        </li>
-                        <li class="nav-item nav-middle">
-                            <a class="nav-link" href={% url 'check_project' %}><i class="fas fa-list-ul"></i> Check Project</a>
-                        </li>
-                    {% endif %}
-                        <li class="nav-item nav-middle">
-                            <a class="nav-link" href={% url 'help' %}><i class="fas fa-question"></i> Help<span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item nav-middle">
-                            <a class="nav-link" href={% url 'about' %}><i class="fas fa-info"></i> About</a>
-                        </li>
-
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="nav-item">
-                        <a class="nav-link" href="mailto:b05901180@ntu.edu.tw"><i class="far fa-envelope fa-1g"></i> Contact</a>
-                    </li>
-                </ul>
-            </div>
-
-
-            <div class="navbar-nav">
-                {% if user.is_authenticated %}
-                    <a class="nav-item nav-link" href={% url 'profile' %}>Profile</a>
-                    <a class="nav-item nav-link" href={% url 'logout' %}>Logout</a>
-                {% else %}
-                    <a class="nav-item nav-link" href={% url 'login' %}>Login</a>
-                    <a class="nav-item nav-link" href={% url 'register' %}>register</a>
-                {% endif %}
-            </div>
+              <ul class="navbar-nav mr-auto">
+                  {% if user.is_authenticated %}
+                      <li class="nav-item nav-middle">
+                          <a class="nav-link" href={% url 'new_analysis' %}><i class="fas fa-list-ul"></i>  My Analysis List</a>
+                      </li>
+                  {% else %}
+                      <li class="nav-item nav-middle">
+                          <a class="nav-link" href={% url 'new_analysis' %}><i class="fas fa-plus"></i> Start New Project</a>
+                      </li>
+                      <li class="nav-item nav-middle">
+                          <a class="nav-link" href={% url 'delete_analysis' %}><i class="fas fa-times"></i> Delete Project</a>
+                      </li>
+                      <li class="nav-item nav-middle">
+                          <a class="nav-link" href={% url 'check_project' %}><i class="fas fa-list-ul"></i> Check Project</a>
+                      </li>
+                  {% endif %}
+                      <li class="nav-item nav-middle">
+                          <a class="nav-link" href={% url 'help' %}><i class="fas fa-question"></i> Help<span class="sr-only">(current)</span></a>
+                      </li>
+                      <li class="nav-item nav-middle">
+                          <a class="nav-link" href={% url 'about' %}><i class="fas fa-info"></i> About</a>
+                      </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                  <li class="nav-item">
+                      <a class="nav-link" href="mailto:b05901180@ntu.edu.tw"><i class="far fa-envelope fa-1g"></i> Contact</a>
+                  </li>
+              </ul>
+              <div class="navbar-nav">
+                  {% if user.is_authenticated %}
+                      <a class="nav-item nav-link" href={% url 'profile' %}>Profile</a>
+                      <a class="nav-item nav-link" href={% url 'logout' %}>Logout</a>
+                  {% else %}
+                      <a class="nav-item nav-link" href={% url 'login' %}>Login</a>
+                      <a class="nav-item nav-link" href={% url 'register' %}>register</a>
+                  {% endif %}
+              </div>
         </nav>
 
     </header>

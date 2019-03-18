@@ -10,6 +10,38 @@
                 <h5 class="card-title" >Choose an email to start a new project</h5>
                 <br>
                 <p class="card-text">Please enter your email address below to create the analysis project. You can change the default project name to a distinct name. After you press the "start project" button, a special hash code linked to the newly created analysis project would be sent to your email. </p>
+
+
+                <nav class="navbar navbar-expand-lg navbar-dark" style="margin-left: -30px">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="navbar-nav mr-auto" style="margin-left: 25px;">
+                          <li class="nav-item nav-middle active" style="border-radius: 10px; background-color: #4f4f4f; font-weight: bold;" value="de_novo_assembly">
+                              <a class="nav-link" style="font-size: 25px;"><i> &nbsp&nbsp de novo</i> Assembly</a>
+                          </li>
+                          <li class="nav-item nav-middle" style="border-radius: 10px; background-color: #d7dbdd; font-weight: bold;" value="reference_based_assembly">
+                              <a class="nav-link" style="font-size: 25px;"></i> &nbsp&nbsp reference-based Assemblys</a>
+                          </li>
+                      </ul>
+                    </div>
+                    <script>
+                      $( '#navbarSupportedContent .nav-item  a' ).on( 'click', function () {
+                        console.log("clicked !!!!!")
+                        $( '#navbarSupportedContent .navbar-nav' ).find( 'li.active' ).css("background-color", "#d7dbdd");
+                        $( '#navbarSupportedContent .navbar-nav' ).find( 'li.active' ).removeClass( 'active' );
+                        $( this ).parent( 'li' ).addClass( 'active' );
+                        $( this ).parent( 'li' ).css("background-color", "#4f4f4f");
+                        assembly_type = $( '#navbarSupportedContent .navbar-nav' ).find( 'li.active' ).attr('value');
+                        console.log(assembly_type);
+                        document.getElementById('assembly_type_input').value = assembly_type;
+                      });
+
+                      assembly_type = $( '#navbarSupportedContent .navbar-nav' ).find( 'li.active' ).attr('value');
+                      console.log(assembly_type);
+                    </script>
+
+                </nav>
+
+
                 {% if messages %}
                     {% for message in messages %}
                         <div {% if message.tags %} class="{{message.tags}}" {% endif %} role="alert">
@@ -27,11 +59,15 @@
                     <form method="POST" class="w-100">
                         {% csrf_token %}
                         {{ form|crispy }}
+                        <input type="hidden" id="assembly_type_input" name="assembly_type_get" value="">
                         <span class="input-group-btn">
                             <button class="btn btn-success" type="submit">Start Project</button>
                         </span>
                     </form>
                 </div>
+                <script>
+                  document.getElementById('assembly_type_input').value = assembly_type;
+                </script>
                 {% comment %} {% crispy form %} {% endcomment %}
                 {% comment %} {% crispy form %} {% endcomment %}
                 {% endif %}

@@ -14,5 +14,6 @@ class NewsletterUser(models.Model):
     email = models.EmailField()
     data_added = models.DateTimeField(auto_now_add=True)
     analysis_code = models.CharField(max_length=32)
+    assembly_type_input = models.CharField(max_length=32, default="de_novo_assembly")
     def __str__(self):
         return self.email
