@@ -43,14 +43,26 @@
         $.each(data.files, function (index, file) {
           // First make sure filename is correct !
           // Start from here !!!!
-          dic = "{{ samples_list_key }}"
-          console.log();
-          for (var key in "{{ samples_list_key }}") {
-            console.log("key: ", key);
-            if (file_list_final.hasOwnProperty(key)) {
-              console.log(key, file_list_final[key]);
+          dic = JSON.parse("{{samples_list_key}}".replace(/&#39;/g,'"'));
+          console.log("dic: ", dic);
+          jQuery.each(dic, function(i, val) {
+            // $("#" + i).append(document.createTextNode(" - " + val));
+            for (s of val) {
+              console.log(s);
+              // Do things here!!!!
+
+
+
+
+
+
+
+
+
+
+              
             }
-          }
+          });
 
           reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz)$/i
           reg_exp_2 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R2.fastq.gz)$/i
@@ -383,6 +395,8 @@
                       </div>
                       <div style="margin-left:30px">
                         <div class="row" style="margin:5px">
+                          <script>
+                          </script>
                           {% for key, value in samples_list_key.items %}
                             <div class="col">
                               <table id="sample_file_item" class="table table-bordered">

@@ -15,6 +15,7 @@ import os
 import shutil
 import re
 import subprocess
+import json
 
 from .forms import DataForm
 from .models import Data
@@ -90,9 +91,13 @@ class BasicUploadView(DetailView):
         url_parameter = project_name + '_' + email.split("@")[0]
         # Start checking files !!!
         (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
+        samples_list_key = samples_list_key
+        print("$$$$samples_list_key: ", samples_list_key)
         uploaded_file = check_upload_sample_name(project_name, email, analysis_code)
+        print("uploaded_file: ", uploaded_file)
         data_list = []
         for key in uploaded_file:
+            print("key: ", key)
             for file in uploaded_file[key]:
                 data_list.append(key + file)
         return render(self.request, "dataanalysis/file_upload.html", {
@@ -130,6 +135,7 @@ class BasicUploadView(DetailView):
         base_dir = os.path.join(settings.MEDIA_ROOT,
                                 'tmp', project_name + '_' + email + '_' + analysis_code)
         (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
+        samples_list_key = samples_list_key
         if 'samples-files-upload' in request.POST:
             print("samples-files-upload!!!")
             myfile = request.FILES['samples-files-selected']
@@ -141,11 +147,13 @@ class BasicUploadView(DetailView):
             uploaded_file_url_se = fs.url(filename)
             # Start checking files
             (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
+            samples_list_key = samples_list_key
             uploaded_file = check_upload_sample_name(project_name, email, analysis_code)
             data_list = []
             for key in uploaded_file:
                 for file in uploaded_file[key]:
                     data_list.append(key + file)
+            print("%%%%data_list: ", data_list)
             return render(request, "dataanalysis/file_upload.html", {
                 'project_name': project_name,
                 'analysis_code': analysis_code,
@@ -166,6 +174,7 @@ class BasicUploadView(DetailView):
                 shutil.rmtree(destination_QC_html_dir)
             # Start checking files
             (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
+            samples_list_key = samples_list_key
             uploaded_file = check_upload_sample_name(project_name, email, analysis_code)
             data_list = []
             for key in uploaded_file:
@@ -199,6 +208,7 @@ class BasicUploadView(DetailView):
         uploaded_file_url = fs.url(filename)
         # Start checking files
         (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
+        samples_list_key = samples_list_key
         uploaded_file = check_upload_sample_name(project_name, email, analysis_code)
         data_list = []
         for key in uploaded_file:
