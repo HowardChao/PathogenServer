@@ -223,7 +223,6 @@
                             {% csrf_token %}
                             <div style="margin-right:30px;margin-left:30px;">
                               <div class="custom-file" style="margin-top: 10px">
-                                  <input type="hidden" value="paired" name="paired_or_single">
                                   <input type="file" name="r1" class="custom-file-input" id="inputGroupFile01">
                                   <label class="custom-file-label" for="inputGroupFile01">Choose R1 file (*.1.fastq.gz)</label>
                               </div>
@@ -476,7 +475,12 @@
                          {% endif %}
                       </div>
 
-
+                      <form method="post" enctype="multipart/form-data" required="True" style="margin-right:50px;margin-left:50px;">
+                      {% csrf_token %}
+                        <div style="margin-right:50px;margin-left:50px;margin-bottom:15px">
+                          <button id="workflow_setup" name="workflow_setup_button" type="submit" class="btn btn-success btn-lg btn-block">Go to workflow setup</button>
+                        </div>
+                      </form>
 
                     </div>
                 </div>

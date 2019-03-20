@@ -91,13 +91,9 @@ class BasicUploadView(DetailView):
         url_parameter = project_name + '_' + email.split("@")[0]
         # Start checking files !!!
         (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
-        samples_list_key = samples_list_key
-        print("$$$$samples_list_key: ", samples_list_key)
         uploaded_file = check_upload_sample_name(project_name, email, analysis_code)
-        print("uploaded_file: ", uploaded_file)
         data_list = []
         for key in uploaded_file:
-            print("key: ", key)
             for file in uploaded_file[key]:
                 data_list.append(key + file)
         return render(self.request, "dataanalysis/file_upload.html", {
@@ -109,10 +105,6 @@ class BasicUploadView(DetailView):
             'samples_txt_file_name': samples_txt_file_name,
             'samples_list_key': samples_list_key,
         })
-        # return render(self.request, 'dataanalysis/data_upload.html', {'url_parameter': url_parameter, 'datas': data_list})
-
-
-
 
     def post(self, request, slug_project):
         if 'project_name' in request.session:
@@ -135,7 +127,10 @@ class BasicUploadView(DetailView):
         base_dir = os.path.join(settings.MEDIA_ROOT,
                                 'tmp', project_name + '_' + email + '_' + analysis_code)
         (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
-        samples_list_key = samples_list_key
+        if assembly_type_input == "de_novo_assembly":
+            template_html = "dataanalysis/analysis_home_denovo.html"
+        elif assembly_type_input == "reference_based_assembly":
+            template_html = "dataanalysis/analysis_home_reference_based.html"
         if 'samples-files-upload' in request.POST:
             print("samples-files-upload!!!")
             myfile = request.FILES['samples-files-selected']
@@ -153,7 +148,6 @@ class BasicUploadView(DetailView):
             for key in uploaded_file:
                 for file in uploaded_file[key]:
                     data_list.append(key + file)
-            print("%%%%data_list: ", data_list)
             return render(request, "dataanalysis/file_upload.html", {
                 'project_name': project_name,
                 'analysis_code': analysis_code,
@@ -189,10 +183,79 @@ class BasicUploadView(DetailView):
                 'samples_txt_file_name': samples_txt_file_name,
                 'samples_list_key': samples_list_key,
             })
+        elif 'workflow_setup_button' in request.POST:
+            print("workflow_setup_button")
+            (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
+            samples_list_key = samples_list_key
+            uploaded_file = check_upload_sample_name(project_name, email, analysis_code)
+            data_list = []
+            for key in uploaded_file:
+                for file in uploaded_file[key]:
+                    data_list.append(key + file)
+            return render(request, template_html, {
+                'project_name': project_name,
+                'analysis_code': analysis_code,
+                'email': email,
+                'assembly_type_input': assembly_type_input,
+                'datas': data_list,
+                'samples_txt_file_name': samples_txt_file_name,
+                'samples_list_key': samples_list_key,
+            })
+
+        elif 'upload-paired-end-file' in request.POST:
+            print("upload-paired-end-fileupload-paired-end-file")
+            uploaded_file_url_pe_1 = None
+            uploaded_file_url_pe_2 = None
+            uploaded_file_url_se = None
+            base_dir = os.path.join(settings.MEDIA_ROOT,
+                                    'tmp', project_name + '_' + email + '_' + analysis_code)
+            (uploaded_file_url_pe_1, uploaded_file_url_pe_2, uploaded_file_url_se) = Check_Uploaded_File_Name(
+                project_name, email, analysis_code)
+            myfile1 = request.FILES['r1']
+            myfile2 = request.FILES['r2']
+            fs = FileSystemStorage()
+            # Removing files
+            if fs.exists(os.path.join(base_dir, 'Uploaded_files', 'one')):
+                shutil.rmtree(os.path.join(base_dir, "Uploaded_files", "one"))
+            ## Found split sample name
+            sample_name = os.path.splitext(os.path.splitext(
+                os.path.splitext(myfile1.name)[0])[0])[0]
+            request.session["sample_name"] = sample_name
+            filename1 = fs.save(os.path.join(base_dir, 'Uploaded_files', 'one', sample_name, myfile1.name), myfile1)
+            filename2 = fs.save(os.path.join(base_dir, 'Uploaded_files', 'one', sample_name, myfile2.name), myfile2)
+            uploaded_file_url_pe_1 = fs.url(filename1)
+            uploaded_file_url_pe_2 = fs.url(filename2)
+            return render(request, template_html, {
+                'project_name': project_name,
+                'analysis_code': analysis_code,
+                'email': email,
+                'assembly_type_input': assembly_type_input,
+                'uploaded_file_url_pe_1': uploaded_file_url_pe_1,
+                'uploaded_file_url_pe_2': uploaded_file_url_pe_2,
+                'uploaded_file_url_se': uploaded_file_url_se,
+                'remove_file': False,
+            })
+
+        elif 'remove-paired-end-file' in request.POST:
+            fs = FileSystemStorage()
+            if fs.exists(base_dir):
+                shutil.rmtree(base_dir)
+            destination_QC_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code)
+            if os.path.exists(destination_QC_html_dir):
+                shutil.rmtree(destination_QC_html_dir)
+            return render(request, template_html, {
+                'which': "single-end",
+                'project_name': project_name,
+                'email': email,
+                'assembly_type_input': assembly_type_input,
+                'uploaded_file_url_pe_1': uploaded_file_url_pe_1,
+                'uploaded_file_url_pe_2': uploaded_file_url_pe_2,
+                'uploaded_file_url_se': uploaded_file_url_se,
+                'remove_file': True,
+            })
 
         # if 'sample-each-upload-many' in request.POST:
         # elif 'sample-each-upload-many' in request.POST:
-        print("Inside sample-each-upload!!!")
         myfile = request.FILES['file_choose']
         fs = FileSystemStorage()
         sample_name = os.path.splitext(os.path.splitext(os.path.splitext(myfile.name)[0])[0])[0]
@@ -200,11 +263,13 @@ class BasicUploadView(DetailView):
         # Removing files
         if not fs.exists(os.path.join(base_dir, 'Uploaded_files')):
             os.mkdir((os.path.join(base_dir, 'Uploaded_files')))
-            if not fs.exists(os.path.join(base_dir, 'Uploaded_files', sample_name)):
-                os.mkdir((os.path.join(base_dir, 'Uploaded_files', sample_name)))
+            if not fs.exists(os.path.join(base_dir, 'Uploaded_files', "multi")):
+                os.mkdir((os.path.join(base_dir, 'Uploaded_files', "multi")))
+                if not fs.exists(os.path.join(base_dir, 'Uploaded_files', "multi", sample_name)):
+                    os.mkdir((os.path.join(base_dir, 'Uploaded_files', "multi", sample_name)))
                 # Found split sample name
         sample_name = os.path.splitext(os.path.splitext(os.path.splitext(myfile.name)[0])[0])[0]
-        filename = fs.save(os.path.join(base_dir, "Uploaded_files", sample_name, myfile.name), myfile)
+        filename = fs.save(os.path.join(base_dir, "Uploaded_files", "multi", sample_name, myfile.name), myfile)
         uploaded_file_url = fs.url(filename)
         # Start checking files
         (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
@@ -487,6 +552,124 @@ def whole_dataanalysis(request, slug_project):
     })
 
 
+def whole_dataanalysis_reference_based(request, slug_project):
+    if 'project_name' in request.session:
+        project_name = request.session['project_name']
+        print("project_name: ", project_name)
+        request.session["project_name"] = project_name
+    if 'analysis_code' in request.session:
+        analysis_code = request.session['analysis_code']
+        print("analysis_code: ", analysis_code)
+        request.session["analysis_code"] = analysis_code
+    if 'email' in request.session:
+        email = request.session['email']
+        print("email: ", email)
+        request.session["email"] = email
+    if 'assembly_type_input' in request.session:
+        assembly_type_input = request.session['assembly_type_input']
+        print("assembly_type_input: ", assembly_type_input)
+    url_parameter = project_name + '_' + email.split("@")[0]
+    template_html = "dataanalysis/analysis_home_reference_based.html"
+    if request.method == 'POST' :
+        base_dir = os.path.join(settings.MEDIA_ROOT,
+                                'tmp', project_name + '_' + email + '_' + analysis_code)
+        if 'start-analysis-reference-based' in request.POST:
+            upload_files_dir = os.path.join(base_dir, "Uploaded_files")
+            prefix_dir = "/ssd/Howard/Virus/"
+            tools_dir = os.path.join(prefix_dir, "tools")
+            host_ref_dir = os.path.join(prefix_dir, "host_ref")
+            pathogen_dir = os.path.join(prefix_dir, "pathogen")
+            (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
+            print("samples_txt_file_name: ", samples_txt_file_name)
+
+
+
+
+
+
+
+            ### Trimmomatics
+            trimmomatic_jar = os.path.join(prefix_dir, "tools/Trimmomatic/trimmomatic-0.38.jar")
+            datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
+                                project_name + '_' + email + '_' + analysis_code)
+            tool_dir = os.path.join(prefix_dir, "tools")
+            fastqc_command = os.path.join(".", tool_dir, "FastQC", "fastqc")
+            threads = 8
+            phred = "-phred33"
+            select_adapter = request.POST.get('trimmomatic_illuminaclip')
+            adapter = os.path.join(prefix_dir, "tools/Trimmomatic/adapters", select_adapter)
+            adapter_param = ":2:30:10"
+            leading = request.POST.get('trimmomatic_leading_quality')
+            trailing = request.POST.get('trimmomatic_trailing_quality')
+            minlen = request.POST.get('trimmomatic_minlen')
+            window_size = request.POST.get('trimmomatic_slidingwindow_size')
+            window_quality = request.POST.get('trimmomatic_slidingwindow_quality')
+
+            ### BWA
+            species_dir = "homo_sapiens"
+            bwa_species = "homo_sapiens.fa"
+            bwa_ref = os.path.join(prefix_dir, "host_ref", species_dir)
+            host_ref = os.path.join(bwa_ref, bwa_species)
+
+            config_file_path = os.path.join(datadir, 'config.yaml')
+            if os.path.exists(os.path.join(datadir, 'pe')):
+                se_or_pe = 'pe'
+                snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_pe")
+            elif os.path.exists(os.path.join(datadir, 'se')):
+                se_or_pe = 'se'
+                snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_se")
+            destination_snakemake_file = os.path.join(datadir, 'Snakefile')
+            data = dict(
+                project_name = project_name,
+                datadir = datadir,
+                se_or_pe = se_or_pe,
+                fastqc = dict(
+                    fastqc_command = fastqc_command,
+                ),
+                trimmomatic = dict(
+                    trimmomatic_jar = trimmomatic_jar,
+                    threads = threads,
+                    phred = phred,
+                    adapter = adapter,
+                    adapter_param = adapter_param,
+                    window_size = window_size,
+                    window_quality = window_quality,
+                    leading = leading,
+                    trailing = trailing,
+                    minlen = minlen,
+                ),
+                bwa = dict(
+                    host_ref=host_ref,
+                )
+            )
+            with open(config_file_path, 'w') as ymlfile:
+                yaml.dump(data, ymlfile, default_flow_style=False)
+            shutil.copyfile(snakemake_file, destination_snakemake_file)
+            if (not os.path.exists(os.path.join(datadir, 'script'))):
+                os.mkdir((os.path.join(datadir, 'script')))
+            for name in ['start', 'end']:
+                get_time_script = os.path.join(
+                    prefix_dir, "VirusRNASeq/VirusRNASeq/script/get_" + name + "_time.py")
+                destination_get_time_script = os.path.join(
+                    datadir, 'script/get_' + name + '_time.py')
+                shutil.copyfile(get_time_script, destination_get_time_script)
+            # subprocess.call(['snakemake'], shell=True, cwd=datadir)
+            return redirect((reverse('dataanalysis_result_current_status', kwargs={
+                'slug_project': url_parameter})))
+    return render(request, template_html, {
+        'which': "normal",
+        'project_name': project_name,
+        'email': email,
+        'assembly_type_input': assembly_type_input,
+        'uploaded_file_url_pe_1': uploaded_file_url_pe_1,
+        'uploaded_file_url_pe_2': uploaded_file_url_pe_2,
+        'uploaded_file_url_se': uploaded_file_url_se,
+        'remove_file': False,
+    })
+
+
+
+
 def show_result_overview(request, slug_project):
     project_name = "No value"
     analysis_code = "No value"
@@ -617,7 +800,6 @@ def show_result_overview(request, slug_project):
         "trimmo_dropped": trimmo_dropped,
     })
 
-
 def show_result(request, slug_project):
     if 'project_name' in request.session:
         project_name = request.session['project_name']
@@ -642,7 +824,6 @@ def show_result(request, slug_project):
         'assembly_type_input':assembly_type_input,
         'url_parameter': url_parameter,
     })
-
 
 def current_status(request, slug_project):
     if 'project_name' in request.session:
@@ -762,13 +943,6 @@ def current_status(request, slug_project):
         'view_counter': view_counter,
     })
 
-
-def hello_world(request):
-    return HttpResponse('Hello World!')
-
-
-# -*- coding: utf-8 -*-
-
 def upload_progress(request):
     """
     Used by Ajax calls
@@ -786,7 +960,6 @@ def upload_progress(request):
         cache_key = "%s_%s" % (request.META['REMOTE_ADDR'], progress_id)
         data = cache.get(cache_key)
         return HttpResponse(json.dumps(data))
-
 
 def Check_Uploaded_File_Name(project_name, email, analysis_code):
     uploaded_file_url_pe_1 = None
@@ -813,8 +986,6 @@ def Check_Uploaded_File_Name(project_name, email, analysis_code):
     # files = glob.glob(upload_dir)
 
     return (uploaded_file_url_pe_1, uploaded_file_url_pe_2, uploaded_file_url_se)
-
-
 
 def pre_qc_html_view_multiqc(request, slug_project):
     if 'project_name' in request.session:
