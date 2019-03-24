@@ -1,0 +1,296 @@
+
+
+from snakemake.utils import min_version
+import os
+from snakemake.shell import shell
+import pandas as pd
+
+__author__ = 'Kuan-Hao Chao <b05901180@ntu.edu.tw>'
+
+#------------ Config setup ------------
+configfile: "config.yaml"
+print(os.path.join(config["datadir"]))
+workdir: os.path.join(config["datadir"])
+trimmomatic_jar = config["trimmomatic"]["trimmomatic_jar"]
+# pipesDir = os.path.join(os.path.expanduser(config['bin_dir']), 'pipes', 'rules')
+
+# Tabular configuration
+# samples = pd.read_table(config["samples"]).set_index("sample", drop=FALSE)
+# validate(samples, schema="schemas/cells.schema.yaml")
+
+#------------ Definition fo all_input ------
+samples_list_key = config["samples_list_key"]
+# Getting samples
+samples = []
+for i in samples_list_key:
+    for j in samples_list_key[i]:
+        samples.append(j)
+
+#------------ Target File -------------
+rule targets:
+    input:
+        "start_time.txt",
+        'end_time.txt',
+        expand(os.path.join("trimmed_paired",
+                            "{sample}_r1_paired.fastq.gz"), sample=samples),
+        expand(os.path.join("QC", "pre",
+                            "{sample}_multiqc.html"), sample=samples),
+        # expand(os.path.join(
+        #     config["datadir"], "Read_Subtraction", "bwa", "sam", "{sample}.sam"), sample=samples),
+        expand(os.path.join(
+            "QC", "post", "{sample}_multiqc.html"), sample=samples),
+        expand(os.path.join(config["datadir"], "Read_Subtraction", "bwa", "sam","{sample}.sam"), sample=samples),
+        expand(os.path.join(config["datadir"], "Extract_non_host_reads", "bam","{sample}.bam"), sample=samples),
+        expand(os.path.join(config["datadir"], "Extract_non_host_reads", "txt","{sample}.txt"), sample=samples),
+        expand(os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_bam", "{sample}.unmapped.bam"), sample=samples),
+        expand(os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_fastq", "{sample}.unmapped.R1.fastq"), sample=samples),
+        expand(os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_fastq", "{sample}.unmapped.R2.fastq"), sample=samples),
+        expand('{sample}_a5_miseq_de_novo.out', sample=samples),
+        'end_time.txt',
+
+# rule first_fastqc_target:
+#     input:
+#         expand(os.path.join("QC", "pre", "{sample}_multiqc.html"), sample=samples),
+
+# rule second_fastqc_target:
+#     input:
+#         expand(os.path.join("QC", "post", "{sample}_multiqc.html"), sample=samples),
+
+# rule trimmomatic_pe_target:
+#     input:
+#         expand(os.path.join("trimmed_paired","{sample}_r1_paired.fastq.gz"), sample=samples),
+
+rule get_start_time:
+    output:
+        start_time = 'time/start_time.txt'
+    priority: 100
+    shell:
+        '''
+        python get_time_script/get_start_time.py
+        '''
+
+rule first_fastqc:
+    input:
+        r1 = os.path.join("{sample}.R1.fastq.gz"),
+        r2 = os.path.join("{sample}.R2.fastq.gz"),
+    output:
+        html_r1 = os.path.join("QC", "pre", "{sample}.R1_fastqc.html"),
+        zip_r1 = os.path.join("QC", "pre", "{sample}.R1_fastqc.zip"),
+        html_r2 = os.path.join("QC", "pre", "{sample}.R2_fastqc.html"),
+        zip_r2 = os.path.join("QC", "pre", "{sample}.R2_fastqc.zip"),
+    priority: 99,
+    log:
+        log = os.path.join("logs", "fastqc_pre", "{sample}.log")
+    shell:
+        """
+        {config[fastqc][fastqc_command]} {input.r1} {input.r2} --outdir=QC/pre
+        """
+
+rule first_multiqc:
+    input:
+        html_r1 = os.path.join("QC", "pre", "{sample}.R1_fastqc.html"),
+        zip_r1 = os.path.join("QC", "pre", "{sample}.R1_fastqc.zip"),
+        html_r2 = os.path.join("QC", "pre", "{sample}.R2_fastqc.html"),
+        zip_r2 = os.path.join("QC", "pre", "{sample}.R2_fastqc.zip"),
+    output:
+        multiqc_file = os.path.join("QC", "pre", "{sample}_multiqc.html"),
+        multiqc_dir = os.path.join("QC", "pre", "{sample}_multiqc_data"),
+    params:
+        directory = os.path.join("QC", "pre"),
+        filename = os.path.join("QC", "pre", "{sample}_multiqc"),
+    priority: 98,
+    log:
+        log = os.path.join("logs", "multiqc_pre", "{sample}.log"),
+    shell:
+        """
+        multiqc --force {params.directory} -n {params.filename}
+        """
+
+rule trimmomatic_pe:
+    input:
+        r1 = os.path.join("{sample}.R1.fastq.gz"),
+        r2 = os.path.join("{sample}.R2.fastq.gz"),
+    output:
+        r1_paired = os.path.join("trimmed_paired", "{sample}_r1_paired.fastq.gz"),
+        r1_unpaired = os.path.join("trimmed_unpaired", "{sample}_r1_unpaired.fastq.gz"),
+        r2_paired = os.path.join("trimmed_paired", "{sample}_r2_paired.fastq.gz"),
+        r2_unpaired = os.path.join("trimmed_unpaired", "{sample}_r2_unpaired.fastq.gz"),
+        output_command = os.path.join("logs", "trimmomatic_pe", "{sample}.command.log"),
+    priority: 97,
+    log:
+        log = os.path.join("logs", "trimmomatic_pe", "{sample}.log")
+    message: "Trimming Illumina adapters from {input.r1} and {input.r2}"
+    params:
+        # list of trimmers (see manual)
+        trimmer=["CROP:151"],
+        minilength=["MINLEN:50"],
+        # optional parameters
+        extra="-phred33",
+    shell:
+        """
+        java -jar {config[trimmomatic][trimmomatic_jar]} PE -threads {config[trimmomatic][trimmomatic_threads]} {config[trimmomatic][trimmomatic_phred]} -trimlog {log.log} {input.r1} {input.r2} {output.r1_paired} \
+        {output.r1_unpaired} {output.r2_paired} {output.r2_unpaired} \
+        ILLUMINACLIP:{config[trimmomatic][trimmomatic_adapter]}{config[trimmomatic][trimmomatic_adapter_param]} LEADING:{config[trimmomatic][trimmomatic_leading]} TRAILING:{config[trimmomatic][trimmomatic_trailing]} SLIDINGWINDOW:{config[trimmomatic][trimmomatic_window_size]}:{config[trimmomatic][trimmomatic_window_quality]} MINLEN:{config[trimmomatic][trimmomatic_minlen]} &> {output.output_command}
+        """
+
+
+rule second_fastqc:
+    input:
+        r1_paired = os.path.join("trimmed_paired", "{sample}_r1_paired.fastq.gz"),
+        r1_unpaired = os.path.join("trimmed_unpaired", "{sample}_r1_unpaired.fastq.gz"),
+        r2_paired = os.path.join("trimmed_paired", "{sample}_r2_paired.fastq.gz"),
+        r2_unpaired = os.path.join("trimmed_unpaired", "{sample}_r2_unpaired.fastq.gz"),
+    output:
+        html_r1_paired = os.path.join(
+            "QC", "post", "{sample}_r1_paired_fastqc.html"),
+        zip_r1_paired = os.path.join(
+            "QC", "post", "{sample}_r1_paired_fastqc.zip"),
+        html_r1_unpaired = os.path.join(
+            "QC", "post", "{sample}_r1_unpaired_fastqc.html"),
+        zip_r1_unpaired = os.path.join(
+            "QC", "post", "{sample}_r1_unpaired_fastqc.zip"),
+        html_r2_paired = os.path.join(
+            "QC", "post", "{sample}_r2_paired_fastqc.html"),
+        zip_r2_paired = os.path.join(
+            "QC", "post", "{sample}_r2_paired_fastqc.zip"),
+        html_r2_unpaired = os.path.join(
+            "QC", "post", "{sample}_r2_unpaired_fastqc.html"),
+        zip_r2_unpaired = os.path.join(
+            "QC", "post", "{sample}_r2_unpaired_fastqc.zip"),
+    priority: 96,
+    log:
+        log = os.path.join("logs", "fastqc_post", "{sample}.log")
+    shell:
+        """
+        {config[fastqc][fastqc_command]} {input.r1_paired} {input.r1_unpaired} {input.r2_paired} {input.r2_unpaired} --outdir=QC/post
+        """
+
+rule second_multiqc:
+    input:
+        html_r1_paired = os.path.join(
+            "QC", "post", "{sample}_r1_paired_fastqc.html"),
+        zip_r1_paired = os.path.join(
+            "QC", "post", "{sample}_r1_paired_fastqc.zip"),
+        html_r1_unpaired = os.path.join(
+            "QC", "post", "{sample}_r1_unpaired_fastqc.html"),
+        zip_r1_unpaired = os.path.join(
+            "QC", "post", "{sample}_r1_unpaired_fastqc.zip"),
+        html_r2_paired = os.path.join(
+            "QC", "post", "{sample}_r2_paired_fastqc.html"),
+        zip_r2_paired = os.path.join(
+            "QC", "post", "{sample}_r2_paired_fastqc.zip"),
+        html_r2_unpaired = os.path.join(
+            "QC", "post", "{sample}_r2_unpaired_fastqc.html"),
+        zip_r2_unpaired = os.path.join(
+            "QC", "post", "{sample}_r2_unpaired_fastqc.zip"),
+    output:
+        multiqc_file = os.path.join("QC", "post", "{sample}_multiqc.html"),
+        multiqc_dir = os.path.join("QC", "post", "{sample}_multiqc_data"),
+    params:
+        directory = os.path.join("QC", "post"),
+        filename = os.path.join("QC", "post", "{sample}_multiqc"),
+    priority: 95,
+    log:
+        log = os.path.join("logs", "multiqc_post", "{sample}.log"),
+    shell:
+        """
+        multiqc --force {params.directory} -n {params.filename}
+        """
+
+rule align_against_host_genome_bwa_mem:
+    input:
+        trimmed_r1 = os.path.join("trimmed_paired", "{sample}_r1_paired.fastq.gz"),
+        trimmed_r2 = os.path.join("trimmed_paired", "{sample}_r2_paired.fastq.gz"),
+        host_ref = config["bwa"]["bwa_host_ref"],
+    output:
+        bwa_sam = os.path.join(config["datadir"], "Read_Subtraction", "bwa", "sam","{sample}.sam"),
+    log:
+        log = os.path.join("logs", "bwa_mem", "{sample}.log"),
+    priority: 94,
+    threads: 10
+    shell:
+        """
+        bwa mem -t {threads} {input.host_ref} {input.trimmed_r1} {input.trimmed_r2} > {output.bwa_sam}
+        """
+
+# Not using yet ~~~
+#
+#
+#
+
+rule extract_non_host_reads_1:
+    input:
+        bwa_sam = os.path.join(config["datadir"], "Read_Subtraction", "bwa", "sam","{sample}.sam"),
+    output:
+        bwa_bam = os.path.join(config["datadir"], "Extract_non_host_reads", "bam","{sample}.bam"),
+    priority: 93,
+    threads: 8
+    shell:
+        """
+        samtools sort -@ {threads} -o {output.bwa_bam} {input.bwa_sam}
+        """
+
+rule extract_non_host_reads_2:
+    input:
+        bwa_bam = os.path.join(config["datadir"], "Extract_non_host_reads", "bam","{sample}.bam"),
+    output:
+        txt = os.path.join(config["datadir"], "Extract_non_host_reads", "txt","{sample}.txt"),
+    priority: 92,
+    shell:
+        """
+        samtools flagstat {input.bwa_bam} > {output.txt}
+        """
+
+rule extract_non_host_reads_3:
+    input:
+        bwa_bam = os.path.join(config["datadir"], "Extract_non_host_reads", "bam","{sample}.bam"),
+    output:
+        unmapped_bam = os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_bam", "{sample}.unmapped.bam"),
+    priority: 91,
+    shell:
+        """
+        samtools view -b -f 4 {input.bwa_bam} > {output.unmapped_bam}
+        """
+
+
+rule extract_non_host_reads_4:
+    input:
+        unmapped_bam = os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_bam", "{sample}.unmapped.bam"),
+    output:
+        unmapped_fastq_r1 = os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_fastq", "{sample}.unmapped.R1.fastq"),
+        unmapped_fastq_r2 = os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_fastq", "{sample}.unmapped.R2.fastq"),
+    priority: 90,
+    shell:
+        """
+        bedtools bamtofastq -i {input.unmapped_bam} -fq {output.unmapped_fastq_r1} -fq2 {output.unmapped_fastq_r2}
+        """
+rule a5_miseq_de_novo_assembly:
+    input:
+        unmapped_fastq_r1 = os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_fastq", "{sample}.unmapped.R1.fastq"),
+        unmapped_fastq_r2 = os.path.join(config["datadir"], "Extract_non_host_reads", "unmapped_fastq", "{sample}.unmapped.R2.fastq"),
+    output:
+        output_genome = "{sample}_a5_miseq_de_novo.out",
+    threads: 10,
+    priority: 89,
+    log:
+        log = os.path.join("logs", "a5_miseq_de_novo_assembly", "{sample}.log"),
+    shell:
+        """
+        a5_pipeline.pl --threads={threads} {input.unmapped_fastq_r1} {input.unmapped_fastq_r2} {output.output_genome} &> {log.log}
+        """
+
+rule get_end_time:
+    output:
+        end_time = 'end_time.txt',
+    priority: 0,
+    shell:
+        '''
+        python get_time_script/get_end_time.py
+        '''
+
+#------------ include rules -----------
+# include: "./rules/trimmomatic_trimming_PE.snakefile"
+# include: "./rules/bwa_alignment.snakefile"
+
+
+#------------ setup report ------------

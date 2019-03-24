@@ -29,6 +29,14 @@ from . import utils_func
 
 TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_project"
 
+
+### Change QC directory !!!!
+
+
+
+
+
+
 # Creating GET and POST functions!! When we access page, we are going to
 # show the user a list of uploaded files
 
@@ -201,6 +209,9 @@ class BasicUploadView(DetailView):
                 for file in uploaded_file[key]:
                     data_list.append(key + file)
             print("$$$$data_list: ")
+            return redirect((reverse('dataanalysis_home', kwargs={
+                'slug_project': url_parameter})))
+
             return render(request, template_html, {
                 'project_name': project_name,
                 'analysis_code': analysis_code,
@@ -292,13 +303,11 @@ class BasicUploadView(DetailView):
         # Removing files
         if not fs.exists(os.path.join(base_dir, 'Uploaded_files')):
             os.mkdir((os.path.join(base_dir, 'Uploaded_files')))
-            if not fs.exists(os.path.join(base_dir, 'Uploaded_files', "multi")):
-                os.mkdir((os.path.join(base_dir, 'Uploaded_files', "multi")))
-                if not fs.exists(os.path.join(base_dir, 'Uploaded_files', "multi", sample_name)):
-                    os.mkdir((os.path.join(base_dir, 'Uploaded_files', "multi", sample_name)))
+            if not fs.exists(os.path.join(base_dir, 'Uploaded_files', sample_name)):
+                os.mkdir((os.path.join(base_dir, 'Uploaded_files', sample_name)))
                 # Found split sample name
         sample_name = os.path.splitext(os.path.splitext(os.path.splitext(myfile.name)[0])[0])[0]
-        filename = fs.save(os.path.join(base_dir, "Uploaded_files", "multi", sample_name, myfile.name), myfile)
+        filename = fs.save(os.path.join(base_dir, "Uploaded_files", sample_name, myfile.name), myfile)
         uploaded_file_url = fs.url(filename)
         # Start checking files
         (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
@@ -344,9 +353,6 @@ def check_upload_sample_name(project_name, email, analysis_code):
             uploaded_file[sample] = fastqs_in_sample
     print("uploaded_file$$$$: ", uploaded_file)
     return uploaded_file
-
-
-
 
 
 
@@ -423,7 +429,6 @@ def whole_dataanalysis(request, slug_project):
         #     sample_name = os.path.splitext(os.path.splitext(
         #         os.path.splitext(myfile1.name)[0])[0])[0]
         #     request.session["sample_name"] = sample_name
-        #     request.session["se_or_pe"] = "pe"
         #     filename1 = fs.save(os.path.join(base_dir, "pe", myfile1.name), myfile1)
         #     filename2 = fs.save(os.path.join(base_dir, "pe", myfile2.name), myfile2)
         #     uploaded_file_url_pe_1 = fs.url(filename1)
@@ -455,7 +460,9 @@ def whole_dataanalysis(request, slug_project):
         #         'uploaded_file_url_se': uploaded_file_url_se,
         #         'remove_file': True,
         #     })
-        if 'start-analysis' in request.POST:
+        if 'start-analysis-de-novo' in request.POST:
+            pass
+        elif 'start-analysis-reference-based' in request.POST:
             upload_files_dir = os.path.join(base_dir, "Uploaded_files")
             prefix_dir = "/ssd/Howard/Virus/"
             tool_dir = os.path.join(prefix_dir, "tools")
@@ -464,67 +471,79 @@ def whole_dataanalysis(request, slug_project):
             (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
             datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
                                 project_name + '_' + email + '_' + analysis_code)
+            ### Fastqc
+            fastqc_command = os.path.join(tool_dir, "FastQC", "fastqc")
             ### Trimmomatics
-            trimmomatic_jar = os.path.join(prefix_dir, "tools/Trimmomatic/trimmomatic-0.38.jar")
-            fastqc_command = os.path.join(".", tool_dir, "FastQC", "fastqc")
-            threads = 8
-            phred = "-phred33"
-            select_adapter = request.POST.get('trimmomatic_illuminaclip')
-            adapter = os.path.join(prefix_dir, "tools/Trimmomatic/adapters", select_adapter)
-            adapter_param = ":2:30:10"
-            leading = request.POST.get('trimmomatic_leading_quality')
-            trailing = request.POST.get('trimmomatic_trailing_quality')
-            minlen = request.POST.get('trimmomatic_minlen')
-            window_size = request.POST.get('trimmomatic_slidingwindow_size')
-            window_quality = request.POST.get('trimmomatic_slidingwindow_quality')
+            trimmomatic_jar = os.path.join(tool_dir, "Trimmomatic/trimmomatic-0.38.jar")
+            trimmomatic_threads = 8
+            trimmomatic_phred = "-phred33"
+            trimmomatic_select_adapter = request.POST.get('trimmomatic_illuminaclip')
+            trimmomatic_adapter = os.path.join(prefix_dir, "tools/Trimmomatic/adapters", select_adapter)
+            trimmomatic_adapter_param = ":2:30:10"
+            trimmomatic_leading = request.POST.get('trimmomatic_leading_quality')
+            trimmomatic_trailing = request.POST.get('trimmomatic_trailing_quality')
+            trimmomatic_minlen = request.POST.get('trimmomatic_minlen')
+            trimmomatic_window_size = request.POST.get('trimmomatic_slidingwindow_size')
+            trimmomatic_window_quality = request.POST.get('trimmomatic_slidingwindow_quality')
 
             ### BWA
             species_dir = "homo_sapiens"
             bwa_species = "homo_sapiens.fa"
-            bwa_ref = os.path.join(prefix_dir, "host_ref", species_dir)
-            host_ref = os.path.join(bwa_ref, bwa_species)
+            bwa_host_ref = os.path.join(host_ref_dir, species_dir, bwa_species)
+
+            ### snpEff
+            snpEff_jar = os.path.join(tool_dir, "snpEff/snpEff/snpEff.jar")
+
+            ### gatk
+            gatk_jar = os.path.join(tool_dir, "gatk/gatk-package-4.1.0.0-local.jar")
+
 
             config_file_path = os.path.join(datadir, 'config.yaml')
-            if os.path.exists(os.path.join(datadir, 'pe')):
-                se_or_pe = 'pe'
-                snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_pe")
-            elif os.path.exists(os.path.join(datadir, 'se')):
-                se_or_pe = 'se'
-                snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_se")
+            if assembly_type_input == "de_novo_assembly":
+                snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_de_novo")
+            elif assembly_type_input == "reference_based_assembly":
+                snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_reference_based")
             destination_snakemake_file = os.path.join(datadir, 'Snakefile')
             data = dict(
+                assembly_type_input = assembly_type_input,
+                samples_list_key = samples_list_key,
                 project_name = project_name,
                 datadir = datadir,
-                se_or_pe = se_or_pe,
                 fastqc = dict(
                     fastqc_command = fastqc_command,
                 ),
                 trimmomatic = dict(
                     trimmomatic_jar = trimmomatic_jar,
-                    threads = threads,
-                    phred = phred,
-                    adapter = adapter,
-                    adapter_param = adapter_param,
-                    window_size = window_size,
-                    window_quality = window_quality,
-                    leading = leading,
-                    trailing = trailing,
-                    minlen = minlen,
+                    trimmomatic_threads = trimmomatic_threads,
+                    trimmomatic_phred = trimmomatic_phred,
+                    trimmomatic_adapter = trimmomatic_adapter,
+                    trimmomatic_adapter_param = trimmomatic_adapter_param,
+                    trimmomatic_window_size = trimmomatic_window_size,
+                    trimmomatic_window_quality = trimmomatic_window_quality,
+                    trimmomatic_leading = trimmomatic_leading,
+                    trimmomatic_trailing = trimmomatic_trailing,
+                    trimmomatic_minlen = trimmomatic_minlen,
                 ),
                 bwa = dict(
-                    host_ref=host_ref,
-                )
+                    bwa_host_ref = bwa_host_ref,
+                ),
+                snpEff = dic(
+                    snpEff_jar = snpEff_jar,
+                ),
+                gatk_jar = dic(
+                    gatk_jar = gatk_jar,
+                ),
             )
             with open(config_file_path, 'w') as ymlfile:
                 yaml.dump(data, ymlfile, default_flow_style=False)
             shutil.copyfile(snakemake_file, destination_snakemake_file)
-            if (not os.path.exists(os.path.join(datadir, 'script'))):
-                os.mkdir((os.path.join(datadir, 'script')))
+            if (not os.path.exists(os.path.join(datadir, 'get_time_script'))):
+                os.mkdir((os.path.join(datadir, 'get_time_script')))
             for name in ['start', 'end']:
                 get_time_script = os.path.join(
-                    prefix_dir, "VirusRNASeq/VirusRNASeq/script/get_" + name + "_time.py")
+                    prefix_dir, "VirusRNASeq/VirusRNASeq/get_time_script/get_" + name + "_time.py")
                 destination_get_time_script = os.path.join(
-                    datadir, 'script/get_' + name + '_time.py')
+                    datadir, 'get_time_script/get_' + name + '_time.py')
                 shutil.copyfile(get_time_script, destination_get_time_script)
             # subprocess.call(['snakemake'], shell=True, cwd=datadir)
             return redirect((reverse('dataanalysis_result_current_status', kwargs={
@@ -534,11 +553,8 @@ def whole_dataanalysis(request, slug_project):
         'project_name': project_name,
         'email': email,
         'assembly_type_input': assembly_type_input,
-        'uploaded_file_url_pe_1': uploaded_file_url_pe_1,
-        'uploaded_file_url_pe_2': uploaded_file_url_pe_2,
-        'uploaded_file_url_se': uploaded_file_url_se,
-        'remove_file': False,
     })
+
 
 
 def whole_dataanalysis_reference_based(request, slug_project):
@@ -562,15 +578,13 @@ def whole_dataanalysis_reference_based(request, slug_project):
     if request.method == 'POST' :
         base_dir = os.path.join(settings.MEDIA_ROOT,
                                 'tmp', project_name + '_' + email + '_' + analysis_code)
-    upload_files_dir = os.path.join(base_dir, "Uploaded_files")
-    prefix_dir = "/ssd/Howard/Virus/"
-    tools_dir = os.path.join(prefix_dir, "tools")
-    host_ref_dir = os.path.join(prefix_dir, "host_ref")
-    pathogen_dir = os.path.join(prefix_dir, "pathogen")
-    (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
-    print("samples_txt_file_name: ", samples_txt_file_name)
-
-
+        upload_files_dir = os.path.join(base_dir, "Uploaded_files")
+        prefix_dir = "/ssd/Howard/Virus/"
+        tools_dir = os.path.join(prefix_dir, "tools")
+        host_ref_dir = os.path.join(prefix_dir, "host_ref")
+        pathogen_dir = os.path.join(prefix_dir, "pathogen")
+        (samples_txt_file_name, samples_list_key) = utils_func.check_samples_txt_file(base_dir)
+        print("samples_txt_file_name: ", samples_txt_file_name)
         if 'start-analysis-de-novo' in request.POST:
 
             ### Tools variable
@@ -628,13 +642,13 @@ def whole_dataanalysis_reference_based(request, slug_project):
             with open(config_file_path, 'w') as ymlfile:
                 yaml.dump(data, ymlfile, default_flow_style=False)
             shutil.copyfile(snakemake_file, destination_snakemake_file)
-            if (not os.path.exists(os.path.join(datadir, 'script'))):
-                os.mkdir((os.path.join(datadir, 'script')))
+            if (not os.path.exists(os.path.join(datadir, 'get_time_script'))):
+                os.mkdir((os.path.join(datadir, 'get_time_script')))
             for name in ['start', 'end']:
                 get_time_script = os.path.join(
-                    prefix_dir, "VirusRNASeq/VirusRNASeq/script/get_" + name + "_time.py")
+                    prefix_dir, "VirusRNASeq/VirusRNASeq/get_time_script/get_" + name + "_time.py")
                 destination_get_time_script = os.path.join(
-                    datadir, 'script/get_' + name + '_time.py')
+                    datadir, 'get_time_script/get_' + name + '_time.py')
                 shutil.copyfile(get_time_script, destination_get_time_script)
             # subprocess.call(['snakemake'], shell=True, cwd=datadir)
             return redirect((reverse('dataanalysis_result_current_status', kwargs={
@@ -684,6 +698,7 @@ def whole_dataanalysis_reference_based(request, slug_project):
                 snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_reference_based")
             destination_snakemake_file = os.path.join(datadir, 'Snakefile')
             data = dict(
+                samples_list_key = samples_list_key,
                 project_name = project_name,
                 datadir = datadir,
                 fastqc = dict(
@@ -708,13 +723,13 @@ def whole_dataanalysis_reference_based(request, slug_project):
             with open(config_file_path, 'w') as ymlfile:
                 yaml.dump(data, ymlfile, default_flow_style=False)
             shutil.copyfile(snakemake_file, destination_snakemake_file)
-            if (not os.path.exists(os.path.join(datadir, 'script'))):
-                os.mkdir((os.path.join(datadir, 'script')))
+            if (not os.path.exists(os.path.join(datadir, 'get_time_script'))):
+                os.mkdir((os.path.join(datadir, 'get_time_script')))
             for name in ['start', 'end']:
                 get_time_script = os.path.join(
-                    prefix_dir, "VirusRNASeq/VirusRNASeq/script/get_" + name + "_time.py")
+                    prefix_dir, "VirusRNASeq/VirusRNASeq/get_time_script/get_" + name + "_time.py")
                 destination_get_time_script = os.path.join(
-                    datadir, 'script/get_' + name + '_time.py')
+                    datadir, 'get_time_script/get_' + name + '_time.py')
                 shutil.copyfile(get_time_script, destination_get_time_script)
             # subprocess.call(['snakemake'], shell=True, cwd=datadir)
             return redirect((reverse('dataanalysis_result_current_status', kwargs={
@@ -763,10 +778,6 @@ def show_result_overview(request, slug_project):
         assembly_type_input = request.session['assembly_type_input']
         print("assembly_type_input: ", assembly_type_input)
         request.session["assembly_type_input"] = assembly_type_input
-    if 'se_or_pe' in request.session:
-        se_or_pe = request.session['se_or_pe']
-        print("se_or_pe: ", se_or_pe)
-        request.session["se_or_pe"] = se_or_pe
     # Get submission time
     submission_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp',
                                         project_name + '_' + email + '_' + analysis_code, 'submision_time.txt')
@@ -928,13 +939,12 @@ def current_status(request, slug_project):
 
     datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
                            project_name + '_' + email + '_' + analysis_code)
+    files = os.listdir(os.path.join(datadir))
+    # Get current sample names
+    check_upload_sample_name(project_name, email, analysis_code)
 
-    if os.path.exists(os.path.join(datadir, 'pe')):
-        se_or_pe = "pe"
-    elif os.path.exists(os.path.join(datadir, 'se')):
-        se_or_pe = "se"
-    request.session["se_or_pe"] = se_or_pe
-    files = os.listdir(os.path.join(datadir, se_or_pe))
+
+
     sample_name = os.path.splitext(os.path.splitext(
         os.path.splitext(files[0])[0])[0])[0]
     url_parameter = project_name + '_' + email.split("@")[0]

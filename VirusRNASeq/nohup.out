@@ -1,0 +1,1123 @@
+Unhandled exception in thread started by <function check_errors.<locals>.wrapper at 0x7f5895f1f378>
+Traceback (most recent call last):
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/autoreload.py", line 225, in wrapper
+    fn(*args, **kwargs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/management/commands/runserver.py", line 117, in inner_run
+    self.check(display_num_errors=True)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/management/base.py", line 379, in check
+    include_deployment_checks=include_deployment_checks,
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/management/base.py", line 366, in _run_checks
+    return checks.run_checks(**kwargs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/checks/registry.py", line 71, in run_checks
+    new_errors = check(app_configs=app_configs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/checks/urls.py", line 40, in check_url_namespaces_unique
+    all_namespaces = _load_all_namespaces(resolver)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/checks/urls.py", line 57, in _load_all_namespaces
+    url_patterns = getattr(resolver, 'url_patterns', [])
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/functional.py", line 37, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/urls/resolvers.py", line 533, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/functional.py", line 37, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/urls/resolvers.py", line 526, in urlconf_module
+    return import_module(self.urlconf_name)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 994, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 678, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/VirusRNASeq/urls.py", line 27, in <module>
+    path('dataanalysis/', include('dataanalysis.urls')),
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/urls/conf.py", line 34, in include
+    urlconf_module = import_module(urlconf_module)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 994, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 678, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/dataanalysis/urls.py", line 4, in <module>
+    from dataanalysis import views
+  File "/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/dataanalysis/views.py", line 574
+    if 'start-analysis-de-novo' in request.POST:
+    ^
+IndentationError: unexpected indent
+Inside ready!!
+Performing system checks...
+
+[21/Mar/2019 16:29:52] "GET /email-hash/check-project/ HTTP/1.1" 200 6497
+[21/Mar/2019 16:30:00] "GET /email-hash/check-project/ HTTP/1.1" 200 6497
+[21/Mar/2019 16:30:21] "GET /email-hash/check-project/ HTTP/1.1" 200 6497
+[21/Mar/2019 16:30:23] "GET /email-hash/check-project/ HTTP/1.1" 200 6497
+[21/Mar/2019 16:30:37] "GET /static/css/dataanalysis_pace.css HTTP/1.1" 304 0
+[21/Mar/2019 16:30:37] "GET /static/js/main.js HTTP/1.1" 304 0
+[21/Mar/2019 16:30:37] "GET /email-hash/check-project/ HTTP/1.1" 200 6080
+[21/Mar/2019 16:30:37] "GET /static/js/pace.js HTTP/1.1" 200 14846
+[21/Mar/2019 16:30:37] "GET /static/css/mainstyles.css HTTP/1.1" 200 265
+[21/Mar/2019 16:30:37] "GET /static/images/virus.png HTTP/1.1" 200 36831
+[21/Mar/2019 16:30:38] "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+[21/Mar/2019 16:30:38] "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+[21/Mar/2019 16:30:38] "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+[21/Mar/2019 16:30:38] "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+[21/Mar/2019 16:30:38] "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+[21/Mar/2019 16:30:39] "GET /admin/email_hash/newsletteruser/ HTTP/1.1" 200 5009
+[21/Mar/2019 16:30:39] "GET /static/admin/js/core.js HTTP/1.1" 200 7135
+[21/Mar/2019 16:30:39] "GET /static/admin/js/actions.js HTTP/1.1" 200 6538
+[21/Mar/2019 16:30:39] "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 363
+[21/Mar/2019 16:30:39] "GET /static/admin/css/changelists.css HTTP/1.1" 200 6170
+[21/Mar/2019 16:30:39] "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1530
+[21/Mar/2019 16:30:39] "GET /static/admin/css/base.css HTTP/1.1" 200 16225
+[21/Mar/2019 16:30:39] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+[21/Mar/2019 16:30:39] "GET /static/admin/css/fonts.css HTTP/1.1" 200 423
+[21/Mar/2019 16:30:39] "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+[21/Mar/2019 16:30:39] "GET /static/admin/fonts/Roboto-Light-webfont.woff HTTP/1.1" 304 0
+[21/Mar/2019 16:30:39] "GET /static/admin/fonts/Roboto-Bold-webfont.woff HTTP/1.1" 200 82564
+[21/Mar/2019 16:30:39] "GET /static/admin/fonts/Roboto-Regular-webfont.woff HTTP/1.1" 200 80304
+[21/Mar/2019 16:30:40] "GET /admin/email_hash/newsletteruser/178/change/ HTTP/1.1" 200 6154
+[21/Mar/2019 16:30:40] "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+[21/Mar/2019 16:30:40] "GET /static/admin/js/change_form.js HTTP/1.1" 200 712
+[21/Mar/2019 16:30:40] "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 495
+[21/Mar/2019 16:30:40] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+[21/Mar/2019 16:30:40] "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+[21/Mar/2019 16:30:46] "POST /email-hash/check-project/ HTTP/1.1" 200 7362
+[21/Mar/2019 16:30:47] "GET /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 200 34743
+[21/Mar/2019 16:30:52] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 200 30916
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:29:45
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+***Upload_dir id:  /ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/Projecta38f3c2e49ab11e9bb95e41f1345dc74/reads
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+fastq SRR8698485.R1.fastq.gz
+fastq SRR8698485.R2.fastq.gz
+fastq SRR8698486.R2.fastq.gz
+fastq SRR8698486.R1.fastq.gz
+uploaded_file$$$$:  {'SRR8698485': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R1.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R2.fastq.gz'], 'SRR8698486': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R2.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R1.fastq.gz']}
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+fastq SRR8698485.R1.fastq.gz
+fastq SRR8698485.R2.fastq.gz
+fastq SRR8698486.R2.fastq.gz
+fastq SRR8698486.R1.fastq.gz
+uploaded_file$$$$:  {'SRR8698485': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R1.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R2.fastq.gz'], 'SRR8698486': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R2.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R1.fastq.gz']}
+$$$$data_list: 
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:30:58
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:31:08
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:31:21
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:31:31
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:31:51
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:31:57
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:33:39
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:33:43
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:34:20
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:34:30
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Unhandled exception in thread started by <function check_errors.<locals>.wrapper at 0x7f111ec88378>
+Traceback (most recent call last):
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/autoreload.py", line 225, in wrapper
+    fn(*args, **kwargs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/management/commands/runserver.py", line 117, in inner_run
+    self.check(display_num_errors=True)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/management/base.py", line 379, in check
+    include_deployment_checks=include_deployment_checks,
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/management/base.py", line 366, in _run_checks
+    return checks.run_checks(**kwargs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/checks/registry.py", line 71, in run_checks
+    new_errors = check(app_configs=app_configs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/checks/urls.py", line 40, in check_url_namespaces_unique
+    all_namespaces = _load_all_namespaces(resolver)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/checks/urls.py", line 57, in _load_all_namespaces
+    url_patterns = getattr(resolver, 'url_patterns', [])
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/functional.py", line 37, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/urls/resolvers.py", line 533, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/functional.py", line 37, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/urls/resolvers.py", line 526, in urlconf_module
+    return import_module(self.urlconf_name)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 994, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 678, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/VirusRNASeq/urls.py", line 27, in <module>
+    path('dataanalysis/', include('dataanalysis.urls')),
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/urls/conf.py", line 34, in include
+    urlconf_module = import_module(urlconf_module)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 994, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 678, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/dataanalysis/urls.py", line 4, in <module>
+    from dataanalysis import views
+  File "/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/dataanalysis/views.py", line 499
+    if assembly_type_input == "de_novo_assembly":
+     ^
+IndentationError: expected an indented block
+Inside ready!!
+Performing system checks...
+
+Unhandled exception in thread started by <function check_errors.<locals>.wrapper at 0x7fa39119c378>
+Traceback (most recent call last):
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/autoreload.py", line 225, in wrapper
+    fn(*args, **kwargs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/management/commands/runserver.py", line 117, in inner_run
+    self.check(display_num_errors=True)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/management/base.py", line 379, in check
+    include_deployment_checks=include_deployment_checks,
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/management/base.py", line 366, in _run_checks
+    return checks.run_checks(**kwargs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/checks/registry.py", line 71, in run_checks
+    new_errors = check(app_configs=app_configs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/checks/urls.py", line 40, in check_url_namespaces_unique
+    all_namespaces = _load_all_namespaces(resolver)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/checks/urls.py", line 57, in _load_all_namespaces
+    url_patterns = getattr(resolver, 'url_patterns', [])
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/functional.py", line 37, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/urls/resolvers.py", line 533, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/functional.py", line 37, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/urls/resolvers.py", line 526, in urlconf_module
+    return import_module(self.urlconf_name)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 994, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 678, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/VirusRNASeq/urls.py", line 27, in <module>
+    path('dataanalysis/', include('dataanalysis.urls')),
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/urls/conf.py", line 34, in include
+    urlconf_module = import_module(urlconf_module)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 994, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 678, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/dataanalysis/urls.py", line 4, in <module>
+    from dataanalysis import views
+  File "/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/dataanalysis/views.py", line 499
+    if assembly_type_input == "de_novo_assembly":
+     ^
+IndentationError: expected an indented block
+Inside ready!!
+Performing system checks...
+
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:34:46
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:35:04
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:35:32
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:35:42
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:36:06
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:36:09
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:36:14
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:36:18
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:36:28
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+[21/Mar/2019 16:36:37] "POST /email-hash/check-project/ HTTP/1.1" 200 7362
+[21/Mar/2019 16:36:39] "GET /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 200 34743
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:36:32
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+***Upload_dir id:  /ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/Projecta38f3c2e49ab11e9bb95e41f1345dc74/reads
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+fastq SRR8698485.R1.fastq.gz
+fastq SRR8698485.R2.fastq.gz
+fastq SRR8698486.R2.fastq.gz
+fastq SRR8698486.R1.fastq.gz
+uploaded_file$$$$:  {'SRR8698485': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R1.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R2.fastq.gz'], 'SRR8698486': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R2.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R1.fastq.gz']}
+[21/Mar/2019 16:36:44] "GET /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 200 34743
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:36:44
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+fastq SRR8698485.R1.fastq.gz
+fastq SRR8698485.R2.fastq.gz
+fastq SRR8698486.R2.fastq.gz
+fastq SRR8698486.R1.fastq.gz
+uploaded_file$$$$:  {'SRR8698485': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R1.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R2.fastq.gz'], 'SRR8698486': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R2.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R1.fastq.gz']}
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:36:49
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:37:02
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:37:16
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:37:33
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:37:36
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:38:18
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:38:22
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:38:27
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:39:54
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:40:00
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:41:52
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:43:48
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+[21/Mar/2019 16:45:11] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 200 30916
+Internal Server Error: /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload
+Traceback (most recent call last):
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/datastructures.py", line 77, in __getitem__
+    list_ = super().__getitem__(key)
+KeyError: 'file_choose'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/views/generic/base.py", line 88, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/dataanalysis/views.py", line 288, in post
+    myfile = request.FILES['file_choose']
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/datastructures.py", line 79, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'file_choose'
+[21/Mar/2019 16:45:13] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 500 89835
+[21/Mar/2019 18:38:52] "POST /email-hash/check-project/ HTTP/1.1" 200 7362
+[21/Mar/2019 18:38:54] "GET /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 200 34743
+[21/Mar/2019 18:38:55] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 200 30916
+Internal Server Error: /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload
+Traceback (most recent call last):
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/datastructures.py", line 77, in __getitem__
+    list_ = super().__getitem__(key)
+KeyError: 'file_choose'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/views/generic/base.py", line 88, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/dataanalysis/views.py", line 288, in post
+    myfile = request.FILES['file_choose']
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/datastructures.py", line 79, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'file_choose'
+[21/Mar/2019 18:38:57] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 500 89835
+Internal Server Error: /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload
+Traceback (most recent call last):
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/datastructures.py", line 77, in __getitem__
+    list_ = super().__getitem__(key)
+KeyError: 'file_choose'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/views/generic/base.py", line 88, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/dataanalysis/views.py", line 288, in post
+    myfile = request.FILES['file_choose']
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/datastructures.py", line 79, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'file_choose'
+[21/Mar/2019 18:39:07] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 500 89835
+[21/Mar/2019 18:39:39] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 200 30916
+Internal Server Error: /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload
+Traceback (most recent call last):
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/datastructures.py", line 77, in __getitem__
+    list_ = super().__getitem__(key)
+KeyError: 'file_choose'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/views/generic/base.py", line 88, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/dataanalysis/views.py", line 288, in post
+    myfile = request.FILES['file_choose']
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/datastructures.py", line 79, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'file_choose'
+[21/Mar/2019 18:39:40] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 500 89835
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 16:43:52
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+fastq SRR8698485.R1.fastq.gz
+fastq SRR8698485.R2.fastq.gz
+fastq SRR8698486.R2.fastq.gz
+fastq SRR8698486.R1.fastq.gz
+uploaded_file$$$$:  {'SRR8698485': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R1.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R2.fastq.gz'], 'SRR8698486': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R2.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R1.fastq.gz']}
+$$$$data_list: 
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+***Upload_dir id:  /ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/Projecta38f3c2e49ab11e9bb95e41f1345dc74/reads
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+fastq SRR8698485.R1.fastq.gz
+fastq SRR8698485.R2.fastq.gz
+fastq SRR8698486.R2.fastq.gz
+fastq SRR8698486.R1.fastq.gz
+uploaded_file$$$$:  {'SRR8698485': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R1.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R2.fastq.gz'], 'SRR8698486': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R2.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R1.fastq.gz']}
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+fastq SRR8698485.R1.fastq.gz
+fastq SRR8698485.R2.fastq.gz
+fastq SRR8698486.R2.fastq.gz
+fastq SRR8698486.R1.fastq.gz
+uploaded_file$$$$:  {'SRR8698485': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R1.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R2.fastq.gz'], 'SRR8698486': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R2.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R1.fastq.gz']}
+$$$$data_list: 
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+fastq SRR8698485.R1.fastq.gz
+fastq SRR8698485.R2.fastq.gz
+fastq SRR8698486.R2.fastq.gz
+fastq SRR8698486.R1.fastq.gz
+uploaded_file$$$$:  {'SRR8698485': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R1.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R2.fastq.gz'], 'SRR8698486': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R2.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R1.fastq.gz']}
+$$$$data_list: 
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 18:42:20
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+[21/Mar/2019 18:42:53] "GET /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 200 34743
+[21/Mar/2019 18:42:56] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 200 30916
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 18:42:52
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+fastq SRR8698485.R1.fastq.gz
+fastq SRR8698485.R2.fastq.gz
+fastq SRR8698486.R2.fastq.gz
+fastq SRR8698486.R1.fastq.gz
+uploaded_file$$$$:  {'SRR8698485': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R1.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R2.fastq.gz'], 'SRR8698486': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R2.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R1.fastq.gz']}
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+fastq SRR8698485.R1.fastq.gz
+fastq SRR8698485.R2.fastq.gz
+fastq SRR8698486.R2.fastq.gz
+fastq SRR8698486.R1.fastq.gz
+uploaded_file$$$$:  {'SRR8698485': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R1.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R2.fastq.gz'], 'SRR8698486': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R2.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R1.fastq.gz']}
+$$$$data_list: 
+[21/Mar/2019 18:43:29] "GET /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 200 34743
+[21/Mar/2019 18:43:32] "GET /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 200 34743
+[21/Mar/2019 18:43:36] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 200 30916
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 18:43:27
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+fastq SRR8698485.R1.fastq.gz
+fastq SRR8698485.R2.fastq.gz
+fastq SRR8698486.R2.fastq.gz
+fastq SRR8698486.R1.fastq.gz
+uploaded_file$$$$:  {'SRR8698485': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R1.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R2.fastq.gz'], 'SRR8698486': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R2.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R1.fastq.gz']}
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+fastq SRR8698485.R1.fastq.gz
+fastq SRR8698485.R2.fastq.gz
+fastq SRR8698486.R2.fastq.gz
+fastq SRR8698486.R1.fastq.gz
+uploaded_file$$$$:  {'SRR8698485': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R1.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R2.fastq.gz'], 'SRR8698486': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R2.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R1.fastq.gz']}
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+fastq SRR8698485.R1.fastq.gz
+fastq SRR8698485.R2.fastq.gz
+fastq SRR8698486.R2.fastq.gz
+fastq SRR8698486.R1.fastq.gz
+uploaded_file$$$$:  {'SRR8698485': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R1.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R2.fastq.gz'], 'SRR8698486': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R2.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R1.fastq.gz']}
+$$$$data_list: 
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 18:43:42
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 18:47:05
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 18:48:34
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 18:50:47
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Unhandled exception in thread started by <function check_errors.<locals>.wrapper at 0x7fedbe1b4378>
+Traceback (most recent call last):
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/autoreload.py", line 225, in wrapper
+    fn(*args, **kwargs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/management/commands/runserver.py", line 117, in inner_run
+    self.check(display_num_errors=True)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/management/base.py", line 379, in check
+    include_deployment_checks=include_deployment_checks,
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/management/base.py", line 366, in _run_checks
+    return checks.run_checks(**kwargs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/checks/registry.py", line 71, in run_checks
+    new_errors = check(app_configs=app_configs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/checks/urls.py", line 13, in check_url_config
+    return check_resolver(resolver)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/checks/urls.py", line 23, in check_resolver
+    return check_method()
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/urls/resolvers.py", line 396, in check
+    for pattern in self.url_patterns:
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/functional.py", line 37, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/urls/resolvers.py", line 533, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/functional.py", line 37, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/urls/resolvers.py", line 526, in urlconf_module
+    return import_module(self.urlconf_name)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 994, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 678, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/VirusRNASeq/urls.py", line 27, in <module>
+    path('dataanalysis/', include('dataanalysis.urls')),
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/urls/conf.py", line 34, in include
+    urlconf_module = import_module(urlconf_module)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 994, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 678, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/dataanalysis/urls.py", line 7, in <module>
+    path('<slug:slug_project>/settings', views.whole_dataanalysis, name='dataanalysis_home'),
+AttributeError: module 'dataanalysis.views' has no attribute 'whole_dataanalysis'
+Inside ready!!
+Performing system checks...
+
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 18:51:48
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 18:52:06
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 18:52:10
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 18:52:14
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 18:52:20
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 18:52:32
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Unhandled exception in thread started by <function check_errors.<locals>.wrapper at 0x7f1eebd02378>
+Traceback (most recent call last):
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/autoreload.py", line 225, in wrapper
+    fn(*args, **kwargs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/management/commands/runserver.py", line 117, in inner_run
+    self.check(display_num_errors=True)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/management/base.py", line 379, in check
+    include_deployment_checks=include_deployment_checks,
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/management/base.py", line 366, in _run_checks
+    return checks.run_checks(**kwargs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/checks/registry.py", line 71, in run_checks
+    new_errors = check(app_configs=app_configs)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/checks/urls.py", line 13, in check_url_config
+    return check_resolver(resolver)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/core/checks/urls.py", line 23, in check_resolver
+    return check_method()
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/urls/resolvers.py", line 396, in check
+    for pattern in self.url_patterns:
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/functional.py", line 37, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/urls/resolvers.py", line 533, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/utils/functional.py", line 37, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/urls/resolvers.py", line 526, in urlconf_module
+    return import_module(self.urlconf_name)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 994, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 678, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/VirusRNASeq/urls.py", line 27, in <module>
+    path('dataanalysis/', include('dataanalysis.urls')),
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/site-packages/django/urls/conf.py", line 34, in include
+    urlconf_module = import_module(urlconf_module)
+  File "/ssd/Howard/miniconda3/envs/pathogenServer/lib/python3.6/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 994, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 955, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 665, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 678, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/dataanalysis/urls.py", line 7, in <module>
+    path('<slug:slug_project>/settings', views.whole_dataanalysis, name='dataanalysis_home'),
+AttributeError: module 'dataanalysis.views' has no attribute 'whole_dataanalysis'
+Inside ready!!
+Performing system checks...
+
+[21/Mar/2019 18:52:54] "GET /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/settings HTTP/1.1" 200 30940
+[21/Mar/2019 18:52:55] "GET /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 200 34743
+[21/Mar/2019 18:52:57] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 302 0
+[21/Mar/2019 18:52:57] "GET /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/settings HTTP/1.1" 200 30940
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 18:52:46
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+fastq SRR8698485.R1.fastq.gz
+fastq SRR8698485.R2.fastq.gz
+fastq SRR8698486.R2.fastq.gz
+fastq SRR8698486.R1.fastq.gz
+uploaded_file$$$$:  {'SRR8698485': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R1.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R2.fastq.gz'], 'SRR8698486': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R2.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R1.fastq.gz']}
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+fastq SRR8698485.R1.fastq.gz
+fastq SRR8698485.R2.fastq.gz
+fastq SRR8698486.R2.fastq.gz
+fastq SRR8698486.R1.fastq.gz
+uploaded_file$$$$:  {'SRR8698485': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R1.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R2.fastq.gz'], 'SRR8698486': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R2.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R1.fastq.gz']}
+$$$$data_list: 
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+[21/Mar/2019 18:53:23] "GET /email-hash/check-project/ HTTP/1.1" 200 6497
+[21/Mar/2019 18:53:23] "GET /static/js/pace.js HTTP/1.1" 200 14846
+[21/Mar/2019 18:53:23] "GET /static/css/dataanalysis_pace.css HTTP/1.1" 200 1899
+[21/Mar/2019 18:53:23] "GET /static/css/mainstyles.css HTTP/1.1" 200 265
+[21/Mar/2019 18:53:23] "GET /static/js/main.js HTTP/1.1" 200 51
+[21/Mar/2019 18:53:23] "GET /static/images/virus.png HTTP/1.1" 200 36831
+[21/Mar/2019 18:53:28] "GET /email-hash/check-project/ HTTP/1.1" 200 6080
+[21/Mar/2019 18:53:30] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+[21/Mar/2019 18:53:30] "GET /admin/email_hash/newsletteruser/ HTTP/1.1" 200 5009
+[21/Mar/2019 18:53:31] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+[21/Mar/2019 18:53:31] "GET /admin/email_hash/newsletteruser/178/change/ HTTP/1.1" 200 6154
+[21/Mar/2019 18:53:39] "POST /email-hash/check-project/ HTTP/1.1" 200 7362
+[21/Mar/2019 18:53:40] "GET /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 200 34743
+[21/Mar/2019 18:53:40] "GET /static/dataanalysis/css/home.css HTTP/1.1" 200 1354
+[21/Mar/2019 18:53:40] "GET /static/css/dataanalysis_result_status.css HTTP/1.1" 200 9072
+[21/Mar/2019 18:53:40] "GET /static/js/jquery.js HTTP/1.1" 200 86927
+[21/Mar/2019 18:53:40] "GET /static/js/jquery-file-upload/vendor/jquery.ui.widget.js HTTP/1.1" 200 16089
+[21/Mar/2019 18:53:40] "GET /static/js/jquery-file-upload/jquery.iframe-transport.js HTTP/1.1" 200 10724
+[21/Mar/2019 18:53:40] "GET /static/js/jquery-file-upload/jquery.fileupload.js HTTP/1.1" 200 63769
+[21/Mar/2019 18:53:40] "GET /static/dataanalysis/js/main.js HTTP/1.1" 200 1635
+[21/Mar/2019 18:53:45] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 302 0
+[21/Mar/2019 18:53:45] "GET /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/settings HTTP/1.1" 200 30940
+[21/Mar/2019 18:53:52] "GET /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 200 34743
+[21/Mar/2019 18:53:55] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/data-upload HTTP/1.1" 302 0
+[21/Mar/2019 18:53:55] "GET /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/settings HTTP/1.1" 200 30940
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 18:53:14
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+***Upload_dir id:  /ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/Projecta38f3c2e49ab11e9bb95e41f1345dc74/reads
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+fastq SRR8698485.R1.fastq.gz
+fastq SRR8698485.R2.fastq.gz
+fastq SRR8698486.R2.fastq.gz
+fastq SRR8698486.R1.fastq.gz
+uploaded_file$$$$:  {'SRR8698485': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R1.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R2.fastq.gz'], 'SRR8698486': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R2.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R1.fastq.gz']}
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+fastq SRR8698485.R1.fastq.gz
+fastq SRR8698485.R2.fastq.gz
+fastq SRR8698486.R2.fastq.gz
+fastq SRR8698486.R1.fastq.gz
+uploaded_file$$$$:  {'SRR8698485': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R1.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R2.fastq.gz'], 'SRR8698486': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R2.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R1.fastq.gz']}
+$$$$data_list: 
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+fastq SRR8698485.R1.fastq.gz
+fastq SRR8698485.R2.fastq.gz
+fastq SRR8698486.R2.fastq.gz
+fastq SRR8698486.R1.fastq.gz
+uploaded_file$$$$:  {'SRR8698485': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R1.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R2.fastq.gz'], 'SRR8698486': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R2.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R1.fastq.gz']}
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+{'Group_A': ['SRR8698485'], 'Group_B': ['SRR8698486']}
+fastq SRR8698485.R1.fastq.gz
+fastq SRR8698485.R2.fastq.gz
+fastq SRR8698486.R2.fastq.gz
+fastq SRR8698486.R1.fastq.gz
+uploaded_file$$$$:  {'SRR8698485': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R1.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698485/SRR8698485.R2.fastq.gz'], 'SRR8698486': ['/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R2.fastq.gz', '/ssd/Howard/Virus/VirusRNASeq/VirusRNASeq/media/tmp/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051@gmail.com_a74cbf8a49ab11e9bb95e41f1345dc74/Uploaded_files/SRR8698486/SRR8698486.R1.fastq.gz']}
+$$$$data_list: 
+project_name:  Projecta38f3c2e49ab11e9bb95e41f1345dc74
+analysis_code:  a74cbf8a49ab11e9bb95e41f1345dc74
+email:  ck1021051@gmail.com
+assembly_type_input:  reference_based_assembly
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 18:54:12
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 21, 2019 - 18:54:16
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+[21/Mar/2019 18:55:46] "GET /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/settings HTTP/1.1" 200 30949
+[21/Mar/2019 18:55:48] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/settings HTTP/1.1" 200 30949
+[21/Mar/2019 18:56:01] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/settings HTTP/1.1" 200 30949
+[21/Mar/2019 18:58:22] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/settings HTTP/1.1" 200 30949
+[21/Mar/2019 18:58:32] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/settings HTTP/1.1" 200 30949
