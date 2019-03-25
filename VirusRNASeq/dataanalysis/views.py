@@ -478,7 +478,7 @@ def whole_dataanalysis(request, slug_project):
             trimmomatic_threads = 8
             trimmomatic_phred = "-phred33"
             trimmomatic_select_adapter = request.POST.get('trimmomatic_illuminaclip')
-            trimmomatic_adapter = os.path.join(prefix_dir, "tools/Trimmomatic/adapters", select_adapter)
+            trimmomatic_adapter = os.path.join(prefix_dir, "tools/Trimmomatic/adapters", trimmomatic_select_adapter)
             trimmomatic_adapter_param = ":2:30:10"
             trimmomatic_leading = request.POST.get('trimmomatic_leading_quality')
             trimmomatic_trailing = request.POST.get('trimmomatic_trailing_quality')
@@ -527,10 +527,10 @@ def whole_dataanalysis(request, slug_project):
                 bwa = dict(
                     bwa_host_ref = bwa_host_ref,
                 ),
-                snpEff = dic(
+                snpEff = dict(
                     snpEff_jar = snpEff_jar,
                 ),
-                gatk_jar = dic(
+                gatk_jar = dict(
                     gatk_jar = gatk_jar,
                 ),
             )
@@ -780,21 +780,21 @@ def show_result_overview(request, slug_project):
         request.session["assembly_type_input"] = assembly_type_input
     # Get submission time
     submission_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp',
-                                        project_name + '_' + email + '_' + analysis_code, 'submision_time.txt')
+                                        project_name + '_' + email + '_' + analysis_code, 'time/submision_time.txt')
     submission_time_strip = 'no submission time'
     if os.path.exists(submission_time_file):
         f_submission = open(submission_time_file, "r")
         submission_time_strip = f_submission.read()
     # Get start time
     start_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp',
-                                   project_name + '_' + email + '_' + analysis_code, 'start_time.txt')
+                                   project_name + '_' + email + '_' + analysis_code, 'time/start_time.txt')
     start_time_strip = 'no start time'
     if os.path.exists(start_time_file):
         f_start = open(start_time_file, "r")
         start_time_strip = f_start.read()
     # Get end time
     end_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp',
-                                   project_name + '_' + email + '_' + analysis_code, 'end_time.txt')
+                                   project_name + '_' + email + '_' + analysis_code, 'time/end_time.txt')
     end_time_strip = 'no end time'
     if os.path.exists(end_time_file):
         f_end = open(end_time_file, "r")
@@ -917,7 +917,7 @@ def current_status(request, slug_project):
         print("assembly_type_input: ", assembly_type_input)
         request.session["assembly_type_input"] = assembly_type_input
     submission_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp',
-                                        project_name + '_' + email + '_' + analysis_code, 'submision_time.txt')
+                                        project_name + '_' + email + '_' + analysis_code, 'time/submision_time.txt')
     submission_time_strip = 'no submission time'
     if os.path.exists(submission_time_file):
         f_submission = open(submission_time_file, "r")
@@ -936,17 +936,17 @@ def current_status(request, slug_project):
                 'slug_project': url_parameter}))
             return redirect((reverse('dataanalysis_result_overview', kwargs={
                 'slug_project': url_parameter})))
-
     datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
                            project_name + '_' + email + '_' + analysis_code)
     files = os.listdir(os.path.join(datadir))
     # Get current sample names
-    check_upload_sample_name(project_name, email, analysis_code)
+    uploaded_file = check_upload_sample_name(project_name, email, analysis_code)
+    samples_names = []
+    for sample in uploaded_file:
+        samples_names.append(sample)
 
 
-
-    sample_name = os.path.splitext(os.path.splitext(
-        os.path.splitext(files[0])[0])[0])[0]
+    sample_name = samples_names[0]
     url_parameter = project_name + '_' + email.split("@")[0]
     datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
                            project_name + '_' + email + '_' + analysis_code)
@@ -963,13 +963,13 @@ def current_status(request, slug_project):
     check_end_time_ans = False
 
     view_counter_end = "Not Start Counting"
-    if utils_func.check_submission_time_file(datadir, sample_name, se_or_pe) is True:
+    if utils_func.check_submission_time_file(datadir, sample_name) is True:
         check_submission_time_ans = True
-    if utils_func.check_first_qc(datadir, sample_name, se_or_pe) is True:
+    if utils_func.check_first_qc(datadir, sample_name) is True:
         check_first_qc_ans = True
-    if utils_func.check_trimming_qc(datadir, sample_name, se_or_pe) is True:
+    if utils_func.check_trimming_qc(datadir, sample_name) is True:
         check_trimming_qc_ans = True
-    if utils_func.check_second_qc(datadir, sample_name, se_or_pe) is True:
+    if utils_func.check_second_qc(datadir, sample_name) is True:
         check_second_qc_ans = True
     if utils_func.check_read_subtraction_bwa_align(datadir, sample_name) is True:
         check_read_subtraction_bwa_align_ans = True
@@ -981,7 +981,7 @@ def current_status(request, slug_project):
         check_extract_non_host_reads_3_ans = True
     if utils_func.check_extract_non_host_reads_4(datadir, sample_name) is True:
         check_extract_non_host_reads_4_ans = True
-    if utils_func.check_end_time_file(datadir, sample_name, se_or_pe) is True:
+    if utils_func.check_end_time_file(datadir, sample_name) is True:
         check_end_time_ans = True
     whole_file_check = check_first_qc_ans and check_trimming_qc_ans and check_second_qc_ans and check_read_subtraction_bwa_align_ans
     if ((view_counter is 1) or (check_submission_time_ans is False and check_first_qc_ans is False and check_trimming_qc_ans is False and check_second_qc_ans is False and check_read_subtraction_bwa_align_ans is False and check_end_time_ans is False) or submission_time_strip == 'no submission time'):
