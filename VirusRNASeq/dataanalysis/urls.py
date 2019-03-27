@@ -20,7 +20,6 @@ urlpatterns = [
 
 
     # path('result/<slug:slug_project>/current-status/QC/post/<slug:slug_filename>', views.post_qc_html_view, name="dataanalysis_result_current_status_post_qc_html"),
-    path('upload-progress/', views.upload_progress, name='upload_progress'),
 ]
 
 if settings.DEBUG:

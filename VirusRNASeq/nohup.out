@@ -1121,3 +1121,12 @@ Quit the server with CONTROL-C.
 [21/Mar/2019 18:56:01] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/settings HTTP/1.1" 200 30949
 [21/Mar/2019 18:58:22] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/settings HTTP/1.1" 200 30949
 [21/Mar/2019 18:58:32] "POST /dataanalysis/Projecta38f3c2e49ab11e9bb95e41f1345dc74_ck1021051/settings HTTP/1.1" 200 30949
+Inside ready!!
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 27, 2019 - 13:24:49
+Django version 2.1.7, using settings 'VirusRNASeq.settings'
+Starting development server at http://0:8000/
+Quit the server with CONTROL-C.
+Inside ready!!
