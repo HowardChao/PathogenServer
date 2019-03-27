@@ -3,6 +3,39 @@ import csv
 import pandas
 from django.conf import settings
 
+#####################
+### Time function ###
+#####################
+def get_submission_time(project_name, email, analysis_code):
+    submission_time_strip = 'no submission time'
+    submission_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp',
+                                        project_name + '_' + email + '_' + analysis_code, 'time/submision_time.txt')
+    if os.path.exists(submission_time_file):
+        f_submission = open(submission_time_file, "r")
+        submission_time_strip = f_submission.read()
+    return submission_time_strip
+
+def get_start_time(project_name, email, analysis_code):
+    start_time_strip = 'no start time'
+    start_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp',
+                                   project_name + '_' + email + '_' + analysis_code, 'time/start_time.txt')
+    if os.path.exists(start_time_file):
+        f_start = open(start_time_file, "r")
+        start_time_strip = f_start.read()
+    return start_time_strip
+
+def get_end_time(project_name, email, analysis_code):
+    end_time_strip = 'no end time'
+    end_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp',
+                                   project_name + '_' + email + '_' + analysis_code, 'time/end_time.txt')
+    if os.path.exists(end_time_file):
+        f_end = open(end_time_file, "r")
+        end_time_strip = f_end.read()
+    return end_time_strip
+
+
+
+
 def get_data_list(project_name, email, analysis_code):
     uploaded_file = check_upload_sample_name(project_name, email, analysis_code)
     data_list = []
@@ -72,11 +105,11 @@ def check_session(request):
     return (project_name, analysis_code, email, assembly_type_input)
 
 
-def check_samples_txt_file(datadir):
+def check_samples_txt_file(base_dir):
     samples_txt_file_name = None
     samples_list_key = {}
     sample_list = []
-    samples_txt_file = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, 'samples.csv')
+    samples_txt_file = os.path.join(base_dir, 'samples.csv')
     samples_txt_file_ans = os.path.exists(samples_txt_file)
     if samples_txt_file_ans:
         samples_txt_file_name = samples_txt_file
@@ -91,18 +124,44 @@ def check_samples_txt_file(datadir):
         return (samples_txt_file_name, samples_list_key, sample_list)
 
     else:
-        return (samples_txt_file_name, samples_list_key)
+        return (samples_txt_file_name, samples_list_key, sample_list)
 
-def check_submission_time_file(datadir, sample_name):
-    submission_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, 'time/submision_time.txt')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Checking files
+def check_submission_time_file(sample_datadir, sample_name):
+    print("ggggggggggggggggg", sample_datadir)
+    submission_time_file = os.path.join(sample_datadir, 'time/submision_time.txt')
     submission_time_file_ans = os.path.exists(submission_time_file)
     if submission_time_file_ans:
         return True
     else:
         return False
 
-def check_start_time_file(datadir, sample_name):
-    end_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, 'time/start_time.txt')
+def check_start_time_file(sample_datadir, sample_name):
+    end_time_file = os.path.join(sample_datadir, 'time/start_time.txt')
     end_time_file_ans = os.path.exists(end_time_file)
     if end_time_file_ans:
         return True
@@ -110,8 +169,8 @@ def check_start_time_file(datadir, sample_name):
         return False
 
 
-def check_first_qc(datadir, sample_name):
-    root_dir = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, 'Step_1', 'QC', 'pre')
+def check_first_qc(sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, 'Step_1', 'QC', 'pre')
     print("**** Inside check_first_qc function:")
     print("R1 html: ", os.path.join(root_dir, sample_name+".R1_fastqc.html"))
     print("R2 html: ", os.path.join(root_dir, sample_name+".R2_fastqc.html"))
@@ -138,10 +197,10 @@ def check_first_qc(datadir, sample_name):
         return False
 
 
-def check_trimming_qc(datadir, sample_name):
-    root_dir_trimmed_paired = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, 'Step_1', "trimmed_paired")
+def check_trimming_qc(sample_datadir, sample_name):
+    root_dir_trimmed_paired = os.path.join(sample_datadir, 'Step_1', "trimmed_paired")
     root_dir_trimmed_unpaired = os.path.join(
-        settings.MEDIA_ROOT, 'tmp', datadir, 'Step_1', "trimmed_unpaired")
+        settings.MEDIA_ROOT, 'tmp', sample_datadir, 'Step_1', "trimmed_unpaired")
     print("**** Inside trimmomatic_pe_target function:")
     print("r1_paired: ", os.path.join(
         root_dir_trimmed_paired, sample_name+"_r1_paired.fastq.gz"))
@@ -169,8 +228,8 @@ def check_trimming_qc(datadir, sample_name):
         return False
 
 
-def check_second_qc(datadir, sample_name):
-    root_dir = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, 'Step_1', 'QC', 'post')
+def check_second_qc(sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, 'Step_1', 'QC', 'post')
     print("**** Inside check_first_qc function:")
     print("R1 paired html: ", os.path.join(
         root_dir, sample_name+"_r1_paired_fastqc.html"))
@@ -239,9 +298,11 @@ def check_second_qc(datadir, sample_name):
 
 
 
+
+
 ## Need to revise !!
-def check_read_subtraction_bwa_align(datadir, sample_name):
-    root_dir = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, "Read_Subtraction", "bwa", "sam")
+def check_read_subtraction_bwa_align(sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, "Read_Subtraction", "bwa", "sam")
     print("bwa sam file: ", os.path.join(
         root_dir, sample_name+".sam"))
     bwa_read_subtraction_sam = os.path.exists(os.path.join(
@@ -253,8 +314,8 @@ def check_read_subtraction_bwa_align(datadir, sample_name):
         return False
 
 
-def check_extract_non_host_reads_1(datadir, sample_name):
-    root_dir = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, "Extract_non_host_reads", "bam")
+def check_extract_non_host_reads_1(sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, "Extract_non_host_reads", "bam")
     print("bwa bam file: ", os.path.join(
         root_dir, sample_name+".bam"))
     extract_non_host_reads_1_bam = os.path.exists(os.path.join(
@@ -265,8 +326,8 @@ def check_extract_non_host_reads_1(datadir, sample_name):
     else:
         return False
 
-def check_extract_non_host_reads_2(datadir, sample_name):
-    root_dir = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, "Extract_non_host_reads", "txt")
+def check_extract_non_host_reads_2(sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, "Extract_non_host_reads", "txt")
     print("bwa txt file: ", os.path.join(
         root_dir, sample_name+".txt"))
     extract_non_host_reads_2_txt = os.path.exists(os.path.join(
@@ -277,8 +338,8 @@ def check_extract_non_host_reads_2(datadir, sample_name):
     else:
         return False
 
-def check_extract_non_host_reads_3(datadir, sample_name):
-    root_dir = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, "Extract_non_host_reads", "unmapped_bam")
+def check_extract_non_host_reads_3(sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, "Extract_non_host_reads", "unmapped_bam")
     print("bwa unmapped_bam file: ", os.path.join(
         root_dir, sample_name+".unmapped.bam"))
     extract_non_host_reads_3_unmapped_bam = os.path.exists(os.path.join(
@@ -289,8 +350,8 @@ def check_extract_non_host_reads_3(datadir, sample_name):
     else:
         return False
 
-def check_extract_non_host_reads_4(datadir, sample_name):
-    root_dir = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, "Extract_non_host_reads", "unmapped_fastq")
+def check_extract_non_host_reads_4(sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, "Extract_non_host_reads", "unmapped_fastq")
     extract_non_host_reads_4_unmapped_fastq_r1 = os.path.exists(os.path.join(root_dir, sample_name+".unmapped.R1.fastq"))
     extract_non_host_reads_4_unmapped_fastq_r2 = os.path.exists(os.path.join(root_dir, sample_name+".unmapped.R2.fastq"))
     print("extract_non_host_reads_4_unmapped_fastq_r1: ", extract_non_host_reads_4_unmapped_fastq_r1)
@@ -300,13 +361,6 @@ def check_extract_non_host_reads_4(datadir, sample_name):
     else:
         return False
 
-def get_pe_sample_name(se_or_pe, project_name, email, analysis_code):
-    datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
-                        project_name + '_' + email + '_' + analysis_code)
-    files = os.listdir(os.path.join(datadir, se_or_pe))
-    sample_name = os.path.splitext(os.path.splitext(
-        os.path.splitext(files[0])[0])[0])[0]
-    return sample_name
 
 def check_end_time_file(datadir, sample_name):
     end_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, 'time/end_time.txt')
