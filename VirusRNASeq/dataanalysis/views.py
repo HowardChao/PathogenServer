@@ -289,6 +289,7 @@ def show_result_overview(request, slug_project):
     submission_time_strip = 'no submission time'
     start_time_strip = 'no start time'
     end_time_strip = 'no end time'
+
     (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
     url_parameter = project_name + '_' + email.split("@")[0]
     base_dir = os.path.join(settings.MEDIA_ROOT,
@@ -336,7 +337,7 @@ def show_result_overview(request, slug_project):
         shutil.copyfile(multiqc_datadir_post, destination_multiqc_datadir_post)
 
 
-    trimmomatic_command_log = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'logs', 'trimmomatic_'+se_or_pe, sample_name+'.command.log')
+    trimmomatic_command_log = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'logs', 'trimmomatic_pe', sample_name+'.command.log')
     if os.path.exists(trimmomatic_command_log):
         f_trimmomatic_command_log = open(trimmomatic_command_log, "r")
         output_string = f_trimmomatic_command_log.readlines()
@@ -368,6 +369,9 @@ def show_result_overview(request, slug_project):
         "trimmo_forward_only_surviving": trimmo_forward_only_surviving,
         "trimmo_reverse_only_surviving": trimmo_reverse_only_surviving,
         "trimmo_dropped": trimmo_dropped,
+        "samples_txt_file_name": samples_txt_file_name,
+        "samples_list_key": samples_list_key,
+        "sample_list": sample_list,
     })
 
 def show_result(request, slug_project):
@@ -488,7 +492,12 @@ def current_status(request, slug_project):
 def pre_qc_html_view_multiqc(request, slug_project):
     (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
     url_parameter = project_name + '_' + email.split("@")[0]
-    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC', 'pre', 'Tochigi-7_S6_L001_multiqc.html')
+    base_dir = os.path.join(settings.MEDIA_ROOT,
+                            'tmp', project_name + '_' + email + '_' + analysis_code)
+    (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+    ##~~~
+    sample_name = sample_list[0]
+    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'Step_1', 'QC', 'pre', sample_name+'_multiqc.html')
     return render(request, html_file, {
         'project_name': project_name,
         'analysis_code': analysis_code,
@@ -500,7 +509,12 @@ def pre_qc_html_view_multiqc(request, slug_project):
 def pre_qc_html_view_r1(request, slug_project):
     (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
     url_parameter = project_name + '_' + email.split("@")[0]
-    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC', 'pre', 'Tochigi-7_S6_L001.R1_fastqc.html')
+    base_dir = os.path.join(settings.MEDIA_ROOT,
+                            'tmp', project_name + '_' + email + '_' + analysis_code)
+    (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+    ##~~~
+    sample_name = sample_list[0]
+    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'Step_1', 'QC', 'pre', sample_name+'.R1_fastqc.html')
     return render(request, html_file, {
         'project_name': project_name,
         'analysis_code': analysis_code,
@@ -512,7 +526,12 @@ def pre_qc_html_view_r1(request, slug_project):
 def pre_qc_html_view_r2(request, slug_project):
     (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
     url_parameter = project_name + '_' + email.split("@")[0]
-    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC', 'pre', 'Tochigi-7_S6_L001.R2_fastqc.html')
+    base_dir = os.path.join(settings.MEDIA_ROOT,
+                            'tmp', project_name + '_' + email + '_' + analysis_code)
+    (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+    ##~~~
+    sample_name = sample_list[0]
+    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'Step_1', 'QC', 'pre', sample_name+'.R2_fastqc.html')
     return render(request, html_file, {
         'project_name': project_name,
         'analysis_code': analysis_code,
@@ -524,7 +543,12 @@ def pre_qc_html_view_r2(request, slug_project):
 def post_qc_html_view_multiqc(request, slug_project):
     (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
     url_parameter = project_name + '_' + email.split("@")[0]
-    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC', 'post', 'Tochigi-7_S6_L001_multiqc.html')
+    base_dir = os.path.join(settings.MEDIA_ROOT,
+                            'tmp', project_name + '_' + email + '_' + analysis_code)
+    (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+    ##~~~
+    sample_name = sample_list[0]
+    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'Step_1', 'QC', 'post', sample_name+'_multiqc.html')
     return render(request, html_file, {
         'project_name': project_name,
         'analysis_code': analysis_code,
@@ -536,7 +560,12 @@ def post_qc_html_view_multiqc(request, slug_project):
 def post_qc_html_view_r1(request, slug_project):
     (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
     url_parameter = project_name + '_' + email.split("@")[0]
-    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC', 'post', 'Tochigi-7_S6_L001_r1_paired_fastqc.html')
+    base_dir = os.path.join(settings.MEDIA_ROOT,
+                            'tmp', project_name + '_' + email + '_' + analysis_code)
+    (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+    ##~~~
+    sample_name = sample_list[0]
+    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'Step_1', 'QC', 'post', sample_name+'_r1_paired_fastqc.html')
     return render(request, html_file, {
         'project_name': project_name,
         'analysis_code': analysis_code,
@@ -548,7 +577,12 @@ def post_qc_html_view_r1(request, slug_project):
 def post_qc_html_view_r2(request, slug_project):
     (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
     url_parameter = project_name + '_' + email.split("@")[0]
-    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, 'QC', 'post', 'Tochigi-7_S6_L001_r2_paired_fastqc.html')
+    base_dir = os.path.join(settings.MEDIA_ROOT,
+                            'tmp', project_name + '_' + email + '_' + analysis_code)
+    (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+    ##~~~
+    sample_name = sample_list[0]
+    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'Step_1', 'QC', 'post', sample_name+'_r2_paired_fastqc.html')
     return render(request, html_file, {
         'project_name': project_name,
         'analysis_code': analysis_code,
