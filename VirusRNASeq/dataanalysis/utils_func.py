@@ -151,22 +151,30 @@ def check_samples_txt_file(base_dir):
 
 
 ## Checking files
-def check_submission_time_file(sample_datadir, sample_name):
-    print("ggggggggggggggggg", sample_datadir)
-    submission_time_file = os.path.join(sample_datadir, 'time/submision_time.txt')
+def check_submission_time_file(base_dir, sample_name):
+    submission_time_file = os.path.join(base_dir, 'time/submision_time.txt')
     submission_time_file_ans = os.path.exists(submission_time_file)
     if submission_time_file_ans:
         return True
     else:
         return False
 
-def check_start_time_file(sample_datadir, sample_name):
-    end_time_file = os.path.join(sample_datadir, 'time/start_time.txt')
+def check_start_time_file(base_dir, sample_name):
+    start_time_file = os.path.join(base_dir, 'time/start_time.txt')
+    start_time_file_ans = os.path.exists(start_time_file)
+    if start_time_file_ans:
+        return True
+    else:
+        return False
+
+def check_end_time_file(base_dir, sample_name):
+    end_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp', base_dir, 'time/end_time.txt')
     end_time_file_ans = os.path.exists(end_time_file)
     if end_time_file_ans:
         return True
     else:
         return False
+
 
 
 def check_first_qc(sample_datadir, sample_name):
@@ -357,15 +365,6 @@ def check_extract_non_host_reads_4(sample_datadir, sample_name):
     print("extract_non_host_reads_4_unmapped_fastq_r1: ", extract_non_host_reads_4_unmapped_fastq_r1)
     print("extract_non_host_reads_4_unmapped_fastq_r2: ", extract_non_host_reads_4_unmapped_fastq_r2)
     if extract_non_host_reads_4_unmapped_fastq_r1 and extract_non_host_reads_4_unmapped_fastq_r2:
-        return True
-    else:
-        return False
-
-
-def check_end_time_file(datadir, sample_name):
-    end_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp', datadir, 'time/end_time.txt')
-    end_time_file_ans = os.path.exists(end_time_file)
-    if end_time_file_ans:
         return True
     else:
         return False

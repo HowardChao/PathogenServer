@@ -24,262 +24,338 @@
 
 
 
-    <div class="row">
-        <div class="card bg-light mt-5 mb-3 w-100 p-3" style="margin-left: 100px; margin-top: 50px; margin-right: 50px">
-            <div class="card-header"><p class="h2"><i class="fas fa-tasks"></i> &nbsp &nbsp Current Status of Pipeline {{ variable.inside_or_outside }} </p></div>
-            <div class="card-body w-100">
-                <div class="container">
-                    <script>
-                        function animation() {
-                            console.log("pressed")
-                        }
-                    </script>
-                    <ul class="timeline" style="margin-top: 30px; margin-left: 30px">
-                        <li class="timeline-inverted">
-                            <div id="quality_control_progress" class="timeline-badge warning" onclick=animation()><i class="fas fa-search fa-2x" style="margin-top: 20px"></i></div>
-                            <div id="quality_control_progress_detail" class="timeline-panel">
-                                <div class="timeline-heading">
-                                  {% if check_first_qc_ans is True and check_trimming_qc_ans is True and check_second_qc_ans is True%}
-                                    <h4 class="timeline-title" style="margin-bottom:20px"><i class="fas fa-check" style="color: green"></i>&nbsp&nbsp Quality Control</h4>
-                                  {% else%}
-                                    <h4 class="timeline-title" style="margin-bottom:20px">Quality Control</h4>
-                                  {% endif %}
-                                </div>
-                                <div id="quality_control_progress_body" class="timeline-body" style="margin-left:30px">
-                                    {% if check_first_qc_ans is False %}
-                                    <div class="row">
-                                        <div class=".col-12 .col-md-8">
-                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>FastQC</b> and <b>MultiQC</b> quality assessment before trimming:  Running ! <i class="fas fa-ellipsis-h"></i></p>
-                                        </div>
-                                    </div>
-                                    {% elif check_first_qc_ans is True %}
-                                    <div class="row">
-                                        <div class=".col-12 .col-md-8">
-                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>FastQC</b> and <b>MultiQC</b> quality assessment before trimming:  Finished !</p>
-                                        </div>
-                                        <div class=".col-6 .col-md-4">
-                                            <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
-                                                <div class="sa-icon sa-success animate">
-                                                    <span class="sa-line sa-tip animateSuccessTip"></span>
-                                                    <span class="sa-line sa-long animateSuccessLong"></span>
-                                                    <div class="sa-placeholder"></div>
-                                                    <div class="sa-fix"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% endif %}
-                                    {% if check_trimming_qc_ans is False %}
-                                    <div class="row">
-                                        <div class=".col-12 .col-md-8">
-                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>Trimmomatic</b> quality trimming:  Running ! <i class="fas fa-ellipsis-h"></i></p>
-                                        </div>
-                                    </div>
-                                    {% elif check_trimming_qc_ans is True %}
-                                    <div class="row">
-                                        <div class=".col-12 .col-md-8">
-                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>Trimmomatic</b> quality trimming:  Finished !</p>
-                                        </div>
-                                        <div class=".col-6 .col-md-4">
-                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
-                                            <div class="sa-icon sa-success animate">
-                                                <span class="sa-line sa-tip animateSuccessTip"></span>
-                                                <span class="sa-line sa-long animateSuccessLong"></span>
-                                                <div class="sa-placeholder"></div>
-                                                <div class="sa-fix"></div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    {% endif %}
-                                    {% if check_second_qc_ans is False %}
-                                    <div class="row">
-                                        <div class=".col-12 .col-md-8">
-                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>FastQC</b> and <b>MultiQC</b> quality assessment after trimming:  Running ! <i class="fas fa-ellipsis-h"></i></p>
-                                        </div>
-                                    </div>
-                                    {% elif check_second_qc_ans is True %}
-                                    <div class="row">
-                                        <div class=".col-12 .col-md-8">
-                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>FastQC</b> and <b>MultiQC</b> quality assessment after trimming:  Finished !</p>
-                                        </div>
-                                        <div class=".col-6 .col-md-4">
-                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
-                                            <div class="sa-icon sa-success animate">
-                                                <span class="sa-line sa-tip animateSuccessTip"></span>
-                                                <span class="sa-line sa-long animateSuccessLong"></span>
-                                                <div class="sa-placeholder"></div>
-                                                <div class="sa-fix"></div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    {% endif %}
-
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="timeline-inverted">
-                            <div id="read_subtraction_progress" class="timeline-badge warning"><i class="fas fa-cut fa-2x" style="margin-top: 20px"></i></div>
-                            <div id="read_subtraction_progress_detail" class="timeline-panel">
-                                <div class="timeline-heading">
-                                  {% if check_read_subtraction_bwa_align_ans is True%}
-                                    <h4 class="timeline-title" style="margin-bottom:20px"><i class="fas fa-check" style="color: green"></i>&nbsp&nbsp Read Subtraction</h4>
-                                  {% else%}
-                                    <h4 class="timeline-title" style="margin-bottom:20px">Read Subtraction</h4>
-                                  {% endif %}
-                                </div>
-                                <div id="read_subtraction_progress_body" class="timeline-body" style="margin-left:30px">
-                                    {% if check_read_subtraction_bwa_align_ans is False %}
-                                    <div class="row">
-                                        <div class=".col-12 .col-md-8">
-                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BWA MEM</b> reads alignment to host genome:  Running ! <i class="fas fa-ellipsis-h"></i></p>
-                                        </div>
-                                    </div>
-                                    {% elif check_read_subtraction_bwa_align_ans is True %}
-                                    <div class="row">
-                                        <div class=".col-12 .col-md-8">
-                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BWA MEM</b> reads alignment to host genome:  Finished !</p>
-                                        </div>
-                                        <div class=".col-6 .col-md-4">
-                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
-                                            <div class="sa-icon sa-success animate">
-                                                <span class="sa-line sa-tip animateSuccessTip"></span>
-                                                <span class="sa-line sa-long animateSuccessLong"></span>
-                                                <div class="sa-placeholder"></div>
-                                                <div class="sa-fix"></div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    {% endif %}
-                                    {% if check_extract_non_host_reads_1_ans is False %}
-                                    <div class="row">
-                                        <div class=".col-12 .col-md-8">
-                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools</b> converting from BAM to SAM:  Running ! <i class="fas fa-ellipsis-h"></i></p>
-                                        </div>
-                                    </div>
-                                    {% elif check_extract_non_host_reads_1_ans is True %}
-                                    <div class="row">
-                                        <div class=".col-12 .col-md-8">
-                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools sort</b> converting from BAM to SAM:  Finished !</p>
-                                        </div>
-                                        <div class=".col-6 .col-md-4">
-                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
-                                            <div class="sa-icon sa-success animate">
-                                                <span class="sa-line sa-tip animateSuccessTip"></span>
-                                                <span class="sa-line sa-long animateSuccessLong"></span>
-                                                <div class="sa-placeholder"></div>
-                                                <div class="sa-fix"></div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    {% endif %}
-
-                                    {% if check_extract_non_host_reads_2_ans is False %}
-                                    <div class="row">
-                                        <div class=".col-12 .col-md-8">
-                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools flagstat</b> calculating statistics to TXT file:  Running ! <i class="fas fa-ellipsis-h"></i></p>
-                                        </div>
-                                    </div>
-                                    {% elif check_extract_non_host_reads_2_ans is True %}
-                                    <div class="row">
-                                        <div class=".col-12 .col-md-8">
-                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools flagstat</b> calculating statistics to TXT file:  Finished !</p>
-                                        </div>
-                                        <div class=".col-6 .col-md-4">
-                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
-                                            <div class="sa-icon sa-success animate">
-                                                <span class="sa-line sa-tip animateSuccessTip"></span>
-                                                <span class="sa-line sa-long animateSuccessLong"></span>
-                                                <div class="sa-placeholder"></div>
-                                                <div class="sa-fix"></div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    {% endif %}
-
-                                    {% if check_extract_non_host_reads_3_ans is False %}
-                                    <div class="row">
-                                        <div class=".col-12 .col-md-8">
-                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools view</b> getting unmapped BAM:  Running ! <i class="fas fa-ellipsis-h"></i></p>
-                                        </div>
-                                    </div>
-                                    {% elif check_extract_non_host_reads_3_ans is True %}
-                                    <div class="row">
-                                        <div class=".col-12 .col-md-8">
-                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools view</b> getting unmapped BAM:  Finished !</p>
-                                        </div>
-                                        <div class=".col-6 .col-md-4">
-                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
-                                            <div class="sa-icon sa-success animate">
-                                                <span class="sa-line sa-tip animateSuccessTip"></span>
-                                                <span class="sa-line sa-long animateSuccessLong"></span>
-                                                <div class="sa-placeholder"></div>
-                                                <div class="sa-fix"></div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    {% endif %}
-
-                                    {% if check_extract_non_host_reads_4_ans is False %}
-                                    <div class="row">
-                                        <div class=".col-12 .col-md-8">
-                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>bedtools bamtofastq</b> converting BAM to FASTQ:  Running ! <i class="fas fa-ellipsis-h"></i></p>
-                                        </div>
-                                    </div>
-                                    {% elif check_extract_non_host_reads_4_ans is True %}
-                                    <div class="row">
-                                        <div class=".col-12 .col-md-8">
-                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>bedtools bamtofastq</b> converting BAM to FASTQ:  Finished !</p>
-                                        </div>
-                                        <div class=".col-6 .col-md-4">
-                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
-                                            <div class="sa-icon sa-success animate">
-                                                <span class="sa-line sa-tip animateSuccessTip"></span>
-                                                <span class="sa-line sa-long animateSuccessLong"></span>
-                                                <div class="sa-placeholder"></div>
-                                                <div class="sa-fix"></div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="timeline-inverted">
-                        <div class="timeline-badge warning"><i class="fas fa-cut fa-2x" style="margin-top: 20px"></i></div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                            <h4 class="timeline-title" style="margin-bottom:20px">Testing</h4>
-                            </div>
-                            <div class="timeline-body">
-                            </div>
-                        </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+    <nav id="sidebar" style="background: linear-gradient(to right, #1e2456, #555D9B);  border-right: 3px solid #353955; min-width: 200px;
+        max-width: 200px;">
+        <div class="sidebar-header" style="background: linear-gradient(to right, #000000, #353955);"">
+            <h3>Samples</h3>
         </div>
+
+        <ul class="list-unstyled components">
+        {% for key, value in samples_list_key.items %}
+            <li>
+                <p style="font-size: 23px;"><b><i class="fas fa-object-group"></i> &nbsp {{ key }} </b></p>
+            </li>
+            {% for v in value %}
+                <li>
+                    <a href="#" onclick="loading(this.name)" name="quality_control_result" style="margin-left: 20px"><i class="fas fa-dot-circle"></i> &nbsp {{ v }}</a>
+                </li>
+            {% endfor %}
+        {% endfor %}
+        </ul>
+    </nav>
+
+    <div id="right-content-overview" class="w-100">
+      <div id="content" >
+          <button type="button" id="sidebarCollapse" class="btn btn-info ">
+              <i id="toggle_button" class="fas fa-angle-double-left"></i>
+          </button>
+      </div>
+      <div class="row">
+          <div class="card bg-light mt-5 mb-3 w-100 p-3" style="margin-left: 100px; margin-top: 50px; margin-right: 50px">
+              <div class="card-header"><p class="h2"><i class="fas fa-tasks"></i> &nbsp &nbsp Current Status of Pipeline {{ variable.inside_or_outside }} </p></div>
+              <div class="card-body w-100">
+                  <div class="container">
+                      <script>
+                          function animation() {
+                              console.log("pressed")
+                          }
+                      </script>
+                      <ul class="timeline" style="margin-top: 30px; margin-left: 30px">
+                          <li class="timeline-inverted">
+                              <div id="quality_control_progress" class="timeline-badge warning" onclick=animation()><i class="fas fa-search fa-2x" style="margin-top: 20px"></i></div>
+                              <div id="quality_control_progress_detail" class="timeline-panel">
+                                  <div class="timeline-heading">
+                                    {% if check_first_qc_ans is True and check_trimming_qc_ans is True and check_second_qc_ans is True%}
+                                      <h4 class="timeline-title" style="margin-bottom:20px"><i class="fas fa-check" style="color: green"></i>&nbsp&nbsp Quality Control</h4>
+                                    {% else%}
+                                      <h4 class="timeline-title" style="margin-bottom:20px">Quality Control</h4>
+                                    {% endif %}
+                                  </div>
+                                  <div id="quality_control_progress_body" class="timeline-body" style="margin-left:30px">
+                                      {% if check_first_qc_ans is False %}
+                                      <div class="row">
+                                          <div class=".col-12 .col-md-8">
+                                              <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>FastQC</b> and <b>MultiQC</b> quality assessment before trimming:  Running ! <i class="fas fa-ellipsis-h"></i></p>
+                                          </div>
+                                      </div>
+                                      {% elif check_first_qc_ans is True %}
+                                      <div class="row">
+                                          <div class=".col-12 .col-md-8">
+                                              <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>FastQC</b> and <b>MultiQC</b> quality assessment before trimming:  Finished !</p>
+                                          </div>
+                                          <div class=".col-6 .col-md-4">
+                                              <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                                  <div class="sa-icon sa-success animate">
+                                                      <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                      <span class="sa-line sa-long animateSuccessLong"></span>
+                                                      <div class="sa-placeholder"></div>
+                                                      <div class="sa-fix"></div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      {% endif %}
+                                      {% if check_trimming_qc_ans is False %}
+                                      <div class="row">
+                                          <div class=".col-12 .col-md-8">
+                                              <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>Trimmomatic</b> quality trimming:  Running ! <i class="fas fa-ellipsis-h"></i></p>
+                                          </div>
+                                      </div>
+                                      {% elif check_trimming_qc_ans is True %}
+                                      <div class="row">
+                                          <div class=".col-12 .col-md-8">
+                                              <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>Trimmomatic</b> quality trimming:  Finished !</p>
+                                          </div>
+                                          <div class=".col-6 .col-md-4">
+                                          <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                              <div class="sa-icon sa-success animate">
+                                                  <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                  <span class="sa-line sa-long animateSuccessLong"></span>
+                                                  <div class="sa-placeholder"></div>
+                                                  <div class="sa-fix"></div>
+                                              </div>
+                                          </div>
+                                          </div>
+                                      </div>
+                                      {% endif %}
+                                      {% if check_second_qc_ans is False %}
+                                      <div class="row">
+                                          <div class=".col-12 .col-md-8">
+                                              <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>FastQC</b> and <b>MultiQC</b> quality assessment after trimming:  Running ! <i class="fas fa-ellipsis-h"></i></p>
+                                          </div>
+                                      </div>
+                                      {% elif check_second_qc_ans is True %}
+                                      <div class="row">
+                                          <div class=".col-12 .col-md-8">
+                                              <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>FastQC</b> and <b>MultiQC</b> quality assessment after trimming:  Finished !</p>
+                                          </div>
+                                          <div class=".col-6 .col-md-4">
+                                          <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                              <div class="sa-icon sa-success animate">
+                                                  <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                  <span class="sa-line sa-long animateSuccessLong"></span>
+                                                  <div class="sa-placeholder"></div>
+                                                  <div class="sa-fix"></div>
+                                              </div>
+                                          </div>
+                                          </div>
+                                      </div>
+                                      {% endif %}
+
+                                  </div>
+                              </div>
+                          </li>
+
+                          <li class="timeline-inverted">
+                              <div id="read_subtraction_progress" class="timeline-badge warning"><i class="fas fa-cut fa-2x" style="margin-top: 20px"></i></div>
+                              <div id="read_subtraction_progress_detail" class="timeline-panel">
+                                  <div class="timeline-heading">
+                                    {% if check_read_subtraction_bwa_align_ans is True%}
+                                      <h4 class="timeline-title" style="margin-bottom:20px"><i class="fas fa-check" style="color: green"></i>&nbsp&nbsp Read Subtraction</h4>
+                                    {% else%}
+                                      <h4 class="timeline-title" style="margin-bottom:20px">Read Subtraction</h4>
+                                    {% endif %}
+                                  </div>
+                                  <div id="read_subtraction_progress_body" class="timeline-body" style="margin-left:30px">
+                                      {% if check_read_subtraction_bwa_align_ans is False %}
+                                      <div class="row">
+                                          <div class=".col-12 .col-md-8">
+                                              <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BWA MEM</b> reads alignment to host genome:  Running ! <i class="fas fa-ellipsis-h"></i></p>
+                                          </div>
+                                      </div>
+                                      {% elif check_read_subtraction_bwa_align_ans is True %}
+                                      <div class="row">
+                                          <div class=".col-12 .col-md-8">
+                                              <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BWA MEM</b> reads alignment to host genome:  Finished !</p>
+                                          </div>
+                                          <div class=".col-6 .col-md-4">
+                                          <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                              <div class="sa-icon sa-success animate">
+                                                  <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                  <span class="sa-line sa-long animateSuccessLong"></span>
+                                                  <div class="sa-placeholder"></div>
+                                                  <div class="sa-fix"></div>
+                                              </div>
+                                          </div>
+                                          </div>
+                                      </div>
+                                      {% endif %}
+                                      {% if check_extract_non_host_reads_1_ans is False %}
+                                      <div class="row">
+                                          <div class=".col-12 .col-md-8">
+                                              <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools</b> converting from BAM to SAM:  Running ! <i class="fas fa-ellipsis-h"></i></p>
+                                          </div>
+                                      </div>
+                                      {% elif check_extract_non_host_reads_1_ans is True %}
+                                      <div class="row">
+                                          <div class=".col-12 .col-md-8">
+                                              <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools sort</b> converting from BAM to SAM:  Finished !</p>
+                                          </div>
+                                          <div class=".col-6 .col-md-4">
+                                          <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                              <div class="sa-icon sa-success animate">
+                                                  <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                  <span class="sa-line sa-long animateSuccessLong"></span>
+                                                  <div class="sa-placeholder"></div>
+                                                  <div class="sa-fix"></div>
+                                              </div>
+                                          </div>
+                                          </div>
+                                      </div>
+                                      {% endif %}
+
+                                      {% if check_extract_non_host_reads_2_ans is False %}
+                                      <div class="row">
+                                          <div class=".col-12 .col-md-8">
+                                              <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools flagstat</b> calculating statistics to TXT file:  Running ! <i class="fas fa-ellipsis-h"></i></p>
+                                          </div>
+                                      </div>
+                                      {% elif check_extract_non_host_reads_2_ans is True %}
+                                      <div class="row">
+                                          <div class=".col-12 .col-md-8">
+                                              <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools flagstat</b> calculating statistics to TXT file:  Finished !</p>
+                                          </div>
+                                          <div class=".col-6 .col-md-4">
+                                          <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                              <div class="sa-icon sa-success animate">
+                                                  <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                  <span class="sa-line sa-long animateSuccessLong"></span>
+                                                  <div class="sa-placeholder"></div>
+                                                  <div class="sa-fix"></div>
+                                              </div>
+                                          </div>
+                                          </div>
+                                      </div>
+                                      {% endif %}
+
+                                      {% if check_extract_non_host_reads_3_ans is False %}
+                                      <div class="row">
+                                          <div class=".col-12 .col-md-8">
+                                              <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools view</b> getting unmapped BAM:  Running ! <i class="fas fa-ellipsis-h"></i></p>
+                                          </div>
+                                      </div>
+                                      {% elif check_extract_non_host_reads_3_ans is True %}
+                                      <div class="row">
+                                          <div class=".col-12 .col-md-8">
+                                              <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools view</b> getting unmapped BAM:  Finished !</p>
+                                          </div>
+                                          <div class=".col-6 .col-md-4">
+                                          <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                              <div class="sa-icon sa-success animate">
+                                                  <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                  <span class="sa-line sa-long animateSuccessLong"></span>
+                                                  <div class="sa-placeholder"></div>
+                                                  <div class="sa-fix"></div>
+                                              </div>
+                                          </div>
+                                          </div>
+                                      </div>
+                                      {% endif %}
+
+                                      {% if check_extract_non_host_reads_4_ans is False %}
+                                      <div class="row">
+                                          <div class=".col-12 .col-md-8">
+                                              <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>bedtools bamtofastq</b> converting BAM to FASTQ:  Running ! <i class="fas fa-ellipsis-h"></i></p>
+                                          </div>
+                                      </div>
+                                      {% elif check_extract_non_host_reads_4_ans is True %}
+                                      <div class="row">
+                                          <div class=".col-12 .col-md-8">
+                                              <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>bedtools bamtofastq</b> converting BAM to FASTQ:  Finished !</p>
+                                          </div>
+                                          <div class=".col-6 .col-md-4">
+                                          <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                              <div class="sa-icon sa-success animate">
+                                                  <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                  <span class="sa-line sa-long animateSuccessLong"></span>
+                                                  <div class="sa-placeholder"></div>
+                                                  <div class="sa-fix"></div>
+                                              </div>
+                                          </div>
+                                          </div>
+                                      </div>
+                                      {% endif %}
+                                  </div>
+                              </div>
+                          </li>
+
+                          <li class="timeline-inverted">
+                          <div class="timeline-badge warning"><i class="fas fa-cut fa-2x" style="margin-top: 20px"></i></div>
+                          <div class="timeline-panel">
+                              <div class="timeline-heading">
+                              <h4 class="timeline-title" style="margin-bottom:20px">Testing</h4>
+                              </div>
+                              <div class="timeline-body">
+                              </div>
+                          </div>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <form method="POST" enctype="multipart/form-data" required="True">
+      {% csrf_token%}
+      <button type="submit" id="go-to-overview" name="go-to-overview-button" class="btn btn-primary btn-lg btn-block">Block level button</button>
+      </form>
+
+      <h1>Submission time: {{ submission_time }}</h1>
+      <h1>Start time: {{ start_time }}</h1>
+      <h1>End time: {{ end_time }}</h1>
+      <h1>view_counter: {{ view_counter }}</h1>
+      <h1>view_counter_end: {{ view_counter_end }}</h1>
+      <h1>{{samples_txt_file_name}}</h1>
+      <h1>{{samples_list_key}}</h1>
+      <h1>{{sample_list}}</h1>
     </div>
 
 
-                        <form method="POST" enctype="multipart/form-data" required="True">
-                    {% csrf_token%}
-                    <button type="submit" id="go-to-overview" name="go-to-overview-button" class="btn btn-primary btn-lg btn-block">Block level button</button>
-                    </form>
+    <script type="text/javascript">
+    $(document).ready(function () {
 
-                    <h1>Submission time: {{ submission_time }}</h1>
-                    <h1>Start time: {{ start_time }}</h1>
-                    <h1>End time: {{ end_time }}</h1>
-                    <h1>view_counter: {{ view_counter }}</h1>
-                    <h1>view_counter_end: {{ view_counter_end }}</h1>
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+            if ($(".active").hasClass("active")) {
+                // do this
+                console.log("hidden");
+                document.getElementById("toggle_button").className = "fas fa-align-left";
+            } else {
+                // do that
+                console.log("not hidden");
+                document.getElementById("toggle_button").className = "fas fa-angle-double-left";
+            }
+
+            $('#sidebar_sample').toggleClass('active');
+            if ($(".active").hasClass("active")) {
+                // do this
+                console.log("hidden");
+                document.getElementById("toggle_button").className = "fas fa-align-left";
+            } else {
+                // do that
+                console.log("not hidden");
+                document.getElementById("toggle_button").className = "fas fa-angle-double-left";
+            }
+        });
+
+    });
+
+        // This script is to show different page
+        function loading(clicked_name)
+        {
+            $(".pipeline_result").hide();
+            $("#"+clicked_name).show();
+
+        }
+
+    </script>
+
+
+
+
+
+
+
+
 
 
     <script>

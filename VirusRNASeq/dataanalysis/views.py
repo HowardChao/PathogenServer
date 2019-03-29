@@ -171,9 +171,10 @@ def whole_dataanalysis(request, slug_project):
         template_html = "dataanalysis/analysis_home_denovo.html"
     elif assembly_type_input == "reference_based_assembly":
         template_html = "dataanalysis/analysis_home_reference_based.html"
+    base_dir = os.path.join(settings.MEDIA_ROOT,
+                            'tmp', project_name + '_' + email + '_' + analysis_code)
+    (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
     if request.method == 'POST' :
-        base_dir = os.path.join(settings.MEDIA_ROOT,
-                                'tmp', project_name + '_' + email + '_' + analysis_code)
         if 'start-analysis-de-novo' in request.POST:
             pass
         elif 'start-analysis-reference-based' in request.POST:
@@ -182,8 +183,6 @@ def whole_dataanalysis(request, slug_project):
             tool_dir = os.path.join(prefix_dir, "tools")
             host_ref_dir = os.path.join(prefix_dir, "host_ref")
             pathogen_dir = os.path.join(prefix_dir, "pathogen")
-            # Get sample names
-            (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
             # Here is for creating directory!
             utils_func.create_sample_directory(project_name, email, analysis_code, sample_list)
             utils_func.create_time_directory(project_name, email, analysis_code)
@@ -269,6 +268,9 @@ def whole_dataanalysis(request, slug_project):
         'project_name': project_name,
         'email': email,
         'assembly_type_input': assembly_type_input,
+        'samples_txt_file_name': samples_txt_file_name,
+        'samples_list_key': samples_list_key,
+        'sample_list': sample_list
     })
 
 
@@ -386,12 +388,10 @@ def show_result(request, slug_project):
 
 def current_status(request, slug_project):
     (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
+    url_parameter = project_name + '_' + email.split("@")[0]
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
     (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
-    ##~~~
-    sample_name = sample_list[0]
-
     # Get submission time
     submission_time_strip = 'no submission time'
     start_time_strip = 'no start time'
@@ -401,7 +401,6 @@ def current_status(request, slug_project):
     start_time_strip = utils_func.get_start_time(project_name, email, analysis_code)
     end_time_strip = utils_func.get_end_time(project_name, email, analysis_code)
     url_parameter = project_name + '_' + email.split("@")[0]
-
     if ('view_counter_%s' % url_parameter) in request.session:
         view_counter = request.session['view_counter_%s' % url_parameter]
         view_counter = view_counter + 1
@@ -409,72 +408,88 @@ def current_status(request, slug_project):
     else:
         view_counter = 1
         request.session['view_counter_%s' % url_parameter] = view_counter
+
+    sample_name = sample_list[0]
+    check_first_qc_ans_dict = {}
+    check_trimming_qc_ans_dict = {}
+    check_second_qc_ans_dict = {}
+    check_read_subtraction_bwa_align_ans_dict = {}
+    check_extract_non_host_reads_1_ans_dict = {}
+    check_extract_non_host_reads_2_ans_dict = {}
+    check_extract_non_host_reads_3_ans_dict = {}
+    check_extract_non_host_reads_4_ans_dict = {}
+    ## Check times
+    check_submission_time_ans = False
+    check_submission_time_ans = utils_func.check_submission_time_file(base_dir, sample_name)
+    check_start_time_ans = False
+    check_start_time_ans = utils_func.check_start_time_file(base_dir, sample_name)
+    check_end_time_ans = False
+    check_end_time_ans = utils_func.check_end_time_file(base_dir, sample_name)
+    ##########
+    ## THis is for the button to go to overview page ##
+    ##########
     if request.method == 'POST':
         if 'go-to-overview-button' in request.POST:
             print("(((((()))))):", reverse('dataanalysis_result_overview', kwargs={
                 'slug_project': url_parameter}))
             return redirect((reverse('dataanalysis_result_overview', kwargs={
                 'slug_project': url_parameter})))
-    sample_datadir = os.path.join(base_dir, sample_name)
-    print("11111111111111", sample_datadir)
-    files = os.listdir(os.path.join(sample_datadir))
-    # Get current sample names
-    url_parameter = project_name + '_' + email.split("@")[0]
-    # Check the process of files
-    check_submission_time_ans = False
-    check_first_qc_ans = False
-    check_trimming_qc_ans = False
-    check_second_qc_ans = False
-    check_read_subtraction_bwa_align_ans = False
-    check_extract_non_host_reads_1_ans = False
-    check_extract_non_host_reads_2_ans = False
-    check_extract_non_host_reads_3_ans = False
-    check_extract_non_host_reads_4_ans = False
-    check_end_time_ans = False
 
-    view_counter_end = "Not Start Counting"
-    if utils_func.check_submission_time_file(sample_datadir, sample_name) is True:
-        check_submission_time_ans = True
-    if utils_func.check_first_qc(sample_datadir, sample_name) is True:
-        check_first_qc_ans = True
-    if utils_func.check_trimming_qc(sample_datadir, sample_name) is True:
-        check_trimming_qc_ans = True
-    if utils_func.check_second_qc(sample_datadir, sample_name) is True:
-        check_second_qc_ans = True
-    if utils_func.check_read_subtraction_bwa_align(sample_datadir, sample_name) is True:
-        check_read_subtraction_bwa_align_ans = True
-    if utils_func.check_extract_non_host_reads_1(sample_datadir, sample_name) is True:
-        check_extract_non_host_reads_1_ans = True
-    if utils_func.check_extract_non_host_reads_2(sample_datadir, sample_name) is True:
-        check_extract_non_host_reads_2_ans = True
-    if utils_func.check_extract_non_host_reads_3(sample_datadir, sample_name) is True:
-        check_extract_non_host_reads_3_ans = True
-    if utils_func.check_extract_non_host_reads_4(sample_datadir, sample_name) is True:
-        check_extract_non_host_reads_4_ans = True
-    if utils_func.check_end_time_file(sample_datadir, sample_name) is True:
-        check_end_time_ans = True
-    whole_file_check = check_first_qc_ans and check_trimming_qc_ans and check_second_qc_ans and check_read_subtraction_bwa_align_ans
-    if ((view_counter is 1) or (check_submission_time_ans is False and check_first_qc_ans is False and check_trimming_qc_ans is False and check_second_qc_ans is False and check_read_subtraction_bwa_align_ans is False and check_end_time_ans is False) or submission_time_strip == 'no submission time'):
-        print("(check_submission_time_ans is False and check_first_qc_ans is False and check_trimming_qc_ans is False and check_second_qc_ans is False and check_read_subtraction_bwa_align_ans is False and check_end_time_ans is False) or submission_time_strip == 'no submission time'): ",
-        (check_submission_time_ans is False and check_first_qc_ans is False and check_trimming_qc_ans is False and check_second_qc_ans is False and check_read_subtraction_bwa_align_ans is False and check_end_time_ans is False) or submission_time_strip == 'no submission time')
-        # This is the first time to run (with the submission time stamp)
-        submission_time = timezone.now()
-        submission_time_strip = submission_time.strftime("%B %d, %Y, %I:%M:%S %p")
-        f_submission = open(submission_time_file, 'w')
-        f_submission.writelines(submission_time_strip)
-        f_submission.close()
-        # request.session["submission_time"] = submission_time_strip
-        subprocess.Popen(['snakemake', 'targets'], cwd=base_dir)
-    print("check_first_qc_ans: ", check_first_qc_ans)
-    print("check_trimming_qc_ans: ", check_trimming_qc_ans)
-    print("check_second_qc_ans: ", check_second_qc_ans)
-    print("check_read_subtraction_bwa_align_ans: ",
-          check_read_subtraction_bwa_align_ans)
+    for sample_name in sample_list:
+        sample_datadir = os.path.join(base_dir, sample_name)
+        files = os.listdir(os.path.join(sample_datadir))
+
+        view_counter_end = "Not Start Counting"
+        ## Checking files
+        check_first_qc_ans = utils_func.check_first_qc(sample_datadir, sample_name)
+        check_first_qc_ans_dict[sample_name] = check_first_qc_ans
+        check_trimming_qc_ans = utils_func.check_trimming_qc(sample_datadir, sample_name)
+        check_trimming_qc_ans_dict[sample_name] = check_trimming_qc_ans
+        check_second_qc_ans = utils_func.check_second_qc(sample_datadir, sample_name)
+        check_second_qc_ans_dict[sample_name] = check_second_qc_ans
+        ### Add later~~
+        # check_read_subtraction_bwa_align_ans = utils_func.check_read_subtraction_bwa_align(sample_datadir, sample_name)
+        # check_read_subtraction_bwa_align_ans_dict[sample_name] = check_read_subtraction_bwa_align_ans
+        # check_extract_non_host_reads_1_ans = utils_func.check_extract_non_host_reads_1(sample_datadir, sample_name)
+        # check_extract_non_host_reads_2_ans = utils_func.check_extract_non_host_reads_2(sample_datadir, sample_name)
+        # check_extract_non_host_reads_3_ans = utils_func.check_extract_non_host_reads_3(sample_datadir, sample_name)
+        # check_extract_non_host_reads_4_ans = utils_func.check_extract_non_host_reads_4(sample_datadir, sample_name)
+
+    print("check_first_qc_ans_dict: ", check_first_qc_ans_dict)
+    print("check_trimming_qc_ans_dict: ", check_trimming_qc_ans_dict)
+    print("check_second_qc_ans_dict: ", check_second_qc_ans_dict)
+
+    ## The condition to start the analysis
+    # whole_file_check = check_first_qc_ans and check_trimming_qc_ans and check_second_qc_ans
+    # if ((view_counter is 1) or (check_submission_time_ans is False and check_first_qc_ans is False and check_trimming_qc_ans is False and check_second_qc_ans is False and check_read_subtraction_bwa_align_ans is False and check_end_time_ans is False) or submission_time_strip == 'no submission time'):
+    #     # This is the first time to run (with the submission time stamp)
+    #     submission_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp',
+    #                                         project_name + '_' + email + '_' + analysis_code, 'time/submision_time.txt')
+    #     submission_time = timezone.now()
+    #     submission_time_strip = submission_time.strftime("%B %d, %Y, %I:%M:%S %p")
+    #     f_submission = open(submission_time_file, 'w')
+    #     f_submission.writelines(submission_time_strip)
+    #     f_submission.close()
+    #     # request.session["submission_time"] = submission_time_strip
+    #     subprocess.Popen(['snakemake', 'targets'], cwd=base_dir)
+    ############
+    ### HERE ###
+    ############
+
+    print("check_first_qc_ans_dict: ", check_first_qc_ans_dict)
+    print("check_trimming_qc_ans_dict: ", check_trimming_qc_ans_dict)
+    print("check_second_qc_ans_dict: ", check_second_qc_ans_dict)
     return render(request, "dataanalysis/analysis_result_status.html", {
         'project_name': project_name,
         'email': email,
+        'analysis_code': analysis_code,
         'assembly_type_input': assembly_type_input,
         'url_parameter': url_parameter,
+        'check_first_qc_ans_dict': check_first_qc_ans_dict,
+        'check_trimming_qc_ans_dict': check_trimming_qc_ans_dict,
+        'check_second_qc_ans_dict': check_second_qc_ans_dict,
+
+        # Here, the variable need to be removed
         'check_first_qc_ans': check_first_qc_ans,
         'check_trimming_qc_ans': check_trimming_qc_ans,
         'check_second_qc_ans': check_second_qc_ans,
@@ -483,9 +498,16 @@ def current_status(request, slug_project):
         'check_extract_non_host_reads_2_ans': check_extract_non_host_reads_2_ans,
         'check_extract_non_host_reads_3_ans': check_extract_non_host_reads_3_ans,
         'check_extract_non_host_reads_4_ans': check_extract_non_host_reads_4_ans,
+
+
         'submission_time': submission_time_strip,
         'view_counter_end': view_counter_end,
         'view_counter': view_counter,
+
+
+        "samples_txt_file_name": samples_txt_file_name,
+        "samples_list_key": samples_list_key,
+        "sample_list": sample_list,
     })
 
 

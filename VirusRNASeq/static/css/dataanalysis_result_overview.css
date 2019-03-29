@@ -74,8 +74,28 @@ ul ul a {
 }
 
 #sidebar.active {
-    margin-left: -250px;
+    margin-left: -200px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 a[data-toggle="collapse"] {
     position: relative;
