@@ -38,6 +38,8 @@ rule targets:
             "{sample}", "Step_1", "QC", "post", "{sample}_multiqc.html"), sample=samples),
         'time/end_time.txt',
 
+
+
 rule get_start_time:
     output:
         start_time = 'time/start_time.txt'

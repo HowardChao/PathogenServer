@@ -275,9 +275,6 @@ def whole_dataanalysis(request, slug_project):
 
 
 def show_result_overview(request, slug_project):
-    project_name = "No value"
-    analysis_code = "No value"
-    email = "No value"
     submission_time_strip = "No value"
     start_time_strip = "No value"
     end_time_strip = "No value"
@@ -305,52 +302,69 @@ def show_result_overview(request, slug_project):
     start_time_strip = utils_func.get_start_time(project_name, email, analysis_code)
     end_time_strip = utils_func.get_end_time(project_name, email, analysis_code)
 
-    qc_datadir = os.path.join(base_dir, sample_name, 'Step_1', 'QC')
-    # Set temporary sample_name
-    fastqc_datadir_pre_r1 = os.path.join(qc_datadir, 'pre', sample_name+'.R1_fastqc.html')
-    fastqc_datadir_pre_r2 = os.path.join(
-        qc_datadir, 'pre', sample_name+'.R2_fastqc.html')
-    multiqc_datadir_pre = os.path.join(
-        qc_datadir, 'pre', sample_name+'_multiqc.html')
+    samples_all_result = {}
+    for sample_name in sample_list:
+        samples_all_result[sample_name] = {}
+        one_sample_all_result = {}
+        qc_datadir = os.path.join(base_dir, sample_name, 'Step_1', 'QC')
+        # Html files that would be copied
+        fastqc_datadir_pre_r1 = os.path.join(qc_datadir, 'pre', sample_name+'.R1_fastqc.html')
+        fastqc_datadir_pre_r2 = os.path.join(
+            qc_datadir, 'pre', sample_name+'.R2_fastqc.html')
+        multiqc_datadir_pre = os.path.join(
+            qc_datadir, 'pre', sample_name+'_multiqc.html')
 
-    fastqc_datadir_post_r1 = os.path.join(
-        qc_datadir, 'post', sample_name+'_r1_paired_fastqc.html')
-    fastqc_datadir_post_r2 = os.path.join(
-        qc_datadir, 'post', sample_name+'_r2_paired_fastqc.html')
-    multiqc_datadir_post = os.path.join(
-        qc_datadir, 'post', sample_name+'_multiqc.html')
+        fastqc_datadir_post_r1 = os.path.join(
+            qc_datadir, 'post', sample_name+'_r1_paired_fastqc.html')
+        fastqc_datadir_post_r2 = os.path.join(
+            qc_datadir, 'post', sample_name+'_r2_paired_fastqc.html')
+        multiqc_datadir_post = os.path.join(
+            qc_datadir, 'post', sample_name+'_multiqc.html')
+        # Destination of html file
+        destination_QC_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, '', sample_name, 'Step_1', 'QC')
+        destination_fastqc_datadir_pre_r1 = os.path.join(destination_QC_html_dir, 'pre', sample_name+'.R1_fastqc.html')
+        destination_fastqc_datadir_pre_r2 = os.path.join(destination_QC_html_dir, 'pre', sample_name+'.R2_fastqc.html')
+        destination_multiqc_datadir_pre = os.path.join(destination_QC_html_dir, 'pre', sample_name+'_multiqc.html')
+        destination_fastqc_datadir_post_r1 = os.path.join(destination_QC_html_dir, 'post', sample_name+'_r1_paired_fastqc.html')
+        destination_fastqc_datadir_post_r2 = os.path.join(destination_QC_html_dir, 'post', sample_name+'_r2_paired_fastqc.html')
+        destination_multiqc_datadir_post = os.path.join(destination_QC_html_dir, 'post', sample_name+'_multiqc.html')
+        if not os.path.exists(destination_QC_html_dir):
+            os.makedirs(destination_QC_html_dir)
+            os.makedirs(os.path.join(destination_QC_html_dir, 'pre'))
+            os.makedirs(os.path.join(destination_QC_html_dir, 'post'))
+            shutil.copyfile(fastqc_datadir_pre_r1, destination_fastqc_datadir_pre_r1)
+            shutil.copyfile(fastqc_datadir_pre_r2, destination_fastqc_datadir_pre_r2)
+            shutil.copyfile(multiqc_datadir_pre, destination_multiqc_datadir_pre)
+            shutil.copyfile(fastqc_datadir_post_r1, destination_fastqc_datadir_post_r1)
+            shutil.copyfile(fastqc_datadir_post_r2, destination_fastqc_datadir_post_r2)
+            shutil.copyfile(multiqc_datadir_post, destination_multiqc_datadir_post)
+        one_sample_all_result["fastqc_datadir_pre_r1"] = sample_name+'.R1_fastqc.html'
+        one_sample_all_result["fastqc_datadir_pre_r2"] = sample_name+'.R2_fastqc.html'
+        one_sample_all_result["multiqc_datadir_pre"] = sample_name+'_multiqc.html'
+        one_sample_all_result["fastqc_datadir_post_r1"] = sample_name+'_r1_paired_fastqc.html'
+        one_sample_all_result["fastqc_datadir_post_r2"] = sample_name+'_r2_paired_fastqc.html'
+        one_sample_all_result["multiqc_datadir_post"] = sample_name+'_multiqc.html'
 
-    destination_QC_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, '', sample_name, 'Step_1', 'QC')
-    destination_fastqc_datadir_pre_r1 = os.path.join(destination_QC_html_dir, 'pre', sample_name+'.R1_fastqc.html')
-    destination_fastqc_datadir_pre_r2 = os.path.join(destination_QC_html_dir, 'pre', sample_name+'.R2_fastqc.html')
-    destination_multiqc_datadir_pre = os.path.join(destination_QC_html_dir, 'pre', sample_name+'_multiqc.html')
-    destination_fastqc_datadir_post_r1 = os.path.join(destination_QC_html_dir, 'post', sample_name+'_r1_paired_fastqc.html')
-    destination_fastqc_datadir_post_r2 = os.path.join(destination_QC_html_dir, 'post', sample_name+'_r2_paired_fastqc.html')
-    destination_multiqc_datadir_post = os.path.join(destination_QC_html_dir, 'post', sample_name+'_multiqc.html')
-    if not os.path.exists(destination_QC_html_dir):
-        os.makedirs(destination_QC_html_dir)
-        os.makedirs(os.path.join(destination_QC_html_dir, 'pre'))
-        os.makedirs(os.path.join(destination_QC_html_dir, 'post'))
-        shutil.copyfile(fastqc_datadir_pre_r1, destination_fastqc_datadir_pre_r1)
-        shutil.copyfile(fastqc_datadir_pre_r2, destination_fastqc_datadir_pre_r2)
-        shutil.copyfile(multiqc_datadir_pre, destination_multiqc_datadir_pre)
-        shutil.copyfile(fastqc_datadir_post_r1, destination_fastqc_datadir_post_r1)
-        shutil.copyfile(fastqc_datadir_post_r2, destination_fastqc_datadir_post_r2)
-        shutil.copyfile(multiqc_datadir_post, destination_multiqc_datadir_post)
+        trimmomatic_command_log = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'logs', 'trimmomatic_pe', sample_name+'.command.log')
+        if os.path.exists(trimmomatic_command_log):
+            f_trimmomatic_command_log = open(trimmomatic_command_log, "r")
+            output_string = f_trimmomatic_command_log.readlines()
+            tmp_1 = re.findall("[\:]\s+[0-9]*", output_string[-2])
+            tmp_2 = ''.join(tmp_1)
+            ans_list=tmp_2.split(': ')
+            trimmo_intput_read_pairs = ans_list[1]
+            one_sample_all_result["trimmo_intput_read_pairs"] = trimmo_intput_read_pairs
+            trimmo_both_surviving = ans_list[2]
+            one_sample_all_result["trimmo_both_surviving"] = trimmo_both_surviving
+            trimmo_forward_only_surviving = ans_list[3]
+            one_sample_all_result["trimmo_forward_only_surviving"] = trimmo_forward_only_surviving
+            trimmo_reverse_only_surviving = ans_list[4]
+            one_sample_all_result["trimmo_reverse_only_surviving"] = trimmo_reverse_only_surviving
+            trimmo_dropped = ans_list[5]
+            one_sample_all_result["trimmo_dropped"] = trimmo_dropped
 
+        samples_all_result[sample_name] = one_sample_all_result
 
-    trimmomatic_command_log = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'logs', 'trimmomatic_pe', sample_name+'.command.log')
-    if os.path.exists(trimmomatic_command_log):
-        f_trimmomatic_command_log = open(trimmomatic_command_log, "r")
-        output_string = f_trimmomatic_command_log.readlines()
-        tmp_1 = re.findall("[\:]\s+[0-9]*", output_string[-2])
-        tmp_2 = ''.join(tmp_1)
-        ans_list=tmp_2.split(': ')
-        trimmo_intput_read_pairs = ans_list[1]
-        trimmo_both_surviving = ans_list[2]
-        trimmo_forward_only_surviving = ans_list[3]
-        trimmo_reverse_only_surviving = ans_list[4]
-        trimmo_dropped = ans_list[5]
     return render(request, "dataanalysis/analysis_result_overview.html", {
         "project_name": project_name,
         "analysis_code": analysis_code,
@@ -360,17 +374,7 @@ def show_result_overview(request, slug_project):
         "start_time": start_time_strip,
         "end_time": end_time_strip,
         "url_parameter": url_parameter,
-        "fastqc_datadir_pre_r1": sample_name+'.R1_fastqc.html',
-        "fastqc_datadir_pre_r2": sample_name+'.R2_fastqc.html',
-        "multiqc_datadir_pre": sample_name+'_multiqc.html',
-        "fastqc_datadir_post_r1": sample_name+'_r1_paired_fastqc.html',
-        "fastqc_datadir_post_r2": sample_name+'_r2_paired_fastqc.html',
-        "multiqc_datadir_post": sample_name+'_multiqc.html',
-        "trimmo_intput_read_pairs": trimmo_intput_read_pairs,
-        "trimmo_both_surviving": trimmo_both_surviving,
-        "trimmo_forward_only_surviving": trimmo_forward_only_surviving,
-        "trimmo_reverse_only_surviving": trimmo_reverse_only_surviving,
-        "trimmo_dropped": trimmo_dropped,
+        "samples_all_result": samples_all_result,
         "samples_txt_file_name": samples_txt_file_name,
         "samples_list_key": samples_list_key,
         "sample_list": sample_list,
@@ -419,11 +423,8 @@ def current_status(request, slug_project):
     check_extract_non_host_reads_3_ans_dict = {}
     check_extract_non_host_reads_4_ans_dict = {}
     ## Check times
-    check_submission_time_ans = False
     check_submission_time_ans = utils_func.check_submission_time_file(base_dir, sample_name)
-    check_start_time_ans = False
     check_start_time_ans = utils_func.check_start_time_file(base_dir, sample_name)
-    check_end_time_ans = False
     check_end_time_ans = utils_func.check_end_time_file(base_dir, sample_name)
     ##########
     ## THis is for the button to go to overview page ##
@@ -435,18 +436,24 @@ def current_status(request, slug_project):
             return redirect((reverse('dataanalysis_result_overview', kwargs={
                 'slug_project': url_parameter})))
 
+    samples_all_info = {}
     for sample_name in sample_list:
+        samples_all_info[sample_name] = {}
+        one_sample_all_info = {}
+
         sample_datadir = os.path.join(base_dir, sample_name)
         files = os.listdir(os.path.join(sample_datadir))
 
         view_counter_end = "Not Start Counting"
         ## Checking files
         check_first_qc_ans = utils_func.check_first_qc(sample_datadir, sample_name)
-        check_first_qc_ans_dict[sample_name] = check_first_qc_ans
+        one_sample_all_info["check_first_qc_ans"] = check_first_qc_ans
         check_trimming_qc_ans = utils_func.check_trimming_qc(sample_datadir, sample_name)
-        check_trimming_qc_ans_dict[sample_name] = check_trimming_qc_ans
+        one_sample_all_info["check_trimming_qc_ans"] = check_trimming_qc_ans
         check_second_qc_ans = utils_func.check_second_qc(sample_datadir, sample_name)
-        check_second_qc_ans_dict[sample_name] = check_second_qc_ans
+        one_sample_all_info["check_second_qc_ans"] = check_second_qc_ans
+        samples_all_info[sample_name] = one_sample_all_info
+
         ### Add later~~
         # check_read_subtraction_bwa_align_ans = utils_func.check_read_subtraction_bwa_align(sample_datadir, sample_name)
         # check_read_subtraction_bwa_align_ans_dict[sample_name] = check_read_subtraction_bwa_align_ans
@@ -455,11 +462,13 @@ def current_status(request, slug_project):
         # check_extract_non_host_reads_3_ans = utils_func.check_extract_non_host_reads_3(sample_datadir, sample_name)
         # check_extract_non_host_reads_4_ans = utils_func.check_extract_non_host_reads_4(sample_datadir, sample_name)
 
-    print("check_first_qc_ans_dict: ", check_first_qc_ans_dict)
-    print("check_trimming_qc_ans_dict: ", check_trimming_qc_ans_dict)
-    print("check_second_qc_ans_dict: ", check_second_qc_ans_dict)
+    print("samples_all_info: ", samples_all_info)
 
     ## The condition to start the analysis
+    # for key, samples in check_first_qc_ans_dict.items():
+    #     print("keykeykey: ", key)
+    #     print("samplessamples: ", samples)
+
     # whole_file_check = check_first_qc_ans and check_trimming_qc_ans and check_second_qc_ans
     # if ((view_counter is 1) or (check_submission_time_ans is False and check_first_qc_ans is False and check_trimming_qc_ans is False and check_second_qc_ans is False and check_read_subtraction_bwa_align_ans is False and check_end_time_ans is False) or submission_time_strip == 'no submission time'):
     #     # This is the first time to run (with the submission time stamp)
@@ -476,28 +485,14 @@ def current_status(request, slug_project):
     ### HERE ###
     ############
 
-    print("check_first_qc_ans_dict: ", check_first_qc_ans_dict)
-    print("check_trimming_qc_ans_dict: ", check_trimming_qc_ans_dict)
-    print("check_second_qc_ans_dict: ", check_second_qc_ans_dict)
     return render(request, "dataanalysis/analysis_result_status.html", {
         'project_name': project_name,
         'email': email,
         'analysis_code': analysis_code,
         'assembly_type_input': assembly_type_input,
         'url_parameter': url_parameter,
-        'check_first_qc_ans_dict': check_first_qc_ans_dict,
-        'check_trimming_qc_ans_dict': check_trimming_qc_ans_dict,
-        'check_second_qc_ans_dict': check_second_qc_ans_dict,
-
+        'samples_all_info': samples_all_info,
         # Here, the variable need to be removed
-        'check_first_qc_ans': check_first_qc_ans,
-        'check_trimming_qc_ans': check_trimming_qc_ans,
-        'check_second_qc_ans': check_second_qc_ans,
-        'check_read_subtraction_bwa_align_ans': check_read_subtraction_bwa_align_ans,
-        'check_extract_non_host_reads_1_ans': check_extract_non_host_reads_1_ans,
-        'check_extract_non_host_reads_2_ans': check_extract_non_host_reads_2_ans,
-        'check_extract_non_host_reads_3_ans': check_extract_non_host_reads_3_ans,
-        'check_extract_non_host_reads_4_ans': check_extract_non_host_reads_4_ans,
 
 
         'submission_time': submission_time_strip,
