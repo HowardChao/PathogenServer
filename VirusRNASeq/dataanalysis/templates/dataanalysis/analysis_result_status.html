@@ -19,8 +19,8 @@
     <!-- Sidebar -->
 
 
-    <nav id="sidebar" style="background: linear-gradient(to right, #1e2456, #555D9B);  border-right: 3px solid #353955;">
-        <div class="sidebar-header" style="background: linear-gradient(to right, #000000, #353955);"">
+    <nav id="sidebar" style="background: linear-gradient(to right, #1e1e1e, #626262);  border-right: 3px solid #353955;">
+        <div class="sidebar-header" style="background: linear-gradient(to right, #000000, #1e1e1e);"">
             <h3>Samples</h3>
         </div>
 
@@ -42,7 +42,7 @@
                   if (counter_color == 1) {
                     target_id = "{{sample}}" + "_page_nav_bar";
                     console.log("target_id", target_id);
-                    $("#"+target_id).css("background-color", "green");
+                    $("#"+target_id).css("background-color", "#707070");
                   }
                 </script>
             {% endfor %}
@@ -404,7 +404,7 @@
 
             var selected_sample_name = selected_block.replace("_page", "");
             $(".page_nav_bar").css("background-color","");
-            $("#"+selected_sample_name+"_page_nav_bar").css("background-color", "green");
+            $("#"+selected_sample_name+"_page_nav_bar").css("background-color", "#707070");
         }
     </script>
 

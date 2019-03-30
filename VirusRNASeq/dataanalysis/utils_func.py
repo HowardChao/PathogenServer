@@ -3,6 +3,22 @@ import csv
 import pandas
 from django.conf import settings
 
+
+#################
+### File URLs ###
+#################
+def get_sample_file_url(project_name, email, analysis_code):
+    base_dir = os.path.join(settings.MEDIA_ROOT,
+                            'tmp', project_name + '_' + email + '_' + analysis_code)
+    url_base_dir = os.path.join('/media', 'tmp', project_name + '_' + email + '_' + analysis_code)
+    samples_csv_file = os.path.join(base_dir, "samples.csv")
+    if os.path.exists(samples_csv_file):
+        uploaded_sample_file_url = os.path.join(url_base_dir, "samples.csv")
+        return uploaded_sample_file_url
+    else:
+        return "#"
+
+
 #####################
 ### Time function ###
 #####################
@@ -41,7 +57,8 @@ def get_data_list(project_name, email, analysis_code):
     data_list = []
     for key in uploaded_file:
         for file in uploaded_file[key]:
-            data_list.append(key + file)
+            data_list.append(file)
+            print("key + filekey + filekey + file: ", file)
     return data_list
 
 
@@ -104,8 +121,8 @@ def check_session(request):
         request.session["assembly_type_input"] = assembly_type_input
     return (project_name, analysis_code, email, assembly_type_input)
 
-
 def check_samples_txt_file(base_dir):
+    sample_file_validity = True
     samples_txt_file_name = None
     samples_list_key = {}
     sample_list = []
@@ -114,6 +131,18 @@ def check_samples_txt_file(base_dir):
     if samples_txt_file_ans:
         samples_txt_file_name = samples_txt_file
         read_ans = pandas.read_csv(samples_txt_file)
+        header_names = list(read_ans)
+        # First check column names
+        if 'ids' not in header_names or 'Groups' not in header_names:
+            sample_file_validity = False
+        # Second check ids in the file are distinct
+        if not len(read_ans['ids'].unique()) == len(read_ans['ids']):
+            sample_file_validity = False
+        # Third check types of Groups are only two
+        if not len(read_ans['Groups'].unique()) == 2:
+            sample_file_validity = False
+        # Whether both numbers should be the same ??
+    
         samples_groups = read_ans['Groups'].unique()
         samples_names = read_ans['ids'].unique()
         for i in samples_groups:
@@ -121,10 +150,10 @@ def check_samples_txt_file(base_dir):
             samples_list_key[i] = group_samples
         for j in samples_names:
             sample_list.append(j)
-        return (samples_txt_file_name, samples_list_key, sample_list)
+        return (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity)
 
     else:
-        return (samples_txt_file_name, samples_list_key, sample_list)
+        return (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity)
 
 
 
@@ -170,7 +199,10 @@ def check_samples_txt_file(base_dir):
 
 
 
-## Checking files
+
+######################
+### Checking files ###
+######################
 def check_submission_time_file(base_dir, sample_name):
     submission_time_file = os.path.join(base_dir, 'time/submision_time.txt')
     submission_time_file_ans = os.path.exists(submission_time_file)

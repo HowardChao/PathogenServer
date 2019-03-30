@@ -4,6 +4,7 @@
 {% load static %}
 {% load staticfiles %}
 <!-- pace animation -->
+<link rel="stylesheet" href="{% static 'css/dataanalysis_files_upload.css'%}">
 <link rel="stylesheet" href="{% static 'dataanalysis/css/home.css' %}">
 {# JQUERY FILE UPLOAD SCRIPTS #}
 <script src="{% static 'js/jquery-file-upload/vendor/jquery.ui.widget.js' %}"></script>
@@ -164,18 +165,8 @@
 <div class="container">
     <div class="row">
         <div class="card bg-light mt-5 mb-3 w-100 p-3">
-            <div class="card-header"><p class="h2"><i class="fas fa-info-circle"></i>  &nbsp &nbsp Files Upload </p></div>
+            <div class="card-header"><p class="h2"><i class="fas fa-upload"></i>  &nbsp &nbsp Files Upload </p></div>
             <div class="card-body w-100">
-                <!-- <h5 class="card-title">Please select "Multiple Samples" tab or "One Sample" tab to upload the necessary files!</h5>
-                <br> -->
-                <div class="row" style="margin-top:20px">
-                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
-                      <div class="col-auto">
-                        <h5><i class="fas fa-flag"></i> &nbsp<b> Step 1: </b> &nbsp Select Multiple / One </h5>
-                      </div>
-                    <div class="col"><hr></div>
-                </div>
-                <p class="card-text" style="margin-left: 30px">Please choose <b>"Multiple Samples"</b> tab or <b>"One Sample"</b> tab to upload the necessary files! <br><b>Multiple Samples</b> mode requires a "<i>samples.csv</i>" file and several "<i>paired-end fastq.gz</i>" files.<br><b>One Sample</b> mode requires only one "<i>paired-end fastq.gz</i>" files.</p>
 
                 <div class="modal fade" id="modal-progress" data-backdrop="static" data-keyboard="false">
                   <div class="modal-dialog">
@@ -192,152 +183,38 @@
                   </div>
                 </div>
 
-<style>
-  .nav-tabs > .nav-link {
-    color: #cecece;
-  }
-  .nav-tabs > .nav-link.active {
-    border-color: #444444;
-    border-width: 3px;
-    color: #444444;
-    background-color: #dddddd;
-  }
-  .nav-tabs > a:hover {
-    color: #3ea9dd;
-  }
-</style>
+                <style>
+                  .nav-tabs > .nav-link {
+                    color: #cecece;
+                  }
+                  .nav-tabs > .nav-link.active {
+                    border-color: #444444;
+                    border-width: 3px;
+                    color: #444444;
+                    background-color: #dddddd;
+                  }
+                  .nav-tabs > a:hover {
+                    color: #3ea9dd;
+                  }
+                </style>
 
-                <!-- <div class="nav nav-tabs" id="nav-tab-multi-or-one" role="tablist" style="margin-left: 30px">
-                    <a class="nav-item nav-link active" id="nav-multiple-sample-tab" data-toggle="tab" href="#nav-multiple-sample" role="tab" aria-controls="nav-multiple-sample" aria-selected="false" value="multiple_samples"><b style="font-size: 20px">Multiple Samples</b></a>
-                    <a class="nav-item nav-link" id="nav-one-sample-tab" data-toggle="tab" href="#nav-one-sample" role="tab" aria-controls="nav-one-sample" aria-selected="true"  value="one_sampele"><b style="font-size: 20px">One Sample</b></a>
-                </div> -->
+                <script>
+                  $( '#nav-tab-multi-or-one .nav-item' ).on( 'click', function () {
+                    multi_or_one = $( this ).attr("value");
+                    console.log("multi_or_one: ", multi_or_one);
+                  });
 
-
-<script>
-  $( '#nav-tab-multi-or-one .nav-item' ).on( 'click', function () {
-    multi_or_one = $( this ).attr("value");
-    console.log("multi_or_one: ", multi_or_one);
-  });
-
-  assembly_type = $( '#navbarSupportedContent .navbar-nav' ).find( 'li.active' ).attr('value');
-  console.log(assembly_type);
-</script>
-
-
+                  assembly_type = $( '#navbarSupportedContent .navbar-nav' ).find( 'li.active' ).attr('value');
+                  console.log(assembly_type);
+                </script>
 
 
                 <div class="not-upload tab-content" id="nav-tabContent">
-                    <!-- <div class="tab-pane fade" id="nav-one-sample" role="tabpanel" aria-labelledby="nav-one-sample-tab">
-                        <br>
-                        <h1>{{uploaded_file_url_pe_1}}</h1>
-                        <h1>{{uploaded_file_url_pe_2}}</h1>
-                        {% if uploaded_file_url_pe_1 == None and uploaded_file_url_pe_2 == None %}
-                          <form method="post" enctype="multipart/form-data" required="True">
-                              <div id="paired-end-container"></div>
-                              {% csrf_token %}
-                              <div style="margin-right:30px;margin-left:30px;">
-                                <div class="custom-file" style="margin-top: 10px">
-                                    <input type="file" name="r1" class="custom-file-input" id="inputGroupFile01">
-                                    <label class="custom-file-label" for="inputGroupFile01">Choose R1 file (*.1.fastq.gz)</label>
-                                </div>
-                                <div class="custom-file" style="margin-top: 10px">
-                                    <input type="file" name="r2" class="custom-file-input" id="inputGroupFile02">
-                                    <label class="custom-file-label" for="inputGroupFile02">Choose R2 file (*.1.fastq.gz)</label>
-                                </div>
-                                <br><br>
-                                  <button id="paired-end-button" name="upload-paired-end-file" class="btn btn-success btn-lg btn-block" type="submit">Upload Paired-End Files</button>
-                              </div>
-
-                              <script>
-                              // Change color would be done in the future !!! (It is not working right now!)
-                                  $('#inputGroupFile01').on('change',function(){
-                                      //get the file name
-                                      var fileName = $(this).val();
-                                      var cleanFileName = fileName.replace('C:\\fakepath\\', " ");
-                                      //replace the "Choose a file" label
-                                      $(this).next('.custom-file-label').html(cleanFileName);
-                                      reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz)$/i
-                                      if (cleanFileName.match(reg_exp_1)) {
-                                          console.log("Change color to green");
-                                          $('#inputGroupFile01').css("background-color", "#97dbac");
-                                      } else {
-                                          console.log("Change color to red");
-                                          $('#inputGroupFile01').css("background-color", "#db9797");
-                                      }
-                                  })
-
-                                  $('#inputGroupFile02').on('change',function(){
-                                      //get the file name
-                                      var fileName = $(this).val();
-                                      var cleanFileName = fileName.replace('C:\\fakepath\\', " ");
-                                      //replace the "Choose a file" label
-                                      $(this).next('.custom-file-label').html(cleanFileName);
-                                  })
-
-                                  $('#paired-end-button').click(function(){
-                                      var myNode = document.getElementById("paired-end-container");
-                                      myNode.innerHTML = '';
-                                      file_1_size = document.getElementById("inputGroupFile01").files.length
-                                      file_2_size = document.getElementById("inputGroupFile02").files.length
-                                      file_name1 = document.getElementById("inputGroupFile01").value;
-                                      file_name2 = document.getElementById("inputGroupFile02").value;
-                                      reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz)$/i
-                                      reg_exp_2 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R2.fastq.gz)$/i
-                                      checker = true;
-                                      if (file_1_size == 0) {
-                                          console.log("File 1 have not selected");
-                                          $('#paired-end-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">You do not select <strong>R1 file</strong> !<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
-                                          checker = false;
-                                      }
-                                      if (file_1_size == 1 & !file_name1.match(reg_exp_1)) {
-                                          $('#paired-end-container').append('<div class="alert alert-warning alert-dismissible fade show" role="alert">R1 file name is <strong>INVALID</strong> ! (clue: <strong>"*.R1.fastq.gz"</strong>)<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
-                                          checker = false;
-                                      }
-                                      if (file_2_size == 0) {
-                                          console.log("File 2 have not selected");
-                                          $('#paired-end-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">You do not select <strong>R2 file</strong> !<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
-                                          checker = false;
-                                      }
-                                      if (file_2_size == 1 & !file_name2.match(reg_exp_2)) {
-                                          $('#paired-end-container').append('<div class="alert alert-warning alert-dismissible fade show" role="alert">R2 file name is <strong>INVALID</strong> ! (clue: <strong>"*.R2.fastq.gz"</strong>)<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
-                                          checker = false;
-                                      }
-                                      return checker
-                                  })
-                              </script>
-                          </form>
-                          <br>
-                        {% elif uploaded_file_url_pe_1 != None and uploaded_file_url_pe_2 != None %}
-                            <div class="upload-file-paired-end tab-content">Upload files are paired-end !!!!</div>
-                            <form method="post" enctype="multipart/form-data" required="True">
-                            {% csrf_token %}
-                                <p>Upload files:</p>
-                                <ul>
-                                    <li>
-                                        <small>Upload at: <a href={{ uploaded_file_url_pe_1 }}>{{ uploaded_file_url_pe_1 }}</a></small>
-                                    </li>
-                                    <li>
-                                        <small>Upload at: <a href={{ uploaded_file_url_pe_2 }}>{{ uploaded_file_url_pe_2 }}</a></small>
-                                    </li>
-                                </ul>
-                                <br>
-                                <button id="delete-paired-end-file" name="remove-paired-end-file" class="btn btn-danger btn-block" type="submit">Delete Uploaded Files</button>
-                            </form>
-
-
-                            <form method="post" enctype="multipart/form-data" required="True">
-                            {% csrf_token %}
-                              <button id="one_sample_workflow_setup" name="one_sample_workflow_setup_button" class="btn btn-success btn-block" type="submit">Go to workflow setup</button>
-                            </form>
-                        {% else %}
-                        {% endif %}
-                    </div> -->
-
                     <div class="tab-pane fade show active" id="nav-multiple-sample" role="tabpanel" aria-labelledby="nav-multiple-sample-tab">
-                      <div class="row" style="margin-top:60px">
+                      <div class="row" style="margin-top:30px">
                           <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                             <div class="col-auto">
-                              <h5><i class="fas fa-flag"></i> &nbsp<b> Step 2: </b>  &nbsp Upload "<i>samples.csv</i>"</h5>
+                              <h5><i class="fas fa-flag"></i> &nbsp<b> Step 1: </b>  &nbsp Upload "<i>samples.csv</i>"</h5>
                             </div>
                           <div class="col"><hr></div>
                       </div>
@@ -397,125 +274,153 @@
                             </script>
                         </form>
                       {% else %}
-
-
-                        <div class="row" style="margin-left:30px">
-                            <div class=".col-12 .col-md-8">
-                              <div class="check_mark" style="margin-top:-3px; transform: scale(0.35,0.35);">
-                                  <div class="sa-icon sa-success animate">
-                                      <span class="sa-line sa-tip animateSuccessTip"></span>
-                                      <span class="sa-line sa-long animateSuccessLong"></span>
-                                      <div class="sa-placeholder"></div>
-                                      <div class="sa-fix"></div>
+                          {% if sample_file_validity %}
+                              <div class="row" style="margin-left:30px">
+                                  <div class=".col-12 .col-md-8">
+                                    <div class="check_mark" style="margin-top:-3px; transform: scale(0.4,0.4);">
+                                        <div class="sa-icon sa-success animate">
+                                            <span class="sa-line sa-tip animateSuccessTip"></span>
+                                            <span class="sa-line sa-long animateSuccessLong"></span>
+                                            <div class="sa-placeholder"></div>
+                                            <div class="sa-fix"></div>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class=".col-6 .col-md-4">
+                                    <p style="font-size:20px;"><i><b style=" color: green;">Success!!</b></i><b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspUpload file: <a href="{{uploaded_sample_file_url}}"> samples.csv</a></b></p>
                                   </div>
                               </div>
-                            </div>
-                            <div class=".col-6 .col-md-4">
-                              <p style="font-size:20px"><i><b>Success!!</b></i></p>
-                            </div>
-                        </div>
-                        <div style="margin-left:60px">
-                          <p>&nbsp&nbspUpload at: <a href=#>{{ samples_txt_file_name }}</a></p>
-                        </div>
-                        <div style="margin-left:30px">
-                          <div class="row" style="margin:5px">
-                            <script>
-                            </script>
-                            {% for key, value in samples_list_key.items %}
-                              <div class="col">
-                                <table id="sample_file_item" class="table table-bordered">
-                                  <thead>
-                                    <tr>
-                                      <th>{{ key }}</th>
-                                    </tr>
-                                  </thead>
-                                {% for ans in value %}
-                                <tbody>
-                                    <tr>
-                                      <td>
-                                      <div class="row">
-                                        <div class="col-6 col-md-4"><a href="#"}">{{ ans }}</a></div>
+
+                              <div style="margin-left:30px">
+                                  <div class="row" style="margin:5px">
+                                    <script>
+                                    </script>
+                                    {% for key, value in samples_list_key.items %}
+                                      <div class="col">
+                                        <table id="sample_file_item" class="table table-bordered">
+                                          <thead>
+                                            <tr>
+                                              <th style="font-size: 18px">{{ key }}</th>
+                                            </tr>
+                                          </thead>
+                                        {% for ans in value %}
+                                        <tbody>
+                                            <tr>
+                                              <td>
+                                              <div class="row">
+                                                <div class="col-6 col-md-4" style="margin-left: 10px"><a>{{ ans }}</a></div>
+                                              </div>
+                                              </td>
+                                            </tr>
+                                        </tbody>
+                                        {% endfor %}
+                                        </table>
                                       </div>
-                                      </td>
-                                    </tr>
-                                </tbody>
-                                {% endfor %}
-                                </table>
+                                    {% endfor %}
+                                  </div>
+                                  <form method="post" enctype="multipart/form-data" required="True" style="margin-right:50px;margin-left:50px;">
+                                      {% csrf_token %}
+                                      <div style="margin-right:50px;margin-left:50px;margin-bottom:15px">
+                                          <button class="btn btn-danger btn-lg btn-block" type="button" data-toggle="modal" data-target="#exampleModalCenter">Delete 'samples.csv'</button>
+                                      </div>
+                                      <!-- Modal -->
+                                      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered" role="document">
+                                          <div class="modal-content">
+                                          <div class="modal-header">
+                                              <h5 class="modal-title" id="exampleModalCenterTitle">Delete <b>'samples.csv'</b></h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                              </button>
+                                          </div>
+                                          <div class="modal-body">
+                                           Are you sure you want to delete <b>'samples.csv'</b> ?
+                                          </div>
+                                          <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                              <button id="delete-samples-file-button" name="remove-samples-file" class="btn btn-primary" type="submit">Yes, I want to delete</button>
+                                          </div>
+                                          </div>
+                                      </div>
+                                      </div>
+                                  </form>
                               </div>
-                            {% endfor %}
-                          </div>
-                          <form method="post" enctype="multipart/form-data" required="True" style="margin-right:50px;margin-left:50px;">
-                          {% csrf_token %}
-                                <button id="delete-samples-file-button" name="remove-samples-file" class="btn btn-danger btn-lg btn-block" type="submit">Delete 'samples.csv'</button>
-                          </form>
 
-                        </div>
-
-                        <div class="row" style="margin-top:60px">
-                            <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
-                              <div class="col-auto">
-                                <h5><i class="fas fa-flag"></i> &nbsp<b> Step 3: </b> &nbsp Upload paired-end fastq.gz samples</h5>
+                              <div class="row" style="margin-top:80px">
+                                  <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                    <div class="col-auto">
+                                      <h5><i class="fas fa-flag"></i> &nbsp<b> Step 2: </b> &nbsp Upload paired-end fastq.gz samples</h5>
+                                    </div>
+                                  <div class="col"><hr></div>
                               </div>
-                            <div class="col"><hr></div>
-                        </div>
-                        <p class="card-text" style="margin-left: 30px">Please select <b>"Multiple Samples"</b> tab or <b>"One Sample"</b> tab to upload the necessary files!</p>
-                        <div style="margin-left:30px;">
-                          <div class="well text-muted text-center js-upload-photos" style="margin: 2%; padding-top: 4rem; padding-bottom: 4rem; border-width:5px;border-style:dashed;border-color:#6B757D; border-radius:25px; background: #e2e2e2">
-                            <i class="fas fa-cloud-upload-alt fa-5x"></i><h2>Drop Photos Here to Upload</h2>
-                          </div>
+                              <p class="card-text" style="margin-left: 30px">Please select <b>"Multiple Samples"</b> tab or <b>"One Sample"</b> tab to upload the necessary files!</p>
+                              <div style="margin-left:30px;">
+                                <div class="well text-muted text-center js-upload-photos" style="margin: 2%; padding-top: 4rem; padding-bottom: 4rem; border-width:5px;border-style:dashed;border-color:#6B757D; border-radius:25px; background: #e2e2e2">
+                                  <i class="fas fa-cloud-upload-alt fa-5x"></i><h2>Drop Photos Here to Upload</h2>
+                                </div>
 
-                          <form method="post" enctype="multipart/form-data" required="True" style="margin-right:50px;margin-left:50px;">
-                          {% csrf_token %}
-                            <div style="margin-right:50px;margin-left:50px;margin-bottom:15px">
-                              <button id="up_btn" name="sample-each-upload-many" type="submit" class="btn btn-success btn-lg btn-block">Upload</button>
-                            </div>
-                          </form>
+                                <form method="post" enctype="multipart/form-data" required="True" style="margin-right:50px;margin-left:50px;">
+                                {% csrf_token %}
+                                  <div style="margin-right:50px;margin-left:50px;margin-bottom:15px">
+                                    <button id="up_btn" name="sample-each-upload-many" type="submit" class="btn btn-success btn-lg btn-block">Upload</button>
+                                  </div>
+                                </form>
 
-                            <input id="fileupload" type="file" name="file_choose" multiple
-                                   style="display: none;"
-                                   accept="fastq.gz"
-                                   data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+                                  <input id="fileupload" type="file" name="file_choose" multiple
+                                         style="display: none;"
+                                         accept="fastq.gz"
+                                         data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
 
-                             <table id="data_selected" class="table table-bordered">
-                               <thead>
-                                 <tr>
-                                   <th>Selected files</th>
-                                 </tr>
-                               </thead>
-                               <tbody id="data_selected_body">
-                               </tbody>
-                             </table>
+                                   <table id="data_selected" class="table table-bordered">
+                                     <thead>
+                                       <tr>
+                                         <th>Selected files</th>
+                                       </tr>
+                                     </thead>
+                                     <tbody id="data_selected_body">
+                                     </tbody>
+                                   </table>
 
 
 
-                             <table id="gallery" class="table table-bordered">
-                               <thead>
-                                 <tr>
-                                   <th>Uploaded files</th>
-                                 </tr>
-                               </thead>
-                               <tbody>
-                                 {% for data in datas %}
-                                   <tr>
-                                     <td>
-                                     <div class="row">
-                                       <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data }}</a></div>
-                                       <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data }}</a></div>
-                                       <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data }}</a></div>
-                                     </div>
-                                     </td>
-                                   </tr>
-                                 {% endfor %}
-                               </tbody>
-                             </table>
-                          </div>
+                                   <table id="gallery" class="table table-bordered">
+                                     <thead>
+                                       <tr>
+                                         <th>Uploaded files</th>
+                                       </tr>
+                                     </thead>
+                                     <tbody>
+                                       {% for data in datas %}
+                                         <tr>
+                                           <td>
+                                           <div class="row">
+                                             <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data }}</a></div>
+                                             <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data }}</a></div>
+                                             <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data }}</a></div>
+                                           </div>
+                                           </td>
+                                         </tr>
+                                       {% endfor %}
+                                     </tbody>
+                                   </table>
+                              </div>
+                              <form method="post" enctype="multipart/form-data" required="True" style="margin-right:50px;margin-left:80px;">
+                              {% csrf_token %}
+                                <div style="margin-right:50px;margin-left:50px;margin-bottom:15px">
+                                  <button id="multi_samples_workflow_setup" name="multi_samples_workflow_setup_button" type="submit" class="btn btn-success btn-lg btn-block">Go to workflow setup</button>
+                                </div>
+                              </form>
 
-                        <form method="post" enctype="multipart/form-data" required="True" style="margin-right:50px;margin-left:50px;">
-                        {% csrf_token %}
-                          <div style="margin-right:50px;margin-left:50px;margin-bottom:15px">
-                            <button id="multi_samples_workflow_setup" name="multi_samples_workflow_setup_button" type="submit" class="btn btn-success btn-lg btn-block">Go to workflow setup</button>
-                          </div>
-                        </form>
+                              
+                          {% else %}
+                              <form method="post" enctype="multipart/form-data" required="True" style="margin-right:50px;margin-left:50px;">
+                                  {% csrf_token %}
+                                  <div style="margin-right:50px;margin-left:50px;margin-bottom:15px">
+                                      <button id="delete-samples-file-button" name="remove-samples-file" class="btn btn-danger btn-lg btn-block" type="submit">Delete 'samples.csv'</button>
+                                  </div>
+                              </form>
+                          {% endif %}
+
                       {% endif %}
                     </div>
                 </div>
@@ -539,3 +444,4 @@
 <div style="margin-bottom: 100px">
 </div>
 {% endblock content %}
+s

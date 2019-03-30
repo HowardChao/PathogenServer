@@ -18,21 +18,21 @@
 {% block content %}
 <div class="wrapper">
     <!-- Sidebar -->
-    <nav id="sidebar" style="background: linear-gradient(to right, #1e2456, #555D9B);  border-right: 3px solid #353955;">
-        <div class="sidebar-header" style="background: linear-gradient(to right, #000000, #353955);"">
-            <h3>Samples</h3>
+    <nav id="sidebar" style="background: linear-gradient(to right, #1e1e1e, #626262);  border-right: 3px solid #353955;">
+        <div class="sidebar-header" style="background: linear-gradient(to right, #000000, #1e1e1e);">
+            <h3><center><i class="fas fa-bars"></i>&nbsp&nbspDashboard</center></h3>
         </div>
         <ul class="list-unstyled components">
           <li>
-              <a id="project_overview_id_nav_bar" href="#" onclick="project_loading(this.name)" name="_overview_page_result" style="background-color: green; font-size: 23px;"><i class="fas fa-file-contract"></i> &nbsp OverView</a>
+              <a id="project_overview_id_nav_bar" href="#" onclick="project_loading(this.name)" name="_overview_page_result" style="background-color: #707070; font-size: 23px; margin-left: 15px;"><i class="fas fa-file-contract"></i> &nbsp OverView</a>
           </li>
         {% for group, samples in samples_list_key.items %}
             <li>
-                <p style="font-size: 23px;"><b><i class="fas fa-object-group"></i> &nbsp {{ group }} </b></p>
+                <p style="font-size: 23px;"><b><i class="fas fa-object-group" style="margin-left: 15px;"></i> &nbsp {{ group }} </b></p>
             </li>
             {% for sample in samples %}
                 <li>
-                    <a id="{{sample}}_pipeline_result_wrapper_nav_bar" class="pipeline_result_wrapper_nav_bar" href="#" onclick="sample_loading(this.name)" name="{{sample}}_pipeline_result_wrapper" style="margin-left: 20px;"><i class="fas fa-dot-circle"></i> &nbsp {{ sample }}</a>
+                    <a id="{{sample}}_pipeline_result_wrapper_nav_bar" class="pipeline_result_wrapper_nav_bar" href="#" onclick="sample_loading(this.name)" name="{{sample}}_pipeline_result_wrapper" style="margin-left: 30px;"><i class="fas fa-dot-circle"></i> &nbsp {{ sample }}</a>
                 </li>
             {% endfor %}
         {% endfor %}
@@ -44,7 +44,7 @@
     <!-- Page Content -->
     <div id="right-content-overview" class="w-100">
       <div id="project_overview_id" class="project_overview_class">
-          <div class="w3-main" style="margin-left:130px; margin-right:130px;">
+          <div class="w3-main" style="margin-left:130px; margin-right:50px;">
               <header class="w3-container" style="padding-top:22px;">
                   <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-file-contract"></i> &nbsp<strong>Overview</strong></h1>
               </header>
@@ -106,61 +106,56 @@
                     {% if sample_key == sample %}
                         <div class="pipeline_result_wrapper" id="{{sample_key}}_pipeline_result_wrapper" style="display: none;">
                             <div class="container-fluid">
-                                <div class="row" style="width: 100%;">
+                                <div class="row h-100" style="width: 100%;">
                                     <div class="col-2">
-                                        <nav id="sidebar">
-                                            <div class="sidebar-header" style="background: linear-gradient(to right, #353955, #7274a0);">
-                                                <h3>Dashboard</h3>
+                                      <!-- style="background: linear-gradient(to right, #1e1e1e, #626262); -->
+                                        <nav id="sidebar" style="margin-left: -18px; height: 100%; background: #626262;">
+                                            <div class="sidebar-header" style="background: linear-gradient(to right, #1e1e1e, #4c4c4c);">
+                                                <h3><i class="fas fa-dot-circle fa-1g" ></i>&nbsp&nbsp{{ sample_key }}</h3>
                                             </div>
                                             <ul class="list-unstyled components">
                                                 <li>
-                                                    <a href="#" onclick="loading(this.name)" name="{{sample_key}}_quality_control_result"><i class="fas fa-search"></i> &nbsp Quality Control</a>
+                                                    <a href="#" id="{{sample_key}}_quality_control_result_nav_bar" class="pipeline_result_nav_bar" onclick="loading(this.name)" name="{{sample_key}}_quality_control_result" style="background-color: #8c8c8c"><i class="fas fa-search"></i> &nbsp Quality Control</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#" onclick="loading(this.name)" name="{{sample_key}}_read_subtraction_result"><i class="fas fa-minus"></i>  &nbsp Read Subtraction</a>
+                                                    <a href="#" id="{{sample_key}}_read_subtraction_result_nav_bar" class="pipeline_result_nav_bar" onclick="loading(this.name)" name="{{sample_key}}_read_subtraction_result"><i class="fas fa-minus"></i>  &nbsp Read Subtraction</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#" onclick="loading(this.name)" name="{{sample_key}}_non-virus_removal_result"><i class="fas fa-search-minus"></i> &nbsp Non-virus Removal</a>
+                                                    <a href="#" id="{{sample_key}}_non-virus_removal_result_nav_bar" class="pipeline_result_nav_bar" onclick="loading(this.name)" name="{{sample_key}}_non-virus_removal_result"><i class="fas fa-search-minus"></i> &nbsp Non-virus Removal</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#"><i class="fas fa-align-right"></i> &nbsp <i>de novo</i> Assembly</a>
+                                                    <a href="#" id="{{sample_key}}_pipeline_result_nav_bar" class="pipeline_result_nav_bar"><i class="fas fa-align-right"></i> &nbsp <i>de novo</i> Assembly</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#"><i class="fas fa-reply"></i> &nbsp Reads Realignment</a>
+                                                    <a href="#" id="{{sample_key}}_pipeline_result_nav_bar" class="pipeline_result_nav_bar"><i class="fas fa-reply"></i> &nbsp Reads Realignment</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#"><i class="fas fa-database"></i> &nbsp Homology Search</a>
+                                                    <a href="#" id="{{sample_key}}_pipeline_result_nav_bar" class="pipeline_result_nav_bar"><i class="fas fa-database"></i> &nbsp Homology Search</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#"><i class="fas fa-dna"></i> &nbsp Variant Calling</a>
+                                                    <a href="#" id="{{sample_key}}_pipeline_result_nav_bar" class="pipeline_result_nav_bar"><i class="fas fa-dna"></i> &nbsp Variant Calling</a>
                                                 </li>
                                             </ul>
                                         </nav>
                                     </div>
-                                    <div class="col-9">
+
+
+                                    <div class="col-9" style="height: 100%;">
                                         <div id="content" >
-                                            <button type="button" id="sidebarCollapse" class="btn btn-info ">
+                                            <button type="button"  class="btn btn-info sidebarCollapse">
                                                 <i id="toggle_button" class="fas fa-angle-double-left"></i>
                                             </button>
                                         </div>
 
 
 
-
-
-
-
-
-
-
-
-                                        <div class="pipeline_result" id="{{sample_key}}_quality_control_result"  style="display: none;">
-                                            <div class="w3-main" style="margin-left:130px; margin-right:130px;">
+                                        <div class="pipeline_result" id="{{sample_key}}_quality_control_result"  style="display: none; height: 100%;">
+                                            <div class="w3-main" style="margin-left:130px; margin-right:50px; height: 100%;">
                                                 <header class="w3-container" style="padding-top:22px;">
                                                     <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-search"></i> &nbsp <strong>Quality Control</strong></h1>
                                                 </header>
 
-                                                <div class="content-below-header-overview" >
+                                                <div class="content-below-header-overview">
                                                     <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px;">
                                                         <div style="width:100%; outline: 5px solid #B07B41; outline-offset: 10px; outline-style: double;">
                                                           <p>Congradulations! Your job has been completed <strong style="font-size:20px; color: green;">successfully</strong>!</p>
@@ -217,8 +212,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="pipeline_result" id="{{sample_key}}_read_subtraction_result" style="display: none;">
-                                            <div class="w3-main" style="margin-left:130px; margin-right:130px;">
+                                        <div class="pipeline_result" id="{{sample_key}}_read_subtraction_result" style="display: none; height: 100%;">
+                                            <div class="w3-main" style="margin-left:130px; margin-right:50px;">
                                                 <header class="w3-container" style="padding-top:22px;">
                                                     <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-minus"></i>  &nbsp<strong>Read Subtraction</strong></h1>
                                                 </header>
@@ -243,8 +238,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="pipeline_result" id="{{sample_key}}_non-virus_removal_result" style="display: none;">
-                                            <div class="w3-main" style="margin-left:130px; margin-right:130px;">
+                                        <div class="pipeline_result" id="{{sample_key}}_non-virus_removal_result" style="display: none; height: 100%;">
+                                            <div class="w3-main" style="margin-left:130px; margin-right:50px;">
                                                 <header class="w3-container" style="padding-top:22px;">
                                                     <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-search-minus"></i> &nbsp<strong>Non-Virus Reads Removal</strong></h1>
                                                 </header>
@@ -284,19 +279,8 @@
 <script type="text/javascript">
 $(document).ready(function () {
 
-    $('#sidebarCollapse').on('click', function () {
+    $('.sidebarCollapse').on('click', function () {
         $('#sidebar').toggleClass('active');
-        if ($(".active").hasClass("active")) {
-            // do this
-            console.log("hidden");
-            document.getElementById("toggle_button").className = "fas fa-align-left";
-        } else {
-            // do that
-            console.log("not hidden");
-            document.getElementById("toggle_button").className = "fas fa-angle-double-left";
-        }
-
-        $('#sidebar_sample').toggleClass('active');
         if ($(".active").hasClass("active")) {
             // do this
             console.log("hidden");
@@ -313,27 +297,36 @@ $(document).ready(function () {
     // This script is to show different page
     function loading(clicked_name)
     {
-        $(".pipeline_result_wrapper").show();
         $("#project_overview_id").hide();
         $(".pipeline_result").hide();
         $("#"+clicked_name).show();
+        $(".pipeline_result_nav_bar").css("background-color","");
+        $("#"+clicked_name+"_nav_bar").css("background-color","#8c8c8c");
+
     }
 
     function sample_loading(clicked_name)
     {
+      // First show all wrapper and all analysis step
       $(".pipeline_result_wrapper").show();
+      $(".pipeline_result").show();
+      // Second hide overview page and overview navbar
       $("#project_overview_id").hide();
       $("#project_overview_id_nav_bar").css("background-color", "");
+      // Third hide all wrapper and all analysis step
+      $(".pipeline_result").hide();
       $(".pipeline_result_wrapper").hide();
+      // Fourth show all the clicked sample and his quality pahe
+      console.log("clicked_name", clicked_name);
       $("#"+clicked_name).show();
+      // Set the sample navbar color !!
       var sample_name = clicked_name.replace("_pipeline_result_wrapper", "");
       $("#"+sample_name+"_quality_control_result").show();
-
       selected_block = $( '.pipeline_result_wrapper:visible' ).attr('id');
       var selected_sample_name = selected_block.replace("_pipeline_result_wrapper", "");
       console.log("selected_block: ", selected_sample_name);
       $(".pipeline_result_wrapper_nav_bar").css("background-color","");
-      $("#"+selected_sample_name+"_pipeline_result_wrapper_nav_bar").css("background-color", "green");
+      $("#"+selected_sample_name+"_pipeline_result_wrapper_nav_bar").css("background-color", "#707070");
     }
 
     function project_loading(clicked_name)
@@ -342,7 +335,7 @@ $(document).ready(function () {
       $(".pipeline_result").hide();
       $("#project_overview_id").show();
       $(".pipeline_result_wrapper_nav_bar").css("background-color", "");
-      $("#project_overview_id_nav_bar").css("background-color", "green");
+      $("#project_overview_id_nav_bar").css("background-color", "#707070");
     }
 
 </script>

@@ -47,8 +47,9 @@ class BasicUploadView(DetailView):
         url_parameter = project_name + '_' + email.split("@")[0]
         # Start checking files !!!
         # For sample name!
-        (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+        (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
         data_list = utils_func.get_data_list(project_name, email, analysis_code)
+        uploaded_sample_file_url = utils_func.get_sample_file_url(project_name, email, analysis_code)
         return render(self.request, "dataanalysis/file_upload.html", {
             'project_name': project_name,
             'analysis_code': analysis_code,
@@ -58,19 +59,22 @@ class BasicUploadView(DetailView):
             'samples_txt_file_name': samples_txt_file_name,
             'samples_list_key': samples_list_key,
             'sample_list': sample_list,
+            'sample_file_validity': sample_file_validity,
+            'uploaded_sample_file_url': uploaded_sample_file_url,
         })
 
     def post(self, request, slug_project):
         (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
-        url_parameter = project_name + '_' + email.split("@")[0]
+        # The base directory of the created project.
         base_dir = os.path.join(settings.MEDIA_ROOT,
                                 'tmp', project_name + '_' + email + '_' + analysis_code)
-        (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+        url_parameter = project_name + '_' + email.split("@")[0]
+        (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
         if assembly_type_input == "de_novo_assembly":
             template_html = "dataanalysis/analysis_home_denovo.html"
         elif assembly_type_input == "reference_based_assembly":
             template_html = "dataanalysis/analysis_home_reference_based.html"
-
+        uploaded_sample_file_url = utils_func.get_sample_file_url(project_name, email, analysis_code)
         ######################
         ## multi sample section
         if 'samples-files-upload' in request.POST:
@@ -81,9 +85,10 @@ class BasicUploadView(DetailView):
             if os.path.exists(os.path.join(base_dir, myfile.name)):
                 os.remove(os.path.join(base_dir, myfile.name))
             filename = fs.save(os.path.join(base_dir, myfile.name), myfile)
-            uploaded_file_url_se = fs.url(filename)
+            # Url needs to be updated one file is uploaded!!
+            uploaded_sample_file_url = utils_func.get_sample_file_url(project_name, email, analysis_code)
             # Start checking files
-            (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+            (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
             ####################
             ### Need to modify!!
             ####################
@@ -97,6 +102,8 @@ class BasicUploadView(DetailView):
                 'samples_txt_file_name': samples_txt_file_name,
                 'samples_list_key': samples_list_key,
                 'sample_list': sample_list,
+                'sample_file_validity': sample_file_validity,
+                'uploaded_sample_file_url': uploaded_sample_file_url,
             })
         elif 'remove-samples-file' in request.POST:
             print("remove-samples-file!!!")
@@ -107,7 +114,7 @@ class BasicUploadView(DetailView):
             if os.path.exists(destination_QC_html_dir):
                 shutil.rmtree(destination_QC_html_dir)
             # Start checking files
-            (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+            (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
             data_list = utils_func.get_data_list(project_name, email, analysis_code)
             return render(request, "dataanalysis/file_upload.html", {
                 'project_name': project_name,
@@ -118,9 +125,11 @@ class BasicUploadView(DetailView):
                 'samples_txt_file_name': samples_txt_file_name,
                 'samples_list_key': samples_list_key,
                 'sample_list': sample_list,
+                'sample_file_validity': sample_file_validity,
+                'uploaded_sample_file_url': uploaded_sample_file_url,
             })
         elif 'multi_samples_workflow_setup_button' in request.POST:
-            (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+            (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
             data_list = utils_func.get_data_list(project_name, email, analysis_code)
             return redirect((reverse('dataanalysis_home', kwargs={
                 'slug_project': url_parameter})))
@@ -133,21 +142,22 @@ class BasicUploadView(DetailView):
                 'samples_txt_file_name': samples_txt_file_name,
                 'samples_list_key': samples_list_key,
                 'sample_list': sample_list,
+                'sample_file_validity': sample_file_validity,
+                'uploaded_sample_file_url': uploaded_sample_file_url,
             })
         myfile = request.FILES['file_choose']
         fs = FileSystemStorage()
         # Sample name!
-        (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+        (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
         data_list = utils_func.get_data_list(project_name, email, analysis_code)
-        sample_name = sample_list[0]
-        # Removing files
-        if not fs.exists(os.path.join(base_dir, 'Uploaded_files')):
-            os.mkdir((os.path.join(base_dir, 'Uploaded_files')))
-            if not fs.exists(os.path.join(base_dir, 'Uploaded_files', sample_name)):
-                os.mkdir((os.path.join(base_dir, 'Uploaded_files', sample_name)))
+        for sample in sample_list:
+            if not fs.exists(os.path.join(base_dir, 'Uploaded_files')):
+                os.mkdir((os.path.join(base_dir, 'Uploaded_files')))
+                if not fs.exists(os.path.join(base_dir, 'Uploaded_files', sample_name)):
+                    os.mkdir((os.path.join(base_dir, 'Uploaded_files', sample_name)))
                 # Found split sample name
-        filename = fs.save(os.path.join(base_dir, "Uploaded_files", sample_name, myfile.name), myfile)
-        uploaded_file_url = fs.url(filename)
+                filename = fs.save(os.path.join(base_dir, "Uploaded_files", sample_name, myfile.name), myfile)
+                uploaded_file_url = fs.url(filename)
         data = {
             'project_name': project_name,
             'analysis_code': analysis_code,
@@ -157,7 +167,9 @@ class BasicUploadView(DetailView):
             'datas': data_list,
             'samples_txt_file_name': samples_txt_file_name,
             'samples_list_key': samples_list_key,
-            'sample_list': sample_list
+            'sample_list': sample_list,
+            'sample_file_validity': sample_file_validity,
+            'uploaded_sample_file_url': uploaded_sample_file_url,
             }
         return JsonResponse(data)
 
@@ -173,7 +185,7 @@ def whole_dataanalysis(request, slug_project):
         template_html = "dataanalysis/analysis_home_reference_based.html"
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
-    (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
     if request.method == 'POST' :
         if 'start-analysis-de-novo' in request.POST:
             pass
@@ -205,6 +217,14 @@ def whole_dataanalysis(request, slug_project):
             species_dir = "homo_sapiens"
             bwa_species = "homo_sapiens.fa"
             bwa_host_ref = os.path.join(host_ref_dir, species_dir, bwa_species)
+            bwa_pathogen= request.POST.get('reads_alignment_reference')
+            bwa_pathogen_full_name = ""
+            bwa_pathogen_fastq = ""
+            print("bwa_pathogenbwa_pathogen: ", bwa_pathogen)
+            if bwa_pathogen == "TB":
+                bwa_pathogen_full_name = "Mycobacterium_tuberculosis_H37Rv"
+                bwa_pathogen_fastq = "Mycobacterium_tuberculosis.fasta"
+            bwa_pathogen_dir = os.path.join(pathogen_dir, bwa_pathogen_full_name, bwa_pathogen_fastq)
 
             ### snpEff
             snpEff_jar = os.path.join(tool_dir, "snpEff/snpEff/snpEff.jar")
@@ -240,6 +260,8 @@ def whole_dataanalysis(request, slug_project):
                 ),
                 bwa = dict(
                     bwa_host_ref = bwa_host_ref,
+                    bwa_pathogen = bwa_pathogen,
+                    bwa_pathogen_dir = bwa_pathogen_dir,
                 ),
                 snpEff = dict(
                     snpEff_jar = snpEff_jar,
@@ -294,7 +316,7 @@ def show_result_overview(request, slug_project):
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
     # Get sample name
-    (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
     sample_name = sample_list[0]
 
     # Getting time!!
@@ -395,7 +417,7 @@ def current_status(request, slug_project):
     url_parameter = project_name + '_' + email.split("@")[0]
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
-    (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
     # Get submission time
     submission_time_strip = 'no submission time'
     start_time_strip = 'no start time'
@@ -511,7 +533,7 @@ def pre_qc_html_view_multiqc(request, slug_project):
     url_parameter = project_name + '_' + email.split("@")[0]
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
-    (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
     ##~~~
     sample_name = sample_list[0]
     html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'Step_1', 'QC', 'pre', sample_name+'_multiqc.html')
@@ -528,7 +550,7 @@ def pre_qc_html_view_r1(request, slug_project):
     url_parameter = project_name + '_' + email.split("@")[0]
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
-    (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
     ##~~~
     sample_name = sample_list[0]
     html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'Step_1', 'QC', 'pre', sample_name+'.R1_fastqc.html')
@@ -545,7 +567,7 @@ def pre_qc_html_view_r2(request, slug_project):
     url_parameter = project_name + '_' + email.split("@")[0]
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
-    (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
     ##~~~
     sample_name = sample_list[0]
     html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'Step_1', 'QC', 'pre', sample_name+'.R2_fastqc.html')
@@ -562,7 +584,7 @@ def post_qc_html_view_multiqc(request, slug_project):
     url_parameter = project_name + '_' + email.split("@")[0]
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
-    (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
     ##~~~
     sample_name = sample_list[0]
     html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'Step_1', 'QC', 'post', sample_name+'_multiqc.html')
@@ -579,7 +601,7 @@ def post_qc_html_view_r1(request, slug_project):
     url_parameter = project_name + '_' + email.split("@")[0]
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
-    (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
     ##~~~
     sample_name = sample_list[0]
     html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'Step_1', 'QC', 'post', sample_name+'_r1_paired_fastqc.html')
@@ -596,7 +618,7 @@ def post_qc_html_view_r2(request, slug_project):
     url_parameter = project_name + '_' + email.split("@")[0]
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
-    (samples_txt_file_name, samples_list_key, sample_list) = utils_func.check_samples_txt_file(base_dir)
+    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
     ##~~~
     sample_name = sample_list[0]
     html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'Step_1', 'QC', 'post', sample_name+'_r2_paired_fastqc.html')
