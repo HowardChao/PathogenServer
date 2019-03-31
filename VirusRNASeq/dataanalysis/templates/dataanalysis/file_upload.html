@@ -29,6 +29,13 @@
 
 
     $("#up_btn").on('click', function (e) {
+        var invalid_message = document.getElementById("file_upload_invalid_message");
+        console.log("$('.incorrect_file_selected').length == 0: ", $('.incorrect_file_selected').length == 0);
+        console.log("$('.correct_file_selected').length == 0", $('.correct_file_selected').length == 0);
+        if ($('.incorrect_file_selected').length == 0 && $('.correct_file_selected').length == 0) {
+          invalid_message.innerHTML = '<div style="margin-top: 50px; font-size: 18px;" class="alert alert-danger alert-dismissible fade show" role="alert"><center><b>You must select files to start files upload.</b> Please drop files on the <b>above</b> block! </center><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+          return false;
+        }
         e.preventDefault();
         $("#up_btn").trigger( "customName_submit_all_file");
     });
@@ -78,7 +85,7 @@
               if (!displayed_incorrect_file_list.includes(ins)) {
                 displayed_incorrect_file_list.push(ins);
                 console.log("Incorrect Inside:!!", ins);
-                var newFilepulgin = $('<tr id="file_'+ file.name +'" style="background-color:#ffc9cd"><td><i class="fas fa-times fa-2x" style="position: relative; top: 7px;color: red"></i>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button type="button" class="btn btn-danger" id="button_file_'+ file.name +'">Must Remove Selected File</button>&nbsp&nbsp&nbsp&nbsp <b>Filename: </b><a href="#" id="link_' + index + '" class="removeFile"> '+ file.name + '</a> &nbsp&nbsp&nbsp&nbsp <b>File Size: </b>'+ file.size +' byte </td></tr>');
+                var newFilepulgin = $('<tr class="incorrect_file_selected" id="file_'+ file.name +'" style="background-color:#ffc9cd"><td><i class="fas fa-times fa-2x" style="position: relative; top: 7px;color: red"></i>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button type="button" class="btn btn-danger" id="button_file_'+ file.name +'">Must Remove Selected File</button>&nbsp&nbsp&nbsp&nbsp <b>Filename: </b><a href="#" id="link_' + index + '" class="removeFile"> '+ file.name + '</a> &nbsp&nbsp&nbsp&nbsp <b>File Size: </b>'+ file.size +' byte </td></tr>');
                 $('#data_selected_body').append(newFilepulgin);
                 newFilepulgin.find('button').on('click', { filename: file.name, files: data.files }, function (event) {
                     console.log("Button clicked!");
@@ -100,7 +107,7 @@
               if (!displayed_correct_file_list.includes(s)) {
                 displayed_correct_file_list.push(s);
                 console.log("Correct Inside:!!", s);
-                var newFilepulgin = $('<tr id="file_'+ file.name +'" style="background-color:#eaffdb"><td><i class="fas fa-check fa-2x" style="position: relative; top: 3px;color: green"></i>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<b>Filename: </b><a href="#" id="link_' + index + '" class="removeFile"> '+ file.name + '</a> &nbsp&nbsp&nbsp&nbsp <b>File Size: </b>'+ file.size +' byte <button type="button" style="float: right;" class="btn btn-outline-danger" id="button_file_'+ file.name +'">remove selected file</button></td></tr>');
+                var newFilepulgin = $('<tr class="correct_file_selected" id="file_'+ file.name +'" style="background-color:#eaffdb"><td><i class="fas fa-check fa-2x" style="position: relative; top: 3px;color: green"></i>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<b>Filename: </b><a href="#" id="link_' + index + '" class="removeFile"> '+ file.name + '</a> &nbsp&nbsp&nbsp&nbsp <b>File Size: </b>'+ file.size +' byte <button type="button" style="float: right;" class="btn btn-outline-danger" id="button_file_'+ file.name +'">remove selected file</button></td></tr>');
                 $('#data_selected_body').append(newFilepulgin);
                 newFilepulgin.find('button').on('click', { filename: file.name, files: data.files }, function (event) {
                     console.log("Button clicked!");
@@ -116,22 +123,55 @@
               }
             }
           }
+
+
+
+          if($('.incorrect_file_selected').length){
+            // element with class exists
+            // can not let user click the button
+          } else {
+            // allow users to upload file
+          }
+
+
+
+
+
         });
 
          $("#up_btn").click(function () {
-           console.log("data.files.length: ", data.files.length);
-             if (data.files.length > 0) {     //only submit if we have something to upload
-                 console.log("$$$$$data.files.name: ", data.files[0].name);
-                 data.submit();
-                 var myNode = document.getElementById("file_" + data.files[0].name);
-                 console.log("myNode: ", myNode);
-                 // myNode.innerHTML = '';
-             }
-             // var myNode = $("#data_selected_body");
-             // var myNode = document.getElementById("data_selected_body");
-             // myNode.innerHTML = '';
+           var invalid_message = document.getElementById("file_upload_invalid_message");
+           console.log(invalid_message)
+           if($('.incorrect_file_selected').length){
+             // element with class exists
+             // can not let user click the button
+             invalid_message.innerHTML = '<div style="margin-top: 50px; font-size: 18px;" class="alert alert-danger alert-dismissible fade show" role="alert"><center>You must <strong>remove all invalid files</strong> to start files upload. Please check <b>Selected files</b> field below.<center><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+             return false;
+           } else {
+             // allow users to upload file
+             invalid_message.innerHTML = ""
+             console.log("data.files.length: ", data.files.length);
+               if (data.files.length > 0) {     //only submit if we have something to upload
+                   console.log("$$$$$data.files.name: ", data.files[0].name);
+                   data.submit();
+                   var myNode = document.getElementById("file_" + data.files[0].name);
+                   console.log("myNode: ", myNode);
+                   // myNode.innerHTML = '';
+               }
+               // var myNode = $("#data_selected_body");
+               // var myNode = document.getElementById("data_selected_body");
+               // myNode.innerHTML = '';
+           }
+           console.log("$('.incorrect_file_selected').length == 0: ", $('.incorrect_file_selected').length == 0);
+           console.log("$('.correct_file_selected').length == 0", $('.correct_file_selected').length == 0);
+           if ($('.incorrect_file_selected').length == 0 && $('.correct_file_selected').length == 0) {
+             invalid_message.innerHTML = '<div style="margin-top: 50px; font-size: 18px;" class="alert alert-danger alert-dismissible fade show" role="alert"><center><b>You must select files to start files upload.</b> Please drop files on the <b>above</b> block! <center><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+             return false;
+           }
+
          });
      },
+
      start: function (e) {  /* 2. WHEN THE UPLOADING PROCESS STARTS, SHOW THE MODAL */
        $("#modal-progress").modal("show");
      },
@@ -161,6 +201,7 @@
   });
 </script>
 
+<div id="go_to_workflow_error_message"></div>
 
 <div class="container">
     <div class="row">
@@ -260,13 +301,13 @@
                                     checker = true;
                                     if (file_1_size == 0) {
                                         console.log("File 1 have not selected");
-                                        $('#samples-file-message-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">You do not select <strong>"samples.csv"</strong> !<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+                                        $('#samples-file-message-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><center>You do not select <strong>"samples.csv"</strong> !</center><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
                                         checker = false;
                                     }
                                     if (file_1_size == 1 & cleanFileName != file_rule_name) {
                                       console.log("file_1_size: ", file_1_size);
                                       console.log("file_name1: ", cleanFileName);
-                                        $('#samples-file-message-container').append('<div class="alert alert-warning alert-dismissible fade show" role="alert">Filename is <strong>INVALID</strong> ! (clue: must be <strong>"samples.csv"</strong>)<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
+                                        $('#samples-file-message-container').append('<div class="alert alert-warning alert-dismissible fade show" role="alert"><center>Filename is <strong>INVALID</strong> ! (clue: must be <strong>"samples.csv"</strong>)</center><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
                                         checker = false;
                                     }
                                     return checker
@@ -275,9 +316,9 @@
                         </form>
                       {% else %}
                           {% if sample_file_validity %}
-                              <div class="row" style="margin-left:30px">
+                              <div class="row" style="margin-left:30px;">
                                   <div class=".col-12 .col-md-8">
-                                    <div class="check_mark" style="margin-top:-3px; transform: scale(0.4,0.4);">
+                                    <div class="check_mark" style="margin-top:-5px; transform: scale(0.4,0.4);">
                                         <div class="sa-icon sa-success animate">
                                             <span class="sa-line sa-tip animateSuccessTip"></span>
                                             <span class="sa-line sa-long animateSuccessLong"></span>
@@ -287,7 +328,7 @@
                                     </div>
                                   </div>
                                   <div class=".col-6 .col-md-4">
-                                    <p style="font-size:20px;"><i><b style=" color: green;">Success!!</b></i><b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspUpload file: <a href="{{uploaded_sample_file_url}}"> samples.csv</a></b></p>
+                                    <p style="font-size:18px;"><i><b style=" color: green;">Success!!</b></i><b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspUpload file: <a href="{{uploaded_sample_file_url}}"> samples.csv</a></b></p>
                                   </div>
                               </div>
 
@@ -296,7 +337,7 @@
                                     <script>
                                     </script>
                                     {% for key, value in samples_list_key.items %}
-                                      <div class="col">
+                                      <div class="col" style="margin-left: 10px; margin-right: 10px">
                                         <table id="sample_file_item" class="table table-bordered">
                                           <thead>
                                             <tr>
@@ -321,7 +362,7 @@
                                   <form method="post" enctype="multipart/form-data" required="True" style="margin-right:50px;margin-left:50px;">
                                       {% csrf_token %}
                                       <div style="margin-right:50px;margin-left:50px;margin-bottom:15px">
-                                          <button class="btn btn-danger btn-lg btn-block" type="button" data-toggle="modal" data-target="#exampleModalCenter">Delete 'samples.csv'</button>
+                                          <button class="btn btn-danger btn-lg btn-block" type="button" data-toggle="modal" data-target="#exampleModalCenter">Delete 'samples.csv' <small>(and uploaded fastq files)</small></button>
                                       </div>
                                       <!-- Modal -->
                                       <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -354,64 +395,132 @@
                                   <div class="col"><hr></div>
                               </div>
                               <p class="card-text" style="margin-left: 30px">Please select <b>"Multiple Samples"</b> tab or <b>"One Sample"</b> tab to upload the necessary files!</p>
-                              <div style="margin-left:30px;">
-                                <div class="well text-muted text-center js-upload-photos" style="margin: 2%; padding-top: 4rem; padding-bottom: 4rem; border-width:5px;border-style:dashed;border-color:#6B757D; border-radius:25px; background: #e2e2e2">
-                                  <i class="fas fa-cloud-upload-alt fa-5x"></i><h2>Drop Photos Here to Upload</h2>
-                                </div>
-
-                                <form method="post" enctype="multipart/form-data" required="True" style="margin-right:50px;margin-left:50px;">
-                                {% csrf_token %}
-                                  <div style="margin-right:50px;margin-left:50px;margin-bottom:15px">
-                                    <button id="up_btn" name="sample-each-upload-many" type="submit" class="btn btn-success btn-lg btn-block">Upload</button>
-                                  </div>
-                                </form>
-
-                                  <input id="fileupload" type="file" name="file_choose" multiple
-                                         style="display: none;"
-                                         accept="fastq.gz"
-                                         data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
-
-                                   <table id="data_selected" class="table table-bordered">
-                                     <thead>
-                                       <tr>
-                                         <th>Selected files</th>
-                                       </tr>
-                                     </thead>
-                                     <tbody id="data_selected_body">
-                                     </tbody>
-                                   </table>
-
-
-
-                                   <table id="gallery" class="table table-bordered">
-                                     <thead>
-                                       <tr>
-                                         <th>Uploaded files</th>
-                                       </tr>
-                                     </thead>
-                                     <tbody>
-                                       {% for data in datas %}
-                                         <tr>
-                                           <td>
-                                           <div class="row">
-                                             <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data }}</a></div>
-                                             <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data }}</a></div>
-                                             <div class="col-6 col-md-4"><a href="{{ data.file.url }}">{{ data }}</a></div>
-                                           </div>
-                                           </td>
-                                         </tr>
-                                       {% endfor %}
-                                     </tbody>
-                                   </table>
+                              <h6 style="margin-top: 30px; margin-left: 50px"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Must Upload files</b> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp(<i class="fas fa-check-circle" style="color: green;""></i> Uploaded correctly &nbsp&nbsp <i class="fas fa-times-circle" style="color: red;"></i> Not uploaded yet)</h6>
+                              <div style="margin-left: 80px; margin-right: 50px; margin-top: -15px">
+                                  <table class="table table-bordered" border="1" >
+                                      {% for group, samples in samples_list_key.items %}
+                                          <tr>
+                                          {% for sample in samples %}
+                                              {% for sample_check_fastq, ans in check_uploaded_fastq_file_ans.items%}
+                                                  {% if sample_check_fastq == sample %}
+                                                          <td>{{ group }}</td>
+                                                        　<td>
+                                                              <div class="row">
+                                                        {% if ans.R1_checker %}
+                                                                  <div class="col-sm-2">
+                                                                      <a href="{{ans.R1_url}}" style="font-size: 18px;"><i class="fas fa-check-circle" style="color: green;""></i></a>
+                                                                  </div>
+                                                                  <div class="col-sm-10">
+                                                                      <a href="{{ans.R1_url}}"><b>{{ sample }}_R1.fastq.gz</b></a>
+                                                                  </div>
+                                                        {% else %}
+                                                                  <div class="col-sm-2">
+                                                                      <a style="font-size: 18px;"><i class="fas fa-times-circle" style="color: red;"></i></a>
+                                                                  </div>
+                                                                  <div class="col-sm-10">
+                                                                      <b>{{ sample }}_R1.fastq.gz</b>
+                                                                  </div>
+                                                        {% endif %}
+                                                              </div>
+                                                          </td>
+                                                          <td>
+                                                                <div class="row">
+                                                        {% if ans.R2_checker %}
+                                                                  <div class="col-sm-2">
+                                                                      <a href="{{ans.R2_url}}" style="font-size: 18px;"><i class="fas fa-check-circle" style="color: green;""></i></a>
+                                                                  </div>
+                                                                  <div class="col-sm-10">
+                                                                      <a href="{{ans.R2_url}}"><b>{{ sample }}_R2.fastq.gz</b></a>
+                                                                  </div>
+                                                        {% else %}
+                                                                  <div class="col-sm-2">
+                                                                      <a style="font-size: 18px;"><i class="fas fa-times-circle" style="color: red;"></i></a>
+                                                                  </div>
+                                                                  <div class="col-sm-10">
+                                                                      <b>{{ sample }}_R2.fastq.gz</b>
+                                                                  </div>
+                                                        {% endif %}
+                                                                </div>
+                                                            </td>
+                                                      </tr>
+                                                  {% endif %}
+                                              {% endfor %}
+                                          {% endfor %}
+                                      {% endfor %}
+                                  </table>
                               </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                              {% if check_uploaded_fastq_file_whole_ans %}
+                              {% else %}
+                                  <div style="margin-left:30px;">
+                                      <div class="well text-muted text-center js-upload-photos" style="margin: 2%; padding-top: 4rem; padding-bottom: 4rem; border-width:5px;border-style:dashed;border-color:#6B757D; border-radius:25px; background: #e2e2e2">
+                                          <i class="fas fa-cloud-upload-alt fa-5x"></i><h2>Drop Photos Here to Upload</h2>
+                                      </div>
+
+                                      <form method="post" enctype="multipart/form-data" required="True" style="margin-right:50px;margin-left:50px;">
+                                      {% csrf_token %}
+                                          <div style="margin-right:50px;margin-left:50px;margin-bottom:15px">
+                                              <button id="up_btn" name="sample-each-upload-many" type="submit" class="btn btn-success btn-lg btn-block">Upload</button>
+                                          </div>
+                                      </form>
+
+                                      <input id="fileupload" type="file" name="file_choose" multiple
+                                             style="display: none;"
+                                             accept="fastq.gz"
+                                             data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+                                      <div id="file_upload_invalid_message">
+                                      </div>
+                                     <table id="data_selected" class="table table-bordered">
+                                       <thead>
+                                         <tr>
+                                           <th>Selected files</th>
+                                         </tr>
+                                       </thead>
+                                       <tbody id="data_selected_body">
+                                       </tbody>
+                                     </table>
+                                  </div>
+                              {% endif %}
+
+
+
+
+
+
+
+
+
+
                               <form method="post" enctype="multipart/form-data" required="True" style="margin-right:50px;margin-left:80px;">
                               {% csrf_token %}
-                                <div style="margin-right:50px;margin-left:50px;margin-bottom:15px">
+                                <div style="margin-right:50px;margin-left:50px;margin-bottom:15px; margin-top:30px">
                                   <button id="multi_samples_workflow_setup" name="multi_samples_workflow_setup_button" type="submit" class="btn btn-success btn-lg btn-block">Go to workflow setup</button>
                                 </div>
                               </form>
 
-                              
+<script>
+  $("#multi_samples_workflow_setup").click(function () {
+    // return false;
+    if ("{{check_uploaded_fastq_file_whole_ans}}" == "False") {
+      window.scrollTo(0,0);
+      var invalid_message = document.getElementById("go_to_workflow_error_message");
+      invalid_message.innerHTML = '<div style="font-size: 20px;" class="alert alert-danger alert-dismissible fade show" role="alert"><center><b>Must Upload files</b> are incomplete! &nbsp&nbsp Please check "<b>Must Upload files</b> section!" <center><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+      return false;
+    }
+  });
+</script>
+
                           {% else %}
                               <form method="post" enctype="multipart/form-data" required="True" style="margin-right:50px;margin-left:50px;">
                                   {% csrf_token %}
@@ -424,11 +533,6 @@
                       {% endif %}
                     </div>
                 </div>
-
-
-
-
-
             </div>
         </div>
     </div>
@@ -444,4 +548,3 @@
 <div style="margin-bottom: 100px">
 </div>
 {% endblock content %}
-s

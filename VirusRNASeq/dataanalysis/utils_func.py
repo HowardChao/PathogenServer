@@ -51,38 +51,6 @@ def get_end_time(project_name, email, analysis_code):
 
 
 
-
-def get_data_list(project_name, email, analysis_code):
-    uploaded_file = check_upload_sample_name(project_name, email, analysis_code)
-    data_list = []
-    for key in uploaded_file:
-        for file in uploaded_file[key]:
-            data_list.append(file)
-            print("key + filekey + filekey + file: ", file)
-    return data_list
-
-
-def check_upload_sample_name(project_name, email, analysis_code):
-    uploaded_file = {}
-    datadir = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name + '_' + email + '_' + analysis_code)
-    upload_dir = os.path.join(datadir, "Uploaded_files")
-    if os.path.exists(upload_dir):
-        samples_dir = os.listdir(upload_dir)
-        for sample in samples_dir:
-            fastqs_in_sample = []
-            for fastq in os.listdir(os.path.join(upload_dir, sample)):
-                print("fastq", fastq)
-                if ".R1.fastq.gz" in fastq:
-                    fastq_pe_1 = os.path.join(datadir, "Uploaded_files", sample, fastq)
-                    fastqs_in_sample.append(fastq_pe_1)
-                if ".R2.fastq.gz" in fastq:
-                    fastq_pe_2 = os.path.join(datadir, "Uploaded_files", sample, fastq)
-                    fastqs_in_sample.append(fastq_pe_2)
-            uploaded_file[sample] = fastqs_in_sample
-    print("uploaded_file$$$$: ", uploaded_file)
-    return uploaded_file
-
-
 def create_sample_directory(project_name, email, analysis_code, sample_list):
     datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
                         project_name + '_' + email + '_' + analysis_code)
@@ -91,6 +59,7 @@ def create_sample_directory(project_name, email, analysis_code, sample_list):
         if not os.path.exists(sample_dir):
             os.makedirs(sample_dir)
 
+
 def create_time_directory(project_name, email, analysis_code):
     datadir = os.path.join(settings.MEDIA_ROOT, 'tmp',
                         project_name + '_' + email + '_' + analysis_code)
@@ -98,6 +67,9 @@ def create_time_directory(project_name, email, analysis_code):
     if not os.path.exists(time_dir):
         os.makedirs(time_dir)
 
+########################
+### Checking session ###
+########################
 def check_session(request):
     project_name = None
     analysis_code = None
@@ -121,6 +93,10 @@ def check_session(request):
         request.session["assembly_type_input"] = assembly_type_input
     return (project_name, analysis_code, email, assembly_type_input)
 
+
+#########################
+### Checking samples! ###
+#########################
 def check_samples_txt_file(base_dir):
     sample_file_validity = True
     samples_txt_file_name = None
@@ -142,7 +118,7 @@ def check_samples_txt_file(base_dir):
         if not len(read_ans['Groups'].unique()) == 2:
             sample_file_validity = False
         # Whether both numbers should be the same ??
-    
+
         samples_groups = read_ans['Groups'].unique()
         samples_names = read_ans['ids'].unique()
         for i in samples_groups:
@@ -156,48 +132,49 @@ def check_samples_txt_file(base_dir):
         return (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity)
 
 
+#########################
+### Checking fastq.gz ###
+#########################
+def check_uploaded_fastq_file(project_name, email, analysis_code):
+    base_dir = os.path.join(settings.MEDIA_ROOT,
+                            'tmp', project_name + '_' + email + '_' + analysis_code)
+    url_base_dir = os.path.join('/media', 'tmp', project_name + '_' + email + '_' + analysis_code)
+    samples_txt_file = os.path.join(base_dir, 'samples.csv')
+    samples_txt_file_ans = os.path.exists(samples_txt_file)
+    check_uploaded_fastq_file_ans = {}
+    if samples_txt_file_ans:
+        samples_file = pandas.read_csv(samples_txt_file)
+        samples_names = samples_file['ids'].unique().tolist()
+        for sample in samples_names:
+            one_sample_pe_file_ans = {}
+            r1 = os.path.join(base_dir, "Uploaded_files", sample, sample+".R1.fastq.gz")
+            r2 = os.path.join(base_dir, "Uploaded_files", sample, sample+".R2.fastq.gz")
+            one_sample_pe_file_ans['R1_checker'] = os.path.exists(r1)
+            if os.path.exists(r1):
+                one_sample_pe_file_ans['R1_url'] = os.path.join(url_base_dir, "Uploaded_files", sample, sample+".R1.fastq.gz")
+            else:
+                one_sample_pe_file_ans['R1_url'] = "#"
+            one_sample_pe_file_ans['R2_checker'] = os.path.exists(r2)
+            if os.path.exists(r2):
+                one_sample_pe_file_ans['R2_url'] = os.path.join(url_base_dir, "Uploaded_files", sample, sample+".R2.fastq.gz")
+            else:
+                one_sample_pe_file_ans['R2_url'] = "#"
+            check_uploaded_fastq_file_ans[sample] = one_sample_pe_file_ans
+    return check_uploaded_fastq_file_ans
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+def check_uploaded_fastq_file_whole_answer(check_uploaded_fastq_file_ans):
+    all_final_fastq_ans_list = []
+    for sample, ans in check_uploaded_fastq_file_ans.items():
+        r1_ans = ans["R1_checker"]
+        all_final_fastq_ans_list.append(r1_ans)
+        r2_ans = ans["R2_checker"]
+        all_final_fastq_ans_list.append(r2_ans)
+    ## Check every condition is true
+    all_final_fastq_ans = all(all_final_fastq_ans_list)
+    return all_final_fastq_ans
 
 # Check the step with whole samples
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ######################

@@ -40,6 +40,7 @@ class BasicUploadView(DetailView):
     template_name = 'dataanalysis/data_upload.html'
     def get(self, request, slug_project):
         (project_name, analysis_code, email, assembly_type_input) = (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
+
         # The base directory of the created project.
         base_dir = os.path.join(settings.MEDIA_ROOT,
                                 'tmp', project_name + '_' + email + '_' + analysis_code)
@@ -48,18 +49,20 @@ class BasicUploadView(DetailView):
         # Start checking files !!!
         # For sample name!
         (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
-        data_list = utils_func.get_data_list(project_name, email, analysis_code)
+        check_uploaded_fastq_file_ans = utils_func.check_uploaded_fastq_file(project_name, email, analysis_code)
+        check_uploaded_fastq_file_whole_ans = utils_func.check_uploaded_fastq_file_whole_answer(check_uploaded_fastq_file_ans)
         uploaded_sample_file_url = utils_func.get_sample_file_url(project_name, email, analysis_code)
         return render(self.request, "dataanalysis/file_upload.html", {
             'project_name': project_name,
             'analysis_code': analysis_code,
             'email': email,
             'assembly_type_input': assembly_type_input,
-            'datas': data_list,
             'samples_txt_file_name': samples_txt_file_name,
             'samples_list_key': samples_list_key,
             'sample_list': sample_list,
             'sample_file_validity': sample_file_validity,
+            'check_uploaded_fastq_file_ans': check_uploaded_fastq_file_ans,
+            'check_uploaded_fastq_file_whole_ans': check_uploaded_fastq_file_whole_ans,
             'uploaded_sample_file_url': uploaded_sample_file_url,
         })
 
@@ -74,6 +77,8 @@ class BasicUploadView(DetailView):
             template_html = "dataanalysis/analysis_home_denovo.html"
         elif assembly_type_input == "reference_based_assembly":
             template_html = "dataanalysis/analysis_home_reference_based.html"
+        check_uploaded_fastq_file_ans = utils_func.check_uploaded_fastq_file(project_name, email, analysis_code)
+        check_uploaded_fastq_file_whole_ans = utils_func.check_uploaded_fastq_file_whole_answer(check_uploaded_fastq_file_ans)
         uploaded_sample_file_url = utils_func.get_sample_file_url(project_name, email, analysis_code)
         ######################
         ## multi sample section
@@ -85,24 +90,23 @@ class BasicUploadView(DetailView):
             if os.path.exists(os.path.join(base_dir, myfile.name)):
                 os.remove(os.path.join(base_dir, myfile.name))
             filename = fs.save(os.path.join(base_dir, myfile.name), myfile)
-            # Url needs to be updated one file is uploaded!!
-            uploaded_sample_file_url = utils_func.get_sample_file_url(project_name, email, analysis_code)
             # Start checking files
             (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
-            ####################
-            ### Need to modify!!
-            ####################
-            data_list = utils_func.get_data_list(project_name, email, analysis_code)
+            check_uploaded_fastq_file_ans = utils_func.check_uploaded_fastq_file(project_name, email, analysis_code)
+            check_uploaded_fastq_file_whole_ans = utils_func.check_uploaded_fastq_file_whole_answer(check_uploaded_fastq_file_ans)
+            # Url needs to be updated one file is uploaded!!
+            uploaded_sample_file_url = utils_func.get_sample_file_url(project_name, email, analysis_code)
             return render(request, "dataanalysis/file_upload.html", {
                 'project_name': project_name,
                 'analysis_code': analysis_code,
                 'email': email,
                 'assembly_type_input': assembly_type_input,
-                'datas': data_list,
                 'samples_txt_file_name': samples_txt_file_name,
                 'samples_list_key': samples_list_key,
                 'sample_list': sample_list,
                 'sample_file_validity': sample_file_validity,
+                'check_uploaded_fastq_file_ans': check_uploaded_fastq_file_ans,
+                'check_uploaded_fastq_file_whole_ans': check_uploaded_fastq_file_whole_ans,
                 'uploaded_sample_file_url': uploaded_sample_file_url,
             })
         elif 'remove-samples-file' in request.POST:
@@ -115,22 +119,24 @@ class BasicUploadView(DetailView):
                 shutil.rmtree(destination_QC_html_dir)
             # Start checking files
             (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
-            data_list = utils_func.get_data_list(project_name, email, analysis_code)
+            check_uploaded_fastq_file_ans = utils_func.check_uploaded_fastq_file(project_name, email, analysis_code)
+            check_uploaded_fastq_file_whole_ans = utils_func.check_uploaded_fastq_file_whole_answer(check_uploaded_fastq_file_ans)
+            uploaded_sample_file_url = utils_func.get_sample_file_url(project_name, email, analysis_code)
             return render(request, "dataanalysis/file_upload.html", {
                 'project_name': project_name,
                 'analysis_code': analysis_code,
                 'email': email,
                 'assembly_type_input': assembly_type_input,
-                'datas': data_list,
                 'samples_txt_file_name': samples_txt_file_name,
                 'samples_list_key': samples_list_key,
                 'sample_list': sample_list,
                 'sample_file_validity': sample_file_validity,
+                'check_uploaded_fastq_file_ans': check_uploaded_fastq_file_ans,
+                'check_uploaded_fastq_file_whole_ans': check_uploaded_fastq_file_whole_ans,
                 'uploaded_sample_file_url': uploaded_sample_file_url,
             })
         elif 'multi_samples_workflow_setup_button' in request.POST:
             (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
-            data_list = utils_func.get_data_list(project_name, email, analysis_code)
             return redirect((reverse('dataanalysis_home', kwargs={
                 'slug_project': url_parameter})))
             return render(request, template_html, {
@@ -138,37 +144,41 @@ class BasicUploadView(DetailView):
                 'analysis_code': analysis_code,
                 'email': email,
                 'assembly_type_input': assembly_type_input,
-                'datas': data_list,
                 'samples_txt_file_name': samples_txt_file_name,
                 'samples_list_key': samples_list_key,
                 'sample_list': sample_list,
                 'sample_file_validity': sample_file_validity,
+                'check_uploaded_fastq_file_ans': check_uploaded_fastq_file_ans,
+                'check_uploaded_fastq_file_whole_ans': check_uploaded_fastq_file_whole_ans,
                 'uploaded_sample_file_url': uploaded_sample_file_url,
             })
         myfile = request.FILES['file_choose']
         fs = FileSystemStorage()
+        print("myfilemyfilemyfile: ", myfile)
         # Sample name!
         (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
-        data_list = utils_func.get_data_list(project_name, email, analysis_code)
         for sample in sample_list:
-            if not fs.exists(os.path.join(base_dir, 'Uploaded_files')):
-                os.mkdir((os.path.join(base_dir, 'Uploaded_files')))
-                if not fs.exists(os.path.join(base_dir, 'Uploaded_files', sample_name)):
-                    os.mkdir((os.path.join(base_dir, 'Uploaded_files', sample_name)))
+            if not fs.exists(os.path.join(base_dir, 'Uploaded_files', sample)):
+                os.makedirs(os.path.join(base_dir, 'Uploaded_files', sample))
                 # Found split sample name
-                filename = fs.save(os.path.join(base_dir, "Uploaded_files", sample_name, myfile.name), myfile)
+            file_name_tmp_1 = myfile.name.replace(".R1.fastq.gz", "")
+            file_name_tmp_2 = file_name_tmp_1.replace(".R2.fastq.gz", "")
+            if file_name_tmp_2 == sample:
+                filename = fs.save(os.path.join(base_dir, "Uploaded_files", sample, myfile.name), myfile)
                 uploaded_file_url = fs.url(filename)
+        check_uploaded_fastq_file_ans = utils_func.check_uploaded_fastq_file(project_name, email, analysis_code)
+        check_uploaded_fastq_file_whole_ans = utils_func.check_uploaded_fastq_file_whole_answer(check_uploaded_fastq_file_ans)
         data = {
             'project_name': project_name,
             'analysis_code': analysis_code,
             'email': email,
             'assembly_type_input': assembly_type_input,
-            'name': myfile.name,
-            'datas': data_list,
             'samples_txt_file_name': samples_txt_file_name,
             'samples_list_key': samples_list_key,
             'sample_list': sample_list,
             'sample_file_validity': sample_file_validity,
+            'check_uploaded_fastq_file_ans': check_uploaded_fastq_file_ans,
+            'check_uploaded_fastq_file_whole_ans': check_uploaded_fastq_file_whole_ans,
             'uploaded_sample_file_url': uploaded_sample_file_url,
             }
         return JsonResponse(data)
