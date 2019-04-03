@@ -217,6 +217,12 @@ def whole_dataanalysis(request, slug_project):
             trimmomatic_select_adapter = request.POST.get('trimmomatic_illuminaclip')
             trimmomatic_adapter = os.path.join(prefix_dir, "tools/Trimmomatic/adapters", trimmomatic_select_adapter)
             trimmomatic_adapter_param = ":2:30:10"
+            if trimmomatic_select_adapter == "None":
+                trimmomatic_adapter = ""
+                trimmomatic_adapter_param = ""
+                trimmomatic_adapter_snakemake_variable = " "
+            else:
+                trimmomatic_adapter_snakemake_variable = "ILLUMINACLIP:" + trimmomatic_adapter + trimmomatic_adapter_param
             trimmomatic_leading = request.POST.get('trimmomatic_leading_quality')
             trimmomatic_trailing = request.POST.get('trimmomatic_trailing_quality')
             trimmomatic_minlen = request.POST.get('trimmomatic_minlen')
@@ -233,14 +239,17 @@ def whole_dataanalysis(request, slug_project):
             print("bwa_pathogenbwa_pathogen: ", bwa_pathogen)
             if bwa_pathogen == "TB":
                 bwa_pathogen_full_name = "Mycobacterium_tuberculosis_H37Rv"
-                bwa_pathogen_fastq = "Mycobacterium_tuberculosis.fasta"
+                bwa_pathogen_fastq = "Mycobacterium_tuberculosis_H37Rv.fna"
             bwa_pathogen_dir = os.path.join(pathogen_dir, bwa_pathogen_full_name, bwa_pathogen_fastq)
+            bwa_threads = 10
 
             ### snpEff
             snpEff_jar = os.path.join(tool_dir, "snpEff/snpEff/snpEff.jar")
+            snpEff_config = os.path.join(tool_dir, "snpEff/snpEff/snpEff.config")
 
             ### gatk
             gatk_jar = os.path.join(tool_dir, "gatk/gatk-package-4.1.0.0-local.jar")
+            gatk_pathogen_dict = os.path.join(pathogen_dir, bwa_pathogen_full_name)
 
             config_file_path = os.path.join(base_dir, 'config.yaml')
             if assembly_type_input == "de_novo_assembly":
@@ -253,6 +262,7 @@ def whole_dataanalysis(request, slug_project):
                 samples_list_key = samples_list_key,
                 project_name = project_name,
                 datadir = base_dir,
+                bwa_pathogen_full_name = bwa_pathogen_full_name,
                 fastqc = dict(
                     fastqc_command = fastqc_command,
                 ),
@@ -262,6 +272,7 @@ def whole_dataanalysis(request, slug_project):
                     trimmomatic_phred = trimmomatic_phred,
                     trimmomatic_adapter = trimmomatic_adapter,
                     trimmomatic_adapter_param = trimmomatic_adapter_param,
+                    trimmomatic_adapter_snakemake_variable = trimmomatic_adapter_snakemake_variable,
                     trimmomatic_window_size = trimmomatic_window_size,
                     trimmomatic_window_quality = trimmomatic_window_quality,
                     trimmomatic_leading = trimmomatic_leading,
@@ -272,12 +283,15 @@ def whole_dataanalysis(request, slug_project):
                     bwa_host_ref = bwa_host_ref,
                     bwa_pathogen = bwa_pathogen,
                     bwa_pathogen_dir = bwa_pathogen_dir,
+                    bwa_threads = bwa_threads,
                 ),
                 snpEff = dict(
                     snpEff_jar = snpEff_jar,
+                    snpEff_config = snpEff_config,
                 ),
-                gatk_jar = dict(
+                gatk = dict(
                     gatk_jar = gatk_jar,
+                    gatk_pathogen_dict = gatk_pathogen_dict,
                 ),
             )
             with open(config_file_path, 'w') as ymlfile:
@@ -463,8 +477,6 @@ def current_status(request, slug_project):
     ##########
     if request.method == 'POST':
         if 'go-to-overview-button' in request.POST:
-            print("(((((()))))):", reverse('dataanalysis_result_overview', kwargs={
-                'slug_project': url_parameter}))
             return redirect((reverse('dataanalysis_result_overview', kwargs={
                 'slug_project': url_parameter})))
 
@@ -478,12 +490,27 @@ def current_status(request, slug_project):
 
         view_counter_end = "Not Start Counting"
         ## Checking files
-        check_first_qc_ans = utils_func.check_first_qc(sample_datadir, sample_name)
-        one_sample_all_info["check_first_qc_ans"] = check_first_qc_ans
-        check_trimming_qc_ans = utils_func.check_trimming_qc(sample_datadir, sample_name)
-        one_sample_all_info["check_trimming_qc_ans"] = check_trimming_qc_ans
-        check_second_qc_ans = utils_func.check_second_qc(sample_datadir, sample_name)
-        one_sample_all_info["check_second_qc_ans"] = check_second_qc_ans
+        ## Reference-based file checking!!
+        Step_1_check_first_qc = utils_func.Step_1_check_first_qc(sample_datadir, sample_name)
+        one_sample_all_info["Step_1_check_first_qc"] = Step_1_check_first_qc
+        Step_1_check_trimming_qc = utils_func.Step_1_check_trimming_qc(sample_datadir, sample_name)
+        one_sample_all_info["Step_1_check_trimming_qc"] = Step_1_check_trimming_qc
+        Step_1_check_second_qc = utils_func.Step_1_check_second_qc(sample_datadir, sample_name)
+        one_sample_all_info["Step_1_check_second_qc"] = Step_1_check_second_qc
+        Step_2_check_reference_based_bwa_sam = utils_func.Step_2_check_reference_based_bwa_sam(sample_datadir, sample_name)
+        one_sample_all_info["Step_2_check_reference_based_bwa_sam"] = Step_2_check_reference_based_bwa_sam
+        Step_2_check_reference_based_bwa_report_txt = utils_func.Step_2_check_reference_based_bwa_report_txt(sample_datadir, sample_name)
+        one_sample_all_info["Step_2_check_reference_based_bwa_report_txt"] = Step_2_check_reference_based_bwa_report_txt
+        Step_3_check_reference_based_samtools_fixmate_bam = utils_func.Step_3_check_reference_based_samtools_fixmate_bam(sample_datadir, sample_name)
+        one_sample_all_info["Step_3_check_reference_based_samtools_fixmate_bam"] = Step_3_check_reference_based_samtools_fixmate_bam
+        Step_3_check_reference_based_samtools_sorted_bam = utils_func.Step_3_check_reference_based_samtools_sorted_bam(sample_datadir, sample_name)
+        one_sample_all_info["Step_3_check_reference_based_samtools_sorted_bam"] = Step_3_check_reference_based_samtools_sorted_bam
+        Step_4_check_reference_based_bcftools_vcf = utils_func.Step_4_check_reference_based_bcftools_vcf(sample_datadir, sample_name)
+        one_sample_all_info["Step_4_check_reference_based_bcftools_vcf"] = Step_4_check_reference_based_bcftools_vcf
+        Step_4_check_reference_based_bcftools_vcf_revise = utils_func.Step_4_check_reference_based_bcftools_vcf_revise(sample_datadir, sample_name)
+        one_sample_all_info["Step_4_check_reference_based_bcftools_vcf_revise"] = Step_4_check_reference_based_bcftools_vcf_revise
+        Step_5_check_reference_based_snpeff_vcf_annotation = utils_func.Step_5_check_reference_based_snpeff_vcf_annotation(sample_datadir, sample_name)
+        one_sample_all_info["Step_5_check_reference_based_snpeff_vcf_annotation"] = Step_5_check_reference_based_snpeff_vcf_annotation
         samples_all_info[sample_name] = one_sample_all_info
 
         ### Add later~~
@@ -495,7 +522,16 @@ def current_status(request, slug_project):
         # check_extract_non_host_reads_4_ans = utils_func.check_extract_non_host_reads_4(sample_datadir, sample_name)
 
     print("samples_all_info: ", samples_all_info)
-
+    sample_checker_list = []
+    for sample_key, sample_check_info in samples_all_info.items():
+        ans = all(value == True for value in sample_check_info.values())
+        sample_checker_list.append(ans)
+    overall_sample_result_checker = all(item == True for item in sample_checker_list)
+    print("overall_sample_result_checkeroverall_sample_result_checker: ", overall_sample_result_checker)
+    ## If all checker is true ==> just jump to the new final overview page!!!!!!!
+    if overall_sample_result_checker:
+        return redirect((reverse('dataanalysis_result_overview', kwargs={
+            'slug_project': url_parameter})))
     ## The condition to start the analysis
     # for key, samples in check_first_qc_ans_dict.items():
     #     print("keykeykey: ", key)

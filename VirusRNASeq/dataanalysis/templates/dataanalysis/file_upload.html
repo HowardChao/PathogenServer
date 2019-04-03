@@ -33,7 +33,7 @@
         console.log("$('.incorrect_file_selected').length == 0: ", $('.incorrect_file_selected').length == 0);
         console.log("$('.correct_file_selected').length == 0", $('.correct_file_selected').length == 0);
         if ($('.incorrect_file_selected').length == 0 && $('.correct_file_selected').length == 0) {
-          invalid_message.innerHTML = '<div style="margin-top: 50px; font-size: 18px;" class="alert alert-danger alert-dismissible fade show" role="alert"><center><b>You must select files to start files upload.</b> Please drop files on the <b>above</b> block! </center><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+          invalid_message.innerHTML = '<div style="margin-top: 50px; font-size: 18px;" class="alert alert-danger alert-dismissible fade show" role="alert"><center><b>You must select files to start files upload.</b> Please drop files on the <b>below</b> block! </center><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
           return false;
         }
         e.preventDefault();
@@ -165,7 +165,7 @@
            console.log("$('.incorrect_file_selected').length == 0: ", $('.incorrect_file_selected').length == 0);
            console.log("$('.correct_file_selected').length == 0", $('.correct_file_selected').length == 0);
            if ($('.incorrect_file_selected').length == 0 && $('.correct_file_selected').length == 0) {
-             invalid_message.innerHTML = '<div style="margin-top: 50px; font-size: 18px;" class="alert alert-danger alert-dismissible fade show" role="alert"><center><b>You must select files to start files upload.</b> Please drop files on the <b>above</b> block! <center><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+             invalid_message.innerHTML = '<div style="margin-top: 50px; font-size: 18px;" class="alert alert-danger alert-dismissible fade show" role="alert"><center><b>You must select files to start files upload.</b> Please drop files on the <b>below</b> block! <center><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
              return false;
            }
 
@@ -210,7 +210,7 @@
             <div class="card-body w-100">
 
                 <div class="modal fade" id="modal-progress" data-backdrop="static" data-keyboard="false">
-                  <div class="modal-dialog">
+                  <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h4 class="modal-title">Uploading...</h4>
@@ -395,7 +395,28 @@
                                   <div class="col"><hr></div>
                               </div>
                               <p class="card-text" style="margin-left: 30px">Please select <b>"Multiple Samples"</b> tab or <b>"One Sample"</b> tab to upload the necessary files!</p>
-                              <h6 style="margin-top: 30px; margin-left: 50px"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Must Upload files</b> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp(<i class="fas fa-check-circle" style="color: green;""></i> Uploaded correctly &nbsp&nbsp <i class="fas fa-times-circle" style="color: red;"></i> Not uploaded yet)</h6>
+
+                              {% if check_uploaded_fastq_file_whole_ans %}
+                                  <div class="row" style="margin-left:30px;">
+                                      <div class=".col-12 .col-md-8">
+                                        <div class="check_mark" style="margin-top:-5px; transform: scale(0.4,0.4);">
+                                            <div class="sa-icon sa-success animate">
+                                                <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                <span class="sa-line sa-long animateSuccessLong"></span>
+                                                <div class="sa-placeholder"></div>
+                                                <div class="sa-fix"></div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class=".col-6 .col-md-4">
+                                        <p style="font-size:18px;"><i><b style=" color: green;">Success!!</b></i></p>
+                                      </div>
+                                  </div>
+                              {% else %}
+                              {% endif %}
+
+
+                              <h6 style="margin-top: 10px; margin-left: 50px"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Must Upload files</b> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp( <i class="fas fa-check-circle" style="color: green;""></i> Uploaded correctly &nbsp&nbsp <i class="fas fa-times-circle" style="color: red;"></i> Not uploaded yet )</h6>
                               <div style="margin-left: 80px; margin-right: 50px; margin-top: -15px">
                                   <table class="table table-bordered" border="1" >
                                       {% for group, samples in samples_list_key.items %}
@@ -450,19 +471,14 @@
                                   </table>
                               </div>
 
-
-
-
-
-
-
-
-
-
-
-
                               {% if check_uploaded_fastq_file_whole_ans %}
+
+
+
+
+
                               {% else %}
+                                  <div id="file_upload_invalid_message"></div>
                                   <div style="margin-left:30px;">
                                       <div class="well text-muted text-center js-upload-photos" style="margin: 2%; padding-top: 4rem; padding-bottom: 4rem; border-width:5px;border-style:dashed;border-color:#6B757D; border-radius:25px; background: #e2e2e2">
                                           <i class="fas fa-cloud-upload-alt fa-5x"></i><h2>Drop Photos Here to Upload</h2>
@@ -479,12 +495,11 @@
                                              style="display: none;"
                                              accept="fastq.gz"
                                              data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
-                                      <div id="file_upload_invalid_message">
-                                      </div>
+
                                      <table id="data_selected" class="table table-bordered">
                                        <thead>
                                          <tr>
-                                           <th>Selected files</th>
+                                           <th>Selected files &nbsp&nbsp&nbsp&nbsp( <i class="fas fa-times fa-1g" style="color: red"></i>&nbsp Invalid selected file &nbsp&nbsp&nbsp&nbsp<i class="fas fa-check fa-1g" style="color: green"></i> Valid selected file )</th>
                                          </tr>
                                        </thead>
                                        <tbody id="data_selected_body">
@@ -539,9 +554,6 @@
 </div>
 <div style="margin-bottom: 100px">
 </div>
-
-
-
 
 
 

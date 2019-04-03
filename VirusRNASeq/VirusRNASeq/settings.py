@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'email_hash',
     'users.apps.UsersConfig',
     'tmpuser',
+    'django_q',
     # 'progressbarupload',
 ]
 
@@ -161,5 +162,16 @@ FILE_UPLOAD_HANDLERS = (
 
 PROGRESSBARUPLOAD_INCLUDE_JQUERY = True
 
-##
+## 
 LOGIN_REDIRECT_URL = 'homepage'
+
+
+Q_CLUSTER = {
+'name': 'DjangORM',
+'workers': 1,
+'timeout': 1800,
+'retry': 120,
+'queue_limit': 50,
+'bulk': 10,
+'orm': 'default'
+}

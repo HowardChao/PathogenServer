@@ -65,20 +65,22 @@
           {% for sample in samples %}
               <!-- <h1>{{ forloop.counter }} </h1> -->
               <div class="pipeline_result row" id="{{sample}}_page" style="margin-right: 100px">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                          <h3><b><i class="fas fa-object-group"></i> &nbsp Group: {{ group }} </b></h3>
-                        </div>
-                        <div class="col">
-                          <h3><b><i class="fas fa-object-group"></i> &nbsp Sample Name: {{ sample }} </b></h3>
-                        </div>
-                    </div>
-                </div>
+                  <div class="card bg-light mt-4 mb-3 w-100 p-3" style="margin-left: 100px; margin-top: 20px; margin-right: 200px;">
+                      <div class="card-header">
+                          <p class="h2"><i class="fas fa-tasks"></i> &nbsp &nbsp Current Status of &nbsp"{{ sample }}"&nbsp sample</p>
 
-                  <div class="card bg-light mt-5 mb-3 w-100 p-3" style="margin-left: 100px; margin-top: 20px; margin-right: 100px">
-                      <div class="card-header"><p class="h2"><i class="fas fa-tasks"></i> &nbsp &nbsp Current Status of Pipeline {{ variable.inside_or_outside }} </p></div>
+                      </div>
                       <div class="card-body w-100">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                  <center><h4><b><i class="fas fa-object-group"></i> &nbsp Group: {{ group }} </b></h4></center>
+                                </div>
+                                <div class="col">
+                                  <center><h4><b><i class="fas fa-object-group"></i> &nbsp Sample Name: {{ sample }} </b></h4></center>
+                                </div>
+                            </div>
+                        </div>
                           <div class="container">
                               <script>
                                   function animation() {
@@ -95,21 +97,21 @@
                                         <li class="timeline-inverted">
                                             <div id="quality_control_progress" class="timeline-badge warning" onclick=animation()><i class="fas fa-search fa-2x" style="margin-top: 20px"></i></div>
                                             <div id="quality_control_progress_detail" class="timeline-panel">
-                                                <div class="timeline-heading">
-                                                  {% if one_sample_all_info.check_first_qc_ans is True and one_sample_all_info.check_trimming_qc_ans is True and one_sample_all_info.check_second_qc_ans is True%}
+                                                <div id="quality_control_progress_head" class="timeline-heading">
+                                                  {% if one_sample_all_info.Step_1_check_first_qc is True and one_sample_all_info.Step_1_check_trimming_qc is True and one_sample_all_info.Step_1_check_second_qc is True%}
                                                     <h4 class="timeline-title" style="margin-bottom:20px"><i class="fas fa-check" style="color: green"></i>&nbsp&nbsp Quality Control</h4>
                                                   {% else%}
                                                     <h4 class="timeline-title" style="margin-bottom:20px">Quality Control</h4>
                                                   {% endif %}
                                                 </div>
                                                 <div id="quality_control_progress_body" class="timeline-body" style="margin-left:30px">
-                                                    {% if one_sample_all_info.check_first_qc_ans is False %}
+                                                    {% if one_sample_all_info.Step_1_check_first_qc is False %}
                                                     <div class="row">
                                                         <div class=".col-12 .col-md-8">
                                                             <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>FastQC</b> and <b>MultiQC</b> quality assessment before trimming:  Running ! <i class="fas fa-ellipsis-h"></i></p>
                                                         </div>
                                                     </div>
-                                                    {% elif one_sample_all_info.check_first_qc_ans is True %}
+                                                    {% elif one_sample_all_info.Step_1_check_first_qc is True %}
                                                     <div class="row">
                                                         <div class=".col-12 .col-md-8">
                                                             <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>FastQC</b> and <b>MultiQC</b> quality assessment before trimming:  Finished !</p>
@@ -126,13 +128,13 @@
                                                         </div>
                                                     </div>
                                                     {% endif %}
-                                                    {% if one_sample_all_info.check_trimming_qc_ans is False %}
+                                                    {% if one_sample_all_info.Step_1_check_trimming_qc is False %}
                                                     <div class="row">
                                                         <div class=".col-12 .col-md-8">
                                                             <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>Trimmomatic</b> quality trimming:  Running ! <i class="fas fa-ellipsis-h"></i></p>
                                                         </div>
                                                     </div>
-                                                    {% elif one_sample_all_info.check_trimming_qc_ans is True %}
+                                                    {% elif one_sample_all_info.Step_1_check_trimming_qc is True %}
                                                     <div class="row">
                                                         <div class=".col-12 .col-md-8">
                                                             <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>Trimmomatic</b> quality trimming:  Finished !</p>
@@ -149,13 +151,13 @@
                                                         </div>
                                                     </div>
                                                     {% endif %}
-                                                    {% if one_sample_all_info.check_second_qc_ans is False %}
+                                                    {% if one_sample_all_info.Step_1_check_second_qc is False %}
                                                     <div class="row">
                                                         <div class=".col-12 .col-md-8">
                                                             <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>FastQC</b> and <b>MultiQC</b> quality assessment after trimming:  Running ! <i class="fas fa-ellipsis-h"></i></p>
                                                         </div>
                                                     </div>
-                                                    {% elif one_sample_all_info.check_second_qc_ans is True %}
+                                                    {% elif one_sample_all_info.Step_1_check_second_qc is True %}
                                                     <div class="row">
                                                         <div class=".col-12 .col-md-8">
                                                             <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>FastQC</b> and <b>MultiQC</b> quality assessment after trimming:  Finished !</p>
@@ -178,26 +180,26 @@
                                         </li>
 
                                         <li class="timeline-inverted">
-                                            <div id="read_subtraction_progress" class="timeline-badge warning"><i class="fas fa-cut fa-2x" style="margin-top: 20px"></i></div>
-                                            <div id="read_subtraction_progress_detail" class="timeline-panel">
-                                                <div class="timeline-heading">
-                                                  {% if check_read_subtraction_bwa_align_ans is True%}
-                                                    <h4 class="timeline-title" style="margin-bottom:20px"><i class="fas fa-check" style="color: green"></i>&nbsp&nbsp Read Subtraction</h4>
+                                            <div id="reference_mapping" class="timeline-badge warning"><i class="fas fa-cut fa-2x" style="margin-top: 20px"></i></div>
+                                            <div id="reference_mapping_detail" class="timeline-panel">
+                                                <div id="reference_mapping_head" class="timeline-heading">
+                                                  {% if one_sample_all_info.Step_2_check_reference_based_bwa_sam is True and one_sample_all_info.Step_2_check_reference_based_bwa_report_txt is True %}
+                                                    <h4 class="timeline-title" style="margin-bottom:20px"><i class="fas fa-check" style="color: green"></i>&nbsp&nbsp Reference Mappping</h4>
                                                   {% else%}
-                                                    <h4 class="timeline-title" style="margin-bottom:20px">Read Subtraction</h4>
+                                                    <h4 class="timeline-title" style="margin-bottom:20px">Reference Mappping</h4>
                                                   {% endif %}
                                                 </div>
-                                                <div id="read_subtraction_progress_body" class="timeline-body" style="margin-left:30px">
-                                                    {% if check_read_subtraction_bwa_align_ans is False %}
+                                                <div id="reference_mapping_body" class="timeline-body" style="margin-left:30px">
+                                                    {% if one_sample_all_info.Step_2_check_reference_based_bwa_sam is False %}
                                                     <div class="row">
                                                         <div class=".col-12 .col-md-8">
-                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BWA MEM</b> reads alignment to host genome:  Running ! <i class="fas fa-ellipsis-h"></i></p>
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BWA MEM</b> reads align to reference genome:  Running !<i class="fas fa-ellipsis-h"></i></p>
                                                         </div>
                                                     </div>
-                                                    {% elif check_read_subtraction_bwa_align_ans is True %}
+                                                    {% elif one_sample_all_info.Step_2_check_reference_based_bwa_sam is True %}
                                                     <div class="row">
                                                         <div class=".col-12 .col-md-8">
-                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BWA MEM</b> reads alignment to host genome:  Finished !</p>
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BWA MEM</b> reads align to reference genome:  Finished !</p>
                                                         </div>
                                                         <div class=".col-6 .col-md-4">
                                                         <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
@@ -211,88 +213,16 @@
                                                         </div>
                                                     </div>
                                                     {% endif %}
-                                                    {% if check_extract_non_host_reads_1_ans is False %}
+                                                    {% if one_sample_all_info.Step_2_check_reference_based_bwa_report_txt is False %}
                                                     <div class="row">
                                                         <div class=".col-12 .col-md-8">
-                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools</b> converting from BAM to SAM:  Running ! <i class="fas fa-ellipsis-h"></i></p>
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BWA MEM</b> txt result report generation:  Running !<i class="fas fa-ellipsis-h"></i></p>
                                                         </div>
                                                     </div>
-                                                    {% elif check_extract_non_host_reads_1_ans is True %}
+                                                    {% elif one_sample_all_info.Step_2_check_reference_based_bwa_report_txt is True %}
                                                     <div class="row">
                                                         <div class=".col-12 .col-md-8">
-                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools sort</b> converting from BAM to SAM:  Finished !</p>
-                                                        </div>
-                                                        <div class=".col-6 .col-md-4">
-                                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
-                                                            <div class="sa-icon sa-success animate">
-                                                                <span class="sa-line sa-tip animateSuccessTip"></span>
-                                                                <span class="sa-line sa-long animateSuccessLong"></span>
-                                                                <div class="sa-placeholder"></div>
-                                                                <div class="sa-fix"></div>
-                                                            </div>
-                                                        </div>
-                                                        </div>
-                                                    </div>
-                                                    {% endif %}
-
-                                                    {% if check_extract_non_host_reads_2_ans is False %}
-                                                    <div class="row">
-                                                        <div class=".col-12 .col-md-8">
-                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools flagstat</b> calculating statistics to TXT file:  Running ! <i class="fas fa-ellipsis-h"></i></p>
-                                                        </div>
-                                                    </div>
-                                                    {% elif check_extract_non_host_reads_2_ans is True %}
-                                                    <div class="row">
-                                                        <div class=".col-12 .col-md-8">
-                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools flagstat</b> calculating statistics to TXT file:  Finished !</p>
-                                                        </div>
-                                                        <div class=".col-6 .col-md-4">
-                                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
-                                                            <div class="sa-icon sa-success animate">
-                                                                <span class="sa-line sa-tip animateSuccessTip"></span>
-                                                                <span class="sa-line sa-long animateSuccessLong"></span>
-                                                                <div class="sa-placeholder"></div>
-                                                                <div class="sa-fix"></div>
-                                                            </div>
-                                                        </div>
-                                                        </div>
-                                                    </div>
-                                                    {% endif %}
-
-                                                    {% if check_extract_non_host_reads_3_ans is False %}
-                                                    <div class="row">
-                                                        <div class=".col-12 .col-md-8">
-                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools view</b> getting unmapped BAM:  Running ! <i class="fas fa-ellipsis-h"></i></p>
-                                                        </div>
-                                                    </div>
-                                                    {% elif check_extract_non_host_reads_3_ans is True %}
-                                                    <div class="row">
-                                                        <div class=".col-12 .col-md-8">
-                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMTools view</b> getting unmapped BAM:  Finished !</p>
-                                                        </div>
-                                                        <div class=".col-6 .col-md-4">
-                                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
-                                                            <div class="sa-icon sa-success animate">
-                                                                <span class="sa-line sa-tip animateSuccessTip"></span>
-                                                                <span class="sa-line sa-long animateSuccessLong"></span>
-                                                                <div class="sa-placeholder"></div>
-                                                                <div class="sa-fix"></div>
-                                                            </div>
-                                                        </div>
-                                                        </div>
-                                                    </div>
-                                                    {% endif %}
-
-                                                    {% if check_extract_non_host_reads_4_ans is False %}
-                                                    <div class="row">
-                                                        <div class=".col-12 .col-md-8">
-                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>bedtools bamtofastq</b> converting BAM to FASTQ:  Running ! <i class="fas fa-ellipsis-h"></i></p>
-                                                        </div>
-                                                    </div>
-                                                    {% elif check_extract_non_host_reads_4_ans is True %}
-                                                    <div class="row">
-                                                        <div class=".col-12 .col-md-8">
-                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>bedtools bamtofastq</b> converting BAM to FASTQ:  Finished !</p>
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BWA MEM</b> txt result report generation:  Finished !</p>
                                                         </div>
                                                         <div class=".col-6 .col-md-4">
                                                         <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
@@ -311,15 +241,157 @@
                                         </li>
 
                                         <li class="timeline-inverted">
-                                            <div class="timeline-badge warning"><i class="fas fa-cut fa-2x" style="margin-top: 20px"></i></div>
-                                            <div class="timeline-panel">
-                                                <div class="timeline-heading">
-                                                <h4 class="timeline-title" style="margin-bottom:20px">Testing</h4>
+                                            <div id="variant_calling" class="timeline-badge warning"><i class="fas fa-cut fa-2x" style="margin-top: 20px"></i></div>
+                                            <div id="variant_calling_detail" class="timeline-panel">
+                                                <div id="variant_calling_head" class="timeline-heading">
+                                                  {% if one_sample_all_info.Step_3_check_reference_based_samtools_fixmate_bam is True and one_sample_all_info.Step_3_check_reference_based_samtools_sorted_bam is True and one_sample_all_info.Step_4_check_reference_based_bcftools_vcf %}
+                                                    <h4 class="timeline-title" style="margin-bottom:20px"><i class="fas fa-check" style="color: green"></i>&nbsp&nbsp Variant Calling</h4>
+                                                  {% else%}
+                                                    <h4 class="timeline-title" style="margin-bottom:20px">Variant Calling</h4>
+                                                  {% endif %}
                                                 </div>
-                                                <div class="timeline-body">
+                                                <div id="variant_calling_body" class="timeline-body"  style="margin-left:30px">
+                                                  {% if one_sample_all_info.Step_3_check_reference_based_samtools_fixmate_bam is False %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMtools fixmate</b> flags-filling from a name-sorted alignment:  Running !<i class="fas fa-ellipsis-h"></i></p>
+                                                      </div>
+                                                  </div>
+                                                  {% elif one_sample_all_info.Step_3_check_reference_based_samtools_fixmate_bam is True %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMtools fixmate</b> flags-filling from a name-sorted alignment:  Finished !</p>
+                                                      </div>
+                                                      <div class=".col-6 .col-md-4">
+                                                      <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                                          <div class="sa-icon sa-success animate">
+                                                              <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                              <span class="sa-line sa-long animateSuccessLong"></span>
+                                                              <div class="sa-placeholder"></div>
+                                                              <div class="sa-fix"></div>
+                                                          </div>
+                                                      </div>
+                                                      </div>
+                                                  </div>
+                                                  {% endif %}
+
+                                                  {% if one_sample_all_info.Step_3_check_reference_based_samtools_sorted_bam is False %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMtools sort</b> alignment-sorting:  Running !<i class="fas fa-ellipsis-h"></i></p>
+                                                      </div>
+                                                  </div>
+                                                  {% elif one_sample_all_info.Step_3_check_reference_based_samtools_sorted_bam is True %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMtools sort</b> alignment-sorting:  Finished !</p>
+                                                      </div>
+                                                      <div class=".col-6 .col-md-4">
+                                                      <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                                          <div class="sa-icon sa-success animate">
+                                                              <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                              <span class="sa-line sa-long animateSuccessLong"></span>
+                                                              <div class="sa-placeholder"></div>
+                                                              <div class="sa-fix"></div>
+                                                          </div>
+                                                      </div>
+                                                      </div>
+                                                  </div>
+                                                  {% endif %}
+
+                                                  {% if one_sample_all_info.Step_4_check_reference_based_bcftools_vcf is False %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BCFtools mpileup | call</b> variant calling vcf file creating:  Running !<i class="fas fa-ellipsis-h"></i></p>
+                                                      </div>
+                                                  </div>
+                                                  {% elif one_sample_all_info.Step_4_check_reference_based_bcftools_vcf is True %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BCFtools mpileup | call</b> variant calling vcf file creating:  Finished !</p>
+                                                      </div>
+                                                      <div class=".col-6 .col-md-4">
+                                                      <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                                          <div class="sa-icon sa-success animate">
+                                                              <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                              <span class="sa-line sa-long animateSuccessLong"></span>
+                                                              <div class="sa-placeholder"></div>
+                                                              <div class="sa-fix"></div>
+                                                          </div>
+                                                      </div>
+                                                      </div>
+                                                  </div>
+                                                  {% endif %}
+
                                                 </div>
                                             </div>
                                         </li>
+
+                                        <li class="timeline-inverted">
+                                            <div id="variant_calling_annotation" class="timeline-badge warning"><i class="fas fa-cut fa-2x" style="margin-top: 20px"></i></div>
+                                            <div id="variant_calling_annotation_detail" class="timeline-panel">
+                                                <div id="variant_calling_annotation_head" class="timeline-heading">
+                                                  {% if one_sample_all_info.Step_4_check_reference_based_bcftools_vcf_revise is True and one_sample_all_info.Step_5_check_reference_based_snpeff_vcf_annotation is True %}
+                                                    <h4 class="timeline-title" style="margin-bottom:20px"><i class="fas fa-check" style="color: green"></i>&nbsp&nbsp Variant Calling File Annotation</h4>
+                                                  {% else%}
+                                                    <h4 class="timeline-title" style="margin-bottom:20px">Variant Calling File Annotation</h4>
+                                                  {% endif %}
+                                                </div>
+                                                <div id="variant_calling_annotation_body" class="timeline-body"  style="margin-left:30px">
+                                                  {% if one_sample_all_info.Step_4_check_reference_based_bcftools_vcf_revise is False %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>sed</b> vcf file modification:  Running !<i class="fas fa-ellipsis-h"></i></p>
+                                                      </div>
+                                                  </div>
+                                                  {% elif one_sample_all_info.Step_4_check_reference_based_bcftools_vcf_revise is True %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>sed</b> vcf file modification:  Finished !</p>
+                                                      </div>
+                                                      <div class=".col-6 .col-md-4">
+                                                      <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                                          <div class="sa-icon sa-success animate">
+                                                              <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                              <span class="sa-line sa-long animateSuccessLong"></span>
+                                                              <div class="sa-placeholder"></div>
+                                                              <div class="sa-fix"></div>
+                                                          </div>
+                                                      </div>
+                                                      </div>
+                                                  </div>
+                                                  {% endif %}
+
+                                                  {% if one_sample_all_info.Step_5_check_reference_based_snpeff_vcf_annotation is False %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>snpeff.jar</b> vcf file annotation:  Running !<i class="fas fa-ellipsis-h"></i></p>
+                                                      </div>
+                                                  </div>
+                                                  {% elif one_sample_all_info.Step_5_check_reference_based_snpeff_vcf_annotation is True %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>snpeff.jar</b> vcf file annotation:  Finished !</p>
+                                                      </div>
+                                                      <div class=".col-6 .col-md-4">
+                                                      <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                                          <div class="sa-icon sa-success animate">
+                                                              <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                              <span class="sa-line sa-long animateSuccessLong"></span>
+                                                              <div class="sa-placeholder"></div>
+                                                              <div class="sa-fix"></div>
+                                                          </div>
+                                                      </div>
+                                                      </div>
+                                                  </div>
+                                                  {% endif %}
+                                                </div>
+                                            </div>
+                                        </li>
+
+
+
+
                                     {% endif %}
                                 {% endfor %}
                               </ul>

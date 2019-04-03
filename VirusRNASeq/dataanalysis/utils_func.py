@@ -206,7 +206,7 @@ def check_end_time_file(base_dir, sample_name):
 
 
 
-def check_first_qc(sample_datadir, sample_name):
+def Step_1_check_first_qc(sample_datadir, sample_name):
     root_dir = os.path.join(sample_datadir, 'Step_1', 'QC', 'pre')
     print("**** Inside check_first_qc function:")
     print("R1 html: ", os.path.join(root_dir, sample_name+".R1_fastqc.html"))
@@ -234,7 +234,7 @@ def check_first_qc(sample_datadir, sample_name):
         return False
 
 
-def check_trimming_qc(sample_datadir, sample_name):
+def Step_1_check_trimming_qc(sample_datadir, sample_name):
     root_dir_trimmed_paired = os.path.join(sample_datadir, 'Step_1', "trimmed_paired")
     root_dir_trimmed_unpaired = os.path.join(
         settings.MEDIA_ROOT, 'tmp', sample_datadir, 'Step_1', "trimmed_unpaired")
@@ -265,70 +265,163 @@ def check_trimming_qc(sample_datadir, sample_name):
         return False
 
 
-def check_second_qc(sample_datadir, sample_name):
+def Step_1_check_second_qc(sample_datadir, sample_name):
     root_dir = os.path.join(sample_datadir, 'Step_1', 'QC', 'post')
     print("**** Inside check_first_qc function:")
     print("R1 paired html: ", os.path.join(
         root_dir, sample_name+"_r1_paired_fastqc.html"))
-    print("R1 unpaired html: ", os.path.join(
-        root_dir, sample_name+"_r1_unpaired_fastqc.html"))
+    # print("R1 unpaired html: ", os.path.join(
+    #     root_dir, sample_name+"_r1_unpaired_fastqc.html"))
     print("R2 paired html: ", os.path.join(
         root_dir, sample_name+"_r2_paired_fastqc.html"))
-    print("R2 unpaired html: ", os.path.join(
-        root_dir, sample_name+"_r2_unpaired_fastqc.html"))
+    # print("R2 unpaired html: ", os.path.join(
+    #     root_dir, sample_name+"_r2_unpaired_fastqc.html"))
     print("R1 paired zip: ", os.path.join(
         root_dir, sample_name+"_r1_paired_fastqc.zip"))
-    print("R1 unpaired zip: ", os.path.join(
-        root_dir, sample_name+"_r1_unpaired_fastqc.zip"))
+    # print("R1 unpaired zip: ", os.path.join(
+    #     root_dir, sample_name+"_r1_unpaired_fastqc.zip"))
     print("R2 paired zip: ", os.path.join(
         root_dir, sample_name+"_r2_paired_fastqc.zip"))
-    print("R2 unpaired zip: ", os.path.join(
-        root_dir, sample_name+"_r2_unpaired_fastqc.zip"))
+    # print("R2 unpaired zip: ", os.path.join(
+    #     root_dir, sample_name+"_r2_unpaired_fastqc.zip"))
     print("multiqc html: ", os.path.join(
         root_dir, sample_name+"_multiqc.html"))
     print("multiqc dir: ", os.path.join(
         root_dir, sample_name+"_multiqc_data"))
     r1_paired_html = os.path.exists(os.path.join(
         root_dir, sample_name+"_r1_paired_fastqc.html"))
-    r1_unpaired_html = os.path.exists(os.path.join(
-        root_dir, sample_name+"_r1_unpaired_fastqc.html"))
+    # r1_unpaired_html = os.path.exists(os.path.join(
+    #     root_dir, sample_name+"_r1_unpaired_fastqc.html"))
     r2_paired_html = os.path.exists(os.path.join(
         root_dir, sample_name+"_r2_paired_fastqc.html"))
-    r2_unpaired_html = os.path.exists(os.path.join(
-        root_dir, sample_name+"_r2_unpaired_fastqc.html"))
+    # r2_unpaired_html = os.path.exists(os.path.join(
+    #     root_dir, sample_name+"_r2_unpaired_fastqc.html"))
     r1_paired_zip = os.path.exists(os.path.join(
         root_dir, sample_name+"_r1_paired_fastqc.zip"))
-    r1_unpaired_zip = os.path.exists(os.path.join(
-        root_dir, sample_name+"_r1_unpaired_fastqc.zip"))
+    # r1_unpaired_zip = os.path.exists(os.path.join(
+    #     root_dir, sample_name+"_r1_unpaired_fastqc.zip"))
     r2_paired_zip = os.path.exists(os.path.join(
         root_dir, sample_name+"_r2_paired_fastqc.zip"))
-    r2_unpaired_zip = os.path.exists(os.path.join(
-        root_dir, sample_name+"_r2_unpaired_fastqc.zip"))
+    # r2_unpaired_zip = os.path.exists(os.path.join(
+    #     root_dir, sample_name+"_r2_unpaired_fastqc.zip"))
     multiqc_html = os.path.exists(os.path.join(
         root_dir, sample_name+"_multiqc.html"))
     multiqc_dir = os.path.exists(os.path.join(
         root_dir, sample_name+"_multiqc_data"))
     print("r1_paired_html: ", r1_paired_html)
-    print("r1_unpaired_html: ", r1_unpaired_html)
+    # print("r1_unpaired_html: ", r1_unpaired_html)
     print("r2_paired_html: ", r2_paired_html)
-    print("r2_unpaired_html: ", r2_unpaired_html)
+    # print("r2_unpaired_html: ", r2_unpaired_html)
     print("r1_paired_zip: ", r1_paired_zip)
-    print("r1_unpaired_zip: ", r1_unpaired_zip)
+    # print("r1_unpaired_zip: ", r1_unpaired_zip)
     print("r2_paired_zip: ", r2_paired_zip)
-    print("r2_unpaired_zip: ", r2_unpaired_zip)
+    # print("r2_unpaired_zip: ", r2_unpaired_zip)
     print("multiqc_html: ", multiqc_html)
     print("multiqc_dir: ", multiqc_dir)
-    if r1_paired_html and r1_unpaired_html and r2_paired_html and r2_unpaired_html and r1_paired_zip and r1_unpaired_zip and r2_paired_zip and r2_unpaired_zip and multiqc_html and multiqc_dir:
+    if r1_paired_html and r2_paired_html and r1_paired_zip and r2_paired_zip and multiqc_html and multiqc_dir:
+        return True
+    else:
+        return False
+
+################################
+### reference-based specific ###
+################################
+def Step_2_check_reference_based_bwa_sam(sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, "Step_2", "bwa")
+    print("bwa sam file: ", os.path.join(
+        root_dir, sample_name+".sam"))
+    reference_based_bwa_sam = os.path.exists(os.path.join(
+        root_dir, sample_name+".sam"))
+    print("reference_based_bwa_sam: ", reference_based_bwa_sam)
+    if reference_based_bwa_sam:
         return True
     else:
         return False
 
 
+def Step_2_check_reference_based_bwa_report_txt(sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, "Step_2", "bwa")
+    print("bwa report file: ", os.path.join(
+        root_dir, sample_name+"_alignment_report.txt"))
+    reference_based_bwa_report_txt = os.path.exists(os.path.join(
+        root_dir, sample_name+"_alignment_report.txt"))
+    print("reference_based_bwa_report_txt: ", reference_based_bwa_report_txt)
+    if reference_based_bwa_report_txt:
+        return True
+    else:
+        return False
 
 
+def Step_3_check_reference_based_samtools_fixmate_bam(sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, "Step_3", "samtools")
+    print("fixmate bam file: ", os.path.join(
+        root_dir, sample_name+"_fixmate.bam"))
+    reference_based_samtools_fixmate_bam = os.path.exists(os.path.join(
+        root_dir, sample_name+"_fixmate.bam"))
+    print("reference_based_samtools_fixmate_bam: ", reference_based_samtools_fixmate_bam)
+    if reference_based_samtools_fixmate_bam:
+        return True
+    else:
+        return False
+
+def Step_3_check_reference_based_samtools_sorted_bam(sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, "Step_3", "samtools")
+    print("sorted bam file: ", os.path.join(
+        root_dir, sample_name+"_sorted.bam"))
+    reference_based_samtools_sorted_bam = os.path.exists(os.path.join(
+        root_dir, sample_name+"_sorted.bam"))
+    print("reference_based_samtools_sorted_bam: ", reference_based_samtools_sorted_bam)
+    if reference_based_samtools_sorted_bam:
+        return True
+    else:
+        return False
 
 
+def Step_4_check_reference_based_bcftools_vcf(sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, "Step_4", "bcftools")
+    print("bcftools vcf_gz file: ", os.path.join(
+        root_dir, sample_name+".vcf"))
+    reference_based_bcftools_vcf = os.path.exists(os.path.join(
+        root_dir, sample_name+".vcf"))
+    print("reference_based_bcftools_vcf: ", reference_based_bcftools_vcf)
+    if reference_based_bcftools_vcf:
+        return True
+    else:
+        return False
 
+def Step_4_check_reference_based_bcftools_vcf_revise(sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, "Step_4", "bcftools")
+    print("bcftools vcf_gz file: ", os.path.join(
+        root_dir, sample_name+"_revise.vcf"))
+    reference_based_bcftools_vcf_revise = os.path.exists(os.path.join(
+        root_dir, sample_name+"_revise.vcf"))
+    print("reference_based_bcftools_vcf_revise: ", reference_based_bcftools_vcf_revise)
+    if reference_based_bcftools_vcf_revise:
+        return True
+    else:
+        return False
+
+def Step_5_check_reference_based_snpeff_vcf_annotation(sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, "Step_5", "snpeff")
+    print("snpeff annotation file: ", os.path.join(
+        root_dir, sample_name+".ann.vcf"))
+    print("snpeff annotation file: ", os.path.join(
+        root_dir, sample_name+"_snpEff_summary.genes.txt"))
+    print("snpeff annotation file: ", os.path.join(
+        root_dir, sample_name+"_snpEff_summary.html"))
+    reference_based_snpeff_vcf_annotation = os.path.exists(os.path.join(
+        root_dir, sample_name+".ann.vcf"))
+    reference_based_snpeff_vcf_annotation_txt = os.path.exists(os.path.join(
+        root_dir, sample_name+"_snpEff_summary.genes.txt"))
+    reference_based_snpeff_vcf_annotation_html = os.path.exists(os.path.join(
+        root_dir, sample_name+"_snpEff_summary.html"))
+    print("reference_based_snpeff_vcf_annotation: ", reference_based_snpeff_vcf_annotation)
+    print("reference_based_snpeff_vcf_annotation_txt: ", reference_based_snpeff_vcf_annotation_txt)
+    print("reference_based_snpeff_vcf_annotation_html: ", reference_based_snpeff_vcf_annotation_html)
+    if reference_based_snpeff_vcf_annotation and reference_based_snpeff_vcf_annotation_txt and reference_based_snpeff_vcf_annotation_html:
+        return True
+    else:
+        return False
 
 
 

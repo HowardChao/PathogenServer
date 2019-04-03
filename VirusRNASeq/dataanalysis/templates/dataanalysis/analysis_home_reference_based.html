@@ -61,7 +61,7 @@
                     <a class="list-group-item list-group-item-action" href="#list-item-2">2. Reference Mappping</a>
                     <a class="list-group-item list-group-item-action" href="#list-item-3">3. Variant Calling</a>
                     <a class="list-group-item list-group-item-action" href="#list-item-4">4. Variant Calling File Annotation</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-5">5. Reference Genome SNPs Substitution</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-5">5. Variant Calling File Annotation</a>
                 </ul>
             </div>
         </nav>
@@ -102,8 +102,9 @@
                                   <label class="col-md-4 control-label" for="trimmomatic_illuminaclip"  style="margin-top: 10px;"><i class="far fa-dot-circle"></i>&nbsp&nbspTarget Adapter</label>
                                   <div class="col-md-6">
                                     <select class="custom-select my-1 mr-sm-2" name="trimmomatic_illuminaclip" id="trimmomatic_illuminaclip">
+                                      <option selected="selected" value="None">None</option>
                                       <option value="TruSeq2-PE.fa">TruSeq2-PE.fa</option>
-                                      <option selected="selected" value="TruSeq3-PE.fa">TruSeq3-PE.fa</option>
+                                      <option value="TruSeq3-PE.fa">TruSeq3-PE.fa</option>
                                       <option value="TruSeq3-PE-2.fa">TruSeq3-PE-2.fa</option>
                                       <option value="NexteraPE-PE.fa">NexteraPE-PE.fa</option>
                                     </select>
@@ -321,13 +322,12 @@
                                     <div class="col"><hr></div>
                                 </div>
                                 <p class="card-text"  style="margin-left:40px;"> <b>BWA MEM</b> is used to align raw reads against the reference genome.</p>
-                                <br>
                             </div>
                         </div>
                     </div>
                     <div id="list-item-3">
                         <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
-                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-minus"></i> &nbsp &nbsp Variant Calling </p></div>
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-minus"></i> &nbsp &nbsp Variant Calling</p></div>
                             <div class="card-body w-100">
                                 <p class="card-text">Description</p>
                                 <br>
@@ -349,27 +349,14 @@
                                 </div>
                                 <p class="card-text" style="margin-left:40px;">description</p>
                                 <br>
-
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                       <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 3: &nbsp BCFtools mpileup 1</h5>
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 3: &nbsp BCFtools mpileup</h5>
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
                                 <p class="card-text" style="margin-left:40px;">description</p>
-
-                                <br>
-
-                                <div class="row">
-                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
-                                      <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 4: &nbsp BCFtools mpileup 2</h5>
-                                      </div>
-                                    <div class="col"><hr></div>
-                                </div>
-                                <p class="card-text" style="margin-left:40px;">description</p>
-
                             </div>
                         </div>
                     </div>
@@ -378,12 +365,13 @@
                         <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
                             <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-align-right"></i> &nbsp &nbsp Variant Calling File Annotation</p></div>
                             <div class="card-body w-100">
-                                <p class="card-text"><b>A5-miseq</b> <i>de novo</i> assembly</p>
+
+                                <p class="card-text">Description</p>
                                 <br>
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                       <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp <b><i>De novo</i></b> Assembly </h5>
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp sed snpEffectPredictor.bin</h5>
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
@@ -392,7 +380,7 @@
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                       <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp Qualuty Trimming</h5>
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp snpEff.jar snpEff.config</h5>
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
@@ -404,18 +392,27 @@
 
                     <div id="list-item-5">
                         <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
-                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-reply"></i> &nbsp &nbsp Reference Genome SNPs Substitution</p></div>
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-reply"></i> &nbsp &nbsp Variant Calling File Annotation</p></div>
                             <div class="card-body w-100">
-                                <p class="card-text"> Final scaffolds were subjected to <b>BWA-MEM</b> reads re-mapping. </p>
+                                <p class="card-text">Description</p>
                                 <br>
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                       <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp <b>BWA-MEM</b> Reads Re-mapping</h5>
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp sed snpEffectPredictor.bin</h5>
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
-                                <p class="card-text" style="margin-left:40px;">Description.</p>
+                                <p class="card-text" style="margin-left:40px;">Description</p>
+                                <br>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp snpEff.jar snpEff.config</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <p class="card-text" style="margin-left:40px;">Description</p>
                             </div>
                         </div>
                     </div>
