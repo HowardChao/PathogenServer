@@ -206,8 +206,9 @@ def check_end_time_file(base_dir, sample_name):
 
 
 
-def Step_1_check_first_qc(sample_datadir, sample_name):
+def Step_1_check_first_qc(url_base_dir, sample_datadir, sample_name):
     root_dir = os.path.join(sample_datadir, 'Step_1', 'QC', 'pre')
+    url_root_dir = os.path.join(url_base_dir, 'Step_1', 'QC', 'pre')
     print("**** Inside check_first_qc function:")
     print("R1 html: ", os.path.join(root_dir, sample_name+".R1_fastqc.html"))
     print("R2 html: ", os.path.join(root_dir, sample_name+".R2_fastqc.html"))
@@ -228,16 +229,31 @@ def Step_1_check_first_qc(sample_datadir, sample_name):
     print("r2_zip: ", r2_zip)
     print("multiqc_html: ", multiqc_html)
     print("multiqc_dir: ", multiqc_dir)
+    Step_1_check_first_qc_urls = {}
     if r1_html and r2_html and r1_zip and r2_zip and multiqc_html and multiqc_dir:
-        return True
+        url_r1_html = os.path.join(url_root_dir, sample_name+".R1_fastqc.html")
+        Step_1_check_first_qc_urls["url_r1_html"] = url_r1_html
+        url_r2_html = os.path.join(url_root_dir, sample_name+".R2_fastqc.html")
+        Step_1_check_first_qc_urls["url_r2_html"] = url_r2_html
+        url_r1_zip = os.path.join(url_root_dir, sample_name+".R1_fastqc.zip")
+        Step_1_check_first_qc_urls["url_r1_zip"] = url_r1_zip
+        url_r2_zip = os.path.join(url_root_dir, sample_name+".R2_fastqc.zip")
+        Step_1_check_first_qc_urls["url_r2_zip"] = url_r2_zip
+        url_multiqc_html = os.path.join(url_root_dir, sample_name+"_multiqc.html")
+        Step_1_check_first_qc_urls["url_multiqc_html"] = url_multiqc_html
+        url_multiqc_dir = os.path.join(url_root_dir, sample_name+"_multiqc_data")
+        Step_1_check_first_qc_urls["url_multiqc_dir"] = url_multiqc_dir
+        print("!!!!!!!!!!!!!!!!: ", Step_1_check_first_qc_urls)
+        return (True, Step_1_check_first_qc_urls)
     else:
-        return False
+        return (False, Step_1_check_first_qc_urls)
 
 
-def Step_1_check_trimming_qc(sample_datadir, sample_name):
+def Step_1_check_trimming_qc(url_base_dir, sample_datadir, sample_name):
     root_dir_trimmed_paired = os.path.join(sample_datadir, 'Step_1', "trimmed_paired")
-    root_dir_trimmed_unpaired = os.path.join(
-        settings.MEDIA_ROOT, 'tmp', sample_datadir, 'Step_1', "trimmed_unpaired")
+    url_root_dir_trimmed_paired = os.path.join(url_base_dir, 'Step_1', "trimmed_paired")
+    root_dir_trimmed_unpaired = os.path.join(sample_datadir, 'Step_1', "trimmed_unpaired")
+    url_root_dir_trimmed_unpaired = os.path.join(url_base_dir, 'Step_1', "trimmed_unpaired")
     print("**** Inside trimmomatic_pe_target function:")
     print("r1_paired: ", os.path.join(
         root_dir_trimmed_paired, sample_name+"_r1_paired.fastq.gz"))
@@ -259,15 +275,25 @@ def Step_1_check_trimming_qc(sample_datadir, sample_name):
     print("r2_paired: ", r2_paired)
     print("r1_unpaired: ", r1_unpaired)
     print("r2_unpaired: ", r2_unpaired)
+    Step_1_check_trimming_qc_urls = {}
     if r1_paired and r2_paired and r1_unpaired and r2_unpaired:
-        return True
+        url_r1_paired = os.path.join(url_root_dir_trimmed_paired, sample_name+"_r1_paired.fastq.gz")
+        Step_1_check_trimming_qc_urls["url_r1_paired"] = url_r1_paired
+        url_r2_paired = os.path.join(url_root_dir_trimmed_paired, sample_name+"_r2_paired.fastq.gz")
+        Step_1_check_trimming_qc_urls["url_r2_paired"] = url_r2_paired
+        url_r1_unpaired = os.path.join(url_root_dir_trimmed_unpaired, sample_name+"_r1_unpaired.fastq.gz")
+        Step_1_check_trimming_qc_urls["url_r1_unpaired"] = url_r1_unpaired
+        url_r2_unpaired = os.path.join(url_root_dir_trimmed_unpaired, sample_name+"_r2_unpaired.fastq.gz")
+        Step_1_check_trimming_qc_urls["url_r2_unpaired"] = url_r2_unpaired
+        print("!!!!!!!!!!!!!!!!: ", Step_1_check_trimming_qc_urls)
+        return (True, Step_1_check_trimming_qc_urls)
     else:
-        return False
+        return (False, Step_1_check_trimming_qc_urls)
 
 
-def Step_1_check_second_qc(sample_datadir, sample_name):
+def Step_1_check_second_qc(url_base_dir, sample_datadir, sample_name):
     root_dir = os.path.join(sample_datadir, 'Step_1', 'QC', 'post')
-    print("**** Inside check_first_qc function:")
+    url_root_dir = os.path.join(url_base_dir, 'Step_1', 'QC', 'post')
     print("R1 paired html: ", os.path.join(
         root_dir, sample_name+"_r1_paired_fastqc.html"))
     # print("R1 unpaired html: ", os.path.join(
@@ -318,91 +344,136 @@ def Step_1_check_second_qc(sample_datadir, sample_name):
     # print("r2_unpaired_zip: ", r2_unpaired_zip)
     print("multiqc_html: ", multiqc_html)
     print("multiqc_dir: ", multiqc_dir)
+    Step_1_check_second_qc_urls = {}
     if r1_paired_html and r2_paired_html and r1_paired_zip and r2_paired_zip and multiqc_html and multiqc_dir:
-        return True
+        r1_paired_html = os.path.join(url_root_dir, sample_name+"_r1_paired_fastqc.html")
+        Step_1_check_second_qc_urls["r1_paired_html"] = r1_paired_html
+        r2_paired_html = os.path.join(url_root_dir, sample_name+"_r2_paired_fastqc.html")
+        Step_1_check_second_qc_urls["r2_paired_html"] = r2_paired_html
+        r1_paired_zip = os.path.join(url_root_dir, sample_name+"_r1_paired_fastqc.zip")
+        Step_1_check_second_qc_urls["r1_paired_zip"] = r1_paired_zip
+        r2_paired_zip = os.path.join(url_root_dir, sample_name+"_r2_paired_fastqc.zip")
+        Step_1_check_second_qc_urls["r2_paired_zip"] = r2_paired_zip
+        multiqc_html = os.path.join(url_root_dir, sample_name+"_multiqc.html")
+        Step_1_check_second_qc_urls["multiqc_html"] = multiqc_html
+        multiqc_dir = os.path.join(url_root_dir, sample_name+"_multiqc_data")
+        Step_1_check_second_qc_urls["multiqc_dir"] = multiqc_dir
+        print("!!!!!!!!!!!!!!!!: ", Step_1_check_second_qc_urls)
+        return (True, Step_1_check_second_qc_urls)
     else:
-        return False
+        return (False, Step_1_check_second_qc_urls)
 
 ################################
 ### reference-based specific ###
 ################################
-def Step_2_check_reference_based_bwa_sam(sample_datadir, sample_name):
+def Step_2_check_reference_based_bwa_sam(url_base_dir, sample_datadir, sample_name):
     root_dir = os.path.join(sample_datadir, "Step_2", "bwa")
+    url_root_dir = os.path.join(url_base_dir, "Step_2", "bwa")
     print("bwa sam file: ", os.path.join(
         root_dir, sample_name+".sam"))
     reference_based_bwa_sam = os.path.exists(os.path.join(
         root_dir, sample_name+".sam"))
     print("reference_based_bwa_sam: ", reference_based_bwa_sam)
+    Step_2_check_reference_based_bwa_sam_urls = {}
     if reference_based_bwa_sam:
-        return True
+        url_reference_based_bwa_sam = os.path.join(url_root_dir, sample_name+".sam")
+        Step_2_check_reference_based_bwa_sam_urls["url_reference_based_bwa_sam"] = url_reference_based_bwa_sam
+        print("!!!!!!!!!!!!!!!!: ", Step_2_check_reference_based_bwa_sam_urls)
+        return (True, Step_2_check_reference_based_bwa_sam_urls)
     else:
-        return False
+        return (False, Step_2_check_reference_based_bwa_sam_urls)
 
 
-def Step_2_check_reference_based_bwa_report_txt(sample_datadir, sample_name):
+def Step_2_check_reference_based_bwa_report_txt(url_base_dir, sample_datadir, sample_name):
     root_dir = os.path.join(sample_datadir, "Step_2", "bwa")
+    url_root_dir = os.path.join(url_base_dir, "Step_2", "bwa")
     print("bwa report file: ", os.path.join(
         root_dir, sample_name+"_alignment_report.txt"))
     reference_based_bwa_report_txt = os.path.exists(os.path.join(
         root_dir, sample_name+"_alignment_report.txt"))
     print("reference_based_bwa_report_txt: ", reference_based_bwa_report_txt)
+    Step_2_check_reference_based_bwa_report_txt_urls = {}
     if reference_based_bwa_report_txt:
-        return True
+        url_reference_based_bwa_report_txt = os.path.join(url_root_dir, sample_name+"_alignment_report.txt")
+        Step_2_check_reference_based_bwa_report_txt_urls["url_reference_based_bwa_report_txt"] = url_reference_based_bwa_report_txt
+        print("!!!!!!!!!!!!!!!!: ", Step_2_check_reference_based_bwa_report_txt_urls)
+        return (True, Step_2_check_reference_based_bwa_report_txt_urls)
     else:
-        return False
+        return (False, Step_2_check_reference_based_bwa_report_txt_urls)
 
 
-def Step_3_check_reference_based_samtools_fixmate_bam(sample_datadir, sample_name):
+def Step_3_check_reference_based_samtools_fixmate_bam(url_base_dir, sample_datadir, sample_name):
     root_dir = os.path.join(sample_datadir, "Step_3", "samtools")
+    url_root_dir = os.path.join(url_base_dir, "Step_3", "samtools")
     print("fixmate bam file: ", os.path.join(
         root_dir, sample_name+"_fixmate.bam"))
     reference_based_samtools_fixmate_bam = os.path.exists(os.path.join(
         root_dir, sample_name+"_fixmate.bam"))
     print("reference_based_samtools_fixmate_bam: ", reference_based_samtools_fixmate_bam)
+    Step_3_check_reference_based_samtools_fixmate_bam_urls = {}
     if reference_based_samtools_fixmate_bam:
-        return True
+        url_reference_based_samtools_fixmate_bam = os.path.join(url_root_dir, sample_name+"_fixmate.bam")
+        Step_3_check_reference_based_samtools_fixmate_bam_urls["url_reference_based_samtools_fixmate_bam"] = url_reference_based_samtools_fixmate_bam
+        print("!!!!!!!!!!!!!!!!: ", Step_3_check_reference_based_samtools_fixmate_bam_urls)
+        return (True, Step_3_check_reference_based_samtools_fixmate_bam_urls)
     else:
-        return False
+        return (False, Step_3_check_reference_based_samtools_fixmate_bam_urls)
 
-def Step_3_check_reference_based_samtools_sorted_bam(sample_datadir, sample_name):
+def Step_3_check_reference_based_samtools_sorted_bam(url_base_dir, sample_datadir, sample_name):
     root_dir = os.path.join(sample_datadir, "Step_3", "samtools")
+    url_root_dir = os.path.join(url_base_dir, "Step_3", "samtools")
     print("sorted bam file: ", os.path.join(
         root_dir, sample_name+"_sorted.bam"))
     reference_based_samtools_sorted_bam = os.path.exists(os.path.join(
         root_dir, sample_name+"_sorted.bam"))
     print("reference_based_samtools_sorted_bam: ", reference_based_samtools_sorted_bam)
+    Step_3_check_reference_based_samtools_sorted_bam_urls = {}
     if reference_based_samtools_sorted_bam:
-        return True
+        url_reference_based_samtools_sorted_bam = os.path.join(url_root_dir, sample_name+"_sorted.bam")
+        Step_3_check_reference_based_samtools_sorted_bam_urls["url_reference_based_samtools_sorted_bam"] = url_reference_based_samtools_sorted_bam
+        print("!!!!!!!!!!!!!!!!: ", Step_3_check_reference_based_samtools_sorted_bam_urls)
+        return (True, Step_3_check_reference_based_samtools_sorted_bam_urls)
     else:
-        return False
+        return (False, Step_3_check_reference_based_samtools_sorted_bam_urls)
 
 
-def Step_4_check_reference_based_bcftools_vcf(sample_datadir, sample_name):
+def Step_4_check_reference_based_bcftools_vcf(url_base_dir, sample_datadir, sample_name):
     root_dir = os.path.join(sample_datadir, "Step_4", "bcftools")
+    url_root_dir = os.path.join(url_base_dir, "Step_4", "bcftools")
     print("bcftools vcf_gz file: ", os.path.join(
         root_dir, sample_name+".vcf"))
     reference_based_bcftools_vcf = os.path.exists(os.path.join(
         root_dir, sample_name+".vcf"))
     print("reference_based_bcftools_vcf: ", reference_based_bcftools_vcf)
+    Step_4_check_reference_based_bcftools_vcf_urls = {}
     if reference_based_bcftools_vcf:
-        return True
+        url_reference_based_bcftools_vcf = os.path.join(url_root_dir, sample_name+".vcf")
+        Step_4_check_reference_based_bcftools_vcf_urls["url_reference_based_bcftools_vcf"] = url_reference_based_bcftools_vcf
+        print("!!!!!!!!!!!!!!!!: ", Step_4_check_reference_based_bcftools_vcf_urls)
+        return (True, Step_4_check_reference_based_bcftools_vcf_urls)
     else:
-        return False
+        return (False, Step_4_check_reference_based_bcftools_vcf_urls)
 
-def Step_4_check_reference_based_bcftools_vcf_revise(sample_datadir, sample_name):
+def Step_4_check_reference_based_bcftools_vcf_revise(url_base_dir, sample_datadir, sample_name):
     root_dir = os.path.join(sample_datadir, "Step_4", "bcftools")
+    url_root_dir = os.path.join(url_base_dir, "Step_4", "bcftools")
     print("bcftools vcf_gz file: ", os.path.join(
         root_dir, sample_name+"_revise.vcf"))
     reference_based_bcftools_vcf_revise = os.path.exists(os.path.join(
         root_dir, sample_name+"_revise.vcf"))
     print("reference_based_bcftools_vcf_revise: ", reference_based_bcftools_vcf_revise)
+    Step_4_check_reference_based_bcftools_vcf_revise_urls = {}
     if reference_based_bcftools_vcf_revise:
-        return True
+        reference_based_bcftools_vcf_revise = os.path.join(url_root_dir, sample_name+"_revise.vcf")
+        Step_4_check_reference_based_bcftools_vcf_revise_urls["reference_based_bcftools_vcf_revise"] = reference_based_bcftools_vcf_revise
+        print("!!!!!!!!!!!!!!!!: ", Step_4_check_reference_based_bcftools_vcf_revise_urls)
+        return (True, Step_4_check_reference_based_bcftools_vcf_revise_urls)
     else:
-        return False
+        return (False, Step_4_check_reference_based_bcftools_vcf_revise_urls)
 
-def Step_5_check_reference_based_snpeff_vcf_annotation(sample_datadir, sample_name):
+def Step_5_check_reference_based_snpeff_vcf_annotation(url_base_dir, sample_datadir, sample_name):
     root_dir = os.path.join(sample_datadir, "Step_5", "snpeff")
+    url_root_dir = os.path.join(url_base_dir, "Step_5", "snpeff")
     print("snpeff annotation file: ", os.path.join(
         root_dir, sample_name+".ann.vcf"))
     print("snpeff annotation file: ", os.path.join(
@@ -418,14 +489,18 @@ def Step_5_check_reference_based_snpeff_vcf_annotation(sample_datadir, sample_na
     print("reference_based_snpeff_vcf_annotation: ", reference_based_snpeff_vcf_annotation)
     print("reference_based_snpeff_vcf_annotation_txt: ", reference_based_snpeff_vcf_annotation_txt)
     print("reference_based_snpeff_vcf_annotation_html: ", reference_based_snpeff_vcf_annotation_html)
+    Step_5_check_reference_based_snpeff_vcf_annotation_urls = {}
     if reference_based_snpeff_vcf_annotation and reference_based_snpeff_vcf_annotation_txt and reference_based_snpeff_vcf_annotation_html:
-        return True
+        reference_based_snpeff_vcf_annotation = os.path.join(url_root_dir, sample_name+".ann.vcf")
+        reference_based_snpeff_vcf_annotation_txt = os.path.join(url_root_dir, sample_name+"_snpEff_summary.genes.txt")
+        reference_based_snpeff_vcf_annotation_html = os.path.join(url_root_dir, sample_name+"_snpEff_summary.html")
+        Step_5_check_reference_based_snpeff_vcf_annotation_urls["reference_based_snpeff_vcf_annotation"] = reference_based_snpeff_vcf_annotation
+        Step_5_check_reference_based_snpeff_vcf_annotation_urls["reference_based_snpeff_vcf_annotation_txt"] = reference_based_snpeff_vcf_annotation_txt
+        Step_5_check_reference_based_snpeff_vcf_annotation_urls["reference_based_snpeff_vcf_annotation_html"] = reference_based_snpeff_vcf_annotation_html
+        print("!!!!!!!!!!!!!!!!: ", Step_5_check_reference_based_snpeff_vcf_annotation_urls)
+        return (True, Step_5_check_reference_based_snpeff_vcf_annotation_urls)
     else:
-        return False
-
-
-
-
+        return (False, Step_5_check_reference_based_snpeff_vcf_annotation_urls)
 
 
 

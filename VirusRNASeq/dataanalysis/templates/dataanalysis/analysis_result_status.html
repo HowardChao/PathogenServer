@@ -64,20 +64,20 @@
       {% for group, samples in samples_list_key.items %}
           {% for sample in samples %}
               <!-- <h1>{{ forloop.counter }} </h1> -->
-              <div class="pipeline_result row" id="{{sample}}_page" style="margin-right: 100px">
-                  <div class="card bg-light mt-4 mb-3 w-100 p-3" style="margin-left: 100px; margin-top: 20px; margin-right: 200px;">
+              <div class="pipeline_result row" id="{{sample}}_page" style="margin-right: 100px; margin-bottom: 150px">
+                  <div class="card bg-light mt-4 mb-3 w-100 p-3" style="margin-left: 100px; margin-top: 20px; margin-right: 0px;">
                       <div class="card-header">
                           <p class="h2"><i class="fas fa-tasks"></i> &nbsp &nbsp Current Status of &nbsp"{{ sample }}"&nbsp sample</p>
 
                       </div>
                       <div class="card-body w-100">
-                        <div class="container">
+                        <div class="container" style="border-bottom: 3px solid #b2b2b2;">
                             <div class="row">
                                 <div class="col">
-                                  <center><h4><b><i class="fas fa-object-group"></i> &nbsp Group: {{ group }} </b></h4></center>
+                                  <center><h4><b><i class="fas fa-object-group"></i> &nbsp Sample Name: {{ sample }} </b></h4></center>
                                 </div>
                                 <div class="col">
-                                  <center><h4><b><i class="fas fa-object-group"></i> &nbsp Sample Name: {{ sample }} </b></h4></center>
+                                  <center><h4><b><i class="fas fa-object-group"></i> &nbsp Group: {{ group }} </b></h4></center>
                                 </div>
                             </div>
                         </div>
@@ -408,7 +408,7 @@
                       document.getElementById(target_id).style.display = "none";
                     }
                   </script>
-                  <form method="POST" enctype="multipart/form-data" required="True">
+                  <!-- <form method="POST" enctype="multipart/form-data" required="True">
                   {% csrf_token%}
                   <button type="submit" id="go-to-overview" name="go-to-overview-button" class="btn btn-primary btn-lg btn-block">Block level button</button>
                   </form>
@@ -420,7 +420,7 @@
                   <h1>view_counter_end: {{ view_counter_end }}</h1>
                   <h1>{{samples_txt_file_name}}</h1>
                   <h1>{{samples_list_key}}</h1>
-                  <h1>{{sample_list}}</h1>
+                  <h1>{{sample_list}}</h1> -->
               </div>
 
           {% endfor %}

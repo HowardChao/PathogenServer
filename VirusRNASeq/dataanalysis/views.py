@@ -341,7 +341,6 @@ def show_result_overview(request, slug_project):
                             'tmp', project_name + '_' + email + '_' + analysis_code)
     # Get sample name
     (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
-    sample_name = sample_list[0]
 
     # Getting time!!
     submission_time_strip = utils_func.get_submission_time(project_name, email, analysis_code)
@@ -441,6 +440,7 @@ def current_status(request, slug_project):
     url_parameter = project_name + '_' + email.split("@")[0]
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
+    url_base_dir = os.path.join('/media', 'tmp', project_name + '_' + email + '_' + analysis_code)
     (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
     # Get submission time
     submission_time_strip = 'no submission time'
@@ -459,7 +459,6 @@ def current_status(request, slug_project):
         view_counter = 1
         request.session['view_counter_%s' % url_parameter] = view_counter
 
-    sample_name = sample_list[0]
     check_first_qc_ans_dict = {}
     check_trimming_qc_ans_dict = {}
     check_second_qc_ans_dict = {}
@@ -468,10 +467,7 @@ def current_status(request, slug_project):
     check_extract_non_host_reads_2_ans_dict = {}
     check_extract_non_host_reads_3_ans_dict = {}
     check_extract_non_host_reads_4_ans_dict = {}
-    ## Check times
-    check_submission_time_ans = utils_func.check_submission_time_file(base_dir, sample_name)
-    check_start_time_ans = utils_func.check_start_time_file(base_dir, sample_name)
-    check_end_time_ans = utils_func.check_end_time_file(base_dir, sample_name)
+
     ##########
     ## THis is for the button to go to overview page ##
     ##########
@@ -482,6 +478,10 @@ def current_status(request, slug_project):
 
     samples_all_info = {}
     for sample_name in sample_list:
+        ## Check times
+        check_submission_time_ans = utils_func.check_submission_time_file(base_dir, sample_name)
+        check_start_time_ans = utils_func.check_start_time_file(base_dir, sample_name)
+        check_end_time_ans = utils_func.check_end_time_file(base_dir, sample_name)
         samples_all_info[sample_name] = {}
         one_sample_all_info = {}
 
@@ -491,26 +491,26 @@ def current_status(request, slug_project):
         view_counter_end = "Not Start Counting"
         ## Checking files
         ## Reference-based file checking!!
-        Step_1_check_first_qc = utils_func.Step_1_check_first_qc(sample_datadir, sample_name)
-        one_sample_all_info["Step_1_check_first_qc"] = Step_1_check_first_qc
-        Step_1_check_trimming_qc = utils_func.Step_1_check_trimming_qc(sample_datadir, sample_name)
-        one_sample_all_info["Step_1_check_trimming_qc"] = Step_1_check_trimming_qc
-        Step_1_check_second_qc = utils_func.Step_1_check_second_qc(sample_datadir, sample_name)
-        one_sample_all_info["Step_1_check_second_qc"] = Step_1_check_second_qc
-        Step_2_check_reference_based_bwa_sam = utils_func.Step_2_check_reference_based_bwa_sam(sample_datadir, sample_name)
-        one_sample_all_info["Step_2_check_reference_based_bwa_sam"] = Step_2_check_reference_based_bwa_sam
-        Step_2_check_reference_based_bwa_report_txt = utils_func.Step_2_check_reference_based_bwa_report_txt(sample_datadir, sample_name)
-        one_sample_all_info["Step_2_check_reference_based_bwa_report_txt"] = Step_2_check_reference_based_bwa_report_txt
-        Step_3_check_reference_based_samtools_fixmate_bam = utils_func.Step_3_check_reference_based_samtools_fixmate_bam(sample_datadir, sample_name)
-        one_sample_all_info["Step_3_check_reference_based_samtools_fixmate_bam"] = Step_3_check_reference_based_samtools_fixmate_bam
-        Step_3_check_reference_based_samtools_sorted_bam = utils_func.Step_3_check_reference_based_samtools_sorted_bam(sample_datadir, sample_name)
-        one_sample_all_info["Step_3_check_reference_based_samtools_sorted_bam"] = Step_3_check_reference_based_samtools_sorted_bam
-        Step_4_check_reference_based_bcftools_vcf = utils_func.Step_4_check_reference_based_bcftools_vcf(sample_datadir, sample_name)
-        one_sample_all_info["Step_4_check_reference_based_bcftools_vcf"] = Step_4_check_reference_based_bcftools_vcf
-        Step_4_check_reference_based_bcftools_vcf_revise = utils_func.Step_4_check_reference_based_bcftools_vcf_revise(sample_datadir, sample_name)
-        one_sample_all_info["Step_4_check_reference_based_bcftools_vcf_revise"] = Step_4_check_reference_based_bcftools_vcf_revise
-        Step_5_check_reference_based_snpeff_vcf_annotation = utils_func.Step_5_check_reference_based_snpeff_vcf_annotation(sample_datadir, sample_name)
-        one_sample_all_info["Step_5_check_reference_based_snpeff_vcf_annotation"] = Step_5_check_reference_based_snpeff_vcf_annotation
+        Step_1_check_first_qc = utils_func.Step_1_check_first_qc(url_base_dir, sample_datadir, sample_name)
+        one_sample_all_info["Step_1_check_first_qc"] = Step_1_check_first_qc[0]
+        Step_1_check_trimming_qc = utils_func.Step_1_check_trimming_qc(url_base_dir, sample_datadir, sample_name)
+        one_sample_all_info["Step_1_check_trimming_qc"] = Step_1_check_trimming_qc[0]
+        Step_1_check_second_qc = utils_func.Step_1_check_second_qc(url_base_dir, sample_datadir, sample_name)
+        one_sample_all_info["Step_1_check_second_qc"] = Step_1_check_second_qc[0]
+        Step_2_check_reference_based_bwa_sam = utils_func.Step_2_check_reference_based_bwa_sam(url_base_dir, sample_datadir, sample_name)
+        one_sample_all_info["Step_2_check_reference_based_bwa_sam"] = Step_2_check_reference_based_bwa_sam[0]
+        Step_2_check_reference_based_bwa_report_txt = utils_func.Step_2_check_reference_based_bwa_report_txt(url_base_dir, sample_datadir, sample_name)
+        one_sample_all_info["Step_2_check_reference_based_bwa_report_txt"] = Step_2_check_reference_based_bwa_report_txt[0]
+        Step_3_check_reference_based_samtools_fixmate_bam = utils_func.Step_3_check_reference_based_samtools_fixmate_bam(url_base_dir, sample_datadir, sample_name)
+        one_sample_all_info["Step_3_check_reference_based_samtools_fixmate_bam"] = Step_3_check_reference_based_samtools_fixmate_bam[0]
+        Step_3_check_reference_based_samtools_sorted_bam = utils_func.Step_3_check_reference_based_samtools_sorted_bam(url_base_dir, sample_datadir, sample_name)
+        one_sample_all_info["Step_3_check_reference_based_samtools_sorted_bam"] = Step_3_check_reference_based_samtools_sorted_bam[0]
+        Step_4_check_reference_based_bcftools_vcf = utils_func.Step_4_check_reference_based_bcftools_vcf(url_base_dir, sample_datadir, sample_name)
+        one_sample_all_info["Step_4_check_reference_based_bcftools_vcf"] = Step_4_check_reference_based_bcftools_vcf[0]
+        Step_4_check_reference_based_bcftools_vcf_revise = utils_func.Step_4_check_reference_based_bcftools_vcf_revise(url_base_dir, sample_datadir, sample_name)
+        one_sample_all_info["Step_4_check_reference_based_bcftools_vcf_revise"] = Step_4_check_reference_based_bcftools_vcf_revise[0]
+        Step_5_check_reference_based_snpeff_vcf_annotation = utils_func.Step_5_check_reference_based_snpeff_vcf_annotation(url_base_dir, sample_datadir, sample_name)
+        one_sample_all_info["Step_5_check_reference_based_snpeff_vcf_annotation"] = Step_5_check_reference_based_snpeff_vcf_annotation[0]
         samples_all_info[sample_name] = one_sample_all_info
 
         ### Add later~~
@@ -526,6 +526,7 @@ def current_status(request, slug_project):
     for sample_key, sample_check_info in samples_all_info.items():
         ans = all(value == True for value in sample_check_info.values())
         sample_checker_list.append(ans)
+    # sample_checker_list.append(False)
     overall_sample_result_checker = all(item == True for item in sample_checker_list)
     print("overall_sample_result_checkeroverall_sample_result_checker: ", overall_sample_result_checker)
     ## If all checker is true ==> just jump to the new final overview page!!!!!!!
