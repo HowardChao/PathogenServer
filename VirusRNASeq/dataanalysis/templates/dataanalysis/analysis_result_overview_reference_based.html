@@ -1,0 +1,383 @@
+{% extends 'base_checkfile.html' %}
+
+{% block extraheader %}
+{% load staticfiles %}
+{% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dataanalysis_result_overview.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+{% endblock extraheader %}
+
+{% block content %}
+<div class="wrapper">
+    <!-- Sidebar -->
+    <nav id="sidebar" style="background: linear-gradient(to right, #1e1e1e, #626262);  border-right: 3px solid #353955;">
+        <div class="sidebar-header" style="background: linear-gradient(to right, #000000, #1e1e1e);">
+            <h3><center><i class="fas fa-bars"></i>&nbsp&nbspDashboard</center></h3>
+        </div>
+        <ul class="list-unstyled components">
+          <li>
+              <a id="project_overview_id_nav_bar" href="#" onclick="project_loading(this.name)" name="_overview_page_result" style="background-color: #707070; font-size: 23px; margin-left: 15px;"><i class="fas fa-file-contract"></i> &nbsp OverView</a>
+          </li>
+        {% for group, samples in samples_list_key.items %}
+            <li>
+                <p style="font-size: 23px;"><b><i class="fas fa-object-group" style="margin-left: 15px;"></i> &nbsp {{ group }} </b></p>
+            </li>
+            {% for sample in samples %}
+                <li>
+                    <a id="{{sample}}_pipeline_result_wrapper_nav_bar" class="pipeline_result_wrapper_nav_bar" href="#" onclick="sample_loading(this.name)" name="{{sample}}_pipeline_result_wrapper" style="margin-left: 30px;"><i class="fas fa-dot-circle"></i> &nbsp {{ sample }}</a>
+                </li>
+            {% endfor %}
+        {% endfor %}
+        </ul>
+    </nav>
+
+
+
+    <!-- Page Content -->
+    <div id="right-content-overview" class="w-100">
+      <div id="project_overview_id" class="project_overview_class">
+          <div class="w3-main" style="margin-left:130px; margin-right:50px;">
+              <header class="w3-container" style="padding-top:22px;">
+                  <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-file-contract"></i> &nbsp<strong>Overview</strong></h1>
+              </header>
+              <div class="content-below-header-overview" >
+                  <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px;">
+                      <div style="width:100%; outline: 5px solid #B07B41; outline-offset: 10px; outline-style: double;">
+                      <p>Congradulations! Your job has been completed <strong style="font-size:20px; color: green;">successfully</strong>!</p>
+                      <p>The followings are the project information of your analysis job. You can click the download link to install all the logs and results.</p>
+                      <p>Click the buttons on the right navigation dashboard to show the results of each step.</p>
+                      </div>
+                  </div>
+                  <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:70px;">
+                      <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Project Information</b></h4>
+                      <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
+                          <tr>
+                              <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Project Name :</b></td>
+                              <td style="font-family: Verdana, Geneva, sans-serif">{{project_name}}</td>
+                          </tr>
+                          <tr>
+                              <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Email :</b></td>
+                              <td style="font-family: Verdana, Geneva, sans-serif">{{email}}</td>
+                          </tr>
+                          <tr>
+                              <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Analysis Code :</b></td>
+                              <td style="font-family: Verdana, Geneva, sans-serif">{{analysis_code}}</td>
+                          </tr>
+                          <tr>
+                              <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Submission Time :</b></td>
+                              <td style="font-family: Verdana, Geneva, sans-serif">{{submission_time}}</td>
+                          </tr>
+                          <tr>
+                              <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Start Time :</b></td>
+                              <td style="font-family: Verdana, Geneva, sans-serif">{{start_time}}</td>
+                          </tr>
+                          <tr>
+                              <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>End Time :</b></td>
+                              <td style="font-family: Verdana, Geneva, sans-serif">{{end_time}}</td>
+                          </tr>
+                          <tr>
+                              <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Download Link :</b></td>
+                              <td>
+                                  <button style="font-family: Verdana, Geneva, sans-serif" type="button" class="btn btn-success"> Download <i class="fas fa-arrow-down"></i></button>
+
+                                  {% comment %} <a class="w3-button w3-round-large w3-border w3-tiny" style="background-color:#d6efeb;font-size:16px" href="/static/0436de14-7762-11e8-b3cc-d89d67f39fa9/myjob.tar.gz" role="button">
+                                  Download  <i class="fa fa-arrow-down"></i>
+                                  </a> {% endcomment %}
+                              </td>
+                          </tr>
+                      </table>
+                      <div style="margin-bottom: 100px">
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+        {% for group, samples in samples_list_key.items %}
+            {% for sample in samples %}
+                {% for sample_key, one_sample_all_info in samples_all_result.items %}
+                    {% if sample_key == sample %}
+                        <div class="pipeline_result_wrapper" id="{{sample_key}}_pipeline_result_wrapper" style="display: none;">
+                            <div class="container-fluid">
+                                <div class="row h-100" style="width: 100%;">
+                                    <div class="col-2">
+                                      <!-- style="background: linear-gradient(to right, #1e1e1e, #626262); -->
+                                        <nav id="sidebar" style="margin-left: -18px; height: 100%; background: #626262;">
+                                            <div class="sidebar-header" style="background: linear-gradient(to right, #1e1e1e, #4c4c4c);">
+                                                <h3><i class="fas fa-dot-circle fa-1g" ></i>&nbsp&nbsp{{ sample_key }}</h3>
+                                            </div>
+                                            <ul class="list-unstyled components">
+                                                <li>
+                                                    <a href="#" id="{{sample_key}}_quality_control_result_nav_bar" class="pipeline_result_nav_bar" onclick="loading(this.name)" name="{{sample_key}}_quality_control_result" style="background-color: #8c8c8c"><i class="fas fa-check-circle"></i> &nbsp Quality Control</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" id="{{sample_key}}_reference_mapping_result_nav_bar" class="pipeline_result_nav_bar" onclick="loading(this.name)" name="{{sample_key}}_reference_mapping_result"><i class="fas fa-align-left"></i>  &nbsp Reference Mapping</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" id="{{sample_key}}_variant_calling_result_nav_bar" class="pipeline_result_nav_bar" onclick="loading(this.name)" name="{{sample_key}}_variant_calling_result"><i class="fas fa-search-plus"></i> &nbsp Variant Calling</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" id="{{sample_key}}_variant_calling_file_annotationpipeline_result_nav_bar" class="pipeline_result_nav_bar" onclick="loading(this.name)" name="{{sample_key}}_variant_calling_file_annotationpipeline_result"><i class="fas fa-highlighter"></i> &nbsp VCF Annotation</a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+
+
+                                    <div class="col-9" style="height: 100%;">
+                                        <div id="content" >
+                                            <button type="button"  class="btn btn-info sidebarCollapse">
+                                                <i id="toggle_button" class="fas fa-angle-double-left"></i>
+                                            </button>
+                                        </div>
+
+
+
+                                        <div class="pipeline_result" id="{{sample_key}}_quality_control_result"  style="display: none; height: 100%;">
+                                            <div class="w3-main" style="margin-left:130px; margin-right:50px; height: 100%;">
+                                                <header class="w3-container" style="padding-top:22px;">
+                                                    <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-check-circle"></i> &nbsp &nbsp<strong>Quality Control</strong></h1>
+                                                </header>
+
+                                                <div class="content-below-header-overview">
+                                                    <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px;">
+                                                        <div style="width:100%; outline: 5px solid #B07B41; outline-offset: 10px; outline-style: double;">
+                                                          <p>Congradulations! Your job has been completed <strong style="font-size:20px; color: green;">successfully</strong>!</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:70px;">
+                                                        <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Before Trimming Quality Assessment</b></h4>
+                                                        <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
+                                                            <tr>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> MultiQC Summary Report :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "reference_mapping_dataanalysis_result_current_status_pre_multiqc_html" slug_project=url_parameter slug_sample=sample_key%} class="link_color"><u>Link</u></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> FastQC R1 (forward) :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "reference_mapping_dataanalysis_result_current_status_pre_fastqc_r1_html" slug_project=url_parameter slug_sample=sample_key%} class="link_color"><u>Link</u></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> FastQC R2 (reverse) :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "reference_mapping_dataanalysis_result_current_status_pre_fastqc_r2_html" slug_project=url_parameter slug_sample=sample_key%} class="link_color"><u>Link</u></a></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:40px;">
+                                                        <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>After Trimming Quality Assessment</b></h4>
+                                                        <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
+                                                            <tr>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> MultiQC Summary Report :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "reference_mapping_dataanalysis_result_current_status_post_multiqc_html" slug_project=url_parameter slug_sample=sample_key%} class="link_color"><u>Link</u></a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> FastQC R1 (forward) :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "reference_mapping_dataanalysis_result_current_status_post_fastqc_r1_html" slug_project=url_parameter slug_sample=sample_key%} class="link_color"><u>Link</u></a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> FastQC R2 (reverse) :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "reference_mapping_dataanalysis_result_current_status_post_fastqc_r2_html" slug_project=url_parameter slug_sample=sample_key%} class="link_color"><u>Link</u></a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:40px;">
+                                                        <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Trimmomatic Visualization Report</b></h4>
+                                                        <div class="w-100" id="{{sample_key}}_piechart_3d" style="height: 300px;">
+                                                            <script type="text/javascript">
+                                                             google.charts.load("current", {packages:["corechart"]});
+
+                                                                  google.charts.setOnLoadCallback(drawChart);
+                                                                  function drawChart({{sample_key}}) {
+                                                                    console.log("sample_key", "{{sample_key}}");
+                                                                    dic = JSON.parse("{{samples_all_result}}".replace(/&#39;/g,'"'));
+                                                                    console.log("sample_key", dic["{{sample_key}}"]["trimmo_both_surviving"]);
+                                                                    var data = google.visualization.arrayToDataTable([["status", "reads number"], ["Both Surviving", Number(dic["{{sample_key}}"]["trimmo_both_surviving"])], ["Forward Only Surviving", Number(dic["{{sample_key}}"]["trimmo_forward_only_surviving"])], ["Reverse Only Surviving", Number(dic["{{sample_key}}"]["trimmo_reverse_only_surviving"])], ["Dropped", Number(dic["{{sample_key}}"]["trimmo_dropped"])]]);
+                                                                    console.log("data",data);
+                                                                    var options = {
+                                                                      'title': 'Trimmomatic Report',
+                                                                      is3D: true,
+                                                                      chartArea:{width:'60%',height:'75%'},
+                                                                      'width':700,
+                                                                      'height':300,
+                                                                    };
+                                                                    var chart = new google.visualization.PieChart(document.getElementById('{{sample_key}}_piechart_3d'));
+                                                                    chart.draw(data, options);
+                                                                  }
+                                                            </script>
+                                                            <!--<img src="/w3images/region.jpg" style="width:100%" alt="Google Regional Map">-->
+                                                        </div>
+                                                    </div>
+                                                    <div style="margin-bottom: 100px">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="pipeline_result" id="{{sample_key}}_reference_mapping_result" style="display: none; height: 100%;">
+                                            <div class="w3-main" style="margin-left:130px; margin-right:50px;">
+                                                <header class="w3-container" style="padding-top:22px;">
+                                                    <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-align-left"></i> &nbsp &nbsp<strong>Reference Mapping</strong></h1>
+                                                </header>
+                                                <div class="content-below-header-overview" >
+                                                    <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px;">
+                                                        <div style="width:100%; outline: 5px solid #B07B41; outline-offset: 10px; outline-style: double;">
+                                                          <p>Congradulations! Your job has been completed <strong style="font-size:20px; color: green;">successfully</strong>!</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:70px;">
+                                                        <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Title</b></h4>
+                                                        <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
+                                                            <tr>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Project Name :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif">{{project_name}}</td>
+                                                            </tr>
+                                                        </table>
+                                                        <div style="margin-bottom: 100px">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="pipeline_result" id="{{sample_key}}_variant_calling_result" style="display: none; height: 100%;">
+                                            <div class="w3-main" style="margin-left:130px; margin-right:50px;">
+                                                <header class="w3-container" style="padding-top:22px;">
+                                                    <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-search-plus"></i> &nbsp &nbsp<strong>Variant Calling</strong></h1>
+                                                </header>
+                                                <div class="content-below-header-overview" >
+                                                    <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px;">
+                                                        <div style="width:100%; outline: 5px solid #B07B41; outline-offset: 10px; outline-style: double;">
+                                                          <p>Congradulations! Your job has been completed <strong style="font-size:20px; color: green;">successfully</strong>!</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:70px;">
+                                                        <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Title</b></h4>
+                                                        <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
+                                                            <tr>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Project Name :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif">{{project_name}}</td>
+                                                            </tr>
+                                                        </table>
+                                                        <div style="margin-bottom: 100px">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pipeline_result" id="{{sample_key}}_variant_calling_file_annotationpipeline_result" style="display: none; height: 100%;">
+                                            <div class="w3-main" style="margin-left:130px; margin-right:50px;">
+                                                <header class="w3-container" style="padding-top:22px;">
+                                                    <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-highlighter"></i> &nbsp &nbsp<strong>Variant Calling Annotation</strong></h1>
+                                                </header>
+                                                <div class="content-below-header-overview" >
+                                                    <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px;">
+                                                        <div style="width:100%; outline: 5px solid #B07B41; outline-offset: 10px; outline-style: double;"> 
+                                                          <p>Congradulations! Your job has been completed <strong style="font-size:20px; color: green;">successfully</strong>!</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:70px;">
+                                                        <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Title</b></h4>
+                                                        <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
+                                                            <tr>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Project Name :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif">{{project_name}}</td>
+                                                            </tr>
+                                                        </table>
+                                                        <div style="margin-bottom: 100px">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
+        </div>
+    </div>
+
+
+<script type="text/javascript">
+$(document).ready(function () {
+
+    $('.sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+        if ($(".active").hasClass("active")) {
+            // do this
+            console.log("hidden");
+            document.getElementById("toggle_button").className = "fas fa-align-left";
+        } else {
+            // do that
+            console.log("not hidden");
+            document.getElementById("toggle_button").className = "fas fa-angle-double-left";
+        }
+    });
+
+});
+
+    // This script is to show different page
+    function loading(clicked_name)
+    {
+        $("#project_overview_id").hide();
+        $(".pipeline_result").hide();
+        $("#"+clicked_name).show();
+        $(".pipeline_result_nav_bar").css("background-color","");
+        $("#"+clicked_name+"_nav_bar").css("background-color","#8c8c8c");
+
+    }
+
+    function sample_loading(clicked_name)
+    {
+      // First show all wrapper and all analysis step
+      $(".pipeline_result_wrapper").show();
+      $(".pipeline_result").show();
+      // Second hide overview page and overview navbar
+      $("#project_overview_id").hide();
+      $("#project_overview_id_nav_bar").css("background-color", "");
+      // Third hide all wrapper and all analysis step
+      $(".pipeline_result").hide();
+      $(".pipeline_result_wrapper").hide();
+      // Fourth show all the clicked sample and his quality pahe
+      console.log("clicked_name", clicked_name);
+      $("#"+clicked_name).show();
+      // Set the sample navbar color !!
+      var sample_name = clicked_name.replace("_pipeline_result_wrapper", "");
+      $("#"+sample_name+"_quality_control_result").show();
+      selected_block = $( '.pipeline_result_wrapper:visible' ).attr('id');
+      var selected_sample_name = selected_block.replace("_pipeline_result_wrapper", "");
+      console.log("selected_block: ", selected_sample_name);
+      $(".pipeline_result_wrapper_nav_bar").css("background-color","");
+      $("#"+selected_sample_name+"_pipeline_result_wrapper_nav_bar").css("background-color", "#707070");
+    }
+
+    function project_loading(clicked_name)
+    {
+      $(".pipeline_result_wrapper").hide();
+      $(".pipeline_result").hide();
+      $("#project_overview_id").show();
+      $(".pipeline_result_wrapper_nav_bar").css("background-color", "");
+      $("#project_overview_id_nav_bar").css("background-color", "#707070");
+    }
+
+</script>
+
+
+
+
+{% endblock content %}

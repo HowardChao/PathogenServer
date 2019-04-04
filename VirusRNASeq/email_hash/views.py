@@ -92,6 +92,7 @@ def check_project(request):
     project_name = "None"
     email = "None"
     url_parameter = "None"
+    assembly_type_input = "None"
     if form.is_valid():
         instance = form.save(commit=False)
         if models.NewsletterUser.objects.filter(analysis_code=instance.analysis_code).exists():
@@ -124,6 +125,7 @@ def check_project(request):
         "inside_or_outside": inside_or_outside,
         "project_name": project_name,
         "email": email,
+        "assembly_type_input": assembly_type_input,
         "url_parameter": url_parameter,
     }
     context = {

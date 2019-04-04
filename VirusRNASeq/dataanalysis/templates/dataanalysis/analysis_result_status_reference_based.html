@@ -1,0 +1,599 @@
+{% extends 'base_checkfile.html' %}
+
+{% block extraheader %}
+{% load staticfiles %}
+{% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dataanalysis_result_status.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+{% endblock extraheader %}
+
+{% block content %}
+<div class="wrapper">
+    <!-- Sidebar -->
+
+
+    <nav id="sidebar" style="background: linear-gradient(to right, #1e1e1e, #626262);  border-right: 3px solid #353955;">
+        <div class="sidebar-header" style="background: linear-gradient(to right, #000000, #1e1e1e);"">
+            <h3>Samples</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+        <script>
+          var counter_color = 0
+        </script>
+        {% for group, samples in samples_list_key.items %}
+            <li>
+                <p style="font-size: 23px;"><b><i class="fas fa-object-group"></i> &nbsp {{ group }} </b></p>
+            </li>
+            {% for sample in samples %}
+
+                <li>
+                    <a id="{{sample}}_page_nav_bar" class="page_nav_bar" href="#" onclick="loading(this.name)" name="{{sample}}_page" style="margin-left: 20px"><i class="fas fa-dot-circle"></i> &nbsp {{ sample }}</a>
+                </li>
+                <script>
+                  counter_color = counter_color + 1
+                  if (counter_color == 1) {
+                    target_id = "{{sample}}" + "_page_nav_bar";
+                    console.log("target_id", target_id);
+                    $("#"+target_id).css("background-color", "#707070");
+                  }
+                </script>
+            {% endfor %}
+        {% endfor %}
+        </ul>
+    </nav>
+
+
+
+    <div id="right-content-overview" class="w-100">
+      <div id="content" >
+          <button type="button" id="sidebarCollapse" class="btn btn-info ">
+              <i id="toggle_button" class="fas fa-angle-double-left"></i>
+          </button>
+      </div>
+      <script>
+        var counter = 0
+      </script>
+      {% for group, samples in samples_list_key.items %}
+          {% for sample in samples %}
+              <!-- <h1>{{ forloop.counter }} </h1> -->
+              <div class="pipeline_result row" id="{{sample}}_page" style="margin-right: 100px; margin-bottom: 150px">
+                  <div class="card bg-light mt-4 mb-3 w-100 p-3" style="margin-left: 100px; margin-top: 20px; margin-right: 0px;">
+                      <div class="card-header">
+                          <p class="h2"><i class="fas fa-tasks"></i> &nbsp &nbsp Current Status of &nbsp"{{ sample }}"&nbsp sample</p>
+
+                      </div>
+                      <div class="card-body w-100">
+                        <div class="container" style="border-bottom: 3px solid #b2b2b2;">
+                            <div class="row">
+                                <div class="col">
+                                  <center><h4><b><i class="fas fa-object-group"></i> &nbsp Sample Name: {{ sample }} </b></h4></center>
+                                </div>
+                                <div class="col">
+                                  <center><h4><b><i class="fas fa-object-group"></i> &nbsp Group: {{ group }} </b></h4></center>
+                                </div>
+                            </div>
+                        </div>
+                          <div class="container">
+                              <script>
+                                  function animation() {
+                                      console.log("pressed")
+                                  }
+                              </script>
+                              <ul class="timeline" style="margin-top: 30px; margin-left: 30px" id="{{sample}}_timeline">
+                                <!-- <a href="#" onclick="loading(this.name)" name="quality_control_result" style="margin-left: 20px"><i class="fas fa-dot-circle"></i> &nbsp {{ sample }}</a> -->
+                                {% for sample_key, one_sample_all_info in samples_all_info.items %}
+                                    {% if sample_key == sample %}
+                                        <!-- {{ one_sample_all_info.check_first_qc_ans }}
+                                        {{ one_sample_all_info.check_trimming_qc_ans }}
+                                        {{ one_sample_all_info.check_second_qc_ans }} -->
+                                        <li class="timeline-inverted">
+                                            <div id="quality_control_progress" class="timeline-badge warning" onclick=animation()><i class="fas fa-search fa-2x" style="margin-top: 20px"></i></div>
+                                            <div id="quality_control_progress_detail" class="timeline-panel">
+                                                <div id="quality_control_progress_head" class="timeline-heading">
+                                                  {% if one_sample_all_info.Step_1_check_first_qc is True and one_sample_all_info.Step_1_check_trimming_qc is True and one_sample_all_info.Step_1_check_second_qc is True%}
+                                                    <h4 class="timeline-title" style="margin-bottom:20px"><i class="fas fa-check" style="color: green"></i>&nbsp&nbsp Quality Control</h4>
+                                                  {% else%}
+                                                    <h4 class="timeline-title" style="margin-bottom:20px">Quality Control</h4>
+                                                  {% endif %}
+                                                </div>
+                                                <div id="quality_control_progress_body" class="timeline-body" style="margin-left:30px">
+                                                    {% if one_sample_all_info.Step_1_check_first_qc is False %}
+                                                    <div class="row">
+                                                        <div class=".col-12 .col-md-8">
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>FastQC</b> and <b>MultiQC</b> quality assessment before trimming:  Running ! <i class="fas fa-ellipsis-h"></i></p>
+                                                        </div>
+                                                    </div>
+                                                    {% elif one_sample_all_info.Step_1_check_first_qc is True %}
+                                                    <div class="row">
+                                                        <div class=".col-12 .col-md-8">
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>FastQC</b> and <b>MultiQC</b> quality assessment before trimming:  Finished !</p>
+                                                        </div>
+                                                        <div class=".col-6 .col-md-4">
+                                                            <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                                                <div class="sa-icon sa-success animate">
+                                                                    <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                                    <span class="sa-line sa-long animateSuccessLong"></span>
+                                                                    <div class="sa-placeholder"></div>
+                                                                    <div class="sa-fix"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% if one_sample_all_info.Step_1_check_trimming_qc is False %}
+                                                    <div class="row">
+                                                        <div class=".col-12 .col-md-8">
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>Trimmomatic</b> quality trimming:  Running ! <i class="fas fa-ellipsis-h"></i></p>
+                                                        </div>
+                                                    </div>
+                                                    {% elif one_sample_all_info.Step_1_check_trimming_qc is True %}
+                                                    <div class="row">
+                                                        <div class=".col-12 .col-md-8">
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>Trimmomatic</b> quality trimming:  Finished !</p>
+                                                        </div>
+                                                        <div class=".col-6 .col-md-4">
+                                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                                            <div class="sa-icon sa-success animate">
+                                                                <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                                <span class="sa-line sa-long animateSuccessLong"></span>
+                                                                <div class="sa-placeholder"></div>
+                                                                <div class="sa-fix"></div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% if one_sample_all_info.Step_1_check_second_qc is False %}
+                                                    <div class="row">
+                                                        <div class=".col-12 .col-md-8">
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>FastQC</b> and <b>MultiQC</b> quality assessment after trimming:  Running ! <i class="fas fa-ellipsis-h"></i></p>
+                                                        </div>
+                                                    </div>
+                                                    {% elif one_sample_all_info.Step_1_check_second_qc is True %}
+                                                    <div class="row">
+                                                        <div class=".col-12 .col-md-8">
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>FastQC</b> and <b>MultiQC</b> quality assessment after trimming:  Finished !</p>
+                                                        </div>
+                                                        <div class=".col-6 .col-md-4">
+                                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                                            <div class="sa-icon sa-success animate">
+                                                                <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                                <span class="sa-line sa-long animateSuccessLong"></span>
+                                                                <div class="sa-placeholder"></div>
+                                                                <div class="sa-fix"></div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="timeline-inverted">
+                                            <div id="reference_mapping" class="timeline-badge warning"><i class="fas fa-cut fa-2x" style="margin-top: 20px"></i></div>
+                                            <div id="reference_mapping_detail" class="timeline-panel">
+                                                <div id="reference_mapping_head" class="timeline-heading">
+                                                  {% if one_sample_all_info.Step_2_check_reference_based_bwa_sam is True and one_sample_all_info.Step_2_check_reference_based_bwa_report_txt is True %}
+                                                    <h4 class="timeline-title" style="margin-bottom:20px"><i class="fas fa-check" style="color: green"></i>&nbsp&nbsp Reference Mappping</h4>
+                                                  {% else%}
+                                                    <h4 class="timeline-title" style="margin-bottom:20px">Reference Mappping</h4>
+                                                  {% endif %}
+                                                </div>
+                                                <div id="reference_mapping_body" class="timeline-body" style="margin-left:30px">
+                                                    {% if one_sample_all_info.Step_2_check_reference_based_bwa_sam is False %}
+                                                    <div class="row">
+                                                        <div class=".col-12 .col-md-8">
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BWA MEM</b> reads align to reference genome:  Running !<i class="fas fa-ellipsis-h"></i></p>
+                                                        </div>
+                                                    </div>
+                                                    {% elif one_sample_all_info.Step_2_check_reference_based_bwa_sam is True %}
+                                                    <div class="row">
+                                                        <div class=".col-12 .col-md-8">
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BWA MEM</b> reads align to reference genome:  Finished !</p>
+                                                        </div>
+                                                        <div class=".col-6 .col-md-4">
+                                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                                            <div class="sa-icon sa-success animate">
+                                                                <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                                <span class="sa-line sa-long animateSuccessLong"></span>
+                                                                <div class="sa-placeholder"></div>
+                                                                <div class="sa-fix"></div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% if one_sample_all_info.Step_2_check_reference_based_bwa_report_txt is False %}
+                                                    <div class="row">
+                                                        <div class=".col-12 .col-md-8">
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BWA MEM</b> txt result report generation:  Running !<i class="fas fa-ellipsis-h"></i></p>
+                                                        </div>
+                                                    </div>
+                                                    {% elif one_sample_all_info.Step_2_check_reference_based_bwa_report_txt is True %}
+                                                    <div class="row">
+                                                        <div class=".col-12 .col-md-8">
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BWA MEM</b> txt result report generation:  Finished !</p>
+                                                        </div>
+                                                        <div class=".col-6 .col-md-4">
+                                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                                            <div class="sa-icon sa-success animate">
+                                                                <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                                <span class="sa-line sa-long animateSuccessLong"></span>
+                                                                <div class="sa-placeholder"></div>
+                                                                <div class="sa-fix"></div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="timeline-inverted">
+                                            <div id="variant_calling" class="timeline-badge warning"><i class="fas fa-cut fa-2x" style="margin-top: 20px"></i></div>
+                                            <div id="variant_calling_detail" class="timeline-panel">
+                                                <div id="variant_calling_head" class="timeline-heading">
+                                                  {% if one_sample_all_info.Step_3_check_reference_based_samtools_fixmate_bam is True and one_sample_all_info.Step_3_check_reference_based_samtools_sorted_bam is True and one_sample_all_info.Step_4_check_reference_based_bcftools_vcf %}
+                                                    <h4 class="timeline-title" style="margin-bottom:20px"><i class="fas fa-check" style="color: green"></i>&nbsp&nbsp Variant Calling</h4>
+                                                  {% else%}
+                                                    <h4 class="timeline-title" style="margin-bottom:20px">Variant Calling</h4>
+                                                  {% endif %}
+                                                </div>
+                                                <div id="variant_calling_body" class="timeline-body"  style="margin-left:30px">
+                                                  {% if one_sample_all_info.Step_3_check_reference_based_samtools_fixmate_bam is False %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMtools fixmate</b> flags-filling from a name-sorted alignment:  Running !<i class="fas fa-ellipsis-h"></i></p>
+                                                      </div>
+                                                  </div>
+                                                  {% elif one_sample_all_info.Step_3_check_reference_based_samtools_fixmate_bam is True %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMtools fixmate</b> flags-filling from a name-sorted alignment:  Finished !</p>
+                                                      </div>
+                                                      <div class=".col-6 .col-md-4">
+                                                      <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                                          <div class="sa-icon sa-success animate">
+                                                              <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                              <span class="sa-line sa-long animateSuccessLong"></span>
+                                                              <div class="sa-placeholder"></div>
+                                                              <div class="sa-fix"></div>
+                                                          </div>
+                                                      </div>
+                                                      </div>
+                                                  </div>
+                                                  {% endif %}
+
+                                                  {% if one_sample_all_info.Step_3_check_reference_based_samtools_sorted_bam is False %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMtools sort</b> alignment-sorting:  Running !<i class="fas fa-ellipsis-h"></i></p>
+                                                      </div>
+                                                  </div>
+                                                  {% elif one_sample_all_info.Step_3_check_reference_based_samtools_sorted_bam is True %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMtools sort</b> alignment-sorting:  Finished !</p>
+                                                      </div>
+                                                      <div class=".col-6 .col-md-4">
+                                                      <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                                          <div class="sa-icon sa-success animate">
+                                                              <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                              <span class="sa-line sa-long animateSuccessLong"></span>
+                                                              <div class="sa-placeholder"></div>
+                                                              <div class="sa-fix"></div>
+                                                          </div>
+                                                      </div>
+                                                      </div>
+                                                  </div>
+                                                  {% endif %}
+
+                                                  {% if one_sample_all_info.Step_4_check_reference_based_bcftools_vcf is False %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BCFtools mpileup | call</b> variant calling vcf file creating:  Running !<i class="fas fa-ellipsis-h"></i></p>
+                                                      </div>
+                                                  </div>
+                                                  {% elif one_sample_all_info.Step_4_check_reference_based_bcftools_vcf is True %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BCFtools mpileup | call</b> variant calling vcf file creating:  Finished !</p>
+                                                      </div>
+                                                      <div class=".col-6 .col-md-4">
+                                                      <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                                          <div class="sa-icon sa-success animate">
+                                                              <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                              <span class="sa-line sa-long animateSuccessLong"></span>
+                                                              <div class="sa-placeholder"></div>
+                                                              <div class="sa-fix"></div>
+                                                          </div>
+                                                      </div>
+                                                      </div>
+                                                  </div>
+                                                  {% endif %}
+
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="timeline-inverted">
+                                            <div id="variant_calling_annotation" class="timeline-badge warning"><i class="fas fa-cut fa-2x" style="margin-top: 20px"></i></div>
+                                            <div id="variant_calling_annotation_detail" class="timeline-panel">
+                                                <div id="variant_calling_annotation_head" class="timeline-heading">
+                                                  {% if one_sample_all_info.Step_4_check_reference_based_bcftools_vcf_revise is True and one_sample_all_info.Step_5_check_reference_based_snpeff_vcf_annotation is True %}
+                                                    <h4 class="timeline-title" style="margin-bottom:20px"><i class="fas fa-check" style="color: green"></i>&nbsp&nbsp Variant Calling File Annotation</h4>
+                                                  {% else%}
+                                                    <h4 class="timeline-title" style="margin-bottom:20px">Variant Calling File Annotation</h4>
+                                                  {% endif %}
+                                                </div>
+                                                <div id="variant_calling_annotation_body" class="timeline-body"  style="margin-left:30px">
+                                                  {% if one_sample_all_info.Step_4_check_reference_based_bcftools_vcf_revise is False %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>sed</b> vcf file modification:  Running !<i class="fas fa-ellipsis-h"></i></p>
+                                                      </div>
+                                                  </div>
+                                                  {% elif one_sample_all_info.Step_4_check_reference_based_bcftools_vcf_revise is True %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>sed</b> vcf file modification:  Finished !</p>
+                                                      </div>
+                                                      <div class=".col-6 .col-md-4">
+                                                      <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                                          <div class="sa-icon sa-success animate">
+                                                              <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                              <span class="sa-line sa-long animateSuccessLong"></span>
+                                                              <div class="sa-placeholder"></div>
+                                                              <div class="sa-fix"></div>
+                                                          </div>
+                                                      </div>
+                                                      </div>
+                                                  </div>
+                                                  {% endif %}
+
+                                                  {% if one_sample_all_info.Step_5_check_reference_based_snpeff_vcf_annotation is False %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>snpeff.jar</b> vcf file annotation:  Running !<i class="fas fa-ellipsis-h"></i></p>
+                                                      </div>
+                                                  </div>
+                                                  {% elif one_sample_all_info.Step_5_check_reference_based_snpeff_vcf_annotation is True %}
+                                                  <div class="row">
+                                                      <div class=".col-12 .col-md-8">
+                                                          <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>snpeff.jar</b> vcf file annotation:  Finished !</p>
+                                                      </div>
+                                                      <div class=".col-6 .col-md-4">
+                                                      <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                                          <div class="sa-icon sa-success animate">
+                                                              <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                              <span class="sa-line sa-long animateSuccessLong"></span>
+                                                              <div class="sa-placeholder"></div>
+                                                              <div class="sa-fix"></div>
+                                                          </div>
+                                                      </div>
+                                                      </div>
+                                                  </div>
+                                                  {% endif %}
+                                                </div>
+                                            </div>
+                                        </li>
+
+
+
+
+                                    {% endif %}
+                                {% endfor %}
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+
+                  <script>
+                    var counter = counter + 1
+                    console.log(counter)
+                    if (counter != 1) {
+                      target_id = "{{sample}}" + "_page"
+                      console.log(target_id)
+                      document.getElementById(target_id).style.display = "none";
+                    }
+                  </script>
+                  <!-- <form method="POST" enctype="multipart/form-data" required="True">
+                  {% csrf_token%}
+                  <button type="submit" id="go-to-overview" name="go-to-overview-button" class="btn btn-primary btn-lg btn-block">Block level button</button>
+                  </form>
+
+                  <h1>Submission time: {{ submission_time }}</h1>
+                  <h1>Start time: {{ start_time }}</h1>
+                  <h1>End time: {{ end_time }}</h1>
+                  <h1>view_counter: {{ view_counter }}</h1>
+                  <h1>view_counter_end: {{ view_counter_end }}</h1>
+                  <h1>{{samples_txt_file_name}}</h1>
+                  <h1>{{samples_list_key}}</h1>
+                  <h1>{{sample_list}}</h1> -->
+              </div>
+
+          {% endfor %}
+      {% endfor %}
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+            if ($(".active").hasClass("active")) {
+                // do this
+                console.log("hidden");
+                document.getElementById("toggle_button").className = "fas fa-align-left";
+            } else {
+                // do that
+                console.log("not hidden");
+                document.getElementById("toggle_button").className = "fas fa-angle-double-left";
+            }
+
+            $('#sidebar_sample').toggleClass('active');
+            if ($(".active").hasClass("active")) {
+                // do this
+                console.log("hidden");
+                document.getElementById("toggle_button").className = "fas fa-align-left";
+            } else {
+                // do that
+                console.log("not hidden");
+                document.getElementById("toggle_button").className = "fas fa-angle-double-left";
+            }
+        });
+
+    });
+
+        // This script is to show different page
+        function loading(clicked_name)
+        {
+            $(".pipeline_result").hide();
+            $("#"+clicked_name).show();
+            selected_block = $( '.pipeline_result:visible' ).attr('id');
+            console.log("selected_block", selected_block);
+
+            var selected_sample_name = selected_block.replace("_page", "");
+            $(".page_nav_bar").css("background-color","");
+            $("#"+selected_sample_name+"_page_nav_bar").css("background-color", "#707070");
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+    <script>
+    function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    </script>
+
+    {% if check_first_qc_ans and check_trimming_qc_ans and check_second_qc_ans and check_read_subtraction_bwa_align_ans%}
+    {% else %}
+        <script>
+        console.log("check_first_qc_ans", "{{check_first_qc_ans}}");
+        console.log("check_trimming_qc_ans", "{{check_trimming_qc_ans}}");
+        console.log("check_second_qc_ans", "{{check_second_qc_ans}}");
+        console.log("check_read_subtraction_bwa_align_ans", "{{check_read_subtraction_bwa_align_ans}}")
+        setTimeout(function(){
+        window.location.reload(1);
+        }, 8000);
+        </script>
+    {% endif %}
+
+
+    {% comment %} <div id="content" class="w-100" >
+        <main role="main" class="container">
+
+            <div class="row">
+                <div id="card_trimmomatic" class="card bg-light mt-5 mb-3 w-100 ">
+                    <div class="card-header"><p class="h2"><i class="fas fa-cut"></i> &nbsp &nbsp OverView {{ variable.inside_or_outside }} </p></div>
+                    <div class="card-body w-100">
+                        <h5 class="card-title">Read with low quality would be deleted</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+
+
+            </div>
+        </main>
+    </div> {% endcomment %}
+</div>
+{% endblock content %}
+
+
+
+{% comment %} $(document).ready(function () {
+    $('#quality_control_progress').on('click', function () {
+        $('#quality_control_progress_detail').toggleClass('active');
+        if ($(".active").hasClass("active")) {
+            // do this
+            console.log("hidden");
+            document.getElementById("quality_control_progress").style.marginTop = "-30px" ;
+            document.getElementById("quality_control_progress").style.transform = "scale(0.4,0.4)";
+            document.getElementById("quality_control_progress").style.transition = "all .35s ease-in-out";
+            document.getElementById("quality_control_progress_body").style.display = "none";
+            document.getElementById("quality_control_progress_body").style.transition = "all .2s ease-in-out";
+
+            //document.getElementById("quality_control_progress_body").style.opacity = "0";
+            //document.getElementById("quality_control_progress_body").style.transition = "opacity 1s linear";
+
+            //document.getElementById("quality_control_progress_detail_content").remove();
+            //window.getComputedStyle(
+            //    document.querySelector('.timeline .timeline-panel'), ':after'
+            //).style.visibility = "hidden";
+        } else {
+            // do that
+            console.log("not hidden");
+            document.getElementById("quality_control_progress").style.marginTop = "0px" ;
+            document.getElementById("quality_control_progress").style.transform = "scale(1,1)";
+            document.getElementById("quality_control_progress").style.transition = "all .35s ease-in-out";
+            document.getElementById("quality_control_progress_body").style.display = "block";
+            document.getElementById("quality_control_progress_body").style.transition = "all .2s ease-in-out";
+            //document.getElementById("quality_control_progress_body").style.opacity = "1";
+            //document.getElementById("quality_control_progress_body").style.transition = "opacity 1s linear";
+
+        }
+    });
+});
+
+$(document).ready(function () {
+    $('#read_subtraction_progress').on('click', function () {
+        $('#read_subtraction_progress_detail').toggleClass('active');
+        if ($(".active").hasClass("active")) {
+            // do this
+            console.log("hidden");
+            document.getElementById("read_subtraction_progress").style.marginTop = "-30px" ;
+            document.getElementById("read_subtraction_progress").style.transform = "scale(0.4,0.4)";
+            document.getElementById("read_subtraction_progress").style.transition = "all .35s ease-in-out";
+            document.getElementById("read_subtraction_progress_body").style.display = "none";
+            document.getElementById("read_subtraction_progress_body").style.transition = "all .2s ease-in-out";
+
+            //document.getElementById("quality_control_progress_body").style.opacity = "0";
+            //document.getElementById("quality_control_progress_body").style.transition = "opacity 1s linear";
+
+            //document.getElementById("quality_control_progress_detail_content").remove();
+            //window.getComputedStyle(
+            //    document.querySelector('.timeline .timeline-panel'), ':after'
+            //).style.visibility = "hidden";
+        } else {
+            // do that
+            console.log("not hidden");
+            document.getElementById("read_subtraction_progress").style.marginTop = "0px" ;
+            document.getElementById("read_subtraction_progress").style.transform = "scale(1,1)";
+            document.getElementById("read_subtraction_progress").style.transition = "all .35s ease-in-out";
+            document.getElementById("read_subtraction_progress_body").style.display = "block";
+            document.getElementById("read_subtraction_progress_body").style.transition = "all .2s ease-in-out";
+            //document.getElementById("quality_control_progress_body").style.opacity = "1";
+            //document.getElementById("quality_control_progress_body").style.transition = "opacity 1s linear";
+
+        }
+    });
+}); {% endcomment %}
