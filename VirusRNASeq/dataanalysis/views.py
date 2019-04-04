@@ -26,6 +26,7 @@ from dataanalysis.models import Document, PairedEnd, SingleEnd
 from dataanalysis.forms import DocumentForm, PairedEndForm, SingleEndForm
 
 from . import utils_func
+from . import utils_func_reference_check_whole
 
 TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_project"
 
@@ -203,10 +204,17 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
     (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
+    url_base_dir = os.path.join('/media', 'tmp', project_name + '_' + email + '_' + analysis_code)
+    # Check all the files are valid !!! (for referenced-based workflow)
+    (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
+    # If all checker is true ==> just jump to the new final overview page!!!!!!!
+    if overall_sample_result_checker:
+        return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
+            'slug_project': url_parameter})))
+
+
     if request.method == 'POST' :
-        if 'start-analysis-de-novo' in request.POST:
-            pass
-        elif 'start-analysis-reference-based' in request.POST:
+        if 'start-analysis-reference-based' in request.POST:
             upload_files_dir = os.path.join(base_dir, "Uploaded_files")
             prefix_dir = "/ssd/Howard/Virus/"
             tool_dir = os.path.join(prefix_dir, "tools")
@@ -314,11 +322,10 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
                 shutil.copyfile(get_time_script, destination_get_time_script)
             # subprocess.call(['snakemake'], shell=True, cwd=base_dir)
             template_html = "dataanalysis/analysis_home_reference_based.html"
-            return redirect((reverse('reference_mapping_dataanalysis_result_overview', kwargs={
+            return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
 
     return render(request, template_html, {
-        'which': "normal",
         'project_name': project_name,
         'email': email,
         'assembly_type_input': assembly_type_input,
@@ -344,6 +351,7 @@ def reference_mapping_show_result_overview(request, slug_project):
 
     samples_all_result = {}
     for sample_name in sample_list:
+        url_sample_base_dir = os.path.join(url_base_dir, sample_name)
         sample_datadir = os.path.join(base_dir, sample_name)
         samples_all_result[sample_name] = {}
         one_sample_all_result = {}
@@ -361,14 +369,20 @@ def reference_mapping_show_result_overview(request, slug_project):
             qc_datadir, 'post', sample_name+'_r2_paired_fastqc.html')
         multiqc_datadir_post = os.path.join(
             qc_datadir, 'post', sample_name+'_multiqc.html')
+
+        snpeff_html_datadir = os.path.join(
+            base_dir, sample_name, 'Step_5', 'snpeff', sample_name+'_snpEff_summary.html')
         # Destination of html file
         destination_QC_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, '', sample_name, 'Step_1', 'QC')
+        destination_snpeff_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, '', sample_name, 'Step_5', 'snpeff')
         destination_fastqc_datadir_pre_r1 = os.path.join(destination_QC_html_dir, 'pre', sample_name+'.R1_fastqc.html')
         destination_fastqc_datadir_pre_r2 = os.path.join(destination_QC_html_dir, 'pre', sample_name+'.R2_fastqc.html')
         destination_multiqc_datadir_pre = os.path.join(destination_QC_html_dir, 'pre', sample_name+'_multiqc.html')
         destination_fastqc_datadir_post_r1 = os.path.join(destination_QC_html_dir, 'post', sample_name+'_r1_paired_fastqc.html')
         destination_fastqc_datadir_post_r2 = os.path.join(destination_QC_html_dir, 'post', sample_name+'_r2_paired_fastqc.html')
         destination_multiqc_datadir_post = os.path.join(destination_QC_html_dir, 'post', sample_name+'_multiqc.html')
+        destination_snpeff_datadir = os.path.join(destination_snpeff_html_dir, sample_name+'_snpEff_summary.html')
+
         if not os.path.exists(destination_QC_html_dir):
             os.makedirs(destination_QC_html_dir)
             os.makedirs(os.path.join(destination_QC_html_dir, 'pre'))
@@ -379,31 +393,34 @@ def reference_mapping_show_result_overview(request, slug_project):
             shutil.copyfile(fastqc_datadir_post_r1, destination_fastqc_datadir_post_r1)
             shutil.copyfile(fastqc_datadir_post_r2, destination_fastqc_datadir_post_r2)
             shutil.copyfile(multiqc_datadir_post, destination_multiqc_datadir_post)
+        if not os.path.exists(destination_snpeff_html_dir):
+            os.makedirs(destination_snpeff_html_dir)
+            shutil.copyfile(snpeff_html_datadir, destination_snpeff_datadir)
         one_sample_all_result["fastqc_datadir_pre_r1"] = sample_name+'.R1_fastqc.html'
         one_sample_all_result["fastqc_datadir_pre_r2"] = sample_name+'.R2_fastqc.html'
         one_sample_all_result["multiqc_datadir_pre"] = sample_name+'_multiqc.html'
         one_sample_all_result["fastqc_datadir_post_r1"] = sample_name+'_r1_paired_fastqc.html'
         one_sample_all_result["fastqc_datadir_post_r2"] = sample_name+'_r2_paired_fastqc.html'
         one_sample_all_result["multiqc_datadir_post"] = sample_name+'_multiqc.html'
-        Step_1_check_first_qc = utils_func.Step_1_check_first_qc(url_base_dir, sample_datadir, sample_name)
+        Step_1_check_first_qc = utils_func.Step_1_check_first_qc(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_1_check_first_qc"] = Step_1_check_first_qc[1]
-        Step_1_check_trimming_qc = utils_func.Step_1_check_trimming_qc(url_base_dir, sample_datadir, sample_name)
+        Step_1_check_trimming_qc = utils_func.Step_1_check_trimming_qc(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_1_check_trimming_qc"] = Step_1_check_trimming_qc[1]
-        Step_1_check_second_qc = utils_func.Step_1_check_second_qc(url_base_dir, sample_datadir, sample_name)
+        Step_1_check_second_qc = utils_func.Step_1_check_second_qc(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_1_check_second_qc"] = Step_1_check_second_qc[1]
-        Step_2_check_reference_based_bwa_sam = utils_func.Step_2_check_reference_based_bwa_sam(url_base_dir, sample_datadir, sample_name)
+        Step_2_check_reference_based_bwa_sam = utils_func.Step_2_check_reference_based_bwa_sam(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_2_check_reference_based_bwa_sam"] = Step_2_check_reference_based_bwa_sam[1]
-        Step_2_check_reference_based_bwa_report_txt = utils_func.Step_2_check_reference_based_bwa_report_txt(url_base_dir, sample_datadir, sample_name)
+        Step_2_check_reference_based_bwa_report_txt = utils_func.Step_2_check_reference_based_bwa_report_txt(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_2_check_reference_based_bwa_report_txt"] = Step_2_check_reference_based_bwa_report_txt[1]
-        Step_3_check_reference_based_samtools_fixmate_bam = utils_func.Step_3_check_reference_based_samtools_fixmate_bam(url_base_dir, sample_datadir, sample_name)
+        Step_3_check_reference_based_samtools_fixmate_bam = utils_func.Step_3_check_reference_based_samtools_fixmate_bam(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_3_check_reference_based_samtools_fixmate_bam"] = Step_3_check_reference_based_samtools_fixmate_bam[1]
-        Step_3_check_reference_based_samtools_sorted_bam = utils_func.Step_3_check_reference_based_samtools_sorted_bam(url_base_dir, sample_datadir, sample_name)
+        Step_3_check_reference_based_samtools_sorted_bam = utils_func.Step_3_check_reference_based_samtools_sorted_bam(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_3_check_reference_based_samtools_sorted_bam"] = Step_3_check_reference_based_samtools_sorted_bam[1]
-        Step_4_check_reference_based_bcftools_vcf = utils_func.Step_4_check_reference_based_bcftools_vcf(url_base_dir, sample_datadir, sample_name)
+        Step_4_check_reference_based_bcftools_vcf = utils_func.Step_4_check_reference_based_bcftools_vcf(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_4_check_reference_based_bcftools_vcf"] = Step_4_check_reference_based_bcftools_vcf[1]
-        Step_4_check_reference_based_bcftools_vcf_revise = utils_func.Step_4_check_reference_based_bcftools_vcf_revise(url_base_dir, sample_datadir, sample_name)
+        Step_4_check_reference_based_bcftools_vcf_revise = utils_func.Step_4_check_reference_based_bcftools_vcf_revise(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_4_check_reference_based_bcftools_vcf_revise"] = Step_4_check_reference_based_bcftools_vcf_revise[1]
-        Step_5_check_reference_based_snpeff_vcf_annotation = utils_func.Step_5_check_reference_based_snpeff_vcf_annotation(url_base_dir, sample_datadir, sample_name)
+        Step_5_check_reference_based_snpeff_vcf_annotation = utils_func.Step_5_check_reference_based_snpeff_vcf_annotation(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_5_check_reference_based_snpeff_vcf_annotation"] = Step_5_check_reference_based_snpeff_vcf_annotation[1]
         samples_all_result[sample_name] = one_sample_all_result
         trimmomatic_command_log = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'logs', 'trimmomatic_pe', sample_name+'.command.log')
@@ -495,63 +512,11 @@ def reference_mapping_current_status(request, slug_project):
             return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
 
-    samples_all_info = {}
-    for sample_name in sample_list:
-        ## Check times
-        check_submission_time_ans = utils_func.check_submission_time_file(base_dir, sample_name)
-        check_start_time_ans = utils_func.check_start_time_file(base_dir, sample_name)
-        check_end_time_ans = utils_func.check_end_time_file(base_dir, sample_name)
-        samples_all_info[sample_name] = {}
-        one_sample_all_info = {}
-
-        sample_datadir = os.path.join(base_dir, sample_name)
-        files = os.listdir(os.path.join(sample_datadir))
-
-        view_counter_end = "Not Start Counting"
-        ## Checking files
-        ## Reference-based file checking!!
-        Step_1_check_first_qc = utils_func.Step_1_check_first_qc(url_base_dir, sample_datadir, sample_name)
-        one_sample_all_info["Step_1_check_first_qc"] = Step_1_check_first_qc[0]
-        Step_1_check_trimming_qc = utils_func.Step_1_check_trimming_qc(url_base_dir, sample_datadir, sample_name)
-        one_sample_all_info["Step_1_check_trimming_qc"] = Step_1_check_trimming_qc[0]
-        Step_1_check_second_qc = utils_func.Step_1_check_second_qc(url_base_dir, sample_datadir, sample_name)
-        one_sample_all_info["Step_1_check_second_qc"] = Step_1_check_second_qc[0]
-        Step_2_check_reference_based_bwa_sam = utils_func.Step_2_check_reference_based_bwa_sam(url_base_dir, sample_datadir, sample_name)
-        one_sample_all_info["Step_2_check_reference_based_bwa_sam"] = Step_2_check_reference_based_bwa_sam[0]
-        Step_2_check_reference_based_bwa_report_txt = utils_func.Step_2_check_reference_based_bwa_report_txt(url_base_dir, sample_datadir, sample_name)
-        one_sample_all_info["Step_2_check_reference_based_bwa_report_txt"] = Step_2_check_reference_based_bwa_report_txt[0]
-        Step_3_check_reference_based_samtools_fixmate_bam = utils_func.Step_3_check_reference_based_samtools_fixmate_bam(url_base_dir, sample_datadir, sample_name)
-        one_sample_all_info["Step_3_check_reference_based_samtools_fixmate_bam"] = Step_3_check_reference_based_samtools_fixmate_bam[0]
-        Step_3_check_reference_based_samtools_sorted_bam = utils_func.Step_3_check_reference_based_samtools_sorted_bam(url_base_dir, sample_datadir, sample_name)
-        one_sample_all_info["Step_3_check_reference_based_samtools_sorted_bam"] = Step_3_check_reference_based_samtools_sorted_bam[0]
-        Step_4_check_reference_based_bcftools_vcf = utils_func.Step_4_check_reference_based_bcftools_vcf(url_base_dir, sample_datadir, sample_name)
-        one_sample_all_info["Step_4_check_reference_based_bcftools_vcf"] = Step_4_check_reference_based_bcftools_vcf[0]
-        Step_4_check_reference_based_bcftools_vcf_revise = utils_func.Step_4_check_reference_based_bcftools_vcf_revise(url_base_dir, sample_datadir, sample_name)
-        one_sample_all_info["Step_4_check_reference_based_bcftools_vcf_revise"] = Step_4_check_reference_based_bcftools_vcf_revise[0]
-        Step_5_check_reference_based_snpeff_vcf_annotation = utils_func.Step_5_check_reference_based_snpeff_vcf_annotation(url_base_dir, sample_datadir, sample_name)
-        one_sample_all_info["Step_5_check_reference_based_snpeff_vcf_annotation"] = Step_5_check_reference_based_snpeff_vcf_annotation[0]
-        samples_all_info[sample_name] = one_sample_all_info
-
-        ### Add later~~
-        # check_read_subtraction_bwa_align_ans = utils_func.check_read_subtraction_bwa_align(sample_datadir, sample_name)
-        # check_read_subtraction_bwa_align_ans_dict[sample_name] = check_read_subtraction_bwa_align_ans
-        # check_extract_non_host_reads_1_ans = utils_func.check_extract_non_host_reads_1(sample_datadir, sample_name)
-        # check_extract_non_host_reads_2_ans = utils_func.check_extract_non_host_reads_2(sample_datadir, sample_name)
-        # check_extract_non_host_reads_3_ans = utils_func.check_extract_non_host_reads_3(sample_datadir, sample_name)
-        # check_extract_non_host_reads_4_ans = utils_func.check_extract_non_host_reads_4(sample_datadir, sample_name)
-
-    print("samples_all_info: ", samples_all_info)
-    sample_checker_list = []
-    for sample_key, sample_check_info in samples_all_info.items():
-        ans = all(value == True for value in sample_check_info.values())
-        sample_checker_list.append(ans)
-    # sample_checker_list.append(False)
-    overall_sample_result_checker = all(item == True for item in sample_checker_list)
-    print("overall_sample_result_checkeroverall_sample_result_checker: ", overall_sample_result_checker)
-    ## If all checker is true ==> just jump to the new final overview page!!!!!!!
+    (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
     if overall_sample_result_checker:
-        return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
+        return redirect((reverse('reference_mapping_dataanalysis_result_overview', kwargs={
             'slug_project': url_parameter})))
+
     ## The condition to start the analysis
     # for key, samples in check_first_qc_ans_dict.items():
     #     print("keykeykey: ", key)
@@ -584,7 +549,6 @@ def reference_mapping_current_status(request, slug_project):
 
 
         'submission_time': submission_time_strip,
-        'view_counter_end': view_counter_end,
         'view_counter': view_counter,
 
 
@@ -670,6 +634,20 @@ def post_qc_html_view_r2(request, slug_project, slug_sample):
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
     html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, slug_sample, 'Step_1', 'QC', 'post', slug_sample+'_r2_paired_fastqc.html')
+    return render(request, html_file, {
+        'project_name': project_name,
+        'analysis_code': analysis_code,
+        'email': email,
+        'assembly_type_input': assembly_type_input,
+        'url_parameter': url_parameter,
+    })
+
+def snpeff_report(request, slug_project, slug_sample):
+    (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
+    url_parameter = project_name + '_' + email.split("@")[0]
+    base_dir = os.path.join(settings.MEDIA_ROOT,
+                            'tmp', project_name + '_' + email + '_' + analysis_code)
+    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, slug_sample, 'Step_5', 'snpeff', slug_sample+'_snpEff_summary.html')
     return render(request, html_file, {
         'project_name': project_name,
         'analysis_code': analysis_code,
