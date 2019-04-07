@@ -162,16 +162,16 @@ FILE_UPLOAD_HANDLERS = (
 
 PROGRESSBARUPLOAD_INCLUDE_JQUERY = True
 
-## 
+##
 LOGIN_REDIRECT_URL = 'homepage'
 
 
 Q_CLUSTER = {
 'name': 'DjangORM',
-'workers': 1,
-'timeout': 1800,
-'retry': 120,
-'queue_limit': 50,
+'workers': 4,
+# 'timeout': 1800,
+# 'retry': 120,
+'queue_limit': 8,
 'bulk': 10,
 'orm': 'default'
 }

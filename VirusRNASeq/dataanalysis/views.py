@@ -8,6 +8,11 @@ from django.views import View
 from django.views.generic.detail import DetailView
 from django.conf import settings
 from django.urls import reverse
+from django_q.tasks import async_task, result, fetch
+from django_q.tasks import AsyncTask
+from django_q.monitor import Stat
+import math
+
 import yaml
 from django.core.files import File
 import glob
@@ -207,11 +212,11 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
     url_base_dir = os.path.join('/media', 'tmp', project_name + '_' + email + '_' + analysis_code)
     # Check all the files are valid !!! (for referenced-based workflow)
     (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
-    # If all checker is true ==> just jump to the new final overview page!!!!!!!
-    if overall_sample_result_checker:
+    fetch_job_success = utils_func_reference_check_whole.django_q_check(project_name, email, analysis_code)
+    # If all checker is true ==> just jump to the current status page and then jump to new final overview page!!!!!!! and fetch_job.success
+    if overall_sample_result_checker and fetch_job_success:
         return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
             'slug_project': url_parameter})))
-
 
     if request.method == 'POST' :
         if 'start-analysis-reference-based' in request.POST:
@@ -320,7 +325,42 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
                 destination_get_time_script = os.path.join(
                     base_dir, 'get_time_script/get_' + name + '_time.py')
                 shutil.copyfile(get_time_script, destination_get_time_script)
-            # subprocess.call(['snakemake'], shell=True, cwd=base_dir)
+
+            new_task_name = project_name + email + analysis_code
+            fetch_job = fetch(project_name + email + analysis_code)
+            print("fetch_job: ", fetch_job)
+            opts = {'group': assembly_type_input,
+                    'task_name': new_task_name}
+
+            for stat in Stat.get_all():
+                print("@@@@@@@@@@@@ Get the status of all task")
+                print(stat.cluster_id, stat.status)
+
+            # Check the project!!
+            if fetch_job is None:
+                print("@@@@@@@@@@@@ Start running job: ")
+                task_id = async_task(subprocess.call, ['snakemake'], shell=True, cwd=base_dir, q_options=opts)
+            else:
+                # The task is created so it won't be run again!
+                print("@@@@@@@@@@@@ Project is submitted and created!!")
+                # subprocess.call(['snakemake'], shell=True, cwd=base_dir)
+                fetch_job = fetch(project_name + email + analysis_code)
+                print("fetch_job: ", fetch_job)
+                print("fetch_job.id: ", fetch_job.id)
+                print("fetch_job.name: ", fetch_job.name)
+                print("fetch_job.func: ", fetch_job.func)
+                print("fetch_job.hook: ", fetch_job.hook)
+                print("fetch_job.kwargs: ", fetch_job.kwargs)
+                print("fetch_job.result: ", fetch_job.result)
+                print("fetch_job.started: ", fetch_job.started)
+                print("fetch_job.stopped: ", fetch_job.stopped)
+                print("fetch_job.success: ", fetch_job.success)
+                if fetch_job.success is False:
+                    # The task is created and failed !! DO HERE!!!~~
+                    pass
+                else:
+                    # The task is created successfully!!
+                    pass
             template_html = "dataanalysis/analysis_home_reference_based.html"
             return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
@@ -334,6 +374,63 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
         'sample_list': sample_list
     })
 
+
+def reference_mapping_current_status(request, slug_project):
+    (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
+    url_parameter = project_name + '_' + email.split("@")[0]
+    base_dir = os.path.join(settings.MEDIA_ROOT,
+                            'tmp', project_name + '_' + email + '_' + analysis_code)
+    url_base_dir = os.path.join('/media', 'tmp', project_name + '_' + email + '_' + analysis_code)
+    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
+    # Get submission time
+    submission_time_strip = 'no submission time'
+    start_time_strip = 'no start time'
+    end_time_strip = 'no end time'
+    # Getting time!!
+    submission_time_strip = utils_func.get_submission_time(project_name, email, analysis_code)
+    start_time_strip = utils_func.get_start_time(project_name, email, analysis_code)
+    end_time_strip = utils_func.get_end_time(project_name, email, analysis_code)
+    url_parameter = project_name + '_' + email.split("@")[0]
+
+    check_first_qc_ans_dict = {}
+    check_trimming_qc_ans_dict = {}
+    check_second_qc_ans_dict = {}
+    check_read_subtraction_bwa_align_ans_dict = {}
+    check_extract_non_host_reads_1_ans_dict = {}
+    check_extract_non_host_reads_2_ans_dict = {}
+    check_extract_non_host_reads_3_ans_dict = {}
+    check_extract_non_host_reads_4_ans_dict = {}
+
+    ##########
+    ## THis is for the button to go to overview page ##
+    ##########
+    if request.method == 'POST':
+        if 'go-to-overview-button' in request.POST:
+            return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
+                'slug_project': url_parameter})))
+
+    (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
+    fetch_job_success = utils_func_reference_check_whole.django_q_check(project_name, email, analysis_code)
+
+    if overall_sample_result_checker and fetch_job_success:
+        return redirect((reverse('reference_mapping_dataanalysis_result_overview', kwargs={
+            'slug_project': url_parameter})))
+
+    return render(request, "dataanalysis/analysis_result_status_reference_based.html", {
+        'project_name': project_name,
+        'email': email,
+        'analysis_code': analysis_code,
+        'assembly_type_input': assembly_type_input,
+        'url_parameter': url_parameter,
+        'samples_all_info': samples_all_info,
+        # Here, the variable need to be removed
+
+        'submission_time': submission_time_strip,
+
+        "samples_txt_file_name": samples_txt_file_name,
+        "samples_list_key": samples_list_key,
+        "sample_list": sample_list,
+    })
 
 def reference_mapping_show_result_overview(request, slug_project):
     (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
@@ -469,92 +566,6 @@ def show_result(request, slug_project):
         'email': email,
         'assembly_type_input':assembly_type_input,
         'url_parameter': url_parameter,
-    })
-
-def reference_mapping_current_status(request, slug_project):
-    (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
-    url_parameter = project_name + '_' + email.split("@")[0]
-    base_dir = os.path.join(settings.MEDIA_ROOT,
-                            'tmp', project_name + '_' + email + '_' + analysis_code)
-    url_base_dir = os.path.join('/media', 'tmp', project_name + '_' + email + '_' + analysis_code)
-    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
-    # Get submission time
-    submission_time_strip = 'no submission time'
-    start_time_strip = 'no start time'
-    end_time_strip = 'no end time'
-    # Getting time!!
-    submission_time_strip = utils_func.get_submission_time(project_name, email, analysis_code)
-    start_time_strip = utils_func.get_start_time(project_name, email, analysis_code)
-    end_time_strip = utils_func.get_end_time(project_name, email, analysis_code)
-    url_parameter = project_name + '_' + email.split("@")[0]
-    if ('view_counter_%s' % url_parameter) in request.session:
-        view_counter = request.session['view_counter_%s' % url_parameter]
-        view_counter = view_counter + 1
-        request.session['view_counter_%s' % url_parameter] = view_counter
-    else:
-        view_counter = 1
-        request.session['view_counter_%s' % url_parameter] = view_counter
-
-    check_first_qc_ans_dict = {}
-    check_trimming_qc_ans_dict = {}
-    check_second_qc_ans_dict = {}
-    check_read_subtraction_bwa_align_ans_dict = {}
-    check_extract_non_host_reads_1_ans_dict = {}
-    check_extract_non_host_reads_2_ans_dict = {}
-    check_extract_non_host_reads_3_ans_dict = {}
-    check_extract_non_host_reads_4_ans_dict = {}
-
-    ##########
-    ## THis is for the button to go to overview page ##
-    ##########
-    if request.method == 'POST':
-        if 'go-to-overview-button' in request.POST:
-            return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
-                'slug_project': url_parameter})))
-
-    (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
-    if overall_sample_result_checker:
-        return redirect((reverse('reference_mapping_dataanalysis_result_overview', kwargs={
-            'slug_project': url_parameter})))
-
-    ## The condition to start the analysis
-    # for key, samples in check_first_qc_ans_dict.items():
-    #     print("keykeykey: ", key)
-    #     print("samplessamples: ", samples)
-
-    # whole_file_check = check_first_qc_ans and check_trimming_qc_ans and check_second_qc_ans
-    # if ((view_counter is 1) or (check_submission_time_ans is False and check_first_qc_ans is False and check_trimming_qc_ans is False and check_second_qc_ans is False and check_read_subtraction_bwa_align_ans is False and check_end_time_ans is False) or submission_time_strip == 'no submission time'):
-    #     # This is the first time to run (with the submission time stamp)
-    #     submission_time_file = os.path.join(settings.MEDIA_ROOT, 'tmp',
-    #                                         project_name + '_' + email + '_' + analysis_code, 'time/submision_time.txt')
-    #     submission_time = timezone.now()
-    #     submission_time_strip = submission_time.strftime("%B %d, %Y, %I:%M:%S %p")
-    #     f_submission = open(submission_time_file, 'w')
-    #     f_submission.writelines(submission_time_strip)
-    #     f_submission.close()
-    #     # request.session["submission_time"] = submission_time_strip
-    #     subprocess.Popen(['snakemake', 'targets'], cwd=base_dir)
-    ############
-    ### HERE ###
-    ############
-
-    return render(request, "dataanalysis/analysis_result_status_reference_based.html", {
-        'project_name': project_name,
-        'email': email,
-        'analysis_code': analysis_code,
-        'assembly_type_input': assembly_type_input,
-        'url_parameter': url_parameter,
-        'samples_all_info': samples_all_info,
-        # Here, the variable need to be removed
-
-
-        'submission_time': submission_time_strip,
-        'view_counter': view_counter,
-
-
-        "samples_txt_file_name": samples_txt_file_name,
-        "samples_list_key": samples_list_key,
-        "sample_list": sample_list,
     })
 
 

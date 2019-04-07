@@ -1,5 +1,33 @@
 import os
+from django_q.tasks import async_task, result, fetch
 from . import utils_func
+
+def django_q_check(project_name, email, analysis_code):
+    new_task_name = project_name + email + analysis_code
+    fetch_job = fetch(project_name + email + analysis_code)
+    if fetch_job is None:
+        print("@@@@@@@@@@@@ The job is not started yet!! ")
+        # Task is failed
+        # Return to fail page!!
+        return False
+    else:
+        fetch_job_success = fetch_job.success
+        if fetch_job.success:
+            print("@@@@@@@@@@@@ The job is started and finished successfully: ")
+            print("fetch_job: ", fetch_job)
+            print("fetch_job.id: ", fetch_job.id)
+            print("fetch_job.name: ", fetch_job.name)
+            print("fetch_job.func: ", fetch_job.func)
+            print("fetch_job.hook: ", fetch_job.hook)
+            print("fetch_job.kwargs: ", fetch_job.kwargs)
+            print("fetch_job.result: ", fetch_job.result)
+            print("fetch_job.started: ", fetch_job.started)
+            print("fetch_job.stopped: ", fetch_job.stopped)
+            print("fetch_job.success: ", fetch_job.success)
+            return fetch_job_success
+        else:
+            print("@@@@@@@@@@@@ The job is started but not finish yet: ")
+            return fetch_job_success
 
 def Whole_check_reference_based_results(url_base_dir, base_dir, sample_list):
     samples_all_info = {}
@@ -36,6 +64,6 @@ def Whole_check_reference_based_results(url_base_dir, base_dir, sample_list):
         ans = all(value == True for value in sample_check_info.values())
         sample_checker_list.append(ans)
     #This is for checking everything is fine~~~
-    # sample_checker_list.append(False)
+    sample_checker_list.append(False)
     overall_sample_result_checker = all(item == True for item in sample_checker_list)
     return (overall_sample_result_checker, samples_all_info)
