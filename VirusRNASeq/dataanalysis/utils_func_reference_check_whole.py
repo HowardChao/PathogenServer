@@ -64,6 +64,6 @@ def Whole_check_reference_based_results(url_base_dir, base_dir, sample_list):
         ans = all(value == True for value in sample_check_info.values())
         sample_checker_list.append(ans)
     #This is for checking everything is fine~~~
-    sample_checker_list.append(False)
+    # sample_checker_list.append(False)
     overall_sample_result_checker = all(item == True for item in sample_checker_list)
     return (overall_sample_result_checker, samples_all_info)

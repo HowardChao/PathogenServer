@@ -11,6 +11,7 @@ urlpatterns = [
     path('check-project/', views.check_project, name='check_project'),
     path('help/', views.help_view, name='help'),
     path('about/', views.about_view, name='about'),
+    path('merge_project', views.merge_project, name='merge_project'),
 ]
 
 

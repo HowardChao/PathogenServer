@@ -97,6 +97,7 @@ def check_session(request):
 #########################
 def check_samples_txt_file(base_dir):
     sample_file_validity = True
+    sample_file_two_or_one = 0
     samples_txt_file_name = None
     samples_list_key = {}
     sample_list = []
@@ -113,10 +114,20 @@ def check_samples_txt_file(base_dir):
         if not len(read_ans['ids'].unique()) == len(read_ans['ids']):
             sample_file_validity = False
         # Third check types of Groups are only two
-        if not len(read_ans['Groups'].unique()) == 2:
+        # if not len(read_ans['Groups'].unique()) == 2 :
+        #     sample_file_validity = False
+        # Now check the sample group number
+        if len(read_ans['Groups'].unique()) == 1:
+            sample_file_two_or_one = 1
+            sample_file_validity = True
+        elif len(read_ans['Groups'].unique()) == 2:
+            sample_file_two_or_one = 2
+            sample_file_validity = True
+        else:
             sample_file_validity = False
-        # Whether both numbers should be the same ??
+            sample_file_two_or_one = 0
 
+        # Whether both numbers should be the same ??
         samples_groups = read_ans['Groups'].unique()
         samples_names = read_ans['ids'].unique()
         for i in samples_groups:
@@ -124,10 +135,10 @@ def check_samples_txt_file(base_dir):
             samples_list_key[i] = group_samples
         for j in samples_names:
             sample_list.append(j)
-        return (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity)
+        return (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one)
 
     else:
-        return (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity)
+        return (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one)
 
 
 #########################

@@ -54,7 +54,7 @@ class BasicUploadView(DetailView):
         url_parameter = project_name + '_' + email.split("@")[0]
         # Start checking files !!!
         # For sample name!
-        (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
+        (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
         check_uploaded_fastq_file_ans = utils_func.check_uploaded_fastq_file(project_name, email, analysis_code)
         check_uploaded_fastq_file_whole_ans = utils_func.check_uploaded_fastq_file_whole_answer(check_uploaded_fastq_file_ans)
         uploaded_sample_file_url = utils_func.get_sample_file_url(project_name, email, analysis_code)
@@ -78,7 +78,7 @@ class BasicUploadView(DetailView):
         base_dir = os.path.join(settings.MEDIA_ROOT,
                                 'tmp', project_name + '_' + email + '_' + analysis_code)
         url_parameter = project_name + '_' + email.split("@")[0]
-        (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
+        (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
         if assembly_type_input == "de_novo_assembly":
             template_html = "dataanalysis/analysis_home_denovo.html"
         elif assembly_type_input == "reference_based_assembly":
@@ -97,7 +97,7 @@ class BasicUploadView(DetailView):
                 os.remove(os.path.join(base_dir, myfile.name))
             filename = fs.save(os.path.join(base_dir, myfile.name), myfile)
             # Start checking files
-            (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
+            (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
             check_uploaded_fastq_file_ans = utils_func.check_uploaded_fastq_file(project_name, email, analysis_code)
             check_uploaded_fastq_file_whole_ans = utils_func.check_uploaded_fastq_file_whole_answer(check_uploaded_fastq_file_ans)
             # Url needs to be updated one file is uploaded!!
@@ -124,7 +124,7 @@ class BasicUploadView(DetailView):
             if os.path.exists(destination_QC_html_dir):
                 shutil.rmtree(destination_QC_html_dir)
             # Start checking files
-            (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
+            (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
             check_uploaded_fastq_file_ans = utils_func.check_uploaded_fastq_file(project_name, email, analysis_code)
             check_uploaded_fastq_file_whole_ans = utils_func.check_uploaded_fastq_file_whole_answer(check_uploaded_fastq_file_ans)
             uploaded_sample_file_url = utils_func.get_sample_file_url(project_name, email, analysis_code)
@@ -142,7 +142,7 @@ class BasicUploadView(DetailView):
                 'uploaded_sample_file_url': uploaded_sample_file_url,
             })
         elif 'multi_samples_workflow_setup_button' in request.POST:
-            (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
+            (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
             # if assembly_type_input
             if assembly_type_input == "de_novo_assembly":
                 template_html = "dataanalysis/analysis_home_denovo.html"
@@ -169,7 +169,7 @@ class BasicUploadView(DetailView):
         fs = FileSystemStorage()
         print("myfilemyfilemyfile: ", myfile)
         # Sample name!
-        (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
+        (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
         for sample in sample_list:
             if not fs.exists(os.path.join(base_dir, 'Uploaded_files', sample)):
                 os.makedirs(os.path.join(base_dir, 'Uploaded_files', sample))
@@ -208,7 +208,7 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
         template_html = "dataanalysis/analysis_home_reference_based.html"
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
-    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
+    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
     url_base_dir = os.path.join('/media', 'tmp', project_name + '_' + email + '_' + analysis_code)
     # Check all the files are valid !!! (for referenced-based workflow)
     (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
@@ -217,7 +217,6 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
     if overall_sample_result_checker and fetch_job_success:
         return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
             'slug_project': url_parameter})))
-
     if request.method == 'POST' :
         if 'start-analysis-reference-based' in request.POST:
             upload_files_dir = os.path.join(base_dir, "Uploaded_files")
@@ -340,6 +339,7 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
             if fetch_job is None:
                 print("@@@@@@@@@@@@ Start running job: ")
                 task_id = async_task(subprocess.call, ['snakemake'], shell=True, cwd=base_dir, q_options=opts)
+                # task_id = async_task(math.copysign, 2, -2, q_options=opts)
             else:
                 # The task is created so it won't be run again!
                 print("@@@@@@@@@@@@ Project is submitted and created!!")
@@ -361,6 +361,7 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
                 else:
                     # The task is created successfully!!
                     pass
+
             template_html = "dataanalysis/analysis_home_reference_based.html"
             return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
@@ -381,7 +382,7 @@ def reference_mapping_current_status(request, slug_project):
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
     url_base_dir = os.path.join('/media', 'tmp', project_name + '_' + email + '_' + analysis_code)
-    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
+    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
     # Get submission time
     submission_time_strip = 'no submission time'
     start_time_strip = 'no start time'
@@ -411,7 +412,8 @@ def reference_mapping_current_status(request, slug_project):
 
     (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
     fetch_job_success = utils_func_reference_check_whole.django_q_check(project_name, email, analysis_code)
-
+    # print("overall_sample_result_checker", overall_sample_result_checker)
+    # print("fetch_job_success", fetch_job_success)
     if overall_sample_result_checker and fetch_job_success:
         return redirect((reverse('reference_mapping_dataanalysis_result_overview', kwargs={
             'slug_project': url_parameter})))
@@ -439,7 +441,7 @@ def reference_mapping_show_result_overview(request, slug_project):
                             'tmp', project_name + '_' + email + '_' + analysis_code)
     url_base_dir = os.path.join('/media', 'tmp', project_name + '_' + email + '_' + analysis_code)
     # Get sample name
-    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity) = utils_func.check_samples_txt_file(base_dir)
+    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
 
     # Getting time!!
     submission_time_strip = utils_func.get_submission_time(project_name, email, analysis_code)

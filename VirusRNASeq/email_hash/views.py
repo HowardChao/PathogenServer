@@ -142,3 +142,7 @@ def help_view(request):
 def about_view(request):
     template = "email_hash/about.html"
     return render(request, template)
+
+def merge_project(request):
+    template = "email_hash/merge_project.html"
+    return render(request, template)

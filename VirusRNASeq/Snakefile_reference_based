@@ -41,6 +41,7 @@ rule targets:
         # expand(os.path.join("{sample}", "Step_4", "bcftools", "{sample}.vcf"), sample=samples),
         expand(os.path.join("{sample}", "Step_4", "bcftools", "{sample}.vcf"), sample=samples),
         expand(os.path.join("{sample}", "Step_4", "bcftools", "{sample}_revise.vcf"), sample=samples),
+        expand(os.path.join("{sample}", "Step_4", "bcftools", "{sample}_revise.vcf.gz"), sample=samples),
         # expand(os.path.join(
         #     config["datadir"], "Read_Subtraction", "bwa", "sam", "{sample}.sam"), sample=samples),
         # expand(os.path.join( "{sample}", "Step_5", "snpeff", "{sample}.vcf2"), sample=samples),
@@ -284,7 +285,7 @@ rule bcftools_mpileup_1:
         """
 
 
-rule sed_vsf_revise:
+rule sed_vcf_revise:
     input:
         bcftools_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}.vcf"),
     output:
@@ -294,10 +295,23 @@ rule sed_vsf_revise:
         target_chromosome_name = "Chromosome",
     priority: 88,
     log:
-        log = os.path.join("{sample}", "logs", "Step_4", "snpeff_vcf", "{sample}_revise_vcf.log"),
+        log = os.path.join("{sample}", "logs", "Step_4", "bcftools_vcf_revise", "{sample}_revise_vcf.log"),
     shell:
         """
         sed 's/{params.origin_chromosome_name}/{params.target_chromosome_name}/g' "{input.bcftools_vcf}" > {output.bcftools_revise_vcf}
+        """
+
+rule gzip_vcf_file:
+    input:
+        bcftools_revise_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}_revise.vcf"),
+    output:
+        bcftools_revise_vcf_gz = os.path.join("{sample}", "Step_4", "bcftools", "{sample}_revise.vcf.gz"),
+    priority: 87,
+    log:
+        log = os.path.join("{sample}", "logs", "Step_4", "bcftools_vcf_revise_gzip", "{sample}_revise_vcf.gz.log"),
+    shell:
+        """
+        bgzip < {input.bcftools_revise_vcf} > {output.bcftools_revise_vcf_gz}
         """
 
 rule snpeff_1:
@@ -308,7 +322,7 @@ rule snpeff_1:
         stats_html_summary = os.path.join("{sample}", "Step_5", "snpeff", "{sample}_snpEff_summary.html"),
         # stats_txt_genes= os.path.join("{sample}", "Step_5", "snpeff", "{sample}"),
     params:
-    priority: 87,
+    priority: 86,
     log:
         log = os.path.join("{sample}", "logs", "Step_5", "snpeff_ann_vcf", "{sample}.log"),
     shell:
@@ -317,20 +331,13 @@ rule snpeff_1:
         """
 
 
-
-
-
-
-
-
-
 rule gatk_1:
     input:
         snpeff_vcf = os.path.join("{sample}", "Step_5", "snpeff", "{sample}.vcf2"),
     output:
         gatk_dict = os.path.join("{sample}", "Step_6", "gatk", "{sample}.dict"),
     params:
-    priority: 86,
+    priority: 85,
     log:
         log = os.path.join("{sample}", "logs", "gatk_CreateSequenceDictionary", "{sample}.log"),
     shell:
@@ -344,7 +351,7 @@ rule gatk_2:
     output:
         gatk_vcf_gz_tbi = os.path.join("{sample}", "Step_6", "gatk", "{sample}.vcf.gz.tbi"),
     params:
-    priority: 85,
+    priority: 84,
     log:
         log = os.path.join("{sample}", "logs", "snpeff_IndexFeatureFile", "{sample}.log"),
     shell:
@@ -358,7 +365,7 @@ rule gatk_3:
     output:
         gatk_out_fa = os.path.join("{sample}", "Step_6", "gatk", "{sample}_out.fa"),
     params:
-    priority: 84,
+    priority: 83,
     log:
         log = os.path.join("{sample}", "logs", "snpeff_FastaAlternateReferenceMaker", "{sample}.log"),
     shell:

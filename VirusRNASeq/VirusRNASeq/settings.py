@@ -168,10 +168,10 @@ LOGIN_REDIRECT_URL = 'homepage'
 
 Q_CLUSTER = {
 'name': 'DjangORM',
-'workers': 4,
+'workers': 10,
 # 'timeout': 1800,
 # 'retry': 120,
 'queue_limit': 8,
-'bulk': 10,
+'bulk': 20,
 'orm': 'default'
 }
