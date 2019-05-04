@@ -45,8 +45,10 @@ TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_pr
 class BasicUploadView(DetailView):
     template_name = 'dataanalysis/data_upload.html'
     def get(self, request, slug_project):
-        one_group_samples_csv = "/media/samples.csv_example/one_group"
-        two_group_samples_csv = "/media/samples.csv_example/two_group"
+        one_group_samples_csv = "/media/example_files/samples_csv/one"
+        two_group_samples_csv = "/media/example_files/samples_csv/two"
+        fastq_R1 = "/media/example_files/fastq_r1_r2/SRR8698485.R1.fastq.gz"
+        fastq_R2 = "/media/example_files/fastq_r1_r2/SRR8698485.R2.fastq.gz"
         (project_name, analysis_code, email, assembly_type_input) = (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
 
         # The base directory of the created project.
@@ -75,11 +77,15 @@ class BasicUploadView(DetailView):
             'uploaded_sample_file_url': uploaded_sample_file_url,
             'one_group_samples_csv': one_group_samples_csv,
             'two_group_samples_csv': two_group_samples_csv,
+            'fastq_R1': fastq_R1,
+            'fastq_R2': fastq_R2,
         })
 
     def post(self, request, slug_project):
-        one_group_samples_csv = "/media/samples.csv_example/one_group"
-        two_group_samples_csv = "/media/samples.csv_example/two_group"
+        one_group_samples_csv = "/media/samples.csv_example/one/samples.csv"
+        two_group_samples_csv = "/media/samples.csv_example/two/samples.csv"
+        fastq_R1 = "/media/example_files/fastq_r1_r2/SRR8698485.R1.fastq.gz"
+        fastq_R2 = "/media/example_files/fastq_r1_r2/SRR8698485.R2.fastq.gz"
         (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
         # The base directory of the created project.
         base_dir = os.path.join(settings.MEDIA_ROOT,
@@ -124,6 +130,8 @@ class BasicUploadView(DetailView):
                 'uploaded_sample_file_url': uploaded_sample_file_url,
                 'one_group_samples_csv': one_group_samples_csv,
                 'two_group_samples_csv': two_group_samples_csv,
+                'fastq_R1': fastq_R1,
+                'fastq_R2': fastq_R2,
             })
         elif 'remove-samples-file' in request.POST:
             print("remove-samples-file!!!")
@@ -153,6 +161,8 @@ class BasicUploadView(DetailView):
                 'uploaded_sample_file_url': uploaded_sample_file_url,
                 'one_group_samples_csv': one_group_samples_csv,
                 'two_group_samples_csv': two_group_samples_csv,
+                'fastq_R1': fastq_R1,
+                'fastq_R2': fastq_R2,
             })
         elif 'multi_samples_workflow_setup_button' in request.POST:
             (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
@@ -180,6 +190,8 @@ class BasicUploadView(DetailView):
                 'uploaded_sample_file_url': uploaded_sample_file_url,
                 'one_group_samples_csv': one_group_samples_csv,
                 'two_group_samples_csv': two_group_samples_csv,
+                'fastq_R1': fastq_R1,
+                'fastq_R2': fastq_R2,
             })
         myfile = request.FILES['file_choose']
         fs = FileSystemStorage()
@@ -212,6 +224,8 @@ class BasicUploadView(DetailView):
             'uploaded_sample_file_url': uploaded_sample_file_url,
             'one_group_samples_csv': one_group_samples_csv,
             'two_group_samples_csv': two_group_samples_csv,
+            'fastq_R1': fastq_R1,
+            'fastq_R2': fastq_R2,
             }
         return JsonResponse(data)
 
