@@ -119,10 +119,8 @@ def check_samples_txt_file(base_dir):
         # Now check the sample group number
         if len(read_ans['Groups'].unique()) == 1:
             sample_file_two_or_one = 1
-            sample_file_validity = True
         elif len(read_ans['Groups'].unique()) == 2:
             sample_file_two_or_one = 2
-            sample_file_validity = True
         else:
             sample_file_validity = False
             sample_file_two_or_one = 0

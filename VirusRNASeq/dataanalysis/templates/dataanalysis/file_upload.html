@@ -260,6 +260,13 @@
                           <div class="col"><hr></div>
                       </div>
                       <p class="card-text" style="margin-left: 30px">The filename of the uploaded file must be <b>"samples.csv"</b>.<br> The name of the two columns must be <b>"ids"</b> and <b>"Groups"</b>.<br>There can only be <b>one</b> or <b>two</b> kinds of values in <b>"Groups"</b>.</p>
+                      <p class="card-text" style="margin-left: 30px; margin-bottom: 50px"><i class="fas fa-dot-circle"></i> &nbsp Example: &nbsp&nbsp <a href={{one_group_samples_csv}}>one_group</a> &nbsp/&nbsp <a href={{two_group_samples_csv}}>two_group</a></p>
+                      <!-- <h1>{{sample_file_two_or_one}}</h1> -->
+                      {% if sample_file_two_or_one == 0 and sample_file_validity is False %}
+                        <p class="card-text" style="margin-left: 30px; margin-bottom: 20px; font-size: 18px"><i class="fas fa-dot-circle"></i> &nbsp&nbsp "samples.csv" is <b style="color: red; font-size: 24px">INVALID</b>&nbsp! &nbspPlease delete the invalid file and upload the new "samples.csv". </p>
+                      {% endif %}
+
+
                       {% if samples_txt_file_name == None %}
                         <form method="post" enctype="multipart/form-data">
                             <div id="samples-file-message-container"></div>
@@ -331,6 +338,25 @@
                                     <p style="font-size:18px;"><i><b style=" color: green;">Success!!</b></i><b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspUpload file: <a href="{{uploaded_sample_file_url}}"> samples.csv</a></b></p>
                                   </div>
                               </div>
+
+                              {% if sample_file_two_or_one == 1 and sample_file_validity is True %}
+                                <div class="container" style="margin-bottom: 20px;margin-left: 30px">
+                                  <div class="row">
+                                    <div class="col-sm">
+                                      <p class="card-text" style="margin-left: 30px;  font-size: 18px"><i class="fas fa-dot-circle"></i> &nbsp&nbsp <b style="font-size: 24px">One Group</b></p>
+                                    </div>
+                                  </div>
+                                </div>
+                              {% endif %}
+                              {% if sample_file_two_or_one == 2 and sample_file_validity is True %}
+                                <div class="container" style="margin-bottom: 20px; margin-left: 30px">
+                                  <div class="row">
+                                    <div class="col-sm">
+                                      <p class="card-text" style="margin-left: 30px;  font-size: 18px"><i class="fas fa-dot-circle"></i> &nbsp&nbsp <b style="font-size: 24px">Two Group</b></p>
+                                    </div>
+                                  </div>
+                                </div>
+                              {% endif %}
 
                               <div style="margin-left:30px">
                                   <div class="row" style="margin:5px">
