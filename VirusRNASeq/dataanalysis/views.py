@@ -8,6 +8,7 @@ from django.views import View
 from django.views.generic.detail import DetailView
 from django.conf import settings
 from django.urls import reverse
+import django_q
 from django_q.tasks import async_task, result, fetch
 from django_q.tasks import AsyncTask
 from django_q.monitor import Stat
@@ -438,6 +439,63 @@ def reference_mapping_current_status(request, slug_project):
     ##########
     ## THis is for the button to go to overview page ##
     ##########
+
+    # if models.NewsletterUser.objects.filter(project_name=instance.project_name,email=instance.email, analysis_code=instance.analysis_code).exists():
+    print("Failedtasks:: ", fetch("Project203d722859a511e9996fe41f1345dc74b05901180@ntu.edu.tw273e459859a511e9996fe41f1345dc74"))
+    print("Resittdsafadfa:: ", result("f"))
+    print("Resittdsafadfa:: ", result("d2aff0a9164c4c9abc17f4ffc037f21e"))
+    print("Resittdsafadfa:: ", result("Project203d722859a511e9996fe41f1345dc74b05901180@ntu.edu.tw273e459859a511e9996fe41f1345dc74"))
+
+    print("Stat number: ", Stat.get_all())
+    for stat in Stat.get_all():
+        print("@@@@@@@@@@@@@@@@@@@@stat:", stat)
+        print("@@@@@@@@@@@@@@@@@@@@stat.cluster_id:", stat.cluster_id)
+        print("@@@@@@@@@@@@@@@@@@@@stat.tob:", stat.tob)
+        print("@@@@@@@@@@@@@@@@@@@@stat.uptime():", stat.uptime())
+        print("@@@@@@@@@@@@@@@@@@@@stat.reincarnations:", stat.reincarnations)
+        print("@@@@@@@@@@@@@@@@@@@@stat.status:", stat.status)
+        print("@@@@@@@@@@@@@@@@@@@@stat.task_q_size:", stat.task_q_size)
+        print("@@@@@@@@@@@@@@@@@@@@stat.done_q_size:", stat.done_q_size)
+        print("@@@@@@@@@@@@@@@@@@@@stat.pusher:", stat.pusher)
+        print("@@@@@@@@@@@@@@@@@@@@stat.monitor:", stat.monitor)
+        print("@@@@@@@@@@@@@@@@@@@@stat.sentinel:", stat.sentinel)
+        print("@@@@@@@@@@@@@@@@@@@@stat.workers:", stat.workers)
+        print("@@@@@@@@@@@@@@@@@@@@stat.empty_queues:", stat.empty_queues)
+        print("@@@@@@@@@@@@@@@@@@@@stat.pusher:", stat.pusher)
+
+
+    # django_q.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     if request.method == 'POST':
         if 'go-to-overview-button' in request.POST:
             return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={

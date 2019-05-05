@@ -77,7 +77,7 @@
                       <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
                           <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-cut"></i> &nbsp &nbsp Quality Control</p></div>
                           <div class="card-body w-100">
-                              <p class="card-text">This step is to ensure that quality meets the quality requirement.<strong>FastQC</strong> is used to acquire quality information. <strong>Trimmomatic</strong> is used to remove adapter and trim low quality parts of reads
+                              <p class="card-text">This step is to ensure that quality meets the quality requirement. <strong>FastQC</strong> is used to acquire quality information. <strong>Trimmomatic</strong> is used to remove adapter and trim low quality parts of reads
                               </p><br>
                               <div class="row">
                                   <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
@@ -289,8 +289,10 @@
                         <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
                             <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-cut"></i> &nbsp &nbsp Reference Mappping</p></div>
                             <div class="card-body w-100">
-                                <p class="card-text">Description
+
+                                <p class="card-text">This step is to map short reads(FASTQ) to reference genome. First, select your target species as reference genome. Second, select your Mapping tools; by default, <b>BWA MEM</b> would be run.
                                 </p><br>
+
 
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
@@ -305,10 +307,10 @@
                                     <div class="col-md-6">
                                       <select class="custom-select my-1 mr-sm-2" name="reads_alignment_reference" id="reads_alignment_reference">
                                         <option selected="selected" value="TB">Tuberculosis (TB)</option>
-                                        <option value="mosquito">mosquito (Aedes aegypti)</option>
-                                        <option value="mouse">mouse (Mus musculus)</option>
-                                        <option value="pig">pig (Sus scrofa)</option>
-                                        <option value="tick">tick (Ixodes scapularis)</option>
+                                        <option value="mosquito">Other 1</option>
+                                        <option value="mouse">Other 2</option>
+                                        <option value="pig">Other 3</option>
+                                        <option value="tick">Other 4</option>
                                       </select>
                                     </div>
                                   </div>
@@ -329,7 +331,7 @@
                         <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
                             <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-minus"></i> &nbsp &nbsp Variant Calling</p></div>
                             <div class="card-body w-100">
-                                <p class="card-text">Description</p>
+                                <p class="card-text">This step is to compare BAM file to reference FNA file and generate VCF file as variant calling result. <b>SAMtools</b> and <b>BCFtools</b> are used in this step.</p>
                                 <br>
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
@@ -338,7 +340,7 @@
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
-                                <p class="card-text" style="margin-left:40px;">description</p>
+                                <p class="card-text" style="margin-left:40px;">Fill in mate coordinates and mate related flags from a name-sorted alignment. Indexed BAM file would be created.</p>
                                 <br>
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
@@ -347,7 +349,7 @@
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
-                                <p class="card-text" style="margin-left:40px;">description</p>
+                                <p class="card-text" style="margin-left:40px;">Sort alignments by leftmost coordinates. Sorted BAM file would be created.</p>
                                 <br>
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
@@ -356,7 +358,7 @@
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
-                                <p class="card-text" style="margin-left:40px;">description</p>
+                                <p class="card-text" style="margin-left:40px;"><b>BCFtools call</b> for variant calling from the output of <b>BCFtools mpileup</b> command. Variant calling result, VCF file, would be created in the end.</p>
                             </div>
                         </div>
                     </div>
@@ -366,7 +368,7 @@
                             <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-align-right"></i> &nbsp &nbsp Variant Calling File Annotation</p></div>
                             <div class="card-body w-100">
 
-                                <p class="card-text">Description</p>
+                                <p class="card-text">This step is to annotate the variant calling file (VCF). Modified VCF file, annotated VCF file and snpEff summary html would be created.</p>
                                 <br>
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
@@ -375,7 +377,7 @@
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
-                                <p class="card-text" style="margin-left:40px;">Description</p>
+                                <p class="card-text" style="margin-left:40px;">Modify the reference name of VCF file in order to run the snpEff annotation.</p>
                                 <br>
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
@@ -384,7 +386,7 @@
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
-                                <p class="card-text" style="margin-left:40px;">Description</p>
+                                <p class="card-text" style="margin-left:40px;">Gene information of reference genome would be annotated into VCF file. SnpEff summary report would be created in HTML format.</p>
                             </div>
                         </div>
                     </div>
@@ -392,9 +394,9 @@
 
                     <div id="list-item-5">
                         <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
-                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-reply"></i> &nbsp &nbsp Variant Calling File Annotation</p></div>
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-reply"></i> &nbsp &nbsp TEST !! Variant Calling File Annotation</p></div>
                             <div class="card-body w-100">
-                                <p class="card-text">Description</p>
+                                <p class="card-text">This step is to annotate the variant calling file (VCF). Modified VCF file, annotated VCF file and snpEff summary html would be created.</p>
                                 <br>
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
