@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% crispy form form.helper %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="card bg-light mt-5 mb-3 w-100 p-3">
+            <div class="card-header"><p class="h2"><i class="fas fa-search"></i> &nbsp &nbsp Merge Two Projects </p></div>
+            <div class="card-body w-100">
+                <h5 class="card-title">Merge two created projects into one project.</h5>
+                <br>
+                <p class="card-text">Please enter your 'Analysis code' below. After you press the "Find  Project" button, you can go into your project page!</p>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div {% if message.tags %} class="{{message.tags}}" {% endif %} role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                        </button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    {% if variable.inside_or_outside %}
+                        <script language="javascript" type="text/javascript">
+                        function popitup(url) {
+                            console.log(url)
+                            var project_name=window.open(url,'Your project','height=1000,width=1200');
+                            if (window.focus) {project_name.focus()}
+                            return false;
+                        }
+                        {% comment %} popitup("{% url 'dataanalysis_home' variable.url_parameter %}") {% endcomment %}
+                        </script>
+                        <br>
+                        {% if variable.assembly_type_input == "reference_based_assembly"%}
+                        <a><button type="button" class="btn btn-success btn-block btn-lg" onclick="return popitup('{% url 'reference_mapping_dataanalysis_data_upload' slug_project=variable.url_parameter %}')">Link to your Project (Upload)</button></a>
+                        {% elif variable.assembly_type_input == "de_novo_assembly"%}
+                        <a><button type="button" class="btn btn-success btn-block btn-lg" onclick="return popitup('{% url 'de_novo_assembly_dataanalysis_data_upload' slug_project=variable.url_parameter %}')">Link to your Project (Upload)</button></a>
+                        {% endif %}
+                        <br>
+                        <a href={% url 'new_analysis' %}><button type="button" class="btn btn-outline-success">Back to homepage</button></a>
+                    {% else %}
+                        <br>
+                        <a href={% url 'new_analysis' %}><button type="button" class="btn btn-success">Back to homepage</button></a>
+                    {% endif %}
+                    <a href={% url 'homepage' %}><button type="button" class="btn btn-outline-secondary">Back to homepage</button></a>
+                {% else %}
+                <br>
+                <div class="col-md-7">
+                    <form method="POST" class="w-100">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="submit">Find Project</button>
+                        </span>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<div style="margin-bottom: 100px">
+</div>
+
+{% endblock content %}

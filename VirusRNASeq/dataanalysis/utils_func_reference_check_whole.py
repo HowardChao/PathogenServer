@@ -1,33 +1,86 @@
 import os
+import django_q
 from django_q.tasks import async_task, result, fetch
 from . import utils_func
 
 def django_q_check(project_name, email, analysis_code):
     new_task_name = project_name + email + analysis_code
-    fetch_job = fetch(project_name + email + analysis_code)
-    if fetch_job is None:
-        print("@@@@@@@@@@@@ The job is not started yet!! ")
-        # Task is failed
-        # Return to fail page!!
-        return False
-    else:
-        fetch_job_success = fetch_job.success
-        if fetch_job.success:
-            print("@@@@@@@@@@@@ The job is started and finished successfully: ")
-            print("fetch_job: ", fetch_job)
-            print("fetch_job.id: ", fetch_job.id)
-            print("fetch_job.name: ", fetch_job.name)
-            print("fetch_job.func: ", fetch_job.func)
-            print("fetch_job.hook: ", fetch_job.hook)
-            print("fetch_job.kwargs: ", fetch_job.kwargs)
-            print("fetch_job.result: ", fetch_job.result)
-            print("fetch_job.started: ", fetch_job.started)
-            print("fetch_job.stopped: ", fetch_job.stopped)
-            print("fetch_job.success: ", fetch_job.success)
-            return fetch_job_success
-        else:
-            print("@@@@@@@@@@@@ The job is started but not finish yet: ")
-            return fetch_job_success
+    # List of django_q models
+    task_list = django_q.models.Task.objects
+    success_list = django_q.models.Success.objects
+    failure_list = django_q.models.Schedule.objects
+    ormqs_list = django_q.models.OrmQ.objects
+    # All objects in each django_q models
+    tasks_all = task_list.all()
+    success_all = success_list.all()
+    failure_all = failure_list.all()
+    ormq_all = ormqs_list.all()
+    print("!!!!!!!!!tasks_all: ", tasks_all)
+    print(len(tasks_all))
+    print("!!!!!!!!!success_all: ", success_all)
+    print(len(success_all))
+    print("!!!!!!!!!failure_all: ", failure_all)
+    print(len(failure_all))
+    print("!!!!!!!!!ormq_all: ", ormq_all)
+    print(len(ormq_all))
+
+
+    # Check whether in success_list (task is established and succeed)
+    success_select = success_list.filter(name = new_task_name)
+    print("success_select: ", success_select)
+    # Check whether in failer_list (task is established and failed)
+    failure_select = failure_list.filter(name = new_task_name)
+    print("failure_select: ", failure_select)
+
+    # Check whether in queue list (task is not created)
+    queue_select = [o for o in ormq_all if o.name() == new_task_name]
+    print("queue_select: ", queue_select)
+
+    print("!!!!!!!!!success_select: ", success_select)
+    print("!!!!!!!!!failure_select: ", failure_select)
+    print("!!!!!!!!!queue_select: ", queue_select)
+
+
+
+
+
+
+    # print("ormq_select: ", ormq_select)
+
+    # args, func, group, hook, id, kwargs, name, result, started, stopped, success
+    # print("@@@ tasks_all args: ", tasks_all[0].args)
+    # print("@@@ tasks_all func: ", tasks_all[0].func)
+    # print("@@@ tasks_all group: ", tasks_all[0].group)
+    # print("@@@ tasks_all hook: ", tasks_all[0].hook)
+    # print("@@@ tasks_all id: ", tasks_all[0].id)
+    # print("@@@ tasks_all kwargs: ", tasks_all[0].kwargs)
+    # print("@@@ tasks_all name: ", tasks_all[0].name)
+    # print("@@@ tasks_all result: ", tasks_all[0].result)
+    # print("@@@ tasks_all started: ", tasks_all[0].started)
+    # print("@@@ tasks_all stopped: ", tasks_all[0].stopped)
+    # print("@@@ tasks_all success: ", tasks_all[0].success)
+    #
+    # print("@@@ success_all", success_all)
+    # print("@@@ failure_all", failure_all)
+    # print("@@@ ormq_all", ormq_all)
+    # print("@@@ ormq_all", ormq_all[0].id)
+    # print("@@@ ormq_all", ormq_all[0].name())
+    # print("@@@ ormq_all", ormq_all[0].task_id())
+    #
+    # print("@@@ ormq_all", ormq_all[0].key)
+    # print("@@@ ormq_all", ormq_all[0].lock)
+    # print("@@@ ormq_all", ormq_all[0].payload)
+
+
+
+
+
+
+
+
+
+
+    return False
 
 def Whole_check_reference_based_results(url_base_dir, base_dir, sample_list):
     samples_all_info = {}

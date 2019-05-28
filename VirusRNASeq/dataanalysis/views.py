@@ -8,9 +8,12 @@ from django.views import View
 from django.views.generic.detail import DetailView
 from django.conf import settings
 from django.urls import reverse
+from django.apps import apps
+import django_q as django_q_models
+from django_q import models
 import django_q
-from django_q.tasks import async_task, result, fetch
-from django_q.tasks import AsyncTask
+import django_q.tasks as django_q_tasks
+# async_task, result, fetch
 from django_q.monitor import Stat
 import math
 
@@ -247,6 +250,18 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
     # Check all the files are valid !!! (for referenced-based workflow)
     (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
     fetch_job_success = utils_func_reference_check_whole.django_q_check(project_name, email, analysis_code)
+
+
+
+
+
+
+
+
+
+
+
+
     # If all checker is true ==> just jump to the current status page and then jump to new final overview page!!!!!!! and fetch_job.success
     if overall_sample_result_checker and fetch_job_success:
         return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
@@ -360,41 +375,36 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
                 shutil.copyfile(get_time_script, destination_get_time_script)
 
             new_task_name = project_name + email + analysis_code
-            fetch_job = fetch(project_name + email + analysis_code)
-            print("fetch_job: ", fetch_job)
+            queue_size = django_q_tasks.queue_size()
+            print("######### queue_size: ", queue_size)
             opts = {'group': assembly_type_input,
                     'task_name': new_task_name}
 
-            for stat in Stat.get_all():
-                print("@@@@@@@@@@@@ Get the status of all task")
-                print(stat.cluster_id, stat.status)
 
-            # Check the project!!
-            if fetch_job is None:
-                print("@@@@@@@@@@@@ Start running job: ")
-                task_id = async_task(subprocess.call, ['snakemake'], shell=True, cwd=base_dir, q_options=opts)
-                # task_id = async_task(math.copysign, 2, -2, q_options=opts)
-            else:
-                # The task is created so it won't be run again!
-                print("@@@@@@@@@@@@ Project is submitted and created!!")
-                # subprocess.call(['snakemake'], shell=True, cwd=base_dir)
-                fetch_job = fetch(project_name + email + analysis_code)
-                print("fetch_job: ", fetch_job)
-                print("fetch_job.id: ", fetch_job.id)
-                print("fetch_job.name: ", fetch_job.name)
-                print("fetch_job.func: ", fetch_job.func)
-                print("fetch_job.hook: ", fetch_job.hook)
-                print("fetch_job.kwargs: ", fetch_job.kwargs)
-                print("fetch_job.result: ", fetch_job.result)
-                print("fetch_job.started: ", fetch_job.started)
-                print("fetch_job.stopped: ", fetch_job.stopped)
-                print("fetch_job.success: ", fetch_job.success)
-                if fetch_job.success is False:
-                    # The task is created and failed !! DO HERE!!!~~
-                    pass
-                else:
-                    # The task is created successfully!!
-                    pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             template_html = "dataanalysis/analysis_home_reference_based.html"
             return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
@@ -436,65 +446,78 @@ def reference_mapping_current_status(request, slug_project):
     check_extract_non_host_reads_3_ans_dict = {}
     check_extract_non_host_reads_4_ans_dict = {}
 
+
+    tasks = django_q.models.Task.objects
+    success = django_q.models.Success.objects
+    failure = django_q.models.Schedule.objects
+    ormq = django_q.models.OrmQ.objects
+    tasks_all = tasks.all()
+    success_all = success.all()
+    failure_all = failure.all()
+    ormq_all = ormq.all()
+
+
+    # print("ormq_select: ", ormq_select)
+
+    # args, func, group, hook, id, kwargs, name, result, started, stopped, success
+    print("@@@ tasks_all args: ", tasks_all[0].args)
+    print("@@@ tasks_all func: ", tasks_all[0].func)
+    print("@@@ tasks_all group: ", tasks_all[0].group)
+    print("@@@ tasks_all hook: ", tasks_all[0].hook)
+    print("@@@ tasks_all id: ", tasks_all[0].id)
+    print("@@@ tasks_all kwargs: ", tasks_all[0].kwargs)
+    print("@@@ tasks_all name: ", tasks_all[0].name)
+    print("@@@ tasks_all result: ", tasks_all[0].result)
+    print("@@@ tasks_all started: ", tasks_all[0].started)
+    print("@@@ tasks_all stopped: ", tasks_all[0].stopped)
+    print("@@@ tasks_all success: ", tasks_all[0].success)
+
+    print("@@@ success_all", success_all)
+    print("@@@ failure_all", failure_all)
+    print("@@@ ormq_all", ormq_all)
+    # print("@@@ ormq_all", ormq_all[0].id)
+    # print("@@@ ormq_all", ormq_all[0].key)
+    # print("@@@ ormq_all", ormq_all[0].lock)
+    # print("@@@ ormq_all", ormq_all[0].payload)
+
+        # print(tasks)
+        # print(success)
+        # print(failure)
+        # print(ormq)
+        #
+        # # print(i.objects)
+        # print(i)
+
+    # print(models.success.objects.filter(analysis_code=instance.analysis_code).exists())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     ##########
     ## THis is for the button to go to overview page ##
     ##########
-
-    # if models.NewsletterUser.objects.filter(project_name=instance.project_name,email=instance.email, analysis_code=instance.analysis_code).exists():
-    print("Failedtasks:: ", fetch("Project203d722859a511e9996fe41f1345dc74b05901180@ntu.edu.tw273e459859a511e9996fe41f1345dc74"))
-    print("Resittdsafadfa:: ", result("f"))
-    print("Resittdsafadfa:: ", result("d2aff0a9164c4c9abc17f4ffc037f21e"))
-    print("Resittdsafadfa:: ", result("Project203d722859a511e9996fe41f1345dc74b05901180@ntu.edu.tw273e459859a511e9996fe41f1345dc74"))
-
-    print("Stat number: ", Stat.get_all())
-    for stat in Stat.get_all():
-        print("@@@@@@@@@@@@@@@@@@@@stat:", stat)
-        print("@@@@@@@@@@@@@@@@@@@@stat.cluster_id:", stat.cluster_id)
-        print("@@@@@@@@@@@@@@@@@@@@stat.tob:", stat.tob)
-        print("@@@@@@@@@@@@@@@@@@@@stat.uptime():", stat.uptime())
-        print("@@@@@@@@@@@@@@@@@@@@stat.reincarnations:", stat.reincarnations)
-        print("@@@@@@@@@@@@@@@@@@@@stat.status:", stat.status)
-        print("@@@@@@@@@@@@@@@@@@@@stat.task_q_size:", stat.task_q_size)
-        print("@@@@@@@@@@@@@@@@@@@@stat.done_q_size:", stat.done_q_size)
-        print("@@@@@@@@@@@@@@@@@@@@stat.pusher:", stat.pusher)
-        print("@@@@@@@@@@@@@@@@@@@@stat.monitor:", stat.monitor)
-        print("@@@@@@@@@@@@@@@@@@@@stat.sentinel:", stat.sentinel)
-        print("@@@@@@@@@@@@@@@@@@@@stat.workers:", stat.workers)
-        print("@@@@@@@@@@@@@@@@@@@@stat.empty_queues:", stat.empty_queues)
-        print("@@@@@@@@@@@@@@@@@@@@stat.pusher:", stat.pusher)
-
-
-    # django_q.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     if request.method == 'POST':
         if 'go-to-overview-button' in request.POST:
