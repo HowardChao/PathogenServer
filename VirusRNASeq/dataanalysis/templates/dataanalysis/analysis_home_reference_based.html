@@ -54,20 +54,19 @@
 <div id="whole-page-message-container"></div>
 <main role="main" class="container">
     <div class="row">
-        <nav class="col-md-4" id="list-example" >
+        <nav class="col-6 col-md-4" id="list-example" >
             <div class="content-section">
-                <ul id="side-nav" class="list-group nav nav-pills nav-stacked" style="top: 120px;">
+                <ul id="side-nav" class="list-group nav nav-pills nav-stacked" style="top: 260px;">
                     <a class="list-group-item list-group-item-action" href="#list-item-1">1. Quality Control</a>
                     <a class="list-group-item list-group-item-action" href="#list-item-2">2. Reference Mappping</a>
                     <a class="list-group-item list-group-item-action" href="#list-item-3">3. Variant Calling</a>
                     <a class="list-group-item list-group-item-action" href="#list-item-4">4. Variant Calling File Annotation</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-5">5. Variant Calling File Annotation</a>
                 </ul>
             </div>
         </nav>
-        <div class="col-md-8">
+        <div class="col-12 col-md-8">
           <div class="jumbotron" style="margin: 30px; background-color: #f4f4f4; border: 4px solid gray">
-            <center><h2 class="display-4"><b>Reference-Mapping</b></h2></center>
+            <center><h2 class="display-4" style="font-weight: 400; margin:-30px"><b>Reference Mapping</b></h2></center>
           </div>
             <div class=" scrollspy-example">
               <form method="post" enctype="multipart/form-data" required="True">
@@ -392,34 +391,7 @@
                     </div>
 
 
-                    <div id="list-item-5">
-                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
-                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-reply"></i> &nbsp &nbsp TEST !! Variant Calling File Annotation</p></div>
-                            <div class="card-body w-100">
-                                <p class="card-text">This step is to annotate the variant calling file (VCF). Modified VCF file, annotated VCF file and snpEff summary html would be created.</p>
-                                <br>
-                                <div class="row">
-                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
-                                      <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp sed snpEffectPredictor.bin</h5>
-                                      </div>
-                                    <div class="col"><hr></div>
-                                </div>
-                                <p class="card-text" style="margin-left:40px;">Description</p>
-                                <br>
-                                <div class="row">
-                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
-                                      <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp snpEff.jar snpEff.config</h5>
-                                      </div>
-                                    <div class="col"><hr></div>
-                                </div>
-                                <p class="card-text" style="margin-left:40px;">Description</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button id="start-analysis-button" name="start-analysis-reference-based" type="submit" class="btn btn-success btn-lg btn-block" style="margin-bottom: 100px">Start Analysis</button>
+                    <button id="start-analysis-button" name="start-analysis-reference-based" type="submit" class="btn btn-success btn-lg btn-block" style="margin-top: 100px; margin-bottom: 100px; height:80px">Start Analysis</button>
                     <!-- <button id="paired-end-button" name="upload-paired-end-file" class="btn btn-info btn-block" type="submit">Upload Paired-End Files</button> -->
                   </div>
                   <!-- <script>

@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "172.16.0.153",
+    "114.34.123.174",
 ]
 
 
@@ -168,10 +169,11 @@ LOGIN_REDIRECT_URL = 'homepage'
 
 Q_CLUSTER = {
 'name': 'DjangORM',
-'workers': 10,
+'workers': 16,
 # 'timeout': 1800,
 'save_limit': 0,
+'timeout': None,
 # 'queue_limit': 8,
-'bulk': 20,
+'cpu_affinity': 5,
 'orm': 'default'
 }

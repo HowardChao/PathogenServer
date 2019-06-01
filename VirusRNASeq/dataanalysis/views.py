@@ -13,7 +13,6 @@ import django_q as django_q_models
 from django_q import models
 import django_q
 import django_q.tasks as django_q_tasks
-# async_task, result, fetch
 from django_q.monitor import Stat
 import math
 
@@ -234,15 +233,14 @@ class BasicUploadView(DetailView):
         return JsonResponse(data)
 
 
-
+#############################
+###### Reference based ######
+#############################
 def reference_mapping_whole_dataanalysis(request, slug_project):
     ## Check if file exist !!
     (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
     url_parameter = project_name + '_' + email.split("@")[0]
-    if assembly_type_input == "de_novo_assembly":
-        template_html = "dataanalysis/analysis_home_denovo.html"
-    elif assembly_type_input == "reference_based_assembly":
-        template_html = "dataanalysis/analysis_home_reference_based.html"
+    template_html = "dataanalysis/analysis_home_reference_based.html"
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
     (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
@@ -250,26 +248,15 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
     # Check all the files are valid !!! (for referenced-based workflow)
     (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
     fetch_job_success = utils_func_reference_check_whole.django_q_check(project_name, email, analysis_code)
-
-
-
-
-
-
-
-
-
-
-
-
     # If all checker is true ==> just jump to the current status page and then jump to new final overview page!!!!!!! and fetch_job.success
-    if overall_sample_result_checker and fetch_job_success:
+    print('%%%%% fetch_job_success != "None"', fetch_job_success != "None",  overall_sample_result_checker)
+    if fetch_job_success != "None" and (fetch_job_success == "Success" or fetch_job_success == "Queue"):
         return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
             'slug_project': url_parameter})))
     if request.method == 'POST' :
         if 'start-analysis-reference-based' in request.POST:
             upload_files_dir = os.path.join(base_dir, "Uploaded_files")
-            prefix_dir = "/ssd/Howard/Virus/"
+            prefix_dir = "/home/kuan-hao/Documents/bioinformatics/PathogenServer_Home/"
             tool_dir = os.path.join(prefix_dir, "tools")
             host_ref_dir = os.path.join(prefix_dir, "host_ref")
             pathogen_dir = os.path.join(prefix_dir, "pathogen")
@@ -320,11 +307,9 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
             gatk_pathogen_dict = os.path.join(pathogen_dir, bwa_pathogen_full_name)
 
             config_file_path = os.path.join(base_dir, 'config.yaml')
-            if assembly_type_input == "de_novo_assembly":
-                snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_de_novo")
-            elif assembly_type_input == "reference_based_assembly":
-                snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_reference_based")
+            snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_reference_based")
             destination_snakemake_file = os.path.join(base_dir, 'Snakefile')
+            # destination_config_yaml = os.path.join(base_dir, 'config.yaml')
             data = dict(
                 assembly_type_input = assembly_type_input,
                 samples_list_key = samples_list_key,
@@ -375,37 +360,26 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
                 shutil.copyfile(get_time_script, destination_get_time_script)
 
             new_task_name = project_name + email + analysis_code
-            queue_size = django_q_tasks.queue_size()
-            print("######### queue_size: ", queue_size)
             opts = {'group': assembly_type_input,
                     'task_name': new_task_name}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            ###################################
+            ######## Important !!!!!!! ########
+            ###################################
+            # The moment when the task is created, it would be existedi n queue.
+            # After task is created, it would be stored in either success or failure objects (But the snakemake is still RUNNING!!!!)
+            # If it is in Failure ==> Show the failure page and let the user to delete the project_name
+            # If it is in Success ==> Keep tracking files and check whether snakemake is still running properly
+                # 1. If snakemake is shutdown ==> show the failure page! When the user delete the project, "Remember to delete the object from the successful list !!!!"
+                # 2. If snakemake finished successfully ==> show the result page! Run regularly.
+                    # SO Key points ==> how to check whether snakemake is finished successfully or shutdown half way?
+            if fetch_job_success == "None":
+                print("*&*&*&*&*& Start running SNAKEMAKE !!!!")
+                # task_id = django_q_tasks.async_task(subprocess.check_output, ['snakemake', '-n'], shell=True, cwd=base_dir, q_options=opts)
+                if os.path.exists(destination_snakemake_file):
+                    # Target : Run in background and create a task !
+                    # django_q_tasks.async_task(subprocess.check_output, ['snakemake', '-n', '-r'], shell=True, cwd=base_dir, q_options=opts)
+                    # subprocess.Popen(['snakemake', '--dryrun'], cwd=base_dir)
+                    django_q_tasks.async_task(subprocess.call, ['snakemake'], cwd=base_dir, q_options=opts)
             template_html = "dataanalysis/analysis_home_reference_based.html"
             return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
@@ -418,7 +392,6 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
         'samples_list_key': samples_list_key,
         'sample_list': sample_list
     })
-
 
 def reference_mapping_current_status(request, slug_project):
     (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
@@ -445,36 +418,34 @@ def reference_mapping_current_status(request, slug_project):
     check_extract_non_host_reads_2_ans_dict = {}
     check_extract_non_host_reads_3_ans_dict = {}
     check_extract_non_host_reads_4_ans_dict = {}
-
-
-    tasks = django_q.models.Task.objects
-    success = django_q.models.Success.objects
-    failure = django_q.models.Schedule.objects
-    ormq = django_q.models.OrmQ.objects
-    tasks_all = tasks.all()
-    success_all = success.all()
-    failure_all = failure.all()
-    ormq_all = ormq.all()
-
-
-    # print("ormq_select: ", ormq_select)
-
-    # args, func, group, hook, id, kwargs, name, result, started, stopped, success
-    print("@@@ tasks_all args: ", tasks_all[0].args)
-    print("@@@ tasks_all func: ", tasks_all[0].func)
-    print("@@@ tasks_all group: ", tasks_all[0].group)
-    print("@@@ tasks_all hook: ", tasks_all[0].hook)
-    print("@@@ tasks_all id: ", tasks_all[0].id)
-    print("@@@ tasks_all kwargs: ", tasks_all[0].kwargs)
-    print("@@@ tasks_all name: ", tasks_all[0].name)
-    print("@@@ tasks_all result: ", tasks_all[0].result)
-    print("@@@ tasks_all started: ", tasks_all[0].started)
-    print("@@@ tasks_all stopped: ", tasks_all[0].stopped)
-    print("@@@ tasks_all success: ", tasks_all[0].success)
-
-    print("@@@ success_all", success_all)
-    print("@@@ failure_all", failure_all)
-    print("@@@ ormq_all", ormq_all)
+    # tasks = django_q.models.Task.objects
+    # success = django_q.models.Success.objects
+    # failure = django_q.models.Schedule.objects
+    # ormq = django_q.models.OrmQ.objects
+    # tasks_all = tasks.all()
+    # success_all = success.all()
+    # failure_all = failure.all()
+    # ormq_all = ormq.all()
+    #
+    #
+    # # print("ormq_select: ", ormq_select)
+    #
+    # # args, func, group, hook, id, kwargs, name, result, started, stopped, success
+    # print("@@@ tasks_all args: ", tasks_all[0].args)
+    # print("@@@ tasks_all func: ", tasks_all[0].func)
+    # print("@@@ tasks_all group: ", tasks_all[0].group)
+    # print("@@@ tasks_all hook: ", tasks_all[0].hook)
+    # print("@@@ tasks_all id: ", tasks_all[0].id)
+    # print("@@@ tasks_all kwargs: ", tasks_all[0].kwargs)
+    # print("@@@ tasks_all name: ", tasks_all[0].name)
+    # print("@@@ tasks_all result: ", tasks_all[0].result)
+    # print("@@@ tasks_all started: ", tasks_all[0].started)
+    # print("@@@ tasks_all stopped: ", tasks_all[0].stopped)
+    # print("@@@ tasks_all success: ", tasks_all[0].success)
+    #
+    # print("@@@ success_all", success_all)
+    # print("@@@ failure_all", failure_all)
+    # print("@@@ ormq_all", ormq_all)
     # print("@@@ ormq_all", ormq_all[0].id)
     # print("@@@ ormq_all", ormq_all[0].key)
     # print("@@@ ormq_all", ormq_all[0].lock)
@@ -492,29 +463,6 @@ def reference_mapping_current_status(request, slug_project):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     ##########
     ## THis is for the button to go to overview page ##
     ##########
@@ -523,12 +471,11 @@ def reference_mapping_current_status(request, slug_project):
         if 'go-to-overview-button' in request.POST:
             return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
-
     (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
     fetch_job_success = utils_func_reference_check_whole.django_q_check(project_name, email, analysis_code)
     # print("overall_sample_result_checker", overall_sample_result_checker)
     # print("fetch_job_success", fetch_job_success)
-    if overall_sample_result_checker and fetch_job_success:
+    if overall_sample_result_checker and fetch_job_success == "Success":
         return redirect((reverse('reference_mapping_dataanalysis_result_overview', kwargs={
             'slug_project': url_parameter})))
 
@@ -540,9 +487,7 @@ def reference_mapping_current_status(request, slug_project):
         'url_parameter': url_parameter,
         'samples_all_info': samples_all_info,
         # Here, the variable need to be removed
-
         'submission_time': submission_time_strip,
-
         "samples_txt_file_name": samples_txt_file_name,
         "samples_list_key": samples_list_key,
         "sample_list": sample_list,
@@ -672,6 +617,171 @@ def reference_mapping_show_result_overview(request, slug_project):
     })
 
 
+#############################
+###### de novo assembly ######
+#############################
+def de_novo_assembly_whole_dataanalysis(request, slug_project):
+    ## Check if file exist !!
+    (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
+    url_parameter = project_name + '_' + email.split("@")[0]
+    template_html = "dataanalysis/analysis_home_denovo.html"
+    base_dir = os.path.join(settings.MEDIA_ROOT,
+                            'tmp', project_name + '_' + email + '_' + analysis_code)
+    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
+    url_base_dir = os.path.join('/media', 'tmp', project_name + '_' + email + '_' + analysis_code)
+    # Check all the files are valid !!! (for denovo_based workflow)
+    ### !!!!! Need to change !!!!! ###
+    ### (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
+
+    fetch_job_success = utils_func_reference_check_whole.django_q_check(project_name, email, analysis_code)
+    # If all checker is true ==> just jump to the current status page and then jump to new final overview page!!!!!!! and fetch_job.success
+    # print('%%%%% fetch_job_success != "None"', fetch_job_success != "None",  overall_sample_result_checker)
+    if fetch_job_success != "None" and (fetch_job_success == "Success" or fetch_job_success == "Queue"):
+        return redirect((reverse('de_novo_assembly_dataanalysis_result_current_status', kwargs={
+            'slug_project': url_parameter})))
+    if request.method == 'POST' :
+        if 'start-analysis-reference-based' in request.POST:
+            upload_files_dir = os.path.join(base_dir, "Uploaded_files")
+            prefix_dir = "/home/kuan-hao/Documents/bioinformatics/PathogenServer_Home/"
+            tool_dir = os.path.join(prefix_dir, "tools")
+            host_ref_dir = os.path.join(prefix_dir, "host_ref")
+            pathogen_dir = os.path.join(prefix_dir, "pathogen")
+            # Here is for creating directory!
+            utils_func.create_sample_directory(project_name, email, analysis_code, sample_list)
+            utils_func.create_time_directory(project_name, email, analysis_code)
+            ### Fastqc
+            fastqc_command = os.path.join(tool_dir, "FastQC", "fastqc")
+            ### Trimmomatics
+            trimmomatic_jar = os.path.join(tool_dir, "Trimmomatic/trimmomatic-0.38.jar")
+            trimmomatic_threads = 8
+            trimmomatic_phred = "-phred33"
+            trimmomatic_select_adapter = request.POST.get('trimmomatic_illuminaclip')
+            trimmomatic_adapter = os.path.join(prefix_dir, "tools/Trimmomatic/adapters", trimmomatic_select_adapter)
+            trimmomatic_adapter_param = ":2:30:10"
+            if trimmomatic_select_adapter == "None":
+                trimmomatic_adapter = ""
+                trimmomatic_adapter_param = ""
+                trimmomatic_adapter_snakemake_variable = " "
+            else:
+                trimmomatic_adapter_snakemake_variable = "ILLUMINACLIP:" + trimmomatic_adapter + trimmomatic_adapter_param
+            trimmomatic_leading = request.POST.get('trimmomatic_leading_quality')
+            trimmomatic_trailing = request.POST.get('trimmomatic_trailing_quality')
+            trimmomatic_minlen = request.POST.get('trimmomatic_minlen')
+            trimmomatic_window_size = request.POST.get('trimmomatic_slidingwindow_size')
+            trimmomatic_window_quality = request.POST.get('trimmomatic_slidingwindow_quality')
+
+            ### BWA
+            species_dir = "homo_sapiens"
+            bwa_species = "homo_sapiens.fa"
+            bwa_host_ref = os.path.join(host_ref_dir, species_dir, bwa_species)
+            bwa_pathogen= request.POST.get('reads_alignment_reference')
+            bwa_pathogen_full_name = ""
+            bwa_pathogen_fastq = ""
+            print("bwa_pathogenbwa_pathogen: ", bwa_pathogen)
+            if bwa_pathogen == "TB":
+                bwa_pathogen_full_name = "Mycobacterium_tuberculosis_H37Rv"
+                bwa_pathogen_fastq = "Mycobacterium_tuberculosis_H37Rv.fna"
+            bwa_pathogen_dir = os.path.join(pathogen_dir, bwa_pathogen_full_name, bwa_pathogen_fastq)
+            bwa_threads = 10
+
+            # ### snpEff
+            # snpEff_jar = os.path.join(tool_dir, "snpEff/snpEff/snpEff.jar")
+            # snpEff_config = os.path.join(tool_dir, "snpEff/snpEff/snpEff.config")
+            #
+            # ### gatk
+            # gatk_jar = os.path.join(tool_dir, "gatk/gatk-package-4.1.0.0-local.jar")
+            # gatk_pathogen_dict = os.path.join(pathogen_dir, bwa_pathogen_full_name)
+
+            config_file_path = os.path.join(base_dir, 'config.yaml')
+            snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_de_novo")
+            destination_snakemake_file = os.path.join(base_dir, 'Snakefile')
+            # destination_config_yaml = os.path.join(base_dir, 'config.yaml')
+            data = dict(
+                assembly_type_input = assembly_type_input,
+                samples_list_key = samples_list_key,
+                project_name = project_name,
+                datadir = base_dir,
+                bwa_pathogen_full_name = bwa_pathogen_full_name,
+                fastqc = dict(
+                    fastqc_command = fastqc_command,
+                ),
+                trimmomatic = dict(
+                    trimmomatic_jar = trimmomatic_jar,
+                    trimmomatic_threads = trimmomatic_threads,
+                    trimmomatic_phred = trimmomatic_phred,
+                    trimmomatic_adapter = trimmomatic_adapter,
+                    trimmomatic_adapter_param = trimmomatic_adapter_param,
+                    trimmomatic_adapter_snakemake_variable = trimmomatic_adapter_snakemake_variable,
+                    trimmomatic_window_size = trimmomatic_window_size,
+                    trimmomatic_window_quality = trimmomatic_window_quality,
+                    trimmomatic_leading = trimmomatic_leading,
+                    trimmomatic_trailing = trimmomatic_trailing,
+                    trimmomatic_minlen = trimmomatic_minlen,
+                ),
+                bwa = dict(
+                    bwa_host_ref = bwa_host_ref,
+                    bwa_pathogen = bwa_pathogen,
+                    bwa_pathogen_dir = bwa_pathogen_dir,
+                    bwa_threads = bwa_threads,
+                ),
+                snpEff = dict(
+                    snpEff_jar = snpEff_jar,
+                    snpEff_config = snpEff_config,
+                ),
+                gatk = dict(
+                    gatk_jar = gatk_jar,
+                    gatk_pathogen_dict = gatk_pathogen_dict,
+                ),
+            )
+            with open(config_file_path, 'w') as ymlfile:
+                yaml.dump(data, ymlfile, default_flow_style=False)
+            shutil.copyfile(snakemake_file, destination_snakemake_file)
+            if (not os.path.exists(os.path.join(base_dir, 'get_time_script'))):
+                os.mkdir((os.path.join(base_dir, 'get_time_script')))
+            for name in ['start', 'end']:
+                get_time_script = os.path.join(
+                    prefix_dir, "VirusRNASeq/VirusRNASeq/get_time_script/get_" + name + "_time.py")
+                destination_get_time_script = os.path.join(
+                    base_dir, 'get_time_script/get_' + name + '_time.py')
+                shutil.copyfile(get_time_script, destination_get_time_script)
+
+            new_task_name = project_name + email + analysis_code
+            opts = {'group': assembly_type_input,
+                    'task_name': new_task_name}
+            ###################################
+            ######## Important !!!!!!! ########
+            ###################################
+            # The moment when the task is created, it would be existedi n queue.
+            # After task is created, it would be stored in either success or failure objects (But the snakemake is still RUNNING!!!!)
+            # If it is in Failure ==> Show the failure page and let the user to delete the project_name
+            # If it is in Success ==> Keep tracking files and check whether snakemake is still running properly
+                # 1. If snakemake is shutdown ==> show the failure page! When the user delete the project, "Remember to delete the object from the successful list !!!!"
+                # 2. If snakemake finished successfully ==> show the result page! Run regularly.
+                    # SO Key points ==> how to check whether snakemake is finished successfully or shutdown half way?
+            if fetch_job_success == "None":
+                print("*&*&*&*&*& Start running SNAKEMAKE !!!!")
+                # task_id = django_q_tasks.async_task(subprocess.check_output, ['snakemake', '-n'], shell=True, cwd=base_dir, q_options=opts)
+                if os.path.exists(destination_snakemake_file):
+                    # Target : Run in background and create a task !
+                    # django_q_tasks.async_task(subprocess.check_output, ['snakemake', '-n', '-r'], shell=True, cwd=base_dir, q_options=opts)
+                    # subprocess.Popen(['snakemake', '--dryrun'], cwd=base_dir)
+                    django_q_tasks.async_task(subprocess.call, ['snakemake'], cwd=base_dir, q_options=opts)
+            template_html = "dataanalysis/analysis_home_denovo.html"
+            return redirect((reverse('de_novo_assembly_dataanalysis_result_current_status', kwargs={
+                'slug_project': url_parameter})))
+    return render(request, template_html, {
+        'project_name': project_name,
+        'email': email,
+        'assembly_type_input': assembly_type_input,
+        'samples_txt_file_name': samples_txt_file_name,
+        'samples_list_key': samples_list_key,
+        'sample_list': sample_list
+    })
+
+def de_novo_assembly_current_status(request, slug_project):
+    pass
+def de_novo_assembly_show_result_overview(request, slug_project):
+    pass
 
 
 def show_result(request, slug_project):
