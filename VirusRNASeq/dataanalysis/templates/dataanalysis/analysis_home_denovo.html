@@ -48,398 +48,103 @@
     </script> {% endcomment %}
 {% endblock extraheader %}
 {% block content %}
+
+
+
 <div id="whole-page-message-container"></div>
 <main role="main" class="container">
     <div class="row">
-        <nav class="col-md-4" id="list-example" >
+        <nav class="col-6 col-md-4" id="list-example" >
             <div class="content-section">
-                <ul id="side-nav" class="list-group nav nav-pills nav-stacked" style="top: 120px;">
-                    <a class="list-group-item list-group-item-action" href="#list-item-1">1. Files Upload</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-2">2. Quality Control</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-3">3. Read Filtration</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-4">5. <i>de novo</i> assembly</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-5">6. Scaffolds Realignment</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-6">7. Homology Search</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-7">8. Variant Calling</a>
+                <ul id="side-nav" class="list-group nav nav-pills nav-stacked" style="top: 260px;">
+                    <a class="list-group-item list-group-item-action" href="#list-item-1">1. Quality Control</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-2">2. Reference Mappping</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-3">3. Variant Calling</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-4">4. Variant Calling File Annotation</a>
                 </ul>
             </div>
         </nav>
-        <div class="col-md-8">
-            <div class="jumbotron" style="margin: 10px; background-color: #f4f4f4;">
-              <center><h2 class="display-4"><b><i>de novo</i> Assembly</b></h2></center>
-            </div>
+        <div class="col-12 col-md-8">
+          <div class="jumbotron" style="margin: 30px; background-color: #f4f4f4; border: 4px solid gray">
+            <center><h2 class="display-4" style="font-weight: 400; margin:-30px"><b><i>De novo</i> Assembly</b></h2></center>
+          </div>
             <div class=" scrollspy-example">
-                <div id="list-item-1" >
-                    <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
-                        <div class="card-header" style="border-color: #afafaf; border-width:4px">
-                            <p class="h2"><i class="fas fa-file-upload"></i> &nbsp &nbsp Read Files Upload</p>
-                        </div>
-                        <div class="card-body w-100">
-                            <p class="card-text">VirusNGS can only accept:</p>
-                            <p>&nbsp &nbsp 1) &nbsp<b><i>.fastq.gz</i></b> format.</p>
-                            <p>&nbsp &nbsp 2) &nbsp<b>≤10.0 GBytes</b> for each file. </p>
-                            <p>&nbsp &nbsp 3) &nbspOriginal raw sequenceing read files only.</p>
-                            <p>&nbsp &nbsp 4) &nbspCannot accept fastq.gz paired-end file from SRA.</p>
-                            <!-- <p>&nbsp &nbsp 5) Cannot accept nanopore data.</p> -->
-                            <p>&nbsp &nbsp 5) &nbspMust upload data to start the analysis.</p>
-                            <p>&nbsp &nbsp 6) &nbspUsers can delete the uploaded data.</p>
-
-                            <nav>
-                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Paired-End</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Singel-End</a>
-                            </div>
-                            </nav>
-                            <strong>{{ which }}</strong>
-                            <strong>{{ uploaded_file_url_pe_1 }}</strong>
-                            <strong>{{ uploaded_file_url_pe_2 }}</strong>
-                            <strong>{{ uploaded_file_url_se }}</strong>
-
-                            {% if remove_file is True or uploaded_file_url_pe_1 == None and uploaded_file_url_pe_2 == None and uploaded_file_url_se == None %}
-                            {% comment %} Inside is Normal for user to upload file {% endcomment %}
-                                <div class="upload-file-single-end tab-content">User can upload file</div>
-                                <div class="not-upload tab-content" id="nav-tabContent">
-                                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                        <br>
-                                        <form method="post" enctype="multipart/form-data" required="True">
-                                            <div id="paired-end-container"></div>
-                                            {% csrf_token %}
-                                            <div class="custom-file">
-                                                <input type="hidden" value="paired" name="paired_or_single">
-                                                <input type="file" name="r1" class="custom-file-input" id="inputGroupFile01">
-                                                <label class="custom-file-label" for="inputGroupFile01">Choose R1 file (*.1.fastq.gz)</label>
-                                            </div>
-                                            <div class="custom-file">
-                                                <input type="file" name="r2" class="custom-file-input" id="inputGroupFile02">
-                                                <label class="custom-file-label" for="inputGroupFile02">Choose R2 file (*.1.fastq.gz)</label>
-                                            </div>
-
-
-
-                                            <br><br>
-                                            <button id="paired-end-button" name="upload-paired-end-file" class="btn btn-success btn-block" type="submit">Upload Paired-End Files</button>
-                                            <script>
-                                            // Change color would be done in the future !!! (It is not working right now!)
-                                                $('#inputGroupFile01').on('change',function(){
-                                                    //get the file name
-                                                    var fileName = $(this).val();
-                                                    var cleanFileName = fileName.replace('C:\\fakepath\\', " ");
-                                                    //replace the "Choose a file" label
-                                                    $(this).next('.custom-file-label').html(cleanFileName);
-                                                    reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz)$/i
-                                                    if (cleanFileName.match(reg_exp_1)) {
-                                                        console.log("Change color to green");
-                                                        $('#inputGroupFile01').css("background-color", "#97dbac");
-                                                    } else {
-                                                        console.log("Change color to red");
-                                                        $('#inputGroupFile01').css("background-color", "#db9797");
-                                                    }
-                                                })
-
-                                                $('#inputGroupFile02').on('change',function(){
-                                                    //get the file name
-                                                    var fileName = $(this).val();
-                                                    var cleanFileName = fileName.replace('C:\\fakepath\\', " ");
-                                                    //replace the "Choose a file" label
-                                                    $(this).next('.custom-file-label').html(cleanFileName);
-                                                })
-
-                                                $('#paired-end-button').click(function(){
-                                                    var myNode = document.getElementById("paired-end-container");
-                                                    myNode.innerHTML = '';
-                                                    file_1_size = document.getElementById("inputGroupFile01").files.length
-                                                    file_2_size = document.getElementById("inputGroupFile02").files.length
-                                                    file_name1 = document.getElementById("inputGroupFile01").value;
-                                                    file_name2 = document.getElementById("inputGroupFile02").value;
-                                                    reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R1.fastq.gz)$/i
-                                                    reg_exp_2 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.R2.fastq.gz)$/i
-                                                    checker = true;
-                                                    if (file_1_size == 0) {
-                                                        console.log("File 1 have not selected");
-                                                        $('#paired-end-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">You do not select <strong>R1 file</strong> !<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
-                                                        checker = false;
-                                                    }
-                                                    if (file_1_size == 1 & !file_name1.match(reg_exp_1)) {
-                                                        $('#paired-end-container').append('<div class="alert alert-warning alert-dismissible fade show" role="alert">R1 file name is <strong>INVALID</strong> ! (clue: <strong>"*.R1.fastq.gz"</strong>)<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
-                                                        checker = false;
-                                                    }
-                                                    if (file_2_size == 0) {
-                                                        console.log("File 2 have not selected");
-                                                        $('#paired-end-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">You do not select <strong>R2 file</strong> !<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
-                                                        checker = false;
-                                                    }
-                                                    if (file_2_size == 1 & !file_name2.match(reg_exp_2)) {
-                                                        $('#paired-end-container').append('<div class="alert alert-warning alert-dismissible fade show" role="alert">R2 file name is <strong>INVALID</strong> ! (clue: <strong>"*.R2.fastq.gz"</strong>)<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
-                                                        checker = false;
-                                                    }
-                                                    return checker
-                                                })
-                                            </script>
-                                        </form>
-                                        <br>
+              <form method="post" enctype="multipart/form-data" required="True">
+                {% csrf_token %}
+                <div id="start_analysis_wrapper">
+                    <div id="list-item-1" >
+                      <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
+                          <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-cut"></i> &nbsp &nbsp Quality Control</p></div>
+                          <div class="card-body w-100">
+                              <p class="card-text">This step is to ensure that quality meets the quality requirement. <strong>FastQC</strong> is used to acquire quality information. <strong>Trimmomatic</strong> is used to remove adapter and trim low quality parts of reads
+                              </p><br>
+                              <div class="row">
+                                  <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                    <div class="col-auto">
+                                      <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp Quality Assessment</h5>
                                     </div>
-                                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                        <br>
-                                        <form method="post" enctype="multipart/form-data">
-                                            <div id="single-end-container"></div>
-                                            {% csrf_token %}
-                                            <div class="custom-file">
-                                                <input type="hidden" value="single" name="paired_or_single">
-                                                <input type="file" name="s1" class="custom-file-input" id="inputGroupFileSin">
-                                                <label class="custom-file-label" for="inputGroupFileSin">Choose R1 file (*.1.fastq.gz)</label>
-                                            </div>
+                                  <div class="col"><hr></div>
+                              </div>
+                              <p class="card-text"  style="margin-left:40px;"><strong>FastqQC</strong> and <strong>MultiQC</strong> would be run.</p>
+                              <br>
 
-
-
-
-
-
-
-
-
-
-                                            <br><br>
-                                            <button id="single-end-button" name="upload-single-end-file" class="btn btn-success btn-block" type="submit">Upload Single-End Files</button>
-                                            <script>
-                                                $('#inputGroupFileSin').on('change',function(){
-                                                    //get the file name
-                                                    var fileName = $(this).val();
-                                                    var cleanFileName = fileName.replace('C:\\fakepath\\', " ");
-                                                    //replace the "Choose a file" label
-                                                    $(this).next('.custom-file-label').html(cleanFileName);
-                                                    reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.fastq.gz)$/i
-                                                    if (cleanFileName.match(reg_exp_1)) {
-                                                        console.log("Change color to green");
-                                                        $(this).css("background-color", "rgba(175, 201, 99, 0.2)");
-                                                    } else {
-                                                        console.log("Change color to red");
-                                                        $(event.delegateTarget).css("background-color", "rgba(175, 201, 99, 0.2)");
-                                                    }
-                                                })
-
-                                                $('#single-end-button').click(function(){
-                                                    var myNode = document.getElementById("single-end-container");
-                                                    myNode.innerHTML = '';
-                                                    file_1_size = document.getElementById("inputGroupFileSin").files.length
-                                                    file_name1 = document.getElementById("inputGroupFileSin").value;
-                                                    reg_exp_1 = /([a-zA-Z0-9\s_\\.\-\(\):])+(.fastq.gz)$/i
-                                                    checker = true;
-                                                    if (file_1_size == 0) {
-                                                        console.log("File 1 have not selected");
-                                                        $('#single-end-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">You do not select <strong>R1 file</strong> !<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
-                                                        checker = false;
-                                                    }
-                                                    if (file_1_size == 1 & !file_name1.match(reg_exp_1)) {
-                                                        $('#single-end-container').append('<div class="alert alert-warning alert-dismissible fade show" role="alert">R1 file name is <strong>INVALID</strong> ! (clue: <strong>"*.fastq.gz"</strong>)<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
-                                                        checker = false;
-                                                    }
-                                                    return checker
-                                                })
-                                            </script>
-                                        </form>
+                              <div class="row">
+                                  <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                    <div class="col-auto">
+                                      <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp Reads Trimming</h5>
                                     </div>
+                                  <div class="col"><hr></div>
+                              </div>
+                              <p class="card-text" style="margin-left:40px;"><strong>Trimmomatic</strong> would be run. You can set your own variable.</p>
+                              <div class="trimmomatic" style="margin-left:40px;">
+                                <div class="row trimmomatic_adapter">
+                                  <label class="col-md-4 control-label" for="trimmomatic_illuminaclip"  style="margin-top: 10px;"><i class="far fa-dot-circle"></i>&nbsp&nbspTarget Adapter</label>
+                                  <div class="col-md-6">
+                                    <select class="custom-select my-1 mr-sm-2" name="trimmomatic_illuminaclip" id="trimmomatic_illuminaclip">
+                                      <option selected="selected" value="None">None</option>
+                                      <option value="TruSeq2-PE.fa">TruSeq2-PE.fa</option>
+                                      <option value="TruSeq3-PE.fa">TruSeq3-PE.fa</option>
+                                      <option value="TruSeq3-PE-2.fa">TruSeq3-PE-2.fa</option>
+                                      <option value="NexteraPE-PE.fa">NexteraPE-PE.fa</option>
+                                    </select>
+                                  </div>
                                 </div>
-                            {% elif uploaded_file_url_pe_1 != None and uploaded_file_url_pe_2 != None and uploaded_file_url_se == None %}
-                                <div class="upload-file-paired-end tab-content">Upload files are paired-end !!!!</div>
-                                <form method="post" enctype="multipart/form-data" required="True">
-                                {% csrf_token %}
-                                    <p>Upload files:</p>
-                                    <ul>
-                                        <li>
-                                            <small>Upload at: <a href={{ uploaded_file_url_pe_1 }}>{{ uploaded_file_url_pe_1 }}</a></small>
-                                        </li>
-                                        <li>
-                                            <small>Upload at: <a href={{ uploaded_file_url_pe_2 }}>{{ uploaded_file_url_pe_2 }}</a></small>
-                                        </li>
-                                    </ul>
-                                    <br>
-                                    <button id="delete-paired-end-file" name="remove-paired-end-file" class="btn btn-danger btn-block" type="submit">Delete Uploaded Files</button>
-                                </form>
-                            {% elif uploaded_file_url_pe_1 == None and uploaded_file_url_pe_2 == None and uploaded_file_url_se != None %}
-                                <div class="upload-file-paired-end tab-content">Upload files are single-end !!!!</div>
-                                <form method="post" enctype="multipart/form-data" required="True">
-                                {% csrf_token %}
-                                    <p>Upload files:</p>
-                                    <ul>
-                                        <li>
-                                            <small>Upload at: <a href={{ uploaded_file_url_se }}>{{ uploaded_file_url_se }}</a></small>
-                                        </li>
-                                    </ul>
-                                    <br>
-                                    <button id="delete-single-end-file" name="remove-single-end-file" class="btn btn-danger btn-block" type="submit">Delete Uploaded File</button>
-                                </form>
-                            {% else %}
-                            remove all the files and do two false
-                            {% endif %}
-
-                        </div>
-                    </div>
-                </div>
-
-                <form method="post" enctype="multipart/form-data" required="True">
-                  {% csrf_token %}
-                  <div id="start_analysis_wrapper">
-                    <div id="list-item-2">
-                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
-                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-cut"></i> &nbsp &nbsp Quality Control</p></div>
-                            <div class="card-body w-100">
-                                <p class="card-text">This step is to ensure that quality meets the quality requirement.
-                                   <strong>FastQC</strong> is used to acquire quality information. <strong>Trimmomatic</strong> is used to remove adapter and trim low quality parts of reads
-                                </p><br>
-                                <div class="row">
-                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
-                                      <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp Quality Assessment</h5>
-                                      </div>
-                                    <div class="col"><hr></div>
-                                </div>
-                                <p class="card-text"  style="margin-left:40px;"><strong>FastqQC</strong> and <strong>MultiQC</strong> would be run.</p>
-                                <br>
-
-                                <div class="row">
-                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
-                                      <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp Reads Trimming</h5>
-                                      </div>
-                                    <div class="col"><hr></div>
-                                </div>
-                                <p class="card-text" style="margin-left:40px;"><strong>Trimmomatic</strong> would be run. You can set your own variable.</p>
-                                <div class="trimmomatic" style="margin-left:40px;">
-                                  <div class="row trimmomatic_adapter">
-                                    <label class="col-md-4 control-label" for="trimmomatic_illuminaclip"><i class="far fa-dot-circle"></i>&nbsp&nbspTarget Adapter</label>
+                                <div class="trimmomatic_slidingwindow">
+                                  <div class="row trimmomatic_slidingwindow_size_1">
+                                    <label class="col-md-4" for="trimmomatic_slidingwindow_size" style="margin-top: 10px;"><i class="far fa-dot-circle"></i>&nbsp&nbspSliding Window Size</label>
                                     <div class="col-md-6">
-                                      <select class="custom-select my-1 mr-sm-2" name="trimmomatic_illuminaclip" id="trimmomatic_illuminaclip">
-                                        <option value="TruSeq2-PE.fa">TruSeq2-PE.fa</option>
-                                        <option selected="selected" value="TruSeq3-PE.fa">TruSeq3-PE.fa</option>
-                                        <option value="TruSeq3-PE-2.fa">TruSeq3-PE-2.fa</option>
-                                        <option value="NexteraPE-PE.fa">NexteraPE-PE.fa</option>
+                                      <select class="custom-select my-1 mr-sm-2" name="trimmomatic_slidingwindow_size" id="trimmomatic_slidingwindow_size">
+                                        <option value="3">3</option>
+                                        <option value="4" selected="selected">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
                                       </select>
                                     </div>
                                   </div>
-                                  <div class="trimmomatic_slidingwindow">
-                                    <div class="row trimmomatic_slidingwindow_size_1">
-                                      <label class="col-md-4" for="trimmomatic_slidingwindow_size"><i class="far fa-dot-circle"></i>&nbsp&nbspSliding Window Size</label>
-                                      <div class="col-md-6">
-                                        <select class="custom-select my-1 mr-sm-2" name="trimmomatic_slidingwindow_size" id="trimmomatic_slidingwindow_size">
-                                          <option value="3">3</option>
-                                          <option value="4" selected="selected">4</option>
-                                          <option value="5">5</option>
-                                          <option value="6">6</option>
-                                          <option value="7">7</option>
-                                          <option value="8">8</option>
-                                          <option value="9">9</option>
-                                          <option value="10">10</option>
-                                          <option value="11">11</option>
-                                          <option value="12">12</option>
-                                          <option value="13">13</option>
-                                          <option value="14">14</option>
-                                          <option value="15">15</option>
-                                          <option value="16">16</option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                    <div class="row trimmomatic_slidingwindow_quality_2">
-                                      <label class="col-md-4" for="trimmomatic_slidingwindow_quality"><i class="far fa-dot-circle"></i>&nbsp&nbspSliding Window Quality</label>
-                                      <div class="col-md-6">
-                                        <select class="custom-select my-1 mr-sm-2" name="trimmomatic_slidingwindow_quality" id="trimmomatic_slidingwindow_quality">
-                                          <option value="6">6</option>
-                                          <option value="7">7</option>
-                                          <option value="8">8</option>
-                                          <option value="9">9</option>
-                                          <option value="10">10</option>
-                                          <option value="11">11</option>
-                                          <option value="12">12</option>
-                                          <option value="13">13</option>
-                                          <option value="14">14</option>
-                                          <option value="15" selected="selected" Leading Quality>15</option>
-                                          <option value="16">16</option>
-                                          <option value="17">17</option>
-                                          <option value="18">18</option>
-                                          <option value="19">19</option>
-                                          <option value="20">20</option>
-                                          <option value="21">21</option>
-                                          <option value="22">22</option>
-                                          <option value="23">23</option>
-                                          <option value="24">24</option>
-                                          <option value="25">25</option>
-                                          <option value="26">26</option>
-                                          <option value="27">27</option>
-                                          <option value="28">28</option>
-                                          <option value="29">29</option>
-                                          <option value="30">30</option>
-                                          <option value="31">31</option>
-                                          <option value="32">32</option>
-                                          <option value="33">33</option>
-                                          <option value="34">34</option>
-                                          <option value="35">35</option>
-                                          <option value="36">36</option>
-                                          <option value="37">37</option>
-                                          <option value="38">38</option>
-                                          <option value="39">39</option>
-                                          <option value="40">40</option>
-                                        </select>
-                                      </div>
-                                    </div>
-
-                                  </div>
-                                  <div class="row trimmomatic_leading">
-                                  <label class="col-md-4" for="trimmomatic_leading_quality"><i class="far fa-dot-circle"></i>&nbsp&nbspLeading Quality</label>
-                                  <div class="col-md-6">
-                                    <select class="custom-select my-1 mr-sm-2" name="trimmomatic_leading_quality" id="trimmomatic_leading_quality">
-                                      <option value="2">2</option>
-                                      <option value="3" selected="selected">3</option>
-                                      <option value="4">4</option>
-                                      <option value="5">5</option>
-                                      <option value="6">6</option>
-                                      <option value="7">7</option>
-                                      <option value="8">8</option>
-                                      <option value="9">9</option>
-                                      <option value="10">10</option>
-                                      <option value="11">11</option>
-                                      <option value="12">12</option>
-                                      <option value="13">13</option>
-                                      <option value="14">14</option>
-                                      <option value="15">15</option>
-                                      <option value="16">16</option>
-                                      <option value="17">17</option>
-                                      <option value="18">18</option>
-                                      <option value="19">19</option>
-                                      <option value="20">20</option>
-                                    </select>
-                                  </div>
-
-                                  </div>
-                                  <div class="row trimmomatic_trailing">
-                                  <label class="col-md-4" for="trimmomatic_trailing_quality"><i class="far fa-dot-circle"></i>&nbsp&nbspTrailing Quality</label>
-                                  <div class="col-md-6">
-                                    <select class="custom-select my-1 mr-sm-2" name="trimmomatic_trailing_quality" id="trimmomatic_trailing_quality">
-                                      <option value="2">2</option>
-                                      <option value="3" selected="selected">3</option>
-                                      <option value="4">4</option>
-                                      <option value="5">5</option>
-                                      <option value="6">6</option>
-                                      <option value="7">7</option>
-                                      <option value="8">8</option>
-                                      <option value="9">9</option>
-                                      <option value="10">10</option>
-                                      <option value="11">11</option>
-                                      <option value="12">12</option>
-                                      <option value="13">13</option>
-                                      <option value="14">14</option>
-                                      <option value="15">15</option>
-                                      <option value="16">16</option>
-                                      <option value="17">17</option>
-                                      <option value="18">18</option>
-                                      <option value="19">19</option>
-                                      <option value="20">20</option>
-                                    </select>
-                                  </div>
-                                  </div>
-                                  <div class="row trimmomatic_minimum_length">
-                                  <label class="col-md-4" for="trimmomatic_minlen"><i class="far fa-dot-circle"></i>&nbsp&nbspMinimum Length</label>
-                                  <div class="col-md-6">
-                                    <select class="custom-select my-1 mr-sm-2" name="trimmomatic_minlen"  id="trimmomatic_minlen">
-                                        <option value="15">15</option>
+                                  <div class="row trimmomatic_slidingwindow_quality_2">
+                                    <label class="col-md-4" for="trimmomatic_slidingwindow_quality" style="margin-top: 10px;"><i class="far fa-dot-circle"></i>&nbsp&nbspSliding Window Quality</label>
+                                    <div class="col-md-6">
+                                      <select class="custom-select my-1 mr-sm-2" name="trimmomatic_slidingwindow_quality" id="trimmomatic_slidingwindow_quality">
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15" selected="selected" Leading Quality>15</option>
                                         <option value="16">16</option>
                                         <option value="17">17</option>
                                         <option value="18">18</option>
@@ -460,202 +165,171 @@
                                         <option value="33">33</option>
                                         <option value="34">34</option>
                                         <option value="35">35</option>
-                                        <option value="36" selected="selected">36</option>
+                                        <option value="36">36</option>
                                         <option value="37">37</option>
                                         <option value="38">38</option>
                                         <option value="39">39</option>
                                         <option value="40">40</option>
-                                        <option value="41">41</option>
-                                        <option value="42">42</option>
-                                        <option value="43">43</option>
-                                        <option value="44">44</option>
-                                        <option value="45">45</option>
-                                        <option value="46">46</option>
-                                        <option value="47">47</option>
-                                        <option value="48">48</option>
-                                        <option value="49">49</option>
-                                        <option value="50">50</option>
-                                    </select>
+                                      </select>
+                                    </div>
                                   </div>
-                                  </div>
+
                                 </div>
-                                <br>
-                                <div class="row">
-                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
-                                      <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 3: &nbsp Quality Re-Assessment</h5>
-                                      </div>
-                                    <div class="col"><hr></div>
+                                <div class="row trimmomatic_leading">
+                                <label class="col-md-4" for="trimmomatic_leading_quality" style="margin-top: 10px;"><i class="far fa-dot-circle"></i>&nbsp&nbspLeading Quality</label>
+                                <div class="col-md-6">
+                                  <select class="custom-select my-1 mr-sm-2" name="trimmomatic_leading_quality" id="trimmomatic_leading_quality">
+                                    <option value="2">2</option>
+                                    <option value="3" selected="selected">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                  </select>
                                 </div>
-                                <p class="card-text" style="margin-left:40px;"><strong>FastqQC</strong> and <strong>MultiQC</strong> would be run.</p>
-                            </div>
+
+                                </div>
+                                <div class="row trimmomatic_trailing">
+                                <label class="col-md-4" for="trimmomatic_trailing_quality" style="margin-top: 10px;"><i class="far fa-dot-circle"></i>&nbsp&nbspTrailing Quality</label>
+                                <div class="col-md-6">
+                                  <select class="custom-select my-1 mr-sm-2" name="trimmomatic_trailing_quality" id="trimmomatic_trailing_quality">
+                                    <option value="2">2</option>
+                                    <option value="3" selected="selected">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                  </select>
+                                </div>
+                                </div>
+                                <div class="row trimmomatic_minimum_length">
+                                <label class="col-md-4" for="trimmomatic_minlen" style="margin-top: 10px;"><i class="far fa-dot-circle"></i>&nbsp&nbspMinimum Length</label>
+                                <div class="col-md-6">
+                                  <select class="custom-select my-1 mr-sm-2" name="trimmomatic_minlen"  id="trimmomatic_minlen">
+                                      <option value="15">15</option>
+                                      <option value="16">16</option>
+                                      <option value="17">17</option>
+                                      <option value="18">18</option>
+                                      <option value="19">19</option>
+                                      <option value="20">20</option>
+                                      <option value="21">21</option>
+                                      <option value="22">22</option>
+                                      <option value="23">23</option>
+                                      <option value="24">24</option>
+                                      <option value="25">25</option>
+                                      <option value="26">26</option>
+                                      <option value="27">27</option>
+                                      <option value="28">28</option>
+                                      <option value="29">29</option>
+                                      <option value="30">30</option>
+                                      <option value="31">31</option>
+                                      <option value="32">32</option>
+                                      <option value="33">33</option>
+                                      <option value="34">34</option>
+                                      <option value="35">35</option>
+                                      <option value="36" selected="selected">36</option>
+                                      <option value="37">37</option>
+                                      <option value="38">38</option>
+                                      <option value="39">39</option>
+                                      <option value="40">40</option>
+                                      <option value="41">41</option>
+                                      <option value="42">42</option>
+                                      <option value="43">43</option>
+                                      <option value="44">44</option>
+                                      <option value="45">45</option>
+                                      <option value="46">46</option>
+                                      <option value="47">47</option>
+                                      <option value="48">48</option>
+                                      <option value="49">49</option>
+                                      <option value="50">50</option>
+                                  </select>
+                                </div>
+                                </div>
+                              </div>
+                              <br>
+                              <div class="row">
+                                  <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                    <div class="col-auto">
+                                      <h5><i class="fas fa-flag"></i> &nbsp Step 3: &nbsp Quality Re-Assessment</h5>
+                                    </div>
+                                  <div class="col"><hr></div>
+                              </div>
+                              <p class="card-text" style="margin-left:40px;"><strong>FastqQC</strong> and <strong>MultiQC</strong> would be run.</p>
+                          </div>
+                      </div>
+                    </div>
+                    <div id="list-item-2">
+                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-cut"></i> &nbsp &nbsp Reference Mappping</p></div>
+
                         </div>
                     </div>
                     <div id="list-item-3">
                         <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
-                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-minus"></i> &nbsp &nbsp Read Filtration </p></div>
-                            <div class="card-body w-100">
-                                <p class="card-text">Reads subtraction is aligned against ribosomal RNAs, bacteria genome, and selected host genome. The tools used in this step is <b>BWA-MEM</b></p>
-                                <br>
-                                <div class="row">
-                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
-                                      <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp Remove rRNAs</h5>
-                                      </div>
-                                    <div class="col"><hr></div>
-                                </div>
-                                <p class="card-text" style="margin-left:40px;"><strong>5S, 18S, 23S, 28S, and ITS rRNAs</strong> reads would be removed.<br>Database: <a href="ftp://ftp.ncbi.nlm.nih.gov/genomes/TARGET/">ftp://ftp.ncbi.nlm.nih.gov/genomes/TARGET/</a> <br>(Updated on Tue Dec 26 13:56:59 2017)</p>
-                                <br>
-                                <div class="row">
-                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
-                                      <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp Select Target Bacteria</h5>
-                                      </div>
-                                    <div class="col"><hr></div>
-                                </div>
-                                <div class="reads-subtraction-host" style="margin-left:40px;">
-                                  <div class="row">
-                                    <label class="col-md-4 control-label" for="reads_subtraction_host"><i class="far fa-dot-circle"></i>&nbsp&nbsp Target Bacteria</label>
-                                    <div class="col-md-6">
-                                      <select class="custom-select my-1 mr-sm-2" name="reads_subtraction_host" id="reads_subtraction_host">
-                                        <option selected="selected" value="TB">Tuberculosis (TB)</option>
-                                        <option value="mosquito">mosquito (Aedes aegypti)</option>
-                                        <option value="mouse">mouse (Mus musculus)</option>
-                                        <option value="pig">pig (Sus scrofa)</option>
-                                        <option value="tick">tick (Ixodes scapularis)</option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                </div>
-                                <br>
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-minus"></i> &nbsp &nbsp Variant Calling</p></div>
 
-                                <div class="row">
-                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
-                                      <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 3: &nbsp Remove Host Genome</h5>
-                                      </div>
-                                    <div class="col"><hr></div>
-                                </div>
-                                <div class="reads-subtraction-host" style="margin-left:40px;">
-                                  <div class="row">
-                                    <label class="col-md-4 control-label" for="reads_subtraction_host"><i class="far fa-dot-circle"></i>&nbsp&nbsp Select Target Host</label>
-                                    <div class="col-md-6">
-                                      <select class="custom-select my-1 mr-sm-2" name="reads_subtraction_host" id="reads_subtraction_host">
-                                        <option value="bovine">bovine (Bos taurus)</option>
-                                        <option value="chicken">chicken (Gallus gallus)</option>
-                                        <option value="dog">dog (Canis lupus familiaris)</option>
-                                        <option value="dog">dog (Canis lupus familiaris)</option>
-                                        <option selected="selected" value="human">human (Homo sapiens)</option>
-                                        <option value="mosquito">mosquito (Aedes aegypti)</option>
-                                        <option value="mouse">mouse (Mus musculus)</option>
-                                        <option value="pig">pig (Sus scrofa)</option>
-                                        <option value="tick">tick (Ixodes scapularis)</option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                </div>
-                                <br>
-
-                                <div class="row">
-                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
-                                      <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 4: &nbsp Remove Duplicated Reads</h5>
-                                      </div>
-                                    <div class="col"><hr></div>
-                                </div>
-                                <p class="card-text" style="margin-left:40px;"><strong>Duplicated reads</strong> would be remove by <b>fastuniq</b> program.</p>
-
-
-                            </div>
                         </div>
                     </div>
 
                     <div id="list-item-4">
                         <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
-                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-align-right"></i> &nbsp &nbsp <b><i>De novo</i></b> assembly</p></div>
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-align-right"></i> &nbsp &nbsp Variant Calling File Annotation</p></div>
                             <div class="card-body w-100">
-                                <p class="card-text"><b>A5-miseq</b> <i>de novo</i> assembly</p>
+
+                                <p class="card-text">This step is to annotate the variant calling file (VCF). Modified VCF file, annotated VCF file and snpEff summary html would be created.</p>
                                 <br>
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                       <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp <b><i>De novo</i></b> Assembly </h5>
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp sed snpEffectPredictor.bin</h5>
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
-                                <p class="card-text" style="margin-left:40px;">Description</p>
+                                <p class="card-text" style="margin-left:40px;">Modify the reference name of VCF file in order to run the snpEff annotation.</p>
                                 <br>
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                       <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp Qualuty Trimming</h5>
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp snpEff.jar snpEff.config</h5>
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
-                                <p class="card-text" style="margin-left:40px;">Description</p>
+                                <p class="card-text" style="margin-left:40px;">Gene information of reference genome would be annotated into VCF file. SnpEff summary report would be created in HTML format.</p>
                             </div>
                         </div>
                     </div>
 
 
-                    <div id="list-item-5">
-                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
-                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-reply"></i> &nbsp &nbsp Scaffolds Realignment</p></div>
-                            <div class="card-body w-100">
-                                <p class="card-text"> Final scaffolds were subjected to <b>BWA-MEM</b> reads re-mapping. </p>
-                                <br>
-                                <div class="row">
-                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
-                                      <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp <b>BWA-MEM</b> Reads Re-mapping</h5>
-                                      </div>
-                                    <div class="col"><hr></div>
-                                </div>
-                                <p class="card-text" style="margin-left:40px;">Description.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="list-item-6">
-                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
-                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-database"></i> &nbsp &nbsp homology Search</p></div>
-                            <div class="card-body w-100">
-                                <p class="card-text">Description </p>
-                                <br>
-                                <div class="row">
-                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
-                                      <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp </h5>
-                                      </div>
-                                    <div class="col"><hr></div>
-                                </div>
-                                <p class="card-text" style="margin-left:40px;">Description</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="list-item-7">
-                        <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
-                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-dna"></i>  &nbsp &nbsp Variant Calling</p></div>
-                            <div class="card-body w-100">
-                                <p class="card-text">Description</p>
-                                <br>
-                                <div class="row">
-                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
-                                      <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp </h5>
-                                      </div>
-                                    <div class="col"><hr></div>
-                                </div>
-                                <p class="card-text" style="margin-left:40px;">Description</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button id="start-analysis-button" name="start-analysis-de-novo" type="submit" class="btn btn-success btn-lg btn-block" style="margin-bottom: 100px">Start Analysis</button>
+                    <button id="start-analysis-button" name="start-analysis-reference-based" type="submit" class="btn btn-success btn-lg btn-block" style="margin-top: 100px; margin-bottom: 100px; height:80px">Start Analysis</button>
                     <!-- <button id="paired-end-button" name="upload-paired-end-file" class="btn btn-info btn-block" type="submit">Upload Paired-End Files</button> -->
                   </div>
-                  <script>
+                  <!-- <script>
 
                     $('#start-analysis-button').click(function(){
                         console.log("{{uploaded_file_url_pe_1}}"!="None" && "{{uploaded_file_url_pe_2}}"!="None"  || "{{uploaded_file_url_se}}"!="None");
@@ -671,7 +345,7 @@
                         }
                     })
 
-                  </script>
+                  </script> -->
                 </form>
 
 
