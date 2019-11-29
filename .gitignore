@@ -5,3 +5,4 @@ COMMAND.txt
 virus_data
 VirusRNASeq/media
 src/VirusRNASeq/VirusRNASeq/settings.py
+VirusRNASeq/db.sqlite3

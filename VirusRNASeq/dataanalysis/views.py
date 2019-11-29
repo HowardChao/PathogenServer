@@ -35,6 +35,7 @@ from dataanalysis.forms import DocumentForm, PairedEndForm, SingleEndForm
 
 from . import utils_func
 from . import utils_func_reference_check_whole
+from . import tasks
 
 TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_project"
 
@@ -240,6 +241,9 @@ class BasicUploadView(DetailView):
 #############################
 def reference_mapping_whole_dataanalysis(request, slug_project):
     ## Check if file exist !!
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    tasks.start_snakemake_task(100, 300)
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
     url_parameter = project_name + '_' + email.split("@")[0]
     template_html = "dataanalysis/analysis_home_reference_based.html"
@@ -366,11 +370,6 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
             ###################################
             ######## Important !!!!!!! ########
             ###################################
-<<<<<<< HEAD
-            # The moment when the task is created, it would be existed in queue.
-=======
-            # The moment when the task is created, it would be existedi n queue.
->>>>>>> 30557251b96e06336fc6e7b23acca693dee9e735
             # After task is created, it would be stored in either success or failure objects (But the snakemake is still RUNNING!!!!)
             # If it is in Failure ==> Show the failure page and let the user to delete the project_name
             # If it is in Success ==> Keep tracking files and check whether snakemake is still running properly
@@ -384,7 +383,10 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
                     # Target : Run in background and create a task !
                     # django_q_tasks.async_task(subprocess.check_output, ['snakemake', '-n', '-r'], shell=True, cwd=base_dir, q_options=opts)
                     # subprocess.Popen(['snakemake', '--dryrun'], cwd=base_dir)
-                    django_q_tasks.async_task(subprocess.call, ['snakemake'], cwd=base_dir, q_options=opts)
+
+                    start_snakemake_task(100, 300)
+
+                    # django_q_tasks.async_task(subprocess.call, ['snakemake'], cwd=base_dir, q_options=opts)
             template_html = "dataanalysis/analysis_home_reference_based.html"
             return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
