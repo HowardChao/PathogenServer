@@ -26,8 +26,10 @@ SECRET_KEY = 'pr(=j7$i@n!q6qmz&9=g!9q**w*00j)c2(gej-x65d%+do&+$!'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "172.16.0.153",
+    '*'
+#"127.0.0.1",
+   # "172.16.0.153",
+   # "140.112.150.223"
 ]
 
 
@@ -168,10 +170,11 @@ LOGIN_REDIRECT_URL = 'homepage'
 
 Q_CLUSTER = {
 'name': 'DjangORM',
-'workers': 10,
+'workers': 16,
 # 'timeout': 1800,
 'save_limit': 0,
+'timeout': None,
 # 'queue_limit': 8,
-'bulk': 20,
+'cpu_affinity': 5,
 'orm': 'default'
 }

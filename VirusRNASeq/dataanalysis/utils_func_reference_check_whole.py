@@ -8,7 +8,7 @@ def django_q_check(project_name, email, analysis_code):
     # List of django_q models
     task_list = django_q.models.Task.objects
     success_list = django_q.models.Success.objects
-    failure_list = django_q.models.Schedule.objects
+    failure_list = django_q.models.Failure.objects
     ormqs_list = django_q.models.OrmQ.objects
     # All objects in each django_q models
     tasks_all = task_list.all()
@@ -40,8 +40,29 @@ def django_q_check(project_name, email, analysis_code):
     print("!!!!!!!!!failure_select: ", failure_select)
     print("!!!!!!!!!queue_select: ", queue_select)
 
+    # Target : check whether the running jobs is in which status
+    # 1. Still in Queue
+    # 2. Running
+    # 3. Success
+    # 4. Failed
+    # ** It will not be in the Schedule list ~
+    if len(success_select) == 1:
+        return "Success"
+    if len(success_select) == 0:
+        print("length failure_select is zero!!")
 
+    if len(failure_select) == 1:
+        return "Failure"
+    if len(failure_select) == 0:
+        print("length failure_select is zero!!")
 
+    if len(queue_select) == 1:
+        return "Queue"
+    if len(queue_select) == 0:
+        print("length queue_select is zero!!")
+
+    if len(success_select) == 0 and len(failure_select) == 0 and len(queue_select) == 0 :
+        return "None"
 
 
 

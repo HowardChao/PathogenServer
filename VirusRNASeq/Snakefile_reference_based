@@ -71,13 +71,12 @@ rule first_fastqc:
         zip_r2 = os.path.join("{sample}", "Step_1", "QC", "pre", "{sample}.R2_fastqc.zip"),
     params:
         sample = "{sample}"
-    threads: 8,
     priority: 99,
     log:
         log = os.path.join("{sample}", "logs", "Step_1","fastqc_pre", "{sample}.log")
     shell:
         """
-        {config[fastqc][fastqc_command]} --threads {threads} {input.r1} {input.r2} --outdir={params.sample}/Step_1/QC/pre
+        {config[fastqc][fastqc_command]} {input.r1} {input.r2} --outdir={params.sample}/Step_1/QC/pre
         """
 
 rule first_multiqc:

@@ -13,7 +13,6 @@ import django_q as django_q_models
 from django_q import models
 import django_q
 import django_q.tasks as django_q_tasks
-# async_task, result, fetch
 from django_q.monitor import Stat
 import math
 
@@ -49,8 +48,8 @@ TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_pr
 class BasicUploadView(DetailView):
     template_name = 'dataanalysis/data_upload.html'
     def get(self, request, slug_project):
-        one_group_samples_csv = "/media/example_files/samples_csv/one"
-        two_group_samples_csv = "/media/example_files/samples_csv/two"
+        one_group_samples_csv = "/media/example_files/samples_csv/one/samples.csv"
+        two_group_samples_csv = "/media/example_files/samples_csv/two/samples.csv"
         fastq_R1 = "/media/example_files/fastq_r1_r2/SRR8698485.R1.fastq.gz"
         fastq_R2 = "/media/example_files/fastq_r1_r2/SRR8698485.R2.fastq.gz"
         (project_name, analysis_code, email, assembly_type_input) = (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
@@ -86,8 +85,10 @@ class BasicUploadView(DetailView):
         })
 
     def post(self, request, slug_project):
-        one_group_samples_csv = "/media/samples.csv_example/one/samples.csv"
-        two_group_samples_csv = "/media/samples.csv_example/two/samples.csv"
+        one_group_samples_csv = "/media/example_files/samples_csv/one/samples.csv"
+        two_group_samples_csv = "/media/example_files/samples_csv/two/samples.csv"
+        # one_group_samples_csv = "/media/samples.csv_example/one/samples.csv"
+        # two_group_samples_csv = "/media/samples.csv_example/two/samples.csv"
         fastq_R1 = "/media/example_files/fastq_r1_r2/SRR8698485.R1.fastq.gz"
         fastq_R2 = "/media/example_files/fastq_r1_r2/SRR8698485.R2.fastq.gz"
         (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
@@ -250,20 +251,9 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
     # Check all the files are valid !!! (for referenced-based workflow)
     (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
     fetch_job_success = utils_func_reference_check_whole.django_q_check(project_name, email, analysis_code)
-
-
-
-
-
-
-
-
-
-
-
-
     # If all checker is true ==> just jump to the current status page and then jump to new final overview page!!!!!!! and fetch_job.success
-    if overall_sample_result_checker and fetch_job_success:
+    print('%%%%% fetch_job_success != "None"', fetch_job_success != "None",  overall_sample_result_checker)
+    if fetch_job_success != "None" and (fetch_job_success == "Success" or fetch_job_success == "Queue"):
         return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
             'slug_project': url_parameter})))
     if request.method == 'POST' :
@@ -325,6 +315,7 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
             elif assembly_type_input == "reference_based_assembly":
                 snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_reference_based")
             destination_snakemake_file = os.path.join(base_dir, 'Snakefile')
+            # destination_config_yaml = os.path.join(base_dir, 'config.yaml')
             data = dict(
                 assembly_type_input = assembly_type_input,
                 samples_list_key = samples_list_key,
@@ -373,39 +364,29 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
                 destination_get_time_script = os.path.join(
                     base_dir, 'get_time_script/get_' + name + '_time.py')
                 shutil.copyfile(get_time_script, destination_get_time_script)
-
             new_task_name = project_name + email + analysis_code
             queue_size = django_q_tasks.queue_size()
             print("######### queue_size: ", queue_size)
             opts = {'group': assembly_type_input,
                     'task_name': new_task_name}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            ###################################
+            ######## Important !!!!!!! ########
+            ###################################
+            # The moment when the task is created, it would be existed in queue.
+            # After task is created, it would be stored in either success or failure objects (But the snakemake is still RUNNING!!!!)
+            # If it is in Failure ==> Show the failure page and let the user to delete the project_name
+            # If it is in Success ==> Keep tracking files and check whether snakemake is still running properly
+                # 1. If snakemake is shutdown ==> show the failure page! When the user delete the project, "Remember to delete the object from the successful list !!!!"
+                # 2. If snakemake finished successfully ==> show the result page! Run regularly.
+                    # SO Key points ==> how to check whether snakemake is finished successfully or shutdown half way?
+            if fetch_job_success == "None":
+                print("*&*&*&*&*& Start running SNAKEMAKE !!!!")
+                # task_id = django_q_tasks.async_task(subprocess.check_output, ['snakemake', '-n'], shell=True, cwd=base_dir, q_options=opts)
+                if os.path.exists(destination_snakemake_file):
+                    # Target : Run in background and create a task !
+                    # django_q_tasks.async_task(subprocess.check_output, ['snakemake', '-n', '-r'], shell=True, cwd=base_dir, q_options=opts)
+                    # subprocess.Popen(['snakemake', '--dryrun'], cwd=base_dir)
+                    django_q_tasks.async_task(subprocess.call, ['snakemake'], cwd=base_dir, q_options=opts)
             template_html = "dataanalysis/analysis_home_reference_based.html"
             return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
@@ -445,36 +426,34 @@ def reference_mapping_current_status(request, slug_project):
     check_extract_non_host_reads_2_ans_dict = {}
     check_extract_non_host_reads_3_ans_dict = {}
     check_extract_non_host_reads_4_ans_dict = {}
-
-
-    tasks = django_q.models.Task.objects
-    success = django_q.models.Success.objects
-    failure = django_q.models.Schedule.objects
-    ormq = django_q.models.OrmQ.objects
-    tasks_all = tasks.all()
-    success_all = success.all()
-    failure_all = failure.all()
-    ormq_all = ormq.all()
-
-
-    # print("ormq_select: ", ormq_select)
-
-    # args, func, group, hook, id, kwargs, name, result, started, stopped, success
-    print("@@@ tasks_all args: ", tasks_all[0].args)
-    print("@@@ tasks_all func: ", tasks_all[0].func)
-    print("@@@ tasks_all group: ", tasks_all[0].group)
-    print("@@@ tasks_all hook: ", tasks_all[0].hook)
-    print("@@@ tasks_all id: ", tasks_all[0].id)
-    print("@@@ tasks_all kwargs: ", tasks_all[0].kwargs)
-    print("@@@ tasks_all name: ", tasks_all[0].name)
-    print("@@@ tasks_all result: ", tasks_all[0].result)
-    print("@@@ tasks_all started: ", tasks_all[0].started)
-    print("@@@ tasks_all stopped: ", tasks_all[0].stopped)
-    print("@@@ tasks_all success: ", tasks_all[0].success)
-
-    print("@@@ success_all", success_all)
-    print("@@@ failure_all", failure_all)
-    print("@@@ ormq_all", ormq_all)
+    # tasks = django_q.models.Task.objects
+    # success = django_q.models.Success.objects
+    # failure = django_q.models.Schedule.objects
+    # ormq = django_q.models.OrmQ.objects
+    # tasks_all = tasks.all()
+    # success_all = success.all()
+    # failure_all = failure.all()
+    # ormq_all = ormq.all()
+    #
+    #
+    # # print("ormq_select: ", ormq_select)
+    #
+    # # args, func, group, hook, id, kwargs, name, result, started, stopped, success
+    # print("@@@ tasks_all args: ", tasks_all[0].args)
+    # print("@@@ tasks_all func: ", tasks_all[0].func)
+    # print("@@@ tasks_all group: ", tasks_all[0].group)
+    # print("@@@ tasks_all hook: ", tasks_all[0].hook)
+    # print("@@@ tasks_all id: ", tasks_all[0].id)
+    # print("@@@ tasks_all kwargs: ", tasks_all[0].kwargs)
+    # print("@@@ tasks_all name: ", tasks_all[0].name)
+    # print("@@@ tasks_all result: ", tasks_all[0].result)
+    # print("@@@ tasks_all started: ", tasks_all[0].started)
+    # print("@@@ tasks_all stopped: ", tasks_all[0].stopped)
+    # print("@@@ tasks_all success: ", tasks_all[0].success)
+    #
+    # print("@@@ success_all", success_all)
+    # print("@@@ failure_all", failure_all)
+    # print("@@@ ormq_all", ormq_all)
     # print("@@@ ormq_all", ormq_all[0].id)
     # print("@@@ ormq_all", ormq_all[0].key)
     # print("@@@ ormq_all", ormq_all[0].lock)
@@ -492,29 +471,6 @@ def reference_mapping_current_status(request, slug_project):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     ##########
     ## THis is for the button to go to overview page ##
     ##########
@@ -523,12 +479,11 @@ def reference_mapping_current_status(request, slug_project):
         if 'go-to-overview-button' in request.POST:
             return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
-
     (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
     fetch_job_success = utils_func_reference_check_whole.django_q_check(project_name, email, analysis_code)
     # print("overall_sample_result_checker", overall_sample_result_checker)
     # print("fetch_job_success", fetch_job_success)
-    if overall_sample_result_checker and fetch_job_success:
+    if overall_sample_result_checker and fetch_job_success == "Success":
         return redirect((reverse('reference_mapping_dataanalysis_result_overview', kwargs={
             'slug_project': url_parameter})))
 
@@ -540,9 +495,7 @@ def reference_mapping_current_status(request, slug_project):
         'url_parameter': url_parameter,
         'samples_all_info': samples_all_info,
         # Here, the variable need to be removed
-
         'submission_time': submission_time_strip,
-
         "samples_txt_file_name": samples_txt_file_name,
         "samples_list_key": samples_list_key,
         "sample_list": sample_list,
