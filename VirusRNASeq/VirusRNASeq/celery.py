@@ -6,6 +6,7 @@ from celery import Celery
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'VirusRNASeq.settings')
 
 app = Celery('VirusRNASeq')
+app.conf.update(task_track_started=True)
 
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.

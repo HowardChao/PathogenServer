@@ -2,67 +2,94 @@ import os
 import django_q
 from django_q.tasks import async_task, result, fetch
 from . import utils_func
+from . import tasks
 
-def django_q_check(project_name, email, analysis_code):
-    new_task_name = project_name + email + analysis_code
-    # List of django_q models
-    task_list = django_q.models.Task.objects
-    success_list = django_q.models.Success.objects
-    failure_list = django_q.models.Failure.objects
-    ormqs_list = django_q.models.OrmQ.objects
-    # All objects in each django_q models
-    tasks_all = task_list.all()
-    success_all = success_list.all()
-    failure_all = failure_list.all()
-    ormq_all = ormqs_list.all()
-    print("!!!!!!!!!tasks_all: ", tasks_all)
-    print(len(tasks_all))
-    print("!!!!!!!!!success_all: ", success_all)
-    print(len(success_all))
-    print("!!!!!!!!!failure_all: ", failure_all)
-    print(len(failure_all))
-    print("!!!!!!!!!ormq_all: ", ormq_all)
-    print(len(ormq_all))
+def celery_check(project_name, email, analysis_code):
+    new_task_id = project_name + email + analysis_code
+    # while
+    result = tasks.start_snakemake_task.AsyncResult(new_task_id)
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    print("@@@@@@@@@@@ task name : ", result)
+    print("@@@@@@@@@@@ result.state: ", result.state)
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    fetch_job_status = False
+    if result.state == "PENDING":
+        fetch_job_status = False
+    elif result.state == "STARTED":
+        fetch_job_status = True
+    elif result.state == "SUCCESS":
+        fetch_job_status = True
+    elif result.state == "FAILURE":
+        fetch_job_status = True
+    elif result.state == "RETRY":
+        fetch_job_status = True
+    elif result.state == "REVOKED":
+        fetch_job_status = True
+
+    return fetch_job_status
 
 
-    # Check whether in success_list (task is established and succeed)
-    success_select = success_list.filter(name = new_task_name)
-    print("success_select: ", success_select)
-    # Check whether in failer_list (task is established and failed)
-    failure_select = failure_list.filter(name = new_task_name)
-    print("failure_select: ", failure_select)
 
-    # Check whether in queue list (task is not created)
-    queue_select = [o for o in ormq_all if o.name() == new_task_name]
-    print("queue_select: ", queue_select)
 
-    print("!!!!!!!!!success_select: ", success_select)
-    print("!!!!!!!!!failure_select: ", failure_select)
-    print("!!!!!!!!!queue_select: ", queue_select)
 
-    # Target : check whether the running jobs is in which status
-    # 1. Still in Queue
-    # 2. Running
-    # 3. Success
-    # 4. Failed
-    # ** It will not be in the Schedule list ~
-    if len(success_select) == 1:
-        return "Success"
-    if len(success_select) == 0:
-        print("length failure_select is zero!!")
-
-    if len(failure_select) == 1:
-        return "Failure"
-    if len(failure_select) == 0:
-        print("length failure_select is zero!!")
-
-    if len(queue_select) == 1:
-        return "Queue"
-    if len(queue_select) == 0:
-        print("length queue_select is zero!!")
-
-    if len(success_select) == 0 and len(failure_select) == 0 and len(queue_select) == 0 :
-        return "None"
+    # # List of django_q models
+    # task_list = django_q.models.Task.objects
+    # success_list = django_q.models.Success.objects
+    # failure_list = django_q.models.Failure.objects
+    # ormqs_list = django_q.models.OrmQ.objects
+    # # All objects in each django_q models
+    # tasks_all = task_list.all()
+    # success_all = success_list.all()
+    # failure_all = failure_list.all()
+    # ormq_all = ormqs_list.all()
+    # print("!!!!!!!!!tasks_all: ", tasks_all)
+    # print(len(tasks_all))
+    # print("!!!!!!!!!success_all: ", success_all)
+    # print(len(success_all))
+    # print("!!!!!!!!!failure_all: ", failure_all)
+    # print(len(failure_all))
+    # print("!!!!!!!!!ormq_all: ", ormq_all)
+    # print(len(ormq_all))
+    #
+    #
+    # # Check whether in success_list (task is established and succeed)
+    # success_select = success_list.filter(name = new_task_name)
+    # print("success_select: ", success_select)
+    # # Check whether in failer_list (task is established and failed)
+    # failure_select = failure_list.filter(name = new_task_name)
+    # print("failure_select: ", failure_select)
+    #
+    # # Check whether in queue list (task is not created)
+    # queue_select = [o for o in ormq_all if o.name() == new_task_name]
+    # print("queue_select: ", queue_select)
+    #
+    # print("!!!!!!!!!success_select: ", success_select)
+    # print("!!!!!!!!!failure_select: ", failure_select)
+    # print("!!!!!!!!!queue_select: ", queue_select)
+    #
+    # # Target : check whether the running jobs is in which status
+    # # 1. Still in Queue
+    # # 2. Running
+    # # 3. Success
+    # # 4. Failed
+    # # ** It will not be in the Schedule list ~
+    # if len(success_select) == 1:
+    #     return "Success"
+    # if len(success_select) == 0:
+    #     print("length failure_select is zero!!")
+    #
+    # if len(failure_select) == 1:
+    #     return "Failure"
+    # if len(failure_select) == 0:
+    #     print("length failure_select is zero!!")
+    #
+    # if len(queue_select) == 1:
+    #     return "Queue"
+    # if len(queue_select) == 0:
+    #     print("length queue_select is zero!!")
+    #
+    # if len(success_select) == 0 and len(failure_select) == 0 and len(queue_select) == 0 :
+    #     return "None"
 
 
 
@@ -91,17 +118,6 @@ def django_q_check(project_name, email, analysis_code):
     # print("@@@ ormq_all", ormq_all[0].key)
     # print("@@@ ormq_all", ormq_all[0].lock)
     # print("@@@ ormq_all", ormq_all[0].payload)
-
-
-
-
-
-
-
-
-
-
-    return False
 
 def Whole_check_reference_based_results(url_base_dir, base_dir, sample_list):
     samples_all_info = {}
