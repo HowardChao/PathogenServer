@@ -16,6 +16,7 @@ import django_q.tasks as django_q_tasks
 from django_q.monitor import Stat
 import math
 import time
+import celery.app.control as taskControl
 
 import yaml
 from django.core.files import File
@@ -40,10 +41,6 @@ from . import tasks
 
 TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_project"
 
-
-### Change QC directory !!!!
-
-
 # Creating GET and POST functions!! When we access page, we are going to
 # show the user a list of uploaded files
 
@@ -55,7 +52,6 @@ class BasicUploadView(DetailView):
         fastq_R1 = "/media/example_files/fastq_r1_r2/SRR8698485.R1.fastq.gz"
         fastq_R2 = "/media/example_files/fastq_r1_r2/SRR8698485.R2.fastq.gz"
         (project_name, analysis_code, email, assembly_type_input) = (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
-
         # The base directory of the created project.
         base_dir = os.path.join(settings.MEDIA_ROOT,
                                 'tmp', project_name + '_' + email + '_' + analysis_code)
@@ -150,6 +146,23 @@ class BasicUploadView(DetailView):
                 shutil.rmtree(destination_QC_html_dir)
             # Start checking files
             (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
+            new_task_name = project_name + email + analysis_code
+            taskControl.revoke(new_task_name)
+
+            
+            print("#############")
+            print("#####  Revoke new_task_name ######")
+
+
+
+
+
+
+
+
+
+
+
             check_uploaded_fastq_file_ans = utils_func.check_uploaded_fastq_file(project_name, email, analysis_code)
             check_uploaded_fastq_file_whole_ans = utils_func.check_uploaded_fastq_file_whole_answer(check_uploaded_fastq_file_ans)
             uploaded_sample_file_url = utils_func.get_sample_file_url(project_name, email, analysis_code)
@@ -252,21 +265,11 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
     # Check all the files are valid !!! (for referenced-based workflow)
     (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
     fetch_job_status = utils_func_reference_check_whole.celery_check(project_name, email, analysis_code)
-    if fetch_job_status:
+    ############################################
+    ### It means that file has been executed ###
+    ############################################
+    if fetch_job_status != "PENDING" and not(all(value == False for value in samples_all_info.values())):
         return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={'slug_project': url_parameter})))
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     if request.method == 'POST' :
         if 'start-analysis-reference-based' in request.POST:
@@ -376,37 +379,19 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
             new_task_name = project_name + email + analysis_code
             opts = {'group': assembly_type_input,
                     'task_name': new_task_name}
-            ###################################
-            ######## Important !!!!!!! ########
-            ###################################
-            # After task is created, it would be stored in either success or failure objects (But the snakemake is still RUNNING!!!!)
-            # If it is in Failure ==> Show the failure page and let the user to delete the project_name
-            # If it is in Success ==> Keep tracking files and check whether snakemake is still running properly
-                # 1. If snakemake is shutdown ==> show the failure page! When the user delete the project, "Remember to delete the object from the successful list !!!!"
-                # 2. If snakemake finished successfully ==> show the result page! Run regularly.
-                    # SO Key points ==> how to check whether snakemake is finished successfully or shutdown half way?
-            if True:
+
+            ################################################
+            ### It means that file has not been executed ###
+            ################################################
+            if fetch_job_status == "PENDING":
                 new_task_id = project_name + email + analysis_code
-                # task_id = django_q_tasks.async_task(subprocess.check_output, ['snakemake', '-n'], shell=True, cwd=base_dir, q_options=opts)
                 if os.path.exists(destination_snakemake_file):
-                    # Target : Run in background and create a task !
-                    # django_q_tasks.async_task(subprocess.check_output, ['snakemake', '-n', '-r'], shell=True, cwd=base_dir, q_options=opts)
-                    # subprocess.Popen(['snakemake', '--dryrun'], cwd=base_dir)
                     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                     print("*&*&*&*&*& Start running SNAKEMAKE !!!!")
-                    task_result = tasks.start_snakemake_task.apply_async([base_dir], task_id = new_task_id)
-                    # task_result = tasks.start_snakemake_task.delay(base_dir)
                     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                    # django_q_tasks.async_task(subprocess.call, ['snakemake'], cwd=base_dir, q_options=opts)
+                    task_result = tasks.start_snakemake_task.apply_async([base_dir], task_id = new_task_id)
             template_html = "dataanalysis/analysis_home_reference_based.html"
             fetch_job_status = utils_func_reference_check_whole.celery_check(project_name, email, analysis_code)
-
-
-            # while not task_result.ready():
-            #     print("State = ", task_result.state, " info = ", task_result.info)
-            #     time.sleep(2)
-            # print("State = ", task_result.state, " info = ", task_result.info)
-
 
             return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
@@ -446,54 +431,6 @@ def reference_mapping_current_status(request, slug_project):
     check_extract_non_host_reads_2_ans_dict = {}
     check_extract_non_host_reads_3_ans_dict = {}
     check_extract_non_host_reads_4_ans_dict = {}
-    # tasks = django_q.models.Task.objects
-    # success = django_q.models.Success.objects
-    # failure = django_q.models.Schedule.objects
-    # ormq = django_q.models.OrmQ.objects
-    # tasks_all = tasks.all()
-    # success_all = success.all()
-    # failure_all = failure.all()
-    # ormq_all = ormq.all()
-    #
-    #
-    # # print("ormq_select: ", ormq_select)
-    #
-    # # args, func, group, hook, id, kwargs, name, result, started, stopped, success
-    # print("@@@ tasks_all args: ", tasks_all[0].args)
-    # print("@@@ tasks_all func: ", tasks_all[0].func)
-    # print("@@@ tasks_all group: ", tasks_all[0].group)
-    # print("@@@ tasks_all hook: ", tasks_all[0].hook)
-    # print("@@@ tasks_all id: ", tasks_all[0].id)
-    # print("@@@ tasks_all kwargs: ", tasks_all[0].kwargs)
-    # print("@@@ tasks_all name: ", tasks_all[0].name)
-    # print("@@@ tasks_all result: ", tasks_all[0].result)
-    # print("@@@ tasks_all started: ", tasks_all[0].started)
-    # print("@@@ tasks_all stopped: ", tasks_all[0].stopped)
-    # print("@@@ tasks_all success: ", tasks_all[0].success)
-    #
-    # print("@@@ success_all", success_all)
-    # print("@@@ failure_all", failure_all)
-    # print("@@@ ormq_all", ormq_all)
-    # print("@@@ ormq_all", ormq_all[0].id)
-    # print("@@@ ormq_all", ormq_all[0].key)
-    # print("@@@ ormq_all", ormq_all[0].lock)
-    # print("@@@ ormq_all", ormq_all[0].payload)
-
-        # print(tasks)
-        # print(success)
-        # print(failure)
-        # print(ormq)
-        #
-        # # print(i.objects)
-        # print(i)
-
-    # print(models.success.objects.filter(analysis_code=instance.analysis_code).exists())
-
-
-
-    ##########
-    ## THis is for the button to go to overview page ##
-    ##########
 
     if request.method == 'POST':
         if 'go-to-overview-button' in request.POST:
@@ -503,7 +440,11 @@ def reference_mapping_current_status(request, slug_project):
     fetch_job_status = utils_func_reference_check_whole.celery_check(project_name, email, analysis_code)
     # print("overall_sample_result_checker", overall_sample_result_checker)
     # print("fetch_job_status", fetch_job_status)
-    if overall_sample_result_checker and fetch_job_status == "Success":
+    ############################################################
+    ### It means that pipeline has been executed successfully###
+    ############################################################
+    print("samples_all_info: ", samples_all_info)
+    if overall_sample_result_checker and fetch_job_status == "SUCCESS":
         return redirect((reverse('reference_mapping_dataanalysis_result_overview', kwargs={
             'slug_project': url_parameter})))
 
@@ -649,7 +590,6 @@ def reference_mapping_show_result_overview(request, slug_project):
 ###### de novo assembly ######
 #############################
 def de_novo_assembly_whole_dataanalysis(request, slug_project):
-    ## Check if file exist !!
     (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
     url_parameter = project_name + '_' + email.split("@")[0]
     template_html = "dataanalysis/analysis_home_denovo.html"
@@ -657,16 +597,15 @@ def de_novo_assembly_whole_dataanalysis(request, slug_project):
                             'tmp', project_name + '_' + email + '_' + analysis_code)
     (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
     url_base_dir = os.path.join('/media', 'tmp', project_name + '_' + email + '_' + analysis_code)
-    # Check all the files are valid !!! (for denovo_based workflow)
-    ### !!!!! Need to change !!!!! ###
-    ### (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
-
+    (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
     fetch_job_status = utils_func_reference_check_whole.celery_check(project_name, email, analysis_code)
-    # If all checker is true ==> just jump to the current status page and then jump to new final overview page!!!!!!! and fetch_job.success
-    # print('%%%%% fetch_job_status != "None"', fetch_job_status != "None",  overall_sample_result_checker)
-    if fetch_job_status != "None" and (fetch_job_status == "Success" or fetch_job_status == "Queue"):
+    ############################################
+    ### It means that file has been executed ###
+    ############################################
+    if fetch_job_status != "PENDING" and not(all(value == False for value in samples_all_info.values())):
         return redirect((reverse('de_novo_assembly_dataanalysis_result_current_status', kwargs={
             'slug_project': url_parameter})))
+
     if request.method == 'POST' :
         if 'start-analysis-reference-based' in request.POST:
             upload_files_dir = os.path.join(base_dir, "Uploaded_files")
@@ -776,28 +715,18 @@ def de_novo_assembly_whole_dataanalysis(request, slug_project):
             new_task_name = project_name + email + analysis_code
             opts = {'group': assembly_type_input,
                     'task_name': new_task_name}
-            ###################################
-            ######## Important !!!!!!! ########
-            ###################################
-            # The moment when the task is created, it would be existedi n queue.
-            # After task is created, it would be stored in either success or failure objects (But the snakemake is still RUNNING!!!!)
-            # If it is in Failure ==> Show the failure page and let the user to delete the project_name
-            # If it is in Success ==> Keep tracking files and check whether snakemake is still running properly
-                # 1. If snakemake is shutdown ==> show the failure page! When the user delete the project, "Remember to delete the object from the successful list !!!!"
-                # 2. If snakemake finished successfully ==> show the result page! Run regularly.
-                    # SO Key points ==> how to check whether snakemake is finished successfully or shutdown half way?
-            if fetch_job_status == "None":
-                print("*&*&*&*&*& Start running SNAKEMAKE !!!!")
-                # task_id = django_q_tasks.async_task(subprocess.check_output, ['snakemake', '-n'], shell=True, cwd=base_dir, q_options=opts)
+            ################################################
+            ### It means that file has not been executed ###
+            ################################################
+            if fetch_job_status == "PENDING":
+                new_task_id = project_name + email + analysis_code
                 if os.path.exists(destination_snakemake_file):
-                    # Target : Run in background and create a task !
-                    # django_q_tasks.async_task(subprocess.check_output, ['snakemake', '-n', '-r'], shell=True, cwd=base_dir, q_options=opts)
-                    # subprocess.Popen(['snakemake', '--dryrun'], cwd=base_dir)
                     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                    tasks.start_snakemake_task.delay()
+                    print("*&*&*&*&*& Start running SNAKEMAKE !!!!")
                     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                    # django_q_tasks.async_task(subprocess.call, ['snakemake'], cwd=base_dir, q_options=opts)
+                    task_result = tasks.start_snakemake_task.apply_async([base_dir], task_id = new_task_id)
             template_html = "dataanalysis/analysis_home_denovo.html"
+            # fetch_job_status = utils_func_reference_check_whole.celery_check(project_name, email, analysis_code)
             return redirect((reverse('de_novo_assembly_dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
     return render(request, template_html, {

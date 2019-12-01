@@ -26,7 +26,7 @@ def celery_check(project_name, email, analysis_code):
     elif result.state == "REVOKED":
         fetch_job_status = True
 
-    return fetch_job_status
+    return result.state
 
 
 
