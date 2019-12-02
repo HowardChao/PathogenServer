@@ -16,7 +16,10 @@ import django_q.tasks as django_q_tasks
 from django_q.monitor import Stat
 import math
 import time
-import celery.app.control as taskControl
+import celery
+import celery.task.control as taskControl
+from django_celery_results.models import TaskResult
+
 
 import yaml
 from django.core.files import File
@@ -52,11 +55,22 @@ class BasicUploadView(DetailView):
         fastq_R1 = "/media/example_files/fastq_r1_r2/SRR8698485.R1.fastq.gz"
         fastq_R2 = "/media/example_files/fastq_r1_r2/SRR8698485.R2.fastq.gz"
         (project_name, analysis_code, email, assembly_type_input) = (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
+        # django_celery_results.models.TaskResult
+
+        # if models.NewsletterUser.objects.filter(project_name=instance.project_name,email=instance.email, analysis_code=instance.analysis_code).exists():
+        #     pass
         # The base directory of the created project.
         base_dir = os.path.join(settings.MEDIA_ROOT,
                                 'tmp', project_name + '_' + email + '_' + analysis_code)
         # The url for the slug_project
         url_parameter = project_name + '_' + email.split("@")[0]
+
+        fetch_job_status = utils_func_reference_check_whole.celery_check(project_name, email, analysis_code)
+        # When job status is pending or started, you cannot delete the job
+        # It will directly go to status page !
+        # If task is SUCCESSED or FAILED, then you can delete it.
+        if (fetch_job_status == "STARTED" or fetch_job_status == "SUCCESS"):
+            return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={'slug_project': url_parameter})))
         # Start checking files !!!
         # For sample name!
         (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
@@ -147,22 +161,12 @@ class BasicUploadView(DetailView):
             # Start checking files
             (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
             new_task_name = project_name + email + analysis_code
-            taskControl.revoke(new_task_name)
-
-            
             print("#############")
-            print("#####  Revoke new_task_name ######")
-
-
-
-
-
-
-
-
-
-
-
+            print("#####  Delete new_task_name ######")
+            targetCeleryTask = TaskResult.objects.filter(task_id = project_name + email + analysis_code)
+            print("***targetCeleryTask ", targetCeleryTask, " : ", targetCeleryTask.exists())
+            if targetCeleryTask.exists():
+                targetCeleryTask.delete()
             check_uploaded_fastq_file_ans = utils_func.check_uploaded_fastq_file(project_name, email, analysis_code)
             check_uploaded_fastq_file_whole_ans = utils_func.check_uploaded_fastq_file_whole_answer(check_uploaded_fastq_file_ans)
             uploaded_sample_file_url = utils_func.get_sample_file_url(project_name, email, analysis_code)

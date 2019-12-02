@@ -1,6 +1,4 @@
 import os
-import django_q
-from django_q.tasks import async_task, result, fetch
 from . import utils_func
 from . import tasks
 
