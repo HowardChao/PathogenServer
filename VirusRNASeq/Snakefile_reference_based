@@ -46,6 +46,8 @@ rule targets:
         #     config["datadir"], "Read_Subtraction", "bwa", "sam", "{sample}.sam"), sample=samples),
         # expand(os.path.join( "{sample}", "Step_5", "snpeff", "{sample}.vcf2"), sample=samples),
         expand(os.path.join("{sample}", "Step_5", "snpeff", "{sample}.ann.vcf"), sample=samples),
+
+
         # expand(os.path.join("{sample}", "Step_6", "gatk", "{sample}.dict"), sample=samples),
         # expand(os.path.join("{sample}", "Step_6", "gatk", "{sample}.vcf.gz.tbi"), sample=samples),
         # expand(os.path.join("{sample}", "Step_6", "gatk", "{sample}_out.fa"), sample=samples),
@@ -330,9 +332,15 @@ rule snpeff_1:
         """
 
 
+
+
+
+
+
+
 rule gatk_1:
     input:
-        snpeff_vcf = os.path.join("{sample}", "Step_5", "snpeff", "{sample}.vcf2"),
+        snpeff_vcf = os.path.join("{sample}", "Step_5", "snpeff", "{sample}.ann.vcf"),
     output:
         gatk_dict = os.path.join("{sample}", "Step_6", "gatk", "{sample}.dict"),
     params:
@@ -346,7 +354,7 @@ rule gatk_1:
 
 rule gatk_2:
     input:
-        bcftools_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}.vcf.gz"),
+        bcftools_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}_revise.vcf.gz"),
     output:
         gatk_vcf_gz_tbi = os.path.join("{sample}", "Step_6", "gatk", "{sample}.vcf.gz.tbi"),
     params:
@@ -355,12 +363,12 @@ rule gatk_2:
         log = os.path.join("{sample}", "logs", "snpeff_IndexFeatureFile", "{sample}.log"),
     shell:
         """
-        java -jar {config[gatk][gatk_jar]} IndexFeatureFile -F {input.bcftools_vcf} -O {output.gatk_vcf_gz_tbi}
+        java -jar {config[gatk][gatk_jar]} IndexFeatureFile -F {input.bcftools_vcf}
         """
 
 rule gatk_3:
     input:
-        bcftools_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}.vcf.gz"),
+        bcftools_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}_revise.vcf.gz"),
     output:
         gatk_out_fa = os.path.join("{sample}", "Step_6", "gatk", "{sample}_out.fa"),
     params:

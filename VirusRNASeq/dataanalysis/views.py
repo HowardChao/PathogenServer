@@ -40,6 +40,7 @@ from dataanalysis.forms import DocumentForm, PairedEndForm, SingleEndForm
 
 from . import utils_func
 from . import utils_func_reference_check_whole
+from . import utils_func_denovo_check_whole
 from . import tasks
 
 TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_project"
@@ -54,7 +55,7 @@ class BasicUploadView(DetailView):
         two_group_samples_csv = "/media/example_files/samples_csv/two/samples.csv"
         fastq_R1 = "/media/example_files/fastq_r1_r2/SRR8698485.R1.fastq.gz"
         fastq_R2 = "/media/example_files/fastq_r1_r2/SRR8698485.R2.fastq.gz"
-        (project_name, analysis_code, email, assembly_type_input) = (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
+        (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
         # django_celery_results.models.TaskResult
 
         # if models.NewsletterUser.objects.filter(project_name=instance.project_name,email=instance.email, analysis_code=instance.analysis_code).exists():
@@ -65,12 +66,15 @@ class BasicUploadView(DetailView):
         # The url for the slug_project
         url_parameter = project_name + '_' + email.split("@")[0]
 
-        fetch_job_status = utils_func_reference_check_whole.celery_check(project_name, email, analysis_code)
+        fetch_job_status = utils_func.celery_check(project_name, email, analysis_code)
         # When job status is pending or started, you cannot delete the job
         # It will directly go to status page !
         # If task is SUCCESSED or FAILED, then you can delete it.
         if (fetch_job_status == "STARTED" or fetch_job_status == "SUCCESS"):
-            return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={'slug_project': url_parameter})))
+            if assembly_type_input == "reference_based_assembly":
+                return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={'slug_project': url_parameter})))
+            if assembly_type_input == "de_novo_assembly":
+                return redirect((reverse('de_novo_assembly_dataanalysis_result_current_status', kwargs={'slug_project': url_parameter})))
         # Start checking files !!!
         # For sample name!
         (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
@@ -268,7 +272,7 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
     url_base_dir = os.path.join('/media', 'tmp', project_name + '_' + email + '_' + analysis_code)
     # Check all the files are valid !!! (for referenced-based workflow)
     (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
-    fetch_job_status = utils_func_reference_check_whole.celery_check(project_name, email, analysis_code)
+    fetch_job_status = utils_func.celery_check(project_name, email, analysis_code)
     ############################################
     ### It means that file has been executed ###
     ############################################
@@ -314,12 +318,14 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
             bwa_pathogen_full_name = ""
             bwa_pathogen_fastq = ""
             print("bwa_pathogenbwa_pathogen: ", bwa_pathogen)
-            if bwa_pathogen == "TB":
+            if bwa_pathogen == "TB_H37Rv":
                 bwa_pathogen_full_name = "Mycobacterium_tuberculosis_H37Rv"
                 bwa_pathogen_fastq = "Mycobacterium_tuberculosis_H37Rv.fna"
+            if bwa_pathogen == "TB_Taiwan":
+                bwa_pathogen_full_name = "Mycobacterium_tuberculosis_Taiwan"
+                bwa_pathogen_fastq = "Taiwan_pilot.sites_noDR.fasta"
             bwa_pathogen_dir = os.path.join(pathogen_dir, bwa_pathogen_full_name, bwa_pathogen_fastq)
             bwa_threads = 10
-
             ### snpEff
             snpEff_jar = os.path.join(tool_dir, "snpEff/snpEff/snpEff.jar")
             snpEff_config = os.path.join(tool_dir, "snpEff/snpEff/snpEff.config")
@@ -395,7 +401,7 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
                     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                     task_result = tasks.start_snakemake_task.apply_async([base_dir], task_id = new_task_id)
             template_html = "dataanalysis/analysis_home_reference_based.html"
-            fetch_job_status = utils_func_reference_check_whole.celery_check(project_name, email, analysis_code)
+            fetch_job_status = utils_func.celery_check(project_name, email, analysis_code)
 
             return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
@@ -411,7 +417,7 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
 
 def reference_mapping_current_status(request, slug_project):
     (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
-    fetch_job_status = utils_func_reference_check_whole.celery_check(project_name, email, analysis_code)
+    fetch_job_status = utils_func.celery_check(project_name, email, analysis_code)
     url_parameter = project_name + '_' + email.split("@")[0]
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
@@ -441,7 +447,7 @@ def reference_mapping_current_status(request, slug_project):
             return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
     (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
-    fetch_job_status = utils_func_reference_check_whole.celery_check(project_name, email, analysis_code)
+    fetch_job_status = utils_func.celery_check(project_name, email, analysis_code)
     # print("overall_sample_result_checker", overall_sample_result_checker)
     # print("fetch_job_status", fetch_job_status)
     ############################################################
@@ -590,10 +596,22 @@ def reference_mapping_show_result_overview(request, slug_project):
     })
 
 
+
+
+
+
+
+
+
+
+
+
+
 #############################
 ###### de novo assembly ######
 #############################
 def de_novo_assembly_whole_dataanalysis(request, slug_project):
+    ## Check if file exist !!
     (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
     url_parameter = project_name + '_' + email.split("@")[0]
     template_html = "dataanalysis/analysis_home_denovo.html"
@@ -601,17 +619,17 @@ def de_novo_assembly_whole_dataanalysis(request, slug_project):
                             'tmp', project_name + '_' + email + '_' + analysis_code)
     (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
     url_base_dir = os.path.join('/media', 'tmp', project_name + '_' + email + '_' + analysis_code)
-    (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
-    fetch_job_status = utils_func_reference_check_whole.celery_check(project_name, email, analysis_code)
+    # Check all the files are valid !!! (for denovo workflow)
+    (overall_sample_result_checker, samples_all_info) = utils_func_denovo_check_whole.Whole_check_denovo_based_results(url_base_dir, base_dir, sample_list)
+    fetch_job_status = utils_func.celery_check(project_name, email, analysis_code)
     ############################################
     ### It means that file has been executed ###
     ############################################
     if fetch_job_status != "PENDING" and not(all(value == False for value in samples_all_info.values())):
-        return redirect((reverse('de_novo_assembly_dataanalysis_result_current_status', kwargs={
-            'slug_project': url_parameter})))
+        return redirect((reverse('de_novo_assembly_dataanalysis_result_current_status', kwargs={'slug_project': url_parameter})))
 
     if request.method == 'POST' :
-        if 'start-analysis-reference-based' in request.POST:
+        if 'start-analysis-denovo' in request.POST:
             upload_files_dir = os.path.join(base_dir, "Uploaded_files")
             prefix_dir = "/ssd/Howard/Virus"
             tool_dir = os.path.join(prefix_dir, "tools")
@@ -640,28 +658,13 @@ def de_novo_assembly_whole_dataanalysis(request, slug_project):
             trimmomatic_minlen = request.POST.get('trimmomatic_minlen')
             trimmomatic_window_size = request.POST.get('trimmomatic_slidingwindow_size')
             trimmomatic_window_quality = request.POST.get('trimmomatic_slidingwindow_quality')
+            ### snpEff
+            snpEff_jar = os.path.join(tool_dir, "snpEff/snpEff/snpEff.jar")
+            snpEff_config = os.path.join(tool_dir, "snpEff/snpEff/snpEff.config")
 
-            ### BWA
-            species_dir = "homo_sapiens"
-            bwa_species = "homo_sapiens.fa"
-            bwa_host_ref = os.path.join(host_ref_dir, species_dir, bwa_species)
-            bwa_pathogen= request.POST.get('reads_alignment_reference')
-            bwa_pathogen_full_name = ""
-            bwa_pathogen_fastq = ""
-            print("bwa_pathogenbwa_pathogen: ", bwa_pathogen)
-            if bwa_pathogen == "TB":
-                bwa_pathogen_full_name = "Mycobacterium_tuberculosis_H37Rv"
-                bwa_pathogen_fastq = "Mycobacterium_tuberculosis_H37Rv.fna"
-            bwa_pathogen_dir = os.path.join(pathogen_dir, bwa_pathogen_full_name, bwa_pathogen_fastq)
-            bwa_threads = 10
-
-            # ### snpEff
-            # snpEff_jar = os.path.join(tool_dir, "snpEff/snpEff/snpEff.jar")
-            # snpEff_config = os.path.join(tool_dir, "snpEff/snpEff/snpEff.config")
-            #
-            # ### gatk
-            # gatk_jar = os.path.join(tool_dir, "gatk/gatk-package-4.1.0.0-local.jar")
-            # gatk_pathogen_dict = os.path.join(pathogen_dir, bwa_pathogen_full_name)
+            ### gatk
+            gatk_jar = os.path.join(tool_dir, "gatk/gatk-package-4.1.0.0-local.jar")
+            gatk_pathogen_dict = os.path.join(pathogen_dir, bwa_pathogen_full_name)
 
             config_file_path = os.path.join(base_dir, 'config.yaml')
             snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_de_novo")
@@ -689,12 +692,6 @@ def de_novo_assembly_whole_dataanalysis(request, slug_project):
                     trimmomatic_trailing = trimmomatic_trailing,
                     trimmomatic_minlen = trimmomatic_minlen,
                 ),
-                bwa = dict(
-                    bwa_host_ref = bwa_host_ref,
-                    bwa_pathogen = bwa_pathogen,
-                    bwa_pathogen_dir = bwa_pathogen_dir,
-                    bwa_threads = bwa_threads,
-                ),
                 snpEff = dict(
                     snpEff_jar = snpEff_jar,
                     snpEff_config = snpEff_config,
@@ -715,10 +712,10 @@ def de_novo_assembly_whole_dataanalysis(request, slug_project):
                 destination_get_time_script = os.path.join(
                     base_dir, 'get_time_script/get_' + name + '_time.py')
                 shutil.copyfile(get_time_script, destination_get_time_script)
-
             new_task_name = project_name + email + analysis_code
             opts = {'group': assembly_type_input,
                     'task_name': new_task_name}
+
             ################################################
             ### It means that file has not been executed ###
             ################################################
@@ -730,9 +727,11 @@ def de_novo_assembly_whole_dataanalysis(request, slug_project):
                     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                     task_result = tasks.start_snakemake_task.apply_async([base_dir], task_id = new_task_id)
             template_html = "dataanalysis/analysis_home_denovo.html"
-            # fetch_job_status = utils_func_reference_check_whole.celery_check(project_name, email, analysis_code)
+            fetch_job_status = utils_func.celery_check(project_name, email, analysis_code)
+
             return redirect((reverse('de_novo_assembly_dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
+
     return render(request, template_html, {
         'project_name': project_name,
         'email': email,
@@ -746,6 +745,16 @@ def de_novo_assembly_current_status(request, slug_project):
     pass
 def de_novo_assembly_show_result_overview(request, slug_project):
     pass
+
+
+
+
+
+
+
+
+
+
 
 
 def show_result(request, slug_project):

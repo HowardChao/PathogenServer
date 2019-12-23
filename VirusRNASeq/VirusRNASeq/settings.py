@@ -28,8 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '*'
     "127.0.0.1",
-    "172.16.0.153",
-    "114.34.123.174",
+    "172.16.0.153"
 ]
 
 
@@ -142,8 +141,8 @@ EMAIL_USE_TLS = True
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
@@ -154,8 +153,8 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
 )
 
-MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = '/media/'
 
 FILE_UPLOAD_HANDLERS = (
     "dataanalysis.uploadhandler.ProgressBarUploadHandler",
