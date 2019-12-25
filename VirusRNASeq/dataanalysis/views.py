@@ -658,13 +658,25 @@ def de_novo_assembly_whole_dataanalysis(request, slug_project):
             trimmomatic_minlen = request.POST.get('trimmomatic_minlen')
             trimmomatic_window_size = request.POST.get('trimmomatic_slidingwindow_size')
             trimmomatic_window_quality = request.POST.get('trimmomatic_slidingwindow_quality')
+            ### a5-miseq
+            a5_pipeline_pl_begin = request.POST.get('a5-miseq_begin')
+            a5_pipeline_pl_end = request.POST.get('a5-miseq_end')
+            if a5_pipeline_pl_begin == "None":
+                a5_pipeline_pl_begin_command = ""
+            else:
+                a5_pipeline_pl_begin_command = "--begin=" + a5_pipeline_pl_begin
+            if a5_pipeline_pl_end == "None":
+                a5_pipeline_pl_end_command = ""
+            else:
+                a5_pipeline_pl_end_command = "--end=" + a5_pipeline_pl_end
+            ### bowtiew2
             ### snpEff
             snpEff_jar = os.path.join(tool_dir, "snpEff/snpEff/snpEff.jar")
             snpEff_config = os.path.join(tool_dir, "snpEff/snpEff/snpEff.config")
 
             ### gatk
             gatk_jar = os.path.join(tool_dir, "gatk/gatk-package-4.1.0.0-local.jar")
-            gatk_pathogen_dict = os.path.join(pathogen_dir, bwa_pathogen_full_name)
+            # gatk_pathogen_dict = os.path.join(pathogen_dir, bwa_pathogen_full_name)
 
             config_file_path = os.path.join(base_dir, 'config.yaml')
             snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_de_novo")
@@ -675,7 +687,7 @@ def de_novo_assembly_whole_dataanalysis(request, slug_project):
                 samples_list_key = samples_list_key,
                 project_name = project_name,
                 datadir = base_dir,
-                bwa_pathogen_full_name = bwa_pathogen_full_name,
+                # bwa_pathogen_full_name = bwa_pathogen_full_name,
                 fastqc = dict(
                     fastqc_command = fastqc_command,
                 ),
@@ -692,13 +704,17 @@ def de_novo_assembly_whole_dataanalysis(request, slug_project):
                     trimmomatic_trailing = trimmomatic_trailing,
                     trimmomatic_minlen = trimmomatic_minlen,
                 ),
+                a5_miseq = dict(
+                    a5_pipeline_pl_begin_command = a5_pipeline_pl_begin_command,
+                    a5_pipeline_pl_end_command = a5_pipeline_pl_end_command,
+                ),
                 snpEff = dict(
                     snpEff_jar = snpEff_jar,
                     snpEff_config = snpEff_config,
                 ),
                 gatk = dict(
                     gatk_jar = gatk_jar,
-                    gatk_pathogen_dict = gatk_pathogen_dict,
+                    # gatk_pathogen_dict = gatk_pathogen_dict,
                 ),
             )
             with open(config_file_path, 'w') as ymlfile:
@@ -742,9 +758,186 @@ def de_novo_assembly_whole_dataanalysis(request, slug_project):
     })
 
 def de_novo_assembly_current_status(request, slug_project):
-    pass
+    (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
+    fetch_job_status = utils_func.celery_check(project_name, email, analysis_code)
+    url_parameter = project_name + '_' + email.split("@")[0]
+    base_dir = os.path.join(settings.MEDIA_ROOT,
+                            'tmp', project_name + '_' + email + '_' + analysis_code)
+    url_base_dir = os.path.join('/media', 'tmp', project_name + '_' + email + '_' + analysis_code)
+    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
+    # Get submission time
+    submission_time_strip = 'no submission time'
+    start_time_strip = 'no start time'
+    end_time_strip = 'no end time'
+    # Getting time!!
+    submission_time_strip = utils_func.get_submission_time(project_name, email, analysis_code)
+    start_time_strip = utils_func.get_start_time(project_name, email, analysis_code)
+    end_time_strip = utils_func.get_end_time(project_name, email, analysis_code)
+    url_parameter = project_name + '_' + email.split("@")[0]
+
+    check_first_qc_ans_dict = {}
+    check_trimming_qc_ans_dict = {}
+    check_second_qc_ans_dict = {}
+    check_read_subtraction_bwa_align_ans_dict = {}
+    check_extract_non_host_reads_1_ans_dict = {}
+    check_extract_non_host_reads_2_ans_dict = {}
+    check_extract_non_host_reads_3_ans_dict = {}
+    check_extract_non_host_reads_4_ans_dict = {}
+
+    if request.method == 'POST':
+        if 'go-to-overview-button' in request.POST:
+            return redirect((reverse('de_novo_assembly_dataanalysis_result_current_status', kwargs={
+                'slug_project': url_parameter})))
+    (overall_sample_result_checker, samples_all_info) = utils_func_denovo_check_whole.Whole_check_denovo_based_results(url_base_dir, base_dir, sample_list)
+    fetch_job_status = utils_func.celery_check(project_name, email, analysis_code)
+    # print("overall_sample_result_checker", overall_sample_result_checker)
+    # print("fetch_job_status", fetch_job_status)
+    ############################################################
+    ### It means that pipeline has been executed successfully###
+    ############################################################
+    print("samples_all_info: ", samples_all_info)
+    # if overall_sample_result_checker and fetch_job_status == "SUCCESS":
+    #     return redirect((reverse('de_novo_assembly_dataanalysis_result_overview', kwargs={
+    #         'slug_project': url_parameter})))
+
+    return render(request, "dataanalysis/analysis_result_status_denovo.html", {
+        'project_name': project_name,
+        'email': email,
+        'analysis_code': analysis_code,
+        'assembly_type_input': assembly_type_input,
+        'url_parameter': url_parameter,
+        'samples_all_info': samples_all_info,
+        # Here, the variable need to be removed
+        'submission_time': submission_time_strip,
+        "samples_txt_file_name": samples_txt_file_name,
+        "samples_list_key": samples_list_key,
+        "sample_list": sample_list,
+    })
+
+
 def de_novo_assembly_show_result_overview(request, slug_project):
-    pass
+    (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
+    url_parameter = project_name + '_' + email.split("@")[0]
+    base_dir = os.path.join(settings.MEDIA_ROOT,
+                            'tmp', project_name + '_' + email + '_' + analysis_code)
+    url_base_dir = os.path.join('/media', 'tmp', project_name + '_' + email + '_' + analysis_code)
+    # Get sample name
+    (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
+
+    # Getting time!!
+    submission_time_strip = utils_func.get_submission_time(project_name, email, analysis_code)
+    start_time_strip = utils_func.get_start_time(project_name, email, analysis_code)
+    end_time_strip = utils_func.get_end_time(project_name, email, analysis_code)
+
+    samples_all_result = {}
+    for sample_name in sample_list:
+        url_sample_base_dir = os.path.join(url_base_dir, sample_name)
+        sample_datadir = os.path.join(base_dir, sample_name)
+        samples_all_result[sample_name] = {}
+        one_sample_all_result = {}
+        qc_datadir = os.path.join(base_dir, sample_name, 'Step_1', 'QC')
+        # Html files that would be copied
+        fastqc_datadir_pre_r1 = os.path.join(qc_datadir, 'pre', sample_name+'.R1_fastqc.html')
+        fastqc_datadir_pre_r2 = os.path.join(
+            qc_datadir, 'pre', sample_name+'.R2_fastqc.html')
+        multiqc_datadir_pre = os.path.join(
+            qc_datadir, 'pre', sample_name+'_multiqc.html')
+
+        fastqc_datadir_post_r1 = os.path.join(
+            qc_datadir, 'post', sample_name+'_r1_paired_fastqc.html')
+        fastqc_datadir_post_r2 = os.path.join(
+            qc_datadir, 'post', sample_name+'_r2_paired_fastqc.html')
+        multiqc_datadir_post = os.path.join(
+            qc_datadir, 'post', sample_name+'_multiqc.html')
+
+        snpeff_html_datadir = os.path.join(
+            base_dir, sample_name, 'Step_5', 'snpeff', sample_name+'_snpEff_summary.html')
+        # Destination of html file
+        destination_QC_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, '', sample_name, 'Step_1', 'QC')
+        destination_snpeff_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, '', sample_name, 'Step_5', 'snpeff')
+        destination_fastqc_datadir_pre_r1 = os.path.join(destination_QC_html_dir, 'pre', sample_name+'.R1_fastqc.html')
+        destination_fastqc_datadir_pre_r2 = os.path.join(destination_QC_html_dir, 'pre', sample_name+'.R2_fastqc.html')
+        destination_multiqc_datadir_pre = os.path.join(destination_QC_html_dir, 'pre', sample_name+'_multiqc.html')
+        destination_fastqc_datadir_post_r1 = os.path.join(destination_QC_html_dir, 'post', sample_name+'_r1_paired_fastqc.html')
+        destination_fastqc_datadir_post_r2 = os.path.join(destination_QC_html_dir, 'post', sample_name+'_r2_paired_fastqc.html')
+        destination_multiqc_datadir_post = os.path.join(destination_QC_html_dir, 'post', sample_name+'_multiqc.html')
+        destination_snpeff_datadir = os.path.join(destination_snpeff_html_dir, sample_name+'_snpEff_summary.html')
+
+        if not os.path.exists(destination_QC_html_dir):
+            os.makedirs(destination_QC_html_dir)
+            os.makedirs(os.path.join(destination_QC_html_dir, 'pre'))
+            os.makedirs(os.path.join(destination_QC_html_dir, 'post'))
+            shutil.copyfile(fastqc_datadir_pre_r1, destination_fastqc_datadir_pre_r1)
+            shutil.copyfile(fastqc_datadir_pre_r2, destination_fastqc_datadir_pre_r2)
+            shutil.copyfile(multiqc_datadir_pre, destination_multiqc_datadir_pre)
+            shutil.copyfile(fastqc_datadir_post_r1, destination_fastqc_datadir_post_r1)
+            shutil.copyfile(fastqc_datadir_post_r2, destination_fastqc_datadir_post_r2)
+            shutil.copyfile(multiqc_datadir_post, destination_multiqc_datadir_post)
+        if not os.path.exists(destination_snpeff_html_dir):
+            os.makedirs(destination_snpeff_html_dir)
+            shutil.copyfile(snpeff_html_datadir, destination_snpeff_datadir)
+        one_sample_all_result["fastqc_datadir_pre_r1"] = sample_name+'.R1_fastqc.html'
+        one_sample_all_result["fastqc_datadir_pre_r2"] = sample_name+'.R2_fastqc.html'
+        one_sample_all_result["multiqc_datadir_pre"] = sample_name+'_multiqc.html'
+        one_sample_all_result["fastqc_datadir_post_r1"] = sample_name+'_r1_paired_fastqc.html'
+        one_sample_all_result["fastqc_datadir_post_r2"] = sample_name+'_r2_paired_fastqc.html'
+        one_sample_all_result["multiqc_datadir_post"] = sample_name+'_multiqc.html'
+        Step_1_check_first_qc = utils_func.Step_1_check_first_qc(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_result["Step_1_check_first_qc"] = Step_1_check_first_qc[1]
+        Step_1_check_trimming_qc = utils_func.Step_1_check_trimming_qc(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_result["Step_1_check_trimming_qc"] = Step_1_check_trimming_qc[1]
+        Step_1_check_second_qc = utils_func.Step_1_check_second_qc(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_result["Step_1_check_second_qc"] = Step_1_check_second_qc[1]
+        Step_2_check_reference_based_bwa_sam = utils_func.Step_2_check_reference_based_bwa_sam(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_result["Step_2_check_reference_based_bwa_sam"] = Step_2_check_reference_based_bwa_sam[1]
+        Step_2_check_reference_based_bwa_report_txt = utils_func.Step_2_check_reference_based_bwa_report_txt(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_result["Step_2_check_reference_based_bwa_report_txt"] = Step_2_check_reference_based_bwa_report_txt[1]
+        Step_3_check_reference_based_samtools_fixmate_bam = utils_func.Step_3_check_reference_based_samtools_fixmate_bam(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_result["Step_3_check_reference_based_samtools_fixmate_bam"] = Step_3_check_reference_based_samtools_fixmate_bam[1]
+        Step_3_check_reference_based_samtools_sorted_bam = utils_func.Step_3_check_reference_based_samtools_sorted_bam(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_result["Step_3_check_reference_based_samtools_sorted_bam"] = Step_3_check_reference_based_samtools_sorted_bam[1]
+        Step_4_check_reference_based_bcftools_vcf = utils_func.Step_4_check_reference_based_bcftools_vcf(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_result["Step_4_check_reference_based_bcftools_vcf"] = Step_4_check_reference_based_bcftools_vcf[1]
+        Step_4_check_reference_based_bcftools_vcf_revise = utils_func.Step_4_check_reference_based_bcftools_vcf_revise(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_result["Step_4_check_reference_based_bcftools_vcf_revise"] = Step_4_check_reference_based_bcftools_vcf_revise[1]
+        Step_5_check_reference_based_snpeff_vcf_annotation = utils_func.Step_5_check_reference_based_snpeff_vcf_annotation(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_result["Step_5_check_reference_based_snpeff_vcf_annotation"] = Step_5_check_reference_based_snpeff_vcf_annotation[1]
+        samples_all_result[sample_name] = one_sample_all_result
+        trimmomatic_command_log = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'logs', 'trimmomatic_pe', sample_name+'.command.log')
+        if os.path.exists(trimmomatic_command_log):
+            f_trimmomatic_command_log = open(trimmomatic_command_log, "r")
+            output_string = f_trimmomatic_command_log.readlines()
+            tmp_1 = re.findall("[\:]\s+[0-9]*", output_string[-2])
+            tmp_2 = ''.join(tmp_1)
+            ans_list=tmp_2.split(': ')
+            trimmo_intput_read_pairs = ans_list[1]
+            one_sample_all_result["trimmo_intput_read_pairs"] = trimmo_intput_read_pairs
+            trimmo_both_surviving = ans_list[2]
+            one_sample_all_result["trimmo_both_surviving"] = trimmo_both_surviving
+            trimmo_forward_only_surviving = ans_list[3]
+            one_sample_all_result["trimmo_forward_only_surviving"] = trimmo_forward_only_surviving
+            trimmo_reverse_only_surviving = ans_list[4]
+            one_sample_all_result["trimmo_reverse_only_surviving"] = trimmo_reverse_only_surviving
+            trimmo_dropped = ans_list[5]
+            one_sample_all_result["trimmo_dropped"] = trimmo_dropped
+        samples_all_result[sample_name] = one_sample_all_result
+    print("one_sample_all_resultone_sample_all_result: ", samples_all_result)
+
+    return render(request, "dataanalysis/analysis_result_overview_reference_based.html", {
+        "project_name": project_name,
+        "analysis_code": analysis_code,
+        "email": email,
+        "assembly_type_input": assembly_type_input,
+        "submission_time": submission_time_strip,
+        "start_time": start_time_strip,
+        "end_time": end_time_strip,
+        "url_parameter": url_parameter,
+        "samples_all_result": samples_all_result,
+        "samples_txt_file_name": samples_txt_file_name,
+        "samples_list_key": samples_list_key,
+        "sample_list": sample_list,
+    })
+
 
 
 
