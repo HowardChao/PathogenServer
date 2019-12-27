@@ -183,23 +183,23 @@
                                             <div id="reference_mapping" class="timeline-badge warning"><i class="fas fa-cut fa-2x" style="margin-top: 20px"></i></div>
                                             <div id="reference_mapping_detail" class="timeline-panel">
                                                 <div id="reference_mapping_head" class="timeline-heading">
-                                                  {% if one_sample_all_info.Step_2_check_reference_based_bwa_sam is True and one_sample_all_info.Step_2_check_reference_based_bwa_report_txt is True %}
-                                                    <h4 class="timeline-title" style="margin-bottom:20px"><i class="fas fa-check" style="color: green"></i>&nbsp&nbsp Reference Mappping</h4>
+                                                  {% if one_sample_all_info.Step_2_check_denovo_a5_miseq is True %}
+                                                    <h4 class="timeline-title" style="margin-bottom:20px"><i class="fas fa-check" style="color: green"></i>&nbsp&nbsp <i>De novo</i> Assembly</h4>
                                                   {% else%}
-                                                    <h4 class="timeline-title" style="margin-bottom:20px">Reference Mappping</h4>
+                                                    <h4 class="timeline-title" style="margin-bottom:20px"><i>De novo</i> Assembly</h4>
                                                   {% endif %}
                                                 </div>
                                                 <div id="reference_mapping_body" class="timeline-body" style="margin-left:30px">
-                                                    {% if one_sample_all_info.Step_2_check_reference_based_bwa_sam is False %}
+                                                    {% if one_sample_all_info.Step_2_check_denovo_a5_miseq is False %}
                                                     <div class="row">
                                                         <div class=".col-12 .col-md-8">
-                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BWA MEM</b> reads align to reference genome:  Running !<i class="fas fa-ellipsis-h"></i></p>
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>A5-miseq</b> <i>de novo</i> assembly:  Running !<i class="fas fa-ellipsis-h"></i></p>
                                                         </div>
                                                     </div>
-                                                    {% elif one_sample_all_info.Step_2_check_reference_based_bwa_sam is True %}
+                                                    {% elif one_sample_all_info.Step_2_check_denovo_a5_miseq is True %}
                                                     <div class="row">
                                                         <div class=".col-12 .col-md-8">
-                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BWA MEM</b> reads align to reference genome:  Finished !</p>
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>A5-miseq</b> <i>de novo</i> assembly:  Finished !</p>
                                                         </div>
                                                         <div class=".col-6 .col-md-4">
                                                         <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
@@ -239,6 +239,71 @@
                                                 </div>
                                             </div>
                                         </li>
+
+
+                                        <li class="timeline-inverted">
+                                            <div id="reference_mapping" class="timeline-badge warning"><i class="fas fa-cut fa-2x" style="margin-top: 20px"></i></div>
+                                            <div id="reference_mapping_detail" class="timeline-panel">
+                                                <div id="reference_mapping_head" class="timeline-heading">
+                                                  {% if one_sample_all_info.Step_2_check_reference_based_bwa_sam is True and one_sample_all_info.Step_3_check_quast_assessment is True and one_sample_all_info.Step_3_check_bwa_assessment is True %}
+                                                    <h4 class="timeline-title" style="margin-bottom:20px"><i class="fas fa-check" style="color: green"></i>&nbsp&nbsp <i>De novo</i> Assembly Assessment</h4>
+                                                  {% else%}
+                                                    <h4 class="timeline-title" style="margin-bottom:20px"><i>De novo</i> Assembly Assessment</h4>
+                                                  {% endif %}
+                                                </div>
+                                                <div id="reference_mapping_body" class="timeline-body" style="margin-left:30px">
+                                                    {% if one_sample_all_info.Step_3_check_quast_assessment is False %}
+                                                    <div class="row">
+                                                        <div class=".col-12 .col-md-8">
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>QUAST</b> quality assessment for A5-miseq assembly:  Running !<i class="fas fa-ellipsis-h"></i></p>
+                                                        </div>
+                                                    </div>
+                                                    {% elif one_sample_all_info.Step_3_check_quast_assessment is True %}
+                                                    <div class="row">
+                                                        <div class=".col-12 .col-md-8">
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>QUAST</b> quality assessment for A5-miseq assembly:  Finished !</p>
+                                                        </div>
+                                                        <div class=".col-6 .col-md-4">
+                                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                                            <div class="sa-icon sa-success animate">
+                                                                <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                                <span class="sa-line sa-long animateSuccessLong"></span>
+                                                                <div class="sa-placeholder"></div>
+                                                                <div class="sa-fix"></div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+
+                                                    {% if one_sample_all_info.Step_3_check_bowtie2_assessment is False %}
+                                                    <div class="row">
+                                                        <div class=".col-12 .col-md-8">
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>Bowtie2</b> alignment to A5-miseq assembled contig:  Running !<i class="fas fa-ellipsis-h"></i></p>
+                                                        </div>
+                                                    </div>
+                                                    {% elif one_sample_all_info.Step_3_check_bowtie2_assessment is True %}
+                                                    <div class="row">
+                                                        <div class=".col-12 .col-md-8">
+                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>Bowtie2</b> alignment to A5-miseq assembled contig:  Finished !</p>
+                                                        </div>
+                                                        <div class=".col-6 .col-md-4">
+                                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
+                                                            <div class="sa-icon sa-success animate">
+                                                                <span class="sa-line sa-tip animateSuccessTip"></span>
+                                                                <span class="sa-line sa-long animateSuccessLong"></span>
+                                                                <div class="sa-placeholder"></div>
+                                                                <div class="sa-fix"></div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </li>
+
+
 
                                         <li class="timeline-inverted">
                                             <div id="variant_calling" class="timeline-badge warning"><i class="fas fa-cut fa-2x" style="margin-top: 20px"></i></div>

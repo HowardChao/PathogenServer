@@ -16,6 +16,16 @@ def Whole_check_denovo_based_results(url_base_dir, base_dir, sample_list):
         one_sample_all_info["Step_1_check_trimming_qc"] = Step_1_check_trimming_qc[0]
         Step_1_check_second_qc = utils_func.Step_1_check_second_qc(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_info["Step_1_check_second_qc"] = Step_1_check_second_qc[0]
+
+        Step_2_check_denovo_a5_miseq = utils_func.Step_2_check_denovo_a5_miseq(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_info["Step_2_check_denovo_a5_miseq"] = Step_2_check_denovo_a5_miseq[0]
+
+        Step_3_check_quast_assessment = utils_func.Step_3_check_quast_assessment(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_info["Step_3_check_quast_assessment"] = Step_3_check_quast_assessment[0]
+
+        Step_3_check_bowtie2_assessment = utils_func.Step_3_check_bowtie2_assessment(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_info["Step_3_check_bowtie2_assessment"] = Step_3_check_bowtie2_assessment[0]
+
     #     Step_2_check_reference_based_bwa_sam = utils_func.Step_2_check_reference_based_bwa_sam(url_sample_base_dir, sample_datadir, sample_name)
     #     one_sample_all_info["Step_2_check_reference_based_bwa_sam"] = Step_2_check_reference_based_bwa_sam[0]
     #     Step_2_check_reference_based_bwa_report_txt = utils_func.Step_2_check_reference_based_bwa_report_txt(url_sample_base_dir, sample_datadir, sample_name)
@@ -31,6 +41,7 @@ def Whole_check_denovo_based_results(url_base_dir, base_dir, sample_list):
     #     Step_5_check_reference_based_snpeff_vcf_annotation = utils_func.Step_5_check_reference_based_snpeff_vcf_annotation(url_sample_base_dir, sample_datadir, sample_name)
     #     one_sample_all_info["Step_5_check_reference_based_snpeff_vcf_annotation"] = Step_5_check_reference_based_snpeff_vcf_annotation[0]
     #     samples_all_info[sample_name] = one_sample_all_info
+        samples_all_info[sample_name] = one_sample_all_info
     sample_checker_list = []
     for sample_key, sample_check_info in samples_all_info.items():
         ans = all(value == True for value in sample_check_info.values())

@@ -1,30 +1,5 @@
 import os
 from . import utils_func
-from . import tasks
-
-def celery_check(project_name, email, analysis_code):
-    new_task_id = project_name + email + analysis_code
-    # while
-    result = tasks.start_snakemake_task.AsyncResult(new_task_id)
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-    print("@@@@@@@@@@@ task name : ", result)
-    print("@@@@@@@@@@@ result.state: ", result.state)
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-    fetch_job_status = False
-    if result.state == "PENDING":
-        fetch_job_status = False
-    elif result.state == "STARTED":
-        fetch_job_status = True
-    elif result.state == "SUCCESS":
-        fetch_job_status = True
-    elif result.state == "FAILURE":
-        fetch_job_status = True
-    elif result.state == "RETRY":
-        fetch_job_status = True
-    elif result.state == "REVOKED":
-        fetch_job_status = True
-
-    return result.state
 
 
 

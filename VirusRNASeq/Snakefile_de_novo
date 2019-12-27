@@ -34,8 +34,9 @@ rule targets:
                             "{sample}_multiqc.html"), sample=samples),
         expand(os.path.join("{sample}", "Step_1", "QC", "post",
                             "{sample}_multiqc.html"), sample=samples),
+        expand(os.path.join("{sample}_a5.final.scaffolds.fasta.contigs.fsa"), sample=samples),
         expand(os.path.join("{sample}", "Step_2", "a5_miseq",
-                            "{sample}.final.scaffolds.fasta.contigs.fsa"), sample=samples),
+                            "{sample}_a5.final.scaffolds.fasta.contigs.fsa"), sample=samples),
         expand(os.path.join("{sample}", "Step_3", "bowtie2", "bowtie_index",
                             "{sample}.1.bt2"), sample=samples),
         expand(os.path.join("{sample}", "Step_3", "bowtie2", "{sample}.bam"), sample=samples),
@@ -204,27 +205,42 @@ rule second_multiqc:
 rule a5_miseq_denovo_assembly:
     input:
         r1_paired = os.path.join("{sample}", "Step_1", "trimmed_paired", "{sample}_r1_paired.fastq.gz"),
-        # r1_unpaired = os.path.join("{sample}", "Step_1", "trimmed_unpaired", "{sample}_r1_unpaired.fastq.gz"),
         r2_paired = os.path.join("{sample}", "Step_1", "trimmed_paired", "{sample}_r2_paired.fastq.gz"),
     output:
-        contigs_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}.contigs.fasta"),
-        contigs_fastq = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}.contigs.fastq"),
-        contigs_qvl = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}.contigs.qvl"),
-        final_scaffolds_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}.final.scaffolds.fasta.contigs.fsa"),
-        assembly_stats_csv = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}.assembly_stats.csv"),
+        contigs_fasta = os.path.join("{sample}_a5.contigs.fasta"),
+        contigs_fastq = os.path.join("{sample}_a5.contigs.fastq"),
+        contigs_qvl = os.path.join("{sample}_a5.contigs.qvl"),
+        final_scaffolds_fasta = os.path.join("{sample}_a5.final.scaffolds.fasta.contigs.fsa"),
+        assembly_stats_csv = os.path.join("{sample}_a5.assembly_stats.csv"),
     params:
-        directory = os.path.join("{sample}", "Step_2", "a5_miseq"),
+        a5_base_dir = "{sample}_a5"
     priority: 94,
     log:
         log = os.path.join("{sample}", "logs", "Step_2", "a5_miseq", "{sample}.log"),
     shell:
         """
-        a5_pipeline.pl {config[a5_miseq][a5_pipeline_pl_begin_command]} {config[a5_miseq][a5_pipeline_pl_end_command]} {input.r1_paired} {input.r2_paired}
+        a5_pipeline.pl {config[a5_miseq][a5_pipeline_pl_begin_command]} {config[a5_miseq][a5_pipeline_pl_end_command]} {input.r1_paired} {input.r2_paired} {params.a5_base_dir}
+        """
+
+rule a5_miseq_denovo_assembly_move:
+    output:
+        contigs_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.fasta"),
+        contigs_fastq = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.fastq"),
+        contigs_qvl = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.qvl"),
+        final_scaffolds_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.final.scaffolds.fasta.contigs.fsa"),
+        assembly_stats_csv = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.assembly_stats.csv"),
+    params:
+        mv_from = "{sample}_a5*",
+        mv_to = os.path.join("{sample}", "Step_2", "a5_miseq")
+    priority: 93,
+    shell:
+        """
+        mv {params.mv_from} {params.mv_to}
         """
 
 rule quast_assembly_assessment:
     input:
-        contigs_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}.contigs.fasta")
+        contigs_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.fasta")
     output:
         contig_size_viewer_html = os.path.join("{sample}", "Step_3", "quast", "icarus_viewers", "contig_size_viewer.html"),
         icarus_html = os.path.join("{sample}", "Step_3", "quast", "icarus.html"),
@@ -250,7 +266,7 @@ rule bowtie2_assembly_assessment_1:
 
 rule bowtie2_assembly_assessment_2:
     input:
-        contigs_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}.contigs.fasta"),
+        contigs_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.fasta"),
     output:
         bowtie2_output_1 = os.path.join("{sample}", "Step_3", "bowtie2", "bowtie_index", "{sample}.1.bt2")
     params:
@@ -272,8 +288,6 @@ rule bowtie2_assembly_assessment_3:
         """
         bowtie2 -p 8 -x {parames.bowtie2_output_prefix} -1 {input.r1_paired} -2 {input.r1_paired} > {output.bowtie2_output_prefix}
         """
-
-
 
 
 

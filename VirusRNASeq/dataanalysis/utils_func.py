@@ -300,46 +300,20 @@ def Step_1_check_trimming_qc(url_base_dir, sample_datadir, sample_name):
 def Step_1_check_second_qc(url_base_dir, sample_datadir, sample_name):
     root_dir = os.path.join(sample_datadir, 'Step_1', 'QC', 'post')
     url_root_dir = os.path.join(url_base_dir, 'Step_1', 'QC', 'post')
-    # print("R1 paired html: ", os.path.join(
-    #     root_dir, sample_name+"_r1_paired_fastqc.html"))
-    # # print("R1 unpaired html: ", os.path.join(
-    # #     root_dir, sample_name+"_r1_unpaired_fastqc.html"))
-    # print("R2 paired html: ", os.path.join(
-    #     root_dir, sample_name+"_r2_paired_fastqc.html"))
-    # # print("R2 unpaired html: ", os.path.join(
-    # #     root_dir, sample_name+"_r2_unpaired_fastqc.html"))
-    # print("R1 paired zip: ", os.path.join(
-    #     root_dir, sample_name+"_r1_paired_fastqc.zip"))
-    # # print("R1 unpaired zip: ", os.path.join(
-    # #     root_dir, sample_name+"_r1_unpaired_fastqc.zip"))
-    # print("R2 paired zip: ", os.path.join(
-    #     root_dir, sample_name+"_r2_paired_fastqc.zip"))
-    # # print("R2 unpaired zip: ", os.path.join(
-    # #     root_dir, sample_name+"_r2_unpaired_fastqc.zip"))
-    # print("multiqc html: ", os.path.join(
-    #     root_dir, sample_name+"_multiqc.html"))
-    # print("multiqc dir: ", os.path.join(
-    #     root_dir, sample_name+"_multiqc_data"))
-    r1_paired_html = os.path.exists(os.path.join(
-        root_dir, sample_name+"_r1_paired_fastqc.html"))
+    r1_paired_html = os.path.exists(os.path.join(root_dir, sample_name+"_r1_paired_fastqc.html"))
     # r1_unpaired_html = os.path.exists(os.path.join(
     #     root_dir, sample_name+"_r1_unpaired_fastqc.html"))
-    r2_paired_html = os.path.exists(os.path.join(
-        root_dir, sample_name+"_r2_paired_fastqc.html"))
+    r2_paired_html = os.path.exists(os.path.join(root_dir, sample_name+"_r2_paired_fastqc.html"))
     # r2_unpaired_html = os.path.exists(os.path.join(
     #     root_dir, sample_name+"_r2_unpaired_fastqc.html"))
-    r1_paired_zip = os.path.exists(os.path.join(
-        root_dir, sample_name+"_r1_paired_fastqc.zip"))
+    r1_paired_zip = os.path.exists(os.path.join(root_dir, sample_name+"_r1_paired_fastqc.zip"))
     # r1_unpaired_zip = os.path.exists(os.path.join(
     #     root_dir, sample_name+"_r1_unpaired_fastqc.zip"))
-    r2_paired_zip = os.path.exists(os.path.join(
-        root_dir, sample_name+"_r2_paired_fastqc.zip"))
+    r2_paired_zip = os.path.exists(os.path.join(root_dir, sample_name+"_r2_paired_fastqc.zip"))
     # r2_unpaired_zip = os.path.exists(os.path.join(
     #     root_dir, sample_name+"_r2_unpaired_fastqc.zip"))
-    multiqc_html = os.path.exists(os.path.join(
-        root_dir, sample_name+"_multiqc.html"))
-    multiqc_dir = os.path.exists(os.path.join(
-        root_dir, sample_name+"_multiqc_data"))
+    multiqc_html = os.path.exists(os.path.join(root_dir, sample_name+"_multiqc.html"))
+    multiqc_dir = os.path.exists(os.path.join(root_dir, sample_name+"_multiqc_data"))
     # print("r1_paired_html: ", r1_paired_html)
     # # print("r1_unpaired_html: ", r1_unpaired_html)
     # print("r2_paired_html: ", r2_paired_html)
@@ -403,6 +377,112 @@ def Step_2_check_reference_based_bwa_report_txt(url_base_dir, sample_datadir, sa
         return (True, Step_2_check_reference_based_bwa_report_txt_urls)
     else:
         return (False, Step_2_check_reference_based_bwa_report_txt_urls)
+
+
+
+
+
+
+
+
+
+
+def Step_2_check_denovo_a5_miseq(url_base_dir, sample_datadir, sample_name):
+    ## Check files before moving
+    root_dir = os.path.join(sample_datadir, "Step_2", "a5_miseq")
+    url_root_dir = os.path.join(url_base_dir, "Step_2", "a5_miseq")
+
+    a5_dir = os.path.exists(os.path.join(root_dir, sample_name+"_a5"))
+    a5_dir_s1 = os.path.exists(os.path.join(root_dir, sample_name+"_a5.s1"))
+    a5_dir_s2 = os.path.exists(os.path.join(root_dir, sample_name+"_a5.s2"))
+    a5_agp = os.path.exists(os.path.join(root_dir, sample_name+"_a5.agp"))
+    a5_assembly_stats_csv = os.path.exists(os.path.join(root_dir, sample_name+"_a5.assembly_stats.csv"))
+    a5_contigs_fasta = os.path.exists(os.path.join(root_dir, sample_name+"_a5.contigs.fasta"))
+    a5_contigs_fastq = os.path.exists(os.path.join(root_dir, sample_name+"_a5.contigs.fastq"))
+    a5_contigs_qvl = os.path.exists(os.path.join(root_dir, sample_name+"_a5.contigs.qvl"))
+    a5_contigs_gz = os.path.exists(os.path.join(root_dir, sample_name+"_a5.contigs.gz"))
+    a5_final_scaffolds_fasta_contigs_fsa = os.path.exists(os.path.join(root_dir, sample_name+"_a5.final.scaffolds.fasta.contigs.fsa"))
+    a5_raw1_pe_sort_bam = os.path.exists(os.path.join(root_dir, sample_name+"_a5.raw1.pe.sort.bam"))
+    a5_tmplibs = os.path.exists(os.path.join(root_dir, sample_name+"_a5.tmplibs"))
+    Step_2_check_denovo_a5_miseq_urls = {}
+    if a5_dir and a5_dir_s1 and a5_dir_s2 and a5_agp and a5_assembly_stats_csv and a5_contigs_fasta and a5_contigs_fastq and a5_contigs_qvl and a5_contigs_gz and a5_final_scaffolds_fasta_contigs_fsa and a5_raw1_pe_sort_bam and a5_tmplibs:
+        url_a5_dir = os.path.join(url_root_dir, sample_name+"_a5")
+        Step_2_check_denovo_a5_miseq_urls["url_a5_dir"] = url_a5_dir
+        url_a5_dir_s1 = os.path.join(url_root_dir, sample_name+"_a5.s1")
+        Step_2_check_denovo_a5_miseq_urls["url_a5_dir_s1"] = url_a5_dir_s1
+        url_a5_dir_s2 = os.path.join(url_root_dir, sample_name+"_a5.s2")
+        Step_2_check_denovo_a5_miseq_urls["url_a5_dir_s2"] = url_a5_dir_s2
+        url_a5_agp = os.path.join(url_root_dir, sample_name+"_a5.agp")
+        Step_2_check_denovo_a5_miseq_urls["url_a5_agp"] = url_a5_agp
+        url_a5_assembly_stats_csv = os.path.join(url_root_dir, sample_name+"_a5.assembly_stats.csv")
+        Step_2_check_denovo_a5_miseq_urls["url_a5_assembly_stats_csv"] = url_a5_assembly_stats_csv
+        url_a5_contigs_fasta = os.path.join(url_root_dir, sample_name+"_a5.contigs.fasta")
+        Step_2_check_denovo_a5_miseq_urls["url_a5_contigs_fasta"] = url_a5_contigs_fasta
+        url_a5_contigs_fastq = os.path.join(url_root_dir, sample_name+"_a5.contigs.fastq")
+        Step_2_check_denovo_a5_miseq_urls["url_a5_contigs_fastq"] = url_a5_contigs_fastq
+        url_a5_contigs_qvl = os.path.join(url_root_dir, sample_name+"_a5.contigs.qvl")
+        Step_2_check_denovo_a5_miseq_urls["url_a5_contigs_qvl"] = url_a5_contigs_qvl
+        url_a5_contigs_gz = os.path.join(url_root_dir, sample_name+"_a5.contigs.gz")
+        Step_2_check_denovo_a5_miseq_urls["url_a5_contigs_gz"] = url_a5_contigs_gz
+        url_a5_final_scaffolds_fasta_contigs_fsa = os.path.join(url_root_dir, url_a5_sample_name+"_a5.final.scaffolds.fasta.contigs.fsa")
+        Step_2_check_denovo_a5_miseq_urls["url_a5_final_scaffolds_fasta_contigs_fsa"] = url_a5_final_scaffolds_fasta_contigs_fsa
+        url_a5_raw1_pe_sort_bam = os.path.join(url_root_dir, sample_name+"_a5.raw1.pe.sort.bam")
+        Step_2_check_denovo_a5_miseq_urls["url_a5_raw1_pe_sort_bam"] = url_a5_raw1_pe_sort_bam
+        url_a5_tmplibs = os.path.join(url_root_dir, sample_name+"_a5.tmplibs")
+        Step_2_check_denovo_a5_miseq_urls["url_a5_tmplibs"] = url_a5_tmplibs
+        return (True, Step_2_check_denovo_a5_miseq_urls)
+    else:
+        return (False, Step_2_check_denovo_a5_miseq_urls)
+
+
+def Step_3_check_quast_assessment(url_base_dir, sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, "Step_3", "quast")
+    url_root_dir = os.path.join(url_base_dir, "Step_3", "quast")
+    contig_size_viewer_html = os.path.exists(os.path.join("{sample}", "Step_3", "quast", "icarus_viewers", "contig_size_viewer.html")),
+    icarus_html = os.path.exists(os.path.join(root_dir, "icarus.html"))
+    report_html = os.path.exists(os.path.join(root_dir, "report.html"))
+    report_tsv = os.path.exists(os.path.join(root_dir, "report.tsv"))
+    report_pdf = os.path.exists(os.path.join(root_dir, "report.pdf"))
+    Step_3_check_quast_assessment_urls = {}
+    if contig_size_viewer_html and icarus_html and report_html and report_tsv and report_pdf :
+        url_contig_size_viewer_html = os.path.join(url_root_dir, "icarus_viewers", "contig_size_viewer.html")
+        Step_3_check_quast_assessment_urls["url_contig_size_viewer_html"] = url_contig_size_viewer_html
+        url_icarus_html = os.path.join(url_root_dir, "icarus.html")
+        Step_3_check_quast_assessment_urls["url_icarus_html"] = url_icarus_html
+        url_report_html = os.path.join(url_root_dir, "report.html")
+        Step_3_check_quast_assessment_urls["url_report_html"] = url_report_html
+        url_report_tsv = os.path.join(url_root_dir, "report.tsv")
+        Step_3_check_quast_assessment_urls["url_report_tsv"] = url_report_tsv
+        url_report_pdf = os.path.join(url_root_dir, "report.pdf")
+        Step_3_check_quast_assessment_urls["url_report_pdf"] = url_report_pdf
+        return (True, Step_3_check_quast_assessment_urls)
+    else:
+        return (False, Step_3_check_quast_assessment_urls)
+
+def Step_3_check_bowtie2_assessment(url_base_dir, sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, "Step_3", "bwa")
+    url_root_dir = os.path.join(url_base_dir, "Step_3", "bwa")
+
+    bowtie2_index_folder = os.path.exists(os.path.join(root_dir, "bowtie_index"))
+    bowtie2_output_prefix = os.path.exists(os.path.join(root_dir, "{sample}.bam"))
+    Step_3_check_bowtie2_assessment_urls = {}
+    if bowtie2_index_folder and bowtie2_output_prefix:
+        url_bowtie2_index_folder = os.path.join(url_root_dir, "bowtie_index")
+        Step_3_check_bowtie2_assessment_urls["url_bowtie2_index_folder"] = url_bowtie2_index_folder
+        url_bowtie2_output_prefix = os.path.join(url_root_dir, "{sample}.bam")
+        Step_3_check_bowtie2_assessment_urls["url_bowtie2_output_prefix"] = url_bowtie2_output_prefix
+        return (True, Step_3_check_bowtie2_assessment_urls)
+    else:
+        return (False, Step_3_check_bowtie2_assessment_urls)
+
+
+
+
+
+
+
+
+
 
 
 def Step_3_check_reference_based_samtools_fixmate_bam(url_base_dir, sample_datadir, sample_name):
