@@ -897,14 +897,13 @@ def de_novo_assembly_show_result_overview(request, slug_project):
                 a5_mise1_statistics_tmp.append(row)
         for index in range(len(a5_mise1_statistics_tmp[0])):
             a5_mise1_statistics_csv[a5_mise1_statistics_tmp[0][index]] = a5_mise1_statistics_tmp[1][index]
-        print("a5_mise1_statistics_csv: ", a5_mise1_statistics_csv)
+            
         Step_3_check_quast_assessment = utils_func.Step_3_check_quast_assessment(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_3_check_quast_assessment"] = Step_3_check_quast_assessment[1]
 
 
         Step_3_check_bowtie2_assessment = utils_func.Step_3_check_bowtie2_assessment(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_3_check_bowtie2_assessment"] = Step_3_check_bowtie2_assessment[1]
-
 
 
 
@@ -954,12 +953,12 @@ def de_novo_assembly_show_result_overview(request, slug_project):
         "submission_time": submission_time_strip,
         "start_time": start_time_strip,
         "end_time": end_time_strip,
-        "a5_mise1_statistics_csv": a5_mise1_statistics_csv,
         "url_parameter": url_parameter,
         "samples_all_result": samples_all_result,
         "samples_txt_file_name": samples_txt_file_name,
         "samples_list_key": samples_list_key,
         "sample_list": sample_list,
+        "a5_mise1_statistics_csv": a5_mise1_statistics_csv,
     })
 
 
