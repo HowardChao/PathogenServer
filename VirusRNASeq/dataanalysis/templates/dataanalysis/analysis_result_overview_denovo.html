@@ -18,14 +18,14 @@
 {% block content %}
 <div class="wrapper">
     <!-- Sidebar -->
-    <nav id="sidebar" style="background: linear-gradient(to right, #1e1e1e, #626262);  border-right: 3px solid #353955;">
+    <nav id="sidebar" style="background: linear-gradient(to right, #1e1e1e, #444444);  border-right: 3px solid #353955;">
         <div class="sidebar-header" style="background: linear-gradient(to right, #000000, #1e1e1e);">
             <h3><center><i class="fas fa-bars"></i>&nbsp&nbspDashboard</center></h3>
         </div>
         <ul class="list-unstyled components">
-          <li>
-              <a id="project_overview_id_nav_bar" href="#" onclick="project_loading(this.name)" name="_overview_page_result" style="background-color: #707070; font-size: 23px; margin-left: 15px;"><i class="fas fa-file-contract"></i> &nbsp OverView</a>
-          </li>
+            <li>
+                <a id="project_overview_id_nav_bar" href="#" onclick="project_loading(this.name)" name="_overview_page_result" style="background-color: #707070; font-size: 23px; margin-left: 15px; margin-bottom: 15px; border-bottom:solid 1px #47748B;"><i class="fas fa-file-contract"></i> &nbsp OverView</a>
+            </li>
         {% for group, samples in samples_list_key.items %}
             <li>
                 <p style="font-size: 23px;"><b><i class="fas fa-object-group" style="margin-left: 15px;"></i> &nbsp {{ group }} </b></p>
@@ -108,51 +108,43 @@
                             <div class="container-fluid">
                                 <div class="row h-100" style="width: 100%;">
                                     <div class="col-2">
-                                      <!-- style="background: linear-gradient(to right, #1e1e1e, #626262); -->
-                                        <nav id="sidebar" style="margin-left: -18px; height: 100%; background: #626262;">
-                                            <div class="sidebar-header" style="background: linear-gradient(to right, #1e1e1e, #4c4c4c);">
-                                                <h3><i class="fas fa-dot-circle fa-1g" ></i>&nbsp&nbsp{{ sample_key }}</h3>
-                                            </div>
-                                            <ul class="list-unstyled components">
-                                                <li>
-                                                    <a href="#" id="{{sample_key}}_quality_control_result_nav_bar" class="pipeline_result_nav_bar" onclick="loading(this.name)" name="{{sample_key}}_quality_control_result" style="background-color: #8c8c8c"><i class="fas fa-search"></i> &nbsp Quality Control</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" id="{{sample_key}}_read_subtraction_result_nav_bar" class="pipeline_result_nav_bar" onclick="loading(this.name)" name="{{sample_key}}_read_subtraction_result"><i class="fas fa-minus"></i>  &nbsp Read Subtraction</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" id="{{sample_key}}_non-virus_removal_result_nav_bar" class="pipeline_result_nav_bar" onclick="loading(this.name)" name="{{sample_key}}_non-virus_removal_result"><i class="fas fa-search-minus"></i> &nbsp Non-virus Removal</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" id="{{sample_key}}_pipeline_result_nav_bar" class="pipeline_result_nav_bar"><i class="fas fa-align-right"></i> &nbsp <i>de novo</i> Assembly</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" id="{{sample_key}}_pipeline_result_nav_bar" class="pipeline_result_nav_bar"><i class="fas fa-reply"></i> &nbsp Reads Realignment</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" id="{{sample_key}}_pipeline_result_nav_bar" class="pipeline_result_nav_bar"><i class="fas fa-database"></i> &nbsp Homology Search</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" id="{{sample_key}}_pipeline_result_nav_bar" class="pipeline_result_nav_bar"><i class="fas fa-dna"></i> &nbsp Variant Calling</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
+                                      <nav id="sidebar" style="margin-left: -18px; height: 100%; background: linear-gradient(to right, #494949, #626262);">
+                                          <div class="sidebar-header" style="background: linear-gradient(to right, #1e1e1e, #4c4c4c);">
+
+                                            <h3><i class="fas fa-dot-circle fa-1g" ></i>&nbsp&nbsp{{ sample_key }}</h3>
+                                          </div>
+                                          <ul class="list-unstyled components">
+                                              <div id="content" style="margin-left: 35px; margin-bottom: 30px;">
+                                                  <button type="button"  class="btn btn-info btn-block sidebarCollapse" style="margin-left: -20px">
+                                                      <i id="toggle_button" class="fas fa-angle-double-left fa-2x"></i>
+                                                  </button>
+                                              </div>
+                                              <li>
+                                                  <a href="#" id="{{sample_key}}_quality_control_result_nav_bar" class="pipeline_result_nav_bar" onclick="loading(this.name)" name="{{sample_key}}_quality_control_result" style="background-color: #8c8c8c; margin-left: 8px;"><i class="fas fa-check-circle"></i> &nbsp Quality Control</a>
+                                              </li>
+                                              <li>
+                                                  <a href="#" id="{{sample_key}}_denovo_result_nav_bar" class="pipeline_result_nav_bar" onclick="loading(this.name)" name="{{sample_key}}_denovo_result" style="margin-left: 8px;"><i class="fas fa-align-left"></i>  &nbsp <i>De novo</i> Assembly</a>
+                                              </li>
+                                              <li>
+                                                  <a href="#" id="{{sample_key}}_denovo_assessment_result_nav_bar" class="pipeline_result_nav_bar" onclick="loading(this.name)" name="{{sample_key}}_denovo_assessment_result" style="margin-left: 8px;"><i class="fas fa-align-left"></i>  &nbsp Assembly Assessment</a>
+                                              </li>
+                                              <li>
+                                                  <a href="#" id="{{sample_key}}_variant_calling_result_nav_bar" class="pipeline_result_nav_bar" onclick="loading(this.name)" name="{{sample_key}}_variant_calling_result" style="margin-left: 8px;"><i class="fas fa-search-plus"></i> &nbsp Variant Calling</a>
+                                              </li>
+                                              <li>
+                                                  <a href="#" id="{{sample_key}}_variant_calling_file_annotationpipeline_result_nav_bar" class="pipeline_result_nav_bar" onclick="loading(this.name)" name="{{sample_key}}_variant_calling_file_annotationpipeline_result" style="margin-left: 8px;"><i class="fas fa-highlighter"></i> &nbsp VCF Annotation</a>
+                                              </li>
+                                          </ul>
+
+                                      </nav>
                                     </div>
 
 
                                     <div class="col-9" style="height: 100%;">
-                                        <div id="content" >
-                                            <button type="button"  class="btn btn-info sidebarCollapse">
-                                                <i id="toggle_button" class="fas fa-angle-double-left"></i>
-                                            </button>
-                                        </div>
-
-
-
                                         <div class="pipeline_result" id="{{sample_key}}_quality_control_result"  style="display: none; height: 100%;">
                                             <div class="w3-main" style="margin-left:130px; margin-right:50px; height: 100%;">
                                                 <header class="w3-container" style="padding-top:22px;">
-                                                    <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-search"></i> &nbsp <strong>Quality Control</strong></h1>
+                                                    <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-check-circle"></i> &nbsp &nbsp<strong>Quality Control</strong></h1>
                                                 </header>
 
                                                 <div class="content-below-header-overview">
@@ -165,16 +157,16 @@
                                                         <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Before Trimming Quality Assessment</b></h4>
                                                         <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
                                                             <tr>
-                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> MultiQC Summary Report :</b></td>
-                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "dataanalysis_result_current_status_pre_multiqc_html" slug_project=url_parameter %} class="link_color"><u>Link</u></a></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b> MultiQC Summary Report :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "de_novo_assembly_dataanalysis_result_current_status_pre_multiqc_html" slug_project=url_parameter slug_sample=sample_key%} class="link_color"><center><u>Link</u></center></a></td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> FastQC R1 (forward) :</b></td>
-                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "dataanalysis_result_current_status_pre_fastqc_r1_html" slug_project=url_parameter %} class="link_color"><u>Link</u></a></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b> FastQC R1 (forward) :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "de_novo_assembly_dataanalysis_result_current_status_pre_fastqc_r1_html" slug_project=url_parameter slug_sample=sample_key%} class="link_color"><center><u>Link</u></center></a></td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> FastQC R2 (reverse) :</b></td>
-                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "dataanalysis_result_current_status_pre_fastqc_r2_html" slug_project=url_parameter %} class="link_color"><u>Link</u></a></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b> FastQC R2 (reverse) :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "de_novo_assembly_dataanalysis_result_current_status_pre_fastqc_r2_html" slug_project=url_parameter slug_sample=sample_key%} class="link_color"><center><u>Link</u></center></a></td>
                                                             </tr>
                                                         </table>
                                                     </div>
@@ -183,18 +175,18 @@
                                                         <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>After Trimming Quality Assessment</b></h4>
                                                         <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
                                                             <tr>
-                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> MultiQC Summary Report :</b></td>
-                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "dataanalysis_result_current_status_post_multiqc_html" slug_project=url_parameter %} class="link_color"><u>Link</u></a>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b> MultiQC Summary Report :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "de_novo_assembly_dataanalysis_result_current_status_post_multiqc_html" slug_project=url_parameter slug_sample=sample_key%} class="link_color"><center><u>Link</u></center></a>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> FastQC R1 (forward) :</b></td>
-                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "dataanalysis_result_current_status_post_fastqc_r1_html" slug_project=url_parameter %} class="link_color"><u>Link</u></a>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b> FastQC R1 (forward) :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "de_novo_assembly_dataanalysis_result_current_status_post_fastqc_r1_html" slug_project=url_parameter slug_sample=sample_key%} class="link_color"><center><u>Link</u></center></a>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b> FastQC R2 (reverse) :</b></td>
-                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "dataanalysis_result_current_status_post_fastqc_r2_html" slug_project=url_parameter %} class="link_color"><u>Link</u></a>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b> FastQC R2 (reverse) :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "de_novo_assembly_dataanalysis_result_current_status_post_fastqc_r2_html" slug_project=url_parameter slug_sample=sample_key%} class="link_color"><center><u>Link</u></center></a>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -202,7 +194,28 @@
                                                     <hr>
                                                     <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:40px;">
                                                         <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Trimmomatic Visualization Report</b></h4>
-                                                        <div class="w-100" id="piechart_3d" style="height: 300px;">
+                                                        <div class="w-100" id="{{sample_key}}_piechart_3d" style="height: 300px;">
+                                                            <script type="text/javascript">
+                                                             google.charts.load("current", {packages:["corechart"]});
+
+                                                                  google.charts.setOnLoadCallback(drawChart);
+                                                                  function drawChart({{sample_key}}) {
+                                                                    console.log("sample_key", "{{sample_key}}");
+                                                                    dic = JSON.parse("{{samples_all_result}}".replace(/&#39;/g,'"'));
+                                                                    console.log("sample_key", dic["{{sample_key}}"]["trimmo_both_surviving"]);
+                                                                    var data = google.visualization.arrayToDataTable([["status", "reads number"], ["Both Surviving", Number(dic["{{sample_key}}"]["trimmo_both_surviving"])], ["Forward Only Surviving", Number(dic["{{sample_key}}"]["trimmo_forward_only_surviving"])], ["Reverse Only Surviving", Number(dic["{{sample_key}}"]["trimmo_reverse_only_surviving"])], ["Dropped", Number(dic["{{sample_key}}"]["trimmo_dropped"])]]);
+                                                                    console.log("data",data);
+                                                                    var options = {
+                                                                      'title': 'Trimmomatic Report',
+                                                                      is3D: true,
+                                                                      chartArea:{width:'60%',height:'75%'},
+                                                                      'width':700,
+                                                                      'height':300,
+                                                                    };
+                                                                    var chart = new google.visualization.PieChart(document.getElementById('{{sample_key}}_piechart_3d'));
+                                                                    chart.draw(data, options);
+                                                                  }
+                                                            </script>
                                                             <!--<img src="/w3images/region.jpg" style="width:100%" alt="Google Regional Map">-->
                                                         </div>
                                                     </div>
@@ -212,51 +225,160 @@
                                             </div>
                                         </div>
 
-                                        <div class="pipeline_result" id="{{sample_key}}_read_subtraction_result" style="display: none; height: 100%;">
+                                        <div class="pipeline_result" id="{{sample_key}}_denovo_result" style="display: none; height: 100%;">
                                             <div class="w3-main" style="margin-left:130px; margin-right:50px;">
                                                 <header class="w3-container" style="padding-top:22px;">
-                                                    <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-minus"></i>  &nbsp<strong>Read Subtraction</strong></h1>
+                                                    <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-align-left"></i> &nbsp &nbsp<strong><i>De novo</i> Assembly</strong></h1>
                                                 </header>
                                                 <div class="content-below-header-overview" >
                                                     <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px;">
                                                         <div style="width:100%; outline: 5px solid #B07B41; outline-offset: 10px; outline-style: double;">
-                                                          <p>Reads subtraction description here !</p>
+                                                          <p>Congradulations! Your job has been completed <strong style="font-size:20px; color: green;">successfully</strong>!</p>
                                                         </div>
                                                     </div>
                                                     <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:70px;">
-                                                        <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Title</b></h4>
+                                                        <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>A5-miseq Contigs</b></h4>
                                                         <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
                                                             <tr>
-                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Project Name :</b></td>
-                                                                <td style="font-family: Verdana, Geneva, sans-serif">{{project_name}}</td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="60%"><b>A5-miseq Assemblied Contigs :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_2_check_denovo_a5_miseq.url_a5_contigs_fasta}}" class="link_color" donwload><center><u>Download</u></center></a></td>
                                                             </tr>
+
                                                         </table>
+                                                        <hr>
+                                                        <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:40px;">
+                                                        <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>A5-miseq Statistics Result</b></h4>
+                                                        <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
+                                                          <tr>
+                                                              <td style="font-family: Verdana, Geneva, sans-serif" width="60%"><b>A5-miseq Statistics Report :</b></td>
+                                                              <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_2_check_denovo_a5_miseq.url_a5_assembly_stats_csv}}" class="link_color" donwload><center><u>Download</u></center></a></td>
+                                                          </tr>
+                                                        </table>
+
+                                                        <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
+                                                          {% for a5_name, a5_value in a5_mise1_statistics_csv.items %}
+                                                            <tr>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="50%">&nbsp&nbsp&nbsp&nbsp{{a5_name}} :</td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif">{{a5_value}}</td>
+                                                            </tr>
+                                                          {% endfor %}
+                                                        </table>
+                                                        <hr>
                                                         <div style="margin-bottom: 100px">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                      </div>
 
-                                        <div class="pipeline_result" id="{{sample_key}}_non-virus_removal_result" style="display: none; height: 100%;">
+                                      <div class="pipeline_result" id="{{sample_key}}_denovo_assessment_result" style="display: none; height: 100%;">
+                                          <div class="w3-main" style="margin-left:130px; margin-right:50px;">
+                                              <header class="w3-container" style="padding-top:22px;">
+                                                  <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-align-left"></i> &nbsp &nbsp<strong>Assembly Assessment</strong></h1>
+                                              </header>
+                                              <div class="content-below-header-overview" >
+                                                  <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px;">
+                                                      <div style="width:100%; outline: 5px solid #B07B41; outline-offset: 10px; outline-style: double;">
+                                                        <p>Congradulations! Your job has been completed <strong style="font-size:20px; color: green;">successfully</strong>!</p>
+                                                      </div>
+                                                  </div>
+                                                  <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:70px;">
+                                                      <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>QUAST Assessment</b></h4>
+                                                      <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
+                                                          <tr>
+                                                              <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b>QUAST PDF Report:</b></td>
+                                                              <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_3_check_quast_assessment.url_report_pdf}}" class="link_color" download><center><u>Download</u></center></a></td>
+                                                          </tr>
+
+                                                      </table>
+                                                      <hr>
+                                                      <div style="margin-bottom: 100px">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+
+
+
+
+
+
+
+
+                                        <div class="pipeline_result" id="{{sample_key}}_variant_calling_result" style="display: none; height: 100%;">
                                             <div class="w3-main" style="margin-left:130px; margin-right:50px;">
                                                 <header class="w3-container" style="padding-top:22px;">
-                                                    <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-search-minus"></i> &nbsp<strong>Non-Virus Reads Removal</strong></h1>
+                                                    <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-search-plus"></i> &nbsp &nbsp<strong>Variant Calling</strong></h1>
                                                 </header>
                                                 <div class="content-below-header-overview" >
                                                     <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px;">
                                                         <div style="width:100%; outline: 5px solid #B07B41; outline-offset: 10px; outline-style: double;">
-                                                          <p>Reads subtraction description here !</p>
+                                                          <p>Congradulations! Your job has been completed <strong style="font-size:20px; color: green;">successfully</strong>!</p>
                                                         </div>
                                                     </div>
                                                     <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:70px;">
-                                                        <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>Title</b></h4>
+                                                        <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>SAMtools Results</b></h4>
                                                         <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
                                                             <tr>
-                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="30%"><b>Project Name :</b></td>
-                                                                <td style="font-family: Verdana, Geneva, sans-serif">{{project_name}}</td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b>SAMtools fixmate <i>BAM</i> file :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_4_check_denovo_samtools_fixmate_bam.url_denovo_samtools_fixmate_bam}}" class="link_color" donwload><center><u>Download</u></center></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b>SAMtools sort <i>BAM</i> file :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_4_check_denovo_samtools_sorted_bam.url_denovo_samtools_sorted_bam}}" class="link_color" donwload><center><u>Download</u></center></a></td>
                                                             </tr>
                                                         </table>
+                                                    </div>
+
+                                                    <hr>
+                                                    <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:40px;">
+                                                        <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>BCFtools Results</b></h4>
+                                                        <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
+                                                            <tr>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b>BCFtools mpileup | call <i>VCF</i> file :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_5_check_denovo_bcftools_vcf.url_denovo_bcftools_vcf}}" class="link_color" donwload><center><u>Download</u></center></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b>BCFtools revise <i>VCF</i> file :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_5_check_denovo_bcftools_vcf_revise.url_denovo_bcftools_vcf_revise}}" class="link_color" donwload><center><u>Download</u></center></a></td>
+                                                            </tr>
+                                                        </table>
+                                                        <hr>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pipeline_result" id="{{sample_key}}_variant_calling_file_annotationpipeline_result" style="display: none; height: 100%;">
+                                            <div class="w3-main" style="margin-left:130px; margin-right:50px;">
+                                                <header class="w3-container" style="padding-top:22px;">
+                                                    <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-highlighter"></i> &nbsp &nbsp<strong>Variant Calling Annotation</strong></h1>
+                                                </header>
+                                                <div class="content-below-header-overview" >
+                                                    <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px;">
+                                                        <div style="width:100%; outline: 5px solid #B07B41; outline-offset: 10px; outline-style: double;">
+                                                          <p>Congradulations! Your job has been completed <strong style="font-size:20px; color: green;">successfully</strong>!</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:70px;">
+                                                        <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>SnpEff Results</b></h4>
+                                                        <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
+                                                            <tr>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b>SnpEff report <i>HTML</i> file :</b></td>
+                                                                <!-- <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_6_check_denovo_snpeff_vcf_annotation.denovo_snpeff_vcf_annotation_html}}" class="link_color"><center><u>Download</u></center></a></td> -->
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "de_novo_assembly_dataanalysis_result_current_status_snpeff_report" slug_project=url_parameter slug_sample=sample_key%} class="link_color"><center><u>Link</u></center></a>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b>SnpEff annotation <i>ANN.VCF</i> file :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_6_check_denovo_snpeff_vcf_annotation.url_denovo_snpeff_vcf_annotation}}"class="link_color" donwload><center><u>Download</u></center></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b>SnpEff report <i>TXT</i> file :</b></td>
+                                                                <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_6_check_denovo_snpeff_vcf_annotation.url_denovo_snpeff_vcf_annotation_txt}}" class="link_color" donwload><center><u>Download</u></center></a></td>
+                                                            </tr>
+                                                        </table>
+                                                        <hr>
                                                         <div style="margin-bottom: 100px">
                                                         </div>
                                                     </div>
@@ -284,11 +406,11 @@ $(document).ready(function () {
         if ($(".active").hasClass("active")) {
             // do this
             console.log("hidden");
-            document.getElementById("toggle_button").className = "fas fa-align-left";
+            document.getElementById("toggle_button").className = "fas fa-align-left fa-2x";
         } else {
             // do that
             console.log("not hidden");
-            document.getElementById("toggle_button").className = "fas fa-angle-double-left";
+            document.getElementById("toggle_button").className = "fas fa-angle-double-left fa-2x";
         }
     });
 
@@ -321,6 +443,9 @@ $(document).ready(function () {
       $("#"+clicked_name).show();
       // Set the sample navbar color !!
       var sample_name = clicked_name.replace("_pipeline_result_wrapper", "");
+
+      $(".pipeline_result_nav_bar").css("background-color","");
+      $("#"+sample_name+"_quality_control_result_nav_bar").css("background-color","#8c8c8c");
       $("#"+sample_name+"_quality_control_result").show();
       selected_block = $( '.pipeline_result_wrapper:visible' ).attr('id');
       var selected_sample_name = selected_block.replace("_pipeline_result_wrapper", "");
@@ -340,23 +465,7 @@ $(document).ready(function () {
 
 </script>
 
-<script type="text/javascript">
- google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([["status", "reads number"], ["Both Surviving", {{trimmo_both_surviving}}], ["Forward Only Surviving", {{trimmo_forward_only_surviving}}], ["Reverse Only Surviving", {{trimmo_reverse_only_surviving}}], ["Dropped", {{trimmo_dropped}}]]);
-        var options = {
-          'title': 'Trimmomatic Report',
-          is3D: true,
-          chartArea:{width:'60%',height:'75%'},
-          'width':700,
-          'height':300,
-        };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-        chart.draw(data, options);
-      }
-</script>
 
 
 {% endblock content %}

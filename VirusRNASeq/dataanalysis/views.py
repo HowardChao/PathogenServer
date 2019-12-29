@@ -20,7 +20,7 @@ import celery
 import celery.task.control as taskControl
 from django_celery_results.models import TaskResult
 
-
+import csv
 import yaml
 from django.core.files import File
 import glob
@@ -796,9 +796,9 @@ def de_novo_assembly_current_status(request, slug_project):
     ### It means that pipeline has been executed successfully###
     ############################################################
     print("samples_all_info: ", samples_all_info)
-    # if overall_sample_result_checker and fetch_job_status == "SUCCESS":
-    #     return redirect((reverse('de_novo_assembly_dataanalysis_result_overview', kwargs={
-    #         'slug_project': url_parameter})))
+    if overall_sample_result_checker and fetch_job_status == "SUCCESS":
+        return redirect((reverse('de_novo_assembly_dataanalysis_result_overview', kwargs={
+            'slug_project': url_parameter})))
 
     return render(request, "dataanalysis/analysis_result_status_denovo.html", {
         'project_name': project_name,
@@ -838,23 +838,17 @@ def de_novo_assembly_show_result_overview(request, slug_project):
         qc_datadir = os.path.join(base_dir, sample_name, 'Step_1', 'QC')
         # Html files that would be copied
         fastqc_datadir_pre_r1 = os.path.join(qc_datadir, 'pre', sample_name+'.R1_fastqc.html')
-        fastqc_datadir_pre_r2 = os.path.join(
-            qc_datadir, 'pre', sample_name+'.R2_fastqc.html')
-        multiqc_datadir_pre = os.path.join(
-            qc_datadir, 'pre', sample_name+'_multiqc.html')
+        fastqc_datadir_pre_r2 = os.path.join(qc_datadir, 'pre', sample_name+'.R2_fastqc.html')
+        multiqc_datadir_pre = os.path.join(qc_datadir, 'pre', sample_name+'_multiqc.html')
 
-        fastqc_datadir_post_r1 = os.path.join(
-            qc_datadir, 'post', sample_name+'_r1_paired_fastqc.html')
-        fastqc_datadir_post_r2 = os.path.join(
-            qc_datadir, 'post', sample_name+'_r2_paired_fastqc.html')
-        multiqc_datadir_post = os.path.join(
-            qc_datadir, 'post', sample_name+'_multiqc.html')
+        fastqc_datadir_post_r1 = os.path.join(qc_datadir, 'post', sample_name+'_r1_paired_fastqc.html')
+        fastqc_datadir_post_r2 = os.path.join(qc_datadir, 'post', sample_name+'_r2_paired_fastqc.html')
+        multiqc_datadir_post = os.path.join(qc_datadir, 'post', sample_name+'_multiqc.html')
 
-        snpeff_html_datadir = os.path.join(
-            base_dir, sample_name, 'Step_5', 'snpeff', sample_name+'_snpEff_summary.html')
+        snpeff_html_datadir = os.path.join(base_dir, sample_name, 'Step_6', 'snpeff', sample_name+'_snpEff_summary.html')
         # Destination of html file
         destination_QC_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, '', sample_name, 'Step_1', 'QC')
-        destination_snpeff_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, '', sample_name, 'Step_5', 'snpeff')
+        destination_snpeff_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, '', sample_name, 'Step_6', 'snpeff')
         destination_fastqc_datadir_pre_r1 = os.path.join(destination_QC_html_dir, 'pre', sample_name+'.R1_fastqc.html')
         destination_fastqc_datadir_pre_r2 = os.path.join(destination_QC_html_dir, 'pre', sample_name+'.R2_fastqc.html')
         destination_multiqc_datadir_pre = os.path.join(destination_QC_html_dir, 'pre', sample_name+'_multiqc.html')
@@ -888,20 +882,49 @@ def de_novo_assembly_show_result_overview(request, slug_project):
         one_sample_all_result["Step_1_check_trimming_qc"] = Step_1_check_trimming_qc[1]
         Step_1_check_second_qc = utils_func.Step_1_check_second_qc(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_1_check_second_qc"] = Step_1_check_second_qc[1]
-        Step_2_check_reference_based_bwa_sam = utils_func.Step_2_check_reference_based_bwa_sam(url_sample_base_dir, sample_datadir, sample_name)
-        one_sample_all_result["Step_2_check_reference_based_bwa_sam"] = Step_2_check_reference_based_bwa_sam[1]
-        Step_2_check_reference_based_bwa_report_txt = utils_func.Step_2_check_reference_based_bwa_report_txt(url_sample_base_dir, sample_datadir, sample_name)
-        one_sample_all_result["Step_2_check_reference_based_bwa_report_txt"] = Step_2_check_reference_based_bwa_report_txt[1]
-        Step_3_check_reference_based_samtools_fixmate_bam = utils_func.Step_3_check_reference_based_samtools_fixmate_bam(url_sample_base_dir, sample_datadir, sample_name)
-        one_sample_all_result["Step_3_check_reference_based_samtools_fixmate_bam"] = Step_3_check_reference_based_samtools_fixmate_bam[1]
-        Step_3_check_reference_based_samtools_sorted_bam = utils_func.Step_3_check_reference_based_samtools_sorted_bam(url_sample_base_dir, sample_datadir, sample_name)
-        one_sample_all_result["Step_3_check_reference_based_samtools_sorted_bam"] = Step_3_check_reference_based_samtools_sorted_bam[1]
-        Step_4_check_reference_based_bcftools_vcf = utils_func.Step_4_check_reference_based_bcftools_vcf(url_sample_base_dir, sample_datadir, sample_name)
-        one_sample_all_result["Step_4_check_reference_based_bcftools_vcf"] = Step_4_check_reference_based_bcftools_vcf[1]
-        Step_4_check_reference_based_bcftools_vcf_revise = utils_func.Step_4_check_reference_based_bcftools_vcf_revise(url_sample_base_dir, sample_datadir, sample_name)
-        one_sample_all_result["Step_4_check_reference_based_bcftools_vcf_revise"] = Step_4_check_reference_based_bcftools_vcf_revise[1]
-        Step_5_check_reference_based_snpeff_vcf_annotation = utils_func.Step_5_check_reference_based_snpeff_vcf_annotation(url_sample_base_dir, sample_datadir, sample_name)
-        one_sample_all_result["Step_5_check_reference_based_snpeff_vcf_annotation"] = Step_5_check_reference_based_snpeff_vcf_annotation[1]
+
+
+
+        Step_2_check_denovo_a5_miseq = utils_func.Step_2_check_denovo_a5_miseq(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_result["Step_2_check_denovo_a5_miseq"] = Step_2_check_denovo_a5_miseq[1]
+        a5_miseq_stats_csv = os.path.join(base_dir, sample_name, "Step_2", "a5_miseq", sample_name+"_a5.assembly_stats.csv")
+        a5_mise1_statistics_csv = {}
+        a5_mise1_statistics_tmp = []
+        with open(a5_miseq_stats_csv, mode='r') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter='\t')
+            line_count = 0
+            for row in csv_reader:
+                a5_mise1_statistics_tmp.append(row)
+        for index in range(len(a5_mise1_statistics_tmp[0])):
+            a5_mise1_statistics_csv[a5_mise1_statistics_tmp[0][index]] = a5_mise1_statistics_tmp[1][index]
+        print("a5_mise1_statistics_csv: ", a5_mise1_statistics_csv)
+        Step_3_check_quast_assessment = utils_func.Step_3_check_quast_assessment(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_result["Step_3_check_quast_assessment"] = Step_3_check_quast_assessment[1]
+
+
+        Step_3_check_bowtie2_assessment = utils_func.Step_3_check_bowtie2_assessment(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_result["Step_3_check_bowtie2_assessment"] = Step_3_check_bowtie2_assessment[1]
+
+
+
+
+        Step_4_check_denovo_samtools_fixmate_bam = utils_func.Step_4_check_denovo_samtools_fixmate_bam(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_result["Step_4_check_denovo_samtools_fixmate_bam"] = Step_4_check_denovo_samtools_fixmate_bam[1]
+
+        Step_4_check_denovo_samtools_sorted_bam = utils_func.Step_4_check_denovo_samtools_sorted_bam(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_result["Step_4_check_denovo_samtools_sorted_bam"] = Step_4_check_denovo_samtools_sorted_bam[1]
+
+
+        Step_5_check_denovo_bcftools_vcf = utils_func.Step_5_check_denovo_bcftools_vcf(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_result["Step_5_check_denovo_bcftools_vcf"] = Step_5_check_denovo_bcftools_vcf[1]
+
+
+        Step_5_check_denovo_bcftools_vcf_revise = utils_func.Step_5_check_denovo_bcftools_vcf_revise(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_result["Step_5_check_denovo_bcftools_vcf_revise"] = Step_5_check_denovo_bcftools_vcf_revise[1]
+
+
+        Step_6_check_denovo_snpeff_vcf_annotation = utils_func.Step_6_check_denovo_snpeff_vcf_annotation(url_sample_base_dir, sample_datadir, sample_name)
+        one_sample_all_result["Step_6_check_denovo_snpeff_vcf_annotation"] = Step_6_check_denovo_snpeff_vcf_annotation[1]
         samples_all_result[sample_name] = one_sample_all_result
         trimmomatic_command_log = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'logs', 'trimmomatic_pe', sample_name+'.command.log')
         if os.path.exists(trimmomatic_command_log):
@@ -921,9 +944,9 @@ def de_novo_assembly_show_result_overview(request, slug_project):
             trimmo_dropped = ans_list[5]
             one_sample_all_result["trimmo_dropped"] = trimmo_dropped
         samples_all_result[sample_name] = one_sample_all_result
-    print("one_sample_all_resultone_sample_all_result: ", samples_all_result)
+    # print("one_sample_all_resultone_sample_all_result: ", samples_all_result)
 
-    return render(request, "dataanalysis/analysis_result_overview_reference_based.html", {
+    return render(request, "dataanalysis/analysis_result_overview_denovo.html", {
         "project_name": project_name,
         "analysis_code": analysis_code,
         "email": email,
@@ -931,12 +954,20 @@ def de_novo_assembly_show_result_overview(request, slug_project):
         "submission_time": submission_time_strip,
         "start_time": start_time_strip,
         "end_time": end_time_strip,
+        "a5_mise1_statistics_csv": a5_mise1_statistics_csv,
         "url_parameter": url_parameter,
         "samples_all_result": samples_all_result,
         "samples_txt_file_name": samples_txt_file_name,
         "samples_list_key": samples_list_key,
         "sample_list": sample_list,
     })
+
+
+
+
+
+
+
 
 
 
@@ -1051,6 +1082,20 @@ def snpeff_report(request, slug_project, slug_sample):
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
     html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, slug_sample, 'Step_5', 'snpeff', slug_sample+'_snpEff_summary.html')
+    return render(request, html_file, {
+        'project_name': project_name,
+        'analysis_code': analysis_code,
+        'email': email,
+        'assembly_type_input': assembly_type_input,
+        'url_parameter': url_parameter,
+    })
+
+def snpeff_report_denovo(request, slug_project, slug_sample):
+    (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
+    url_parameter = project_name + '_' + email.split("@")[0]
+    base_dir = os.path.join(settings.MEDIA_ROOT,
+                            'tmp', project_name + '_' + email + '_' + analysis_code)
+    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, slug_sample, 'Step_6', 'snpeff', slug_sample+'_snpEff_summary.html')
     return render(request, html_file, {
         'project_name': project_name,
         'analysis_code': analysis_code,

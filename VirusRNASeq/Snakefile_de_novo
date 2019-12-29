@@ -34,14 +34,24 @@ rule targets:
                             "{sample}_multiqc.html"), sample=samples),
         expand(os.path.join("{sample}", "Step_1", "QC", "post",
                             "{sample}_multiqc.html"), sample=samples),
-        expand(os.path.join("{sample}_a5.final.scaffolds.fasta.contigs.fsa"), sample=samples),
-        expand(os.path.join("{sample}", "Step_2", "a5_miseq",
-                            "{sample}_a5.final.scaffolds.fasta.contigs.fsa"), sample=samples),
+        # expand(os.path.join("{sample}_a5.final.scaffolds.fasta.contigs.fsa"), sample=samples),
+        # expand(os.path.join("{sample}", "Step_2", "a5_miseq",
+        #                     "{sample}_a5.final.scaffolds.fasta.contigs.fsa"), sample=samples),
+
+        expand(os.path.join("{sample}", "Step_3", "quast", "report.pdf"), sample=samples),
+        expand(os.path.join("{sample}", "Step_3", "bowtie2", "bowtie_index"), sample=samples),
         expand(os.path.join("{sample}", "Step_3", "bowtie2", "bowtie_index",
                             "{sample}.1.bt2"), sample=samples),
         expand(os.path.join("{sample}", "Step_3", "bowtie2", "{sample}.bam"), sample=samples),
 
+        expand(os.path.join("{sample}", "Step_4", "samtools", "{sample}_fixmate.bam"), sample=samples),
 
+        expand(os.path.join("{sample}", "Step_4", "samtools", "{sample}_sorted.bam"), sample=samples),
+        expand(os.path.join("{sample}", "Step_5", "bcftools", "{sample}.vcf"), sample=samples),
+        expand(os.path.join("{sample}", "Step_5", "bcftools", "{sample}_revise.vcf"), sample=samples),
+        expand(os.path.join("{sample}", "Step_5", "bcftools", "{sample}_revise.vcf.gz"), sample=samples),
+        expand(os.path.join("{sample}", "Step_6", "snpeff", "{sample}.ann.vcf"), sample=samples),
+        expand(os.path.join("{sample}", "Step_6", "snpeff", "{sample}_snpEff_summary.html"), sample=samples),
 
         # # expand(os.path.join("{sample}", "Step_4", "bcftools", "{sample}.vcf"), sample=samples),
         # expand(os.path.join("{sample}", "Step_4", "bcftools", "{sample}.vcf"), sample=samples),
@@ -202,27 +212,47 @@ rule second_multiqc:
         multiqc --force {params.directory} -n {params.filename}
         """
 
+# rule a5_miseq_denovo_assembly:
+#     input:
+#         r1_paired = os.path.join("{sample}", "Step_1", "trimmed_paired", "{sample}_r1_paired.fastq.gz"),
+#         r2_paired = os.path.join("{sample}", "Step_1", "trimmed_paired", "{sample}_r2_paired.fastq.gz"),
+#     output:
+#         contigs_fasta = os.path.join("{sample}_a5.contigs.fasta"),
+#         contigs_fastq = os.path.join("{sample}_a5.contigs.fastq"),
+#         contigs_qvl = os.path.join("{sample}_a5.contigs.qvl"),
+#         final_scaffolds_fasta = os.path.join("{sample}_a5.final.scaffolds.fasta.contigs.fsa"),
+#         assembly_stats_csv = os.path.join("{sample}_a5.assembly_stats.csv"),
+#     params:
+#         a5_base_dir = "{sample}_a5"
+#     priority: 94,
+#     log:
+#         log = os.path.join("{sample}", "logs", "Step_2", "a5_miseq", "{sample}.log"),
+#     shell:
+#         """
+#         a5_pipeline.pl {config[a5_miseq][a5_pipeline_pl_begin_command]} {config[a5_miseq][a5_pipeline_pl_end_command]} {input.r1_paired} {input.r2_paired} {params.a5_base_dir}
+#         """
+#
+# rule a5_miseq_denovo_assembly_move:
+#     output:
+#         contigs_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.fasta"),
+#         contigs_fastq = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.fastq"),
+#         contigs_qvl = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.qvl"),
+#         final_scaffolds_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.final.scaffolds.fasta.contigs.fsa"),
+#         assembly_stats_csv = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.assembly_stats.csv"),
+#     params:
+#         mv_from = "{sample}_a5*",
+#         mv_to = os.path.join("{sample}", "Step_2", "a5_miseq")
+#     priority: 93,
+#     shell:
+#         """
+#         mv {params.mv_from} {params.mv_to}
+#         """
+
+
 rule a5_miseq_denovo_assembly:
     input:
         r1_paired = os.path.join("{sample}", "Step_1", "trimmed_paired", "{sample}_r1_paired.fastq.gz"),
         r2_paired = os.path.join("{sample}", "Step_1", "trimmed_paired", "{sample}_r2_paired.fastq.gz"),
-    output:
-        contigs_fasta = os.path.join("{sample}_a5.contigs.fasta"),
-        contigs_fastq = os.path.join("{sample}_a5.contigs.fastq"),
-        contigs_qvl = os.path.join("{sample}_a5.contigs.qvl"),
-        final_scaffolds_fasta = os.path.join("{sample}_a5.final.scaffolds.fasta.contigs.fsa"),
-        assembly_stats_csv = os.path.join("{sample}_a5.assembly_stats.csv"),
-    params:
-        a5_base_dir = "{sample}_a5"
-    priority: 94,
-    log:
-        log = os.path.join("{sample}", "logs", "Step_2", "a5_miseq", "{sample}.log"),
-    shell:
-        """
-        a5_pipeline.pl {config[a5_miseq][a5_pipeline_pl_begin_command]} {config[a5_miseq][a5_pipeline_pl_end_command]} {input.r1_paired} {input.r2_paired} {params.a5_base_dir}
-        """
-
-rule a5_miseq_denovo_assembly_move:
     output:
         contigs_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.fasta"),
         contigs_fastq = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.fastq"),
@@ -230,13 +260,36 @@ rule a5_miseq_denovo_assembly_move:
         final_scaffolds_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.final.scaffolds.fasta.contigs.fsa"),
         assembly_stats_csv = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.assembly_stats.csv"),
     params:
+        a5_base_dir = "{sample}_a5",
         mv_from = "{sample}_a5*",
         mv_to = os.path.join("{sample}", "Step_2", "a5_miseq")
-    priority: 93,
+    priority: 94,
+    log:
+        log = os.path.join("{sample}", "logs", "Step_2", "a5_miseq", "{sample}.log"),
     shell:
         """
+        a5_pipeline.pl {config[a5_miseq][a5_pipeline_pl_begin_command]} {config[a5_miseq][a5_pipeline_pl_end_command]} {input.r1_paired} {input.r2_paired} {params.a5_base_dir}
         mv {params.mv_from} {params.mv_to}
         """
+
+# rule a5_miseq_denovo_assembly_move:
+#     output:
+#         contigs_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.fasta"),
+#         contigs_fastq = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.fastq"),
+#         contigs_qvl = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.qvl"),
+#         final_scaffolds_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.final.scaffolds.fasta.contigs.fsa"),
+#         assembly_stats_csv = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.assembly_stats.csv"),
+#     params:
+#     priority: 93,
+#     shell:
+#         """
+#         mv {params.mv_from} {params.mv_to}
+#         """
+
+
+
+
+
 
 rule quast_assembly_assessment:
     input:
@@ -248,7 +301,8 @@ rule quast_assembly_assessment:
         report_tsv = os.path.join("{sample}", "Step_3", "quast", "report.tsv"),
         report_pdf = os.path.join("{sample}", "Step_3", "quast", "report.pdf"),
     params:
-        directory = os.path.join("{sample}", "Step_3"),
+        directory = os.path.join("{sample}", "Step_3", "quast"),
+    priority: 92,
     log:
         log = os.path.join("{sample}", "logs", "Step_3", "quast", "{sample}.log"),
     shell:
@@ -259,6 +313,7 @@ rule quast_assembly_assessment:
 rule bowtie2_assembly_assessment_1:
     output:
         bowtie2_index_folder = os.path.join("{sample}", "Step_3", "bowtie2", "bowtie_index"),
+    priority: 91,
     shell:
         """
         mkdir {output.bowtie2_index_folder}
@@ -271,6 +326,9 @@ rule bowtie2_assembly_assessment_2:
         bowtie2_output_1 = os.path.join("{sample}", "Step_3", "bowtie2", "bowtie_index", "{sample}.1.bt2")
     params:
         bowtie2_output_prefix = os.path.join("{sample}", "Step_3", "bowtie2", "bowtie_index", "{sample}"),
+    priority: 90,
+    log:
+        log = os.path.join("{sample}", "logs", "Step_3", "bowtie2_index", "{sample}.log"),
     shell:
         """
         bowtie2-build {input.contigs_fasta} {params.bowtie2_output_prefix}
@@ -281,111 +339,73 @@ rule bowtie2_assembly_assessment_3:
         r1_paired = os.path.join("{sample}", "Step_1", "trimmed_paired", "{sample}_r1_paired.fastq.gz"),
         r2_paired = os.path.join("{sample}", "Step_1", "trimmed_paired", "{sample}_r2_paired.fastq.gz"),
     output:
-        bowtie2_output_prefix = os.path.join("{sample}", "Step_3", "bowtie2", "{sample}.bam")
+        bowtie2_output_bam = os.path.join("{sample}", "Step_3", "bowtie2", "{sample}.bam")
     params:
         bowtie2_output_prefix = os.path.join("{sample}", "Step_3", "bowtie2", "bowtie_index", "{sample}")
+    priority: 89,
+    log:
+        log = os.path.join("{sample}", "logs", "Step_3", "bowtie2_alignment", "{sample}.log"),
     shell:
         """
-        bowtie2 -p 8 -x {parames.bowtie2_output_prefix} -1 {input.r1_paired} -2 {input.r1_paired} > {output.bowtie2_output_prefix}
+        bowtie2 -p 8 -x {params.bowtie2_output_prefix} -1 {input.r1_paired} -2 {input.r1_paired} > {output.bowtie2_output_bam}
         """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 rule samtools_fixmate_1:
     input:
-        bwa_sam = os.path.join("{sample}", "Step_2", "bwa", "{sample}.sam"),
+        bowtie2_output_bam = os.path.join("{sample}", "Step_3", "bowtie2", "{sample}.bam")
     output:
-        samtools_bam = os.path.join("{sample}", "Step_3", "samtools", "{sample}_fixmate.bam"),
+        samtools_bam = os.path.join("{sample}", "Step_4", "samtools", "{sample}_fixmate.bam"),
     params:
-    priority: 92,
+    priority: 88,
     log:
-        log = os.path.join("{sample}", "logs", "Step_3", "samtools_fixmate", "{sample}.log"),
+        log = os.path.join("{sample}", "logs", "Step_4", "samtools_fixmate", "{sample}.log"),
     shell:
         """
-        samtools fixmate -O bam {input.bwa_sam} {output.samtools_bam}
+        samtools fixmate -O bam {input.bowtie2_output_bam} {output.samtools_bam}
         """
 
 rule samtools_sort_2:
     input:
-        samtools_bam = os.path.join("{sample}", "Step_3", "samtools", "{sample}_fixmate.bam"),
+        samtools_bam = os.path.join("{sample}", "Step_4", "samtools", "{sample}_fixmate.bam"),
     output:
-        samtools_sorted_bam = os.path.join("{sample}", "Step_3", "samtools", "{sample}_sorted.bam"),
+        samtools_sorted_bam = os.path.join("{sample}", "Step_4", "samtools", "{sample}_sorted.bam"),
     params:
-    priority: 91,
+    priority: 87,
     log:
-        log = os.path.join("{sample}", "logs", "Step_3", "samtools_sorted", "{sample}.log"),
+        log = os.path.join("{sample}", "logs", "Step_4", "samtools_sorted", "{sample}.log"),
     shell:
         """
         samtools sort -O bam -o {output.samtools_sorted_bam} {input.samtools_bam}
         """
 
 
-# rule bcftools_mpileup_1:
-#     input:
-#         samtools_sorted_bam = os.path.join("{sample}", "Step_3", "samtools", "{sample}_sorted.bam"),
-#     output:
-#         bcftools_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}.vcf"),
-#     params:
-#     priority: 90,
-#     log:
-#         log = os.path.join("{sample}", "logs", "bcftools_vcf", "{sample}_1.log"),
-#     shell:
-#         """
-#         bcftools mpileup -Ov -o {output.bcftools_vcf} -f {config[bwa][bwa_pathogen_dir]} {input.samtools_sorted_bam}
-#         """
-
 rule bcftools_mpileup_1:
     input:
-        samtools_sorted_bam = os.path.join("{sample}", "Step_3", "samtools", "{sample}_sorted.bam"),
+        contigs_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.fasta"),
+        samtools_sorted_bam = os.path.join("{sample}", "Step_4", "samtools", "{sample}_sorted.bam"),
     output:
-        bcftools_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}.vcf"),
+        bcftools_vcf = os.path.join("{sample}", "Step_5", "bcftools", "{sample}.vcf"),
     params:
-    priority: 89,
+    priority: 85,
     log:
-        log = os.path.join("{sample}", "logs", "Step_4", "bcftools_vcf", "{sample}_vcf.log"),
+        log = os.path.join("{sample}", "logs", "Step_5", "bcftools_vcf", "{sample}_vcf.log"),
     shell:
         """
-        bcftools mpileup -Ou -f {config[bwa][bwa_pathogen_dir]} {input.samtools_sorted_bam} | bcftools call -vmO v -o {output.bcftools_vcf}
+        bcftools mpileup -Ou -f {input.contigs_fasta} {input.samtools_sorted_bam} | bcftools call -vmO v -o {output.bcftools_vcf}
         """
 
 
 rule sed_vcf_revise:
     input:
-        bcftools_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}.vcf"),
+        bcftools_vcf = os.path.join("{sample}", "Step_5", "bcftools", "{sample}.vcf"),
     output:
-        bcftools_revise_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}_revise.vcf"),
+        bcftools_revise_vcf = os.path.join("{sample}", "Step_5", "bcftools", "{sample}_revise.vcf"),
     params:
         origin_chromosome_name = "NC_000962.3",
         target_chromosome_name = "Chromosome",
-    priority: 88,
+    priority: 84,
     log:
-        log = os.path.join("{sample}", "logs", "Step_4", "bcftools_vcf_revise", "{sample}_revise_vcf.log"),
+        log = os.path.join("{sample}", "logs", "Step_5", "bcftools_vcf_revise", "{sample}_revise_vcf.log"),
     shell:
         """
         sed 's/{params.origin_chromosome_name}/{params.target_chromosome_name}/g' "{input.bcftools_vcf}" > {output.bcftools_revise_vcf}
@@ -393,28 +413,29 @@ rule sed_vcf_revise:
 
 rule gzip_vcf_file:
     input:
-        bcftools_revise_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}_revise.vcf"),
+        bcftools_revise_vcf = os.path.join("{sample}", "Step_5", "bcftools", "{sample}_revise.vcf"),
     output:
-        bcftools_revise_vcf_gz = os.path.join("{sample}", "Step_4", "bcftools", "{sample}_revise.vcf.gz"),
-    priority: 87,
+        bcftools_revise_vcf_gz = os.path.join("{sample}", "Step_5", "bcftools", "{sample}_revise.vcf.gz"),
+    priority: 83,
     log:
-        log = os.path.join("{sample}", "logs", "Step_4", "bcftools_vcf_revise_gzip", "{sample}_revise_vcf.gz.log"),
+        log = os.path.join("{sample}", "logs", "Step_5", "bcftools_vcf_revise_gzip", "{sample}_revise_vcf.gz.log"),
     shell:
         """
         bgzip < {input.bcftools_revise_vcf} > {output.bcftools_revise_vcf_gz}
         """
 
+
 rule snpeff_1:
     input:
-        bcftools_revise_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}_revise.vcf"),
+        bcftools_revise_vcf = os.path.join("{sample}", "Step_5", "bcftools", "{sample}_revise.vcf"),
     output:
-        snpeff_ann_vcf = os.path.join("{sample}", "Step_5", "snpeff", "{sample}.ann.vcf"),
-        stats_html_summary = os.path.join("{sample}", "Step_5", "snpeff", "{sample}_snpEff_summary.html"),
+        snpeff_ann_vcf = os.path.join("{sample}", "Step_6", "snpeff", "{sample}.ann.vcf"),
+        stats_html_summary = os.path.join("{sample}", "Step_6", "snpeff", "{sample}_snpEff_summary.html"),
         # stats_txt_genes= os.path.join("{sample}", "Step_5", "snpeff", "{sample}"),
     params:
-    priority: 86,
+    priority: 82,
     log:
-        log = os.path.join("{sample}", "logs", "Step_5", "snpeff_ann_vcf", "{sample}.log"),
+        log = os.path.join("{sample}", "logs", "Step_6", "snpeff_ann_vcf", "{sample}.log"),
     shell:
         """
         java -Xmx4g -jar {config[snpEff][snpEff_jar]} -c {config[snpEff][snpEff_config]} Mycobacterium_tuberculosis_h37rv -stats {output.stats_html_summary} {input.bcftools_revise_vcf} > {output.snpeff_ann_vcf}

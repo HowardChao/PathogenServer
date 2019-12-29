@@ -400,12 +400,11 @@ def Step_2_check_denovo_a5_miseq(url_base_dir, sample_datadir, sample_name):
     a5_contigs_fasta = os.path.exists(os.path.join(root_dir, sample_name+"_a5.contigs.fasta"))
     a5_contigs_fastq = os.path.exists(os.path.join(root_dir, sample_name+"_a5.contigs.fastq"))
     a5_contigs_qvl = os.path.exists(os.path.join(root_dir, sample_name+"_a5.contigs.qvl"))
-    a5_contigs_gz = os.path.exists(os.path.join(root_dir, sample_name+"_a5.contigs.gz"))
     a5_final_scaffolds_fasta_contigs_fsa = os.path.exists(os.path.join(root_dir, sample_name+"_a5.final.scaffolds.fasta.contigs.fsa"))
     a5_raw1_pe_sort_bam = os.path.exists(os.path.join(root_dir, sample_name+"_a5.raw1.pe.sort.bam"))
     a5_tmplibs = os.path.exists(os.path.join(root_dir, sample_name+"_a5.tmplibs"))
     Step_2_check_denovo_a5_miseq_urls = {}
-    if a5_dir and a5_dir_s1 and a5_dir_s2 and a5_agp and a5_assembly_stats_csv and a5_contigs_fasta and a5_contigs_fastq and a5_contigs_qvl and a5_contigs_gz and a5_final_scaffolds_fasta_contigs_fsa and a5_raw1_pe_sort_bam and a5_tmplibs:
+    if a5_dir and a5_dir_s1 and a5_dir_s2 and a5_agp and a5_assembly_stats_csv and a5_contigs_fasta and a5_contigs_fastq and a5_contigs_qvl and a5_final_scaffolds_fasta_contigs_fsa and a5_raw1_pe_sort_bam and a5_tmplibs:
         url_a5_dir = os.path.join(url_root_dir, sample_name+"_a5")
         Step_2_check_denovo_a5_miseq_urls["url_a5_dir"] = url_a5_dir
         url_a5_dir_s1 = os.path.join(url_root_dir, sample_name+"_a5.s1")
@@ -422,9 +421,7 @@ def Step_2_check_denovo_a5_miseq(url_base_dir, sample_datadir, sample_name):
         Step_2_check_denovo_a5_miseq_urls["url_a5_contigs_fastq"] = url_a5_contigs_fastq
         url_a5_contigs_qvl = os.path.join(url_root_dir, sample_name+"_a5.contigs.qvl")
         Step_2_check_denovo_a5_miseq_urls["url_a5_contigs_qvl"] = url_a5_contigs_qvl
-        url_a5_contigs_gz = os.path.join(url_root_dir, sample_name+"_a5.contigs.gz")
-        Step_2_check_denovo_a5_miseq_urls["url_a5_contigs_gz"] = url_a5_contigs_gz
-        url_a5_final_scaffolds_fasta_contigs_fsa = os.path.join(url_root_dir, url_a5_sample_name+"_a5.final.scaffolds.fasta.contigs.fsa")
+        url_a5_final_scaffolds_fasta_contigs_fsa = os.path.join(url_root_dir, sample_name+"_a5.final.scaffolds.fasta.contigs.fsa")
         Step_2_check_denovo_a5_miseq_urls["url_a5_final_scaffolds_fasta_contigs_fsa"] = url_a5_final_scaffolds_fasta_contigs_fsa
         url_a5_raw1_pe_sort_bam = os.path.join(url_root_dir, sample_name+"_a5.raw1.pe.sort.bam")
         Step_2_check_denovo_a5_miseq_urls["url_a5_raw1_pe_sort_bam"] = url_a5_raw1_pe_sort_bam
@@ -442,6 +439,13 @@ def Step_3_check_quast_assessment(url_base_dir, sample_datadir, sample_name):
     icarus_html = os.path.exists(os.path.join(root_dir, "icarus.html"))
     report_html = os.path.exists(os.path.join(root_dir, "report.html"))
     report_tsv = os.path.exists(os.path.join(root_dir, "report.tsv"))
+
+    report_tex = os.path.exists(os.path.join(root_dir, "report.tex"))
+    report_txt = os.path.exists(os.path.join(root_dir, "report.txt"))
+    transposed_report_tex = os.path.exists(os.path.join(root_dir, "transposed_report.tex"))
+    transposed_report_tsv = os.path.exists(os.path.join(root_dir, "transposed_report.tsv"))
+    transposed_report_txt = os.path.exists(os.path.join(root_dir, "transposed_report.txt"))
+
     report_pdf = os.path.exists(os.path.join(root_dir, "report.pdf"))
     Step_3_check_quast_assessment_urls = {}
     if contig_size_viewer_html and icarus_html and report_html and report_tsv and report_pdf :
@@ -453,6 +457,16 @@ def Step_3_check_quast_assessment(url_base_dir, sample_datadir, sample_name):
         Step_3_check_quast_assessment_urls["url_report_html"] = url_report_html
         url_report_tsv = os.path.join(url_root_dir, "report.tsv")
         Step_3_check_quast_assessment_urls["url_report_tsv"] = url_report_tsv
+        url_report_tex = os.path.join(url_root_dir, "report.tex")
+        Step_3_check_quast_assessment_urls["url_report_tex"] = url_report_tex
+        url_report_txt = os.path.join(url_root_dir, "report.txt")
+        Step_3_check_quast_assessment_urls["url_report_txt"] = url_report_txt
+        url_transposed_report_tex = os.path.join(url_root_dir, "transposed_report.tex")
+        Step_3_check_quast_assessment_urls["url_transposed_report_tex"] = url_transposed_report_tex
+        url_transposed_report_tsv = os.path.join(url_root_dir, "transposed_report.tsv")
+        Step_3_check_quast_assessment_urls["url_transposed_report_tsv"] = url_transposed_report_tsv
+        url_transposed_report_txt = os.path.join(url_root_dir, "transposed_report.txt")
+        Step_3_check_quast_assessment_urls["url_transposed_report_txt"] = url_transposed_report_txt
         url_report_pdf = os.path.join(url_root_dir, "report.pdf")
         Step_3_check_quast_assessment_urls["url_report_pdf"] = url_report_pdf
         return (True, Step_3_check_quast_assessment_urls)
@@ -460,20 +474,118 @@ def Step_3_check_quast_assessment(url_base_dir, sample_datadir, sample_name):
         return (False, Step_3_check_quast_assessment_urls)
 
 def Step_3_check_bowtie2_assessment(url_base_dir, sample_datadir, sample_name):
-    root_dir = os.path.join(sample_datadir, "Step_3", "bwa")
-    url_root_dir = os.path.join(url_base_dir, "Step_3", "bwa")
+    root_dir = os.path.join(sample_datadir, "Step_3", "bowtie2")
+    url_root_dir = os.path.join(url_base_dir, "Step_3", "bowtie2")
 
     bowtie2_index_folder = os.path.exists(os.path.join(root_dir, "bowtie_index"))
-    bowtie2_output_prefix = os.path.exists(os.path.join(root_dir, "{sample}.bam"))
+    bowtie2_index_1 = os.path.exists(os.path.join(root_dir, "bowtie_index", sample_name+".1.bt2"))
+    bowtie2_output_prefix = os.path.exists(os.path.join(root_dir, sample_name+".bam"))
+
     Step_3_check_bowtie2_assessment_urls = {}
-    if bowtie2_index_folder and bowtie2_output_prefix:
+    if bowtie2_index_folder and bowtie2_index_1 and bowtie2_output_prefix:
         url_bowtie2_index_folder = os.path.join(url_root_dir, "bowtie_index")
         Step_3_check_bowtie2_assessment_urls["url_bowtie2_index_folder"] = url_bowtie2_index_folder
-        url_bowtie2_output_prefix = os.path.join(url_root_dir, "{sample}.bam")
+        url_bowtie2_index_1 = os.path.join(url_root_dir, "bowtie_index", sample_name+".1.bt2")
+        Step_3_check_bowtie2_assessment_urls["url_bowtie2_index_1"] = url_bowtie2_index_1
+        url_bowtie2_output_prefix = os.path.join(url_root_dir, sample_name+".bam")
         Step_3_check_bowtie2_assessment_urls["url_bowtie2_output_prefix"] = url_bowtie2_output_prefix
         return (True, Step_3_check_bowtie2_assessment_urls)
     else:
         return (False, Step_3_check_bowtie2_assessment_urls)
+
+def Step_4_check_denovo_samtools_fixmate_bam(url_base_dir, sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, "Step_4", "samtools")
+    url_root_dir = os.path.join(url_base_dir, "Step_4", "samtools")
+    # print("fixmate bam file: ", os.path.join(
+    #     root_dir, sample_name+"_fixmate.bam"))
+    denovo_samtools_fixmate_bam = os.path.exists(os.path.join(root_dir, sample_name+"_fixmate.bam"))
+    # print("reference_based_samtools_fixmate_bam: ", reference_based_samtools_fixmate_bam)
+    Step_4_check_denovo_samtools_fixmate_bam_urls = {}
+    if denovo_samtools_fixmate_bam:
+        url_denovo_samtools_fixmate_bam = os.path.join(url_root_dir, sample_name+"_fixmate.bam")
+        Step_4_check_denovo_samtools_fixmate_bam_urls["url_denovo_samtools_fixmate_bam"] = url_denovo_samtools_fixmate_bam
+        return (True, Step_4_check_denovo_samtools_fixmate_bam_urls)
+    else:
+        return (False, Step_4_check_denovo_samtools_fixmate_bam_urls)
+
+def Step_4_check_denovo_samtools_sorted_bam(url_base_dir, sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, "Step_4", "samtools")
+    url_root_dir = os.path.join(url_base_dir, "Step_4", "samtools")
+    # print("sorted bam file: ", os.path.join(
+    #     root_dir, sample_name+"_sorted.bam"))
+    denovo_samtools_sorted_bam = os.path.exists(os.path.join(
+        root_dir, sample_name+"_sorted.bam"))
+    # print("reference_based_samtools_sorted_bam: ", reference_based_samtools_sorted_bam)
+    Step_4_check_denovo_samtools_sorted_bam_urls = {}
+    if denovo_samtools_sorted_bam:
+        url_denovo_samtools_sorted_bam = os.path.join(url_root_dir, sample_name+"_sorted.bam")
+        Step_4_check_denovo_samtools_sorted_bam_urls["url_denovo_samtools_sorted_bam"] = url_denovo_samtools_sorted_bam
+        return (True, Step_4_check_denovo_samtools_sorted_bam_urls)
+    else:
+        return (False, Step_4_check_denovo_samtools_sorted_bam_urls)
+
+def Step_5_check_denovo_bcftools_vcf(url_base_dir, sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, "Step_5", "bcftools")
+    url_root_dir = os.path.join(url_base_dir, "Step_5", "bcftools")
+    # print("bcftools vcf_gz file: ", os.path.join(
+    #     root_dir, sample_name+".vcf"))
+    denovo_bcftools_vcf = os.path.exists(os.path.join(root_dir, sample_name+".vcf"))
+    # print("reference_based_bcftools_vcf: ", reference_based_bcftools_vcf)
+    Step_5_check_denovo_bcftools_vcf_urls = {}
+    if denovo_bcftools_vcf:
+        url_denovo_bcftools_vcf = os.path.join(url_root_dir, sample_name+".vcf")
+        Step_5_check_denovo_bcftools_vcf_urls["url_denovo_bcftools_vcf"] = url_denovo_bcftools_vcf
+        return (True, Step_5_check_denovo_bcftools_vcf_urls)
+    else:
+        return (False, Step_5_check_denovo_bcftools_vcf_urls)
+
+def Step_5_check_denovo_bcftools_vcf_revise(url_base_dir, sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, "Step_5", "bcftools")
+    url_root_dir = os.path.join(url_base_dir, "Step_5", "bcftools")
+    # print("bcftools vcf_gz file: ", os.path.join(
+    #     root_dir, sample_name+"_revise.vcf"))
+    denovo_bcftools_vcf_revise = os.path.exists(os.path.join(root_dir, sample_name+"_revise.vcf"))
+    # print("reference_based_bcftools_vcf_revise: ", reference_based_bcftools_vcf_revise)
+    Step_5_check_reference_based_bcftools_vcf_revise_urls = {}
+    if denovo_bcftools_vcf_revise:
+        url_denovo_bcftools_vcf_revise = os.path.join(url_root_dir, sample_name+"_revise.vcf")
+        Step_5_check_reference_based_bcftools_vcf_revise_urls["url_denovo_bcftools_vcf_revise"] = url_denovo_bcftools_vcf_revise
+        return (True, Step_5_check_reference_based_bcftools_vcf_revise_urls)
+    else:
+        return (False, Step_5_check_reference_based_bcftools_vcf_revise_urls)
+
+def Step_6_check_denovo_snpeff_vcf_annotation(url_base_dir, sample_datadir, sample_name):
+    root_dir = os.path.join(sample_datadir, "Step_6", "snpeff")
+    url_root_dir = os.path.join(url_base_dir, "Step_6", "snpeff")
+    # print("snpeff annotation file: ", os.path.join(
+    #     root_dir, sample_name+".ann.vcf"))
+    # print("snpeff annotation file: ", os.path.join(
+    #     root_dir, sample_name+"_snpEff_summary.genes.txt"))
+    # print("snpeff annotation file: ", os.path.join(
+    #     root_dir, sample_name+"_snpEff_summary.html"))
+    denovo_snpeff_vcf_annotation = os.path.exists(os.path.join(root_dir, sample_name+".ann.vcf"))
+    denovo_snpeff_vcf_annotation_txt = os.path.exists(os.path.join(root_dir, sample_name+"_snpEff_summary.genes.txt"))
+    denovo_snpeff_vcf_annotation_html = os.path.exists(os.path.join(root_dir, sample_name+"_snpEff_summary.html"))
+    # print("reference_based_snpeff_vcf_annotation: ", denovo_snpeff_vcf_annotation)
+    # print("reference_based_snpeff_vcf_annotation_txt: ", denovo_snpeff_vcf_annotation_txt)
+    # print("reference_based_snpeff_vcf_annotation_html: ", denovo_snpeff_vcf_annotation_html)
+    Step_6_check_reference_based_snpeff_vcf_annotation_urls = {}
+    if denovo_snpeff_vcf_annotation and denovo_snpeff_vcf_annotation_txt and denovo_snpeff_vcf_annotation_html:
+        url_denovo_snpeff_vcf_annotation = os.path.join(url_root_dir, sample_name+".ann.vcf")
+        url_denovo_snpeff_vcf_annotation_txt = os.path.join(url_root_dir, sample_name+"_snpEff_summary.genes.txt")
+        url_denovo_snpeff_vcf_annotation_html = os.path.join(url_root_dir, sample_name+"_snpEff_summary.html")
+        Step_6_check_reference_based_snpeff_vcf_annotation_urls["url_denovo_snpeff_vcf_annotation"] = url_denovo_snpeff_vcf_annotation
+        Step_6_check_reference_based_snpeff_vcf_annotation_urls["url_denovo_snpeff_vcf_annotation_txt"] = url_denovo_snpeff_vcf_annotation_txt
+        Step_6_check_reference_based_snpeff_vcf_annotation_urls["url_denovo_snpeff_vcf_annotation_html"] = url_denovo_snpeff_vcf_annotation_html
+        return (True, Step_6_check_reference_based_snpeff_vcf_annotation_urls)
+    else:
+        return (False, Step_6_check_reference_based_snpeff_vcf_annotation_urls)
+
+
+
+
+
+
 
 
 

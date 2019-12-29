@@ -194,35 +194,13 @@
                                                     <div class="row">
                                                         <div class=".col-12 .col-md-8">
                                                             <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>A5-miseq</b> <i>de novo</i> assembly:  Running !<i class="fas fa-ellipsis-h"></i></p>
+                                                            <p> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp(This step needs more time!)</p>
                                                         </div>
                                                     </div>
                                                     {% elif one_sample_all_info.Step_2_check_denovo_a5_miseq is True %}
                                                     <div class="row">
                                                         <div class=".col-12 .col-md-8">
                                                             <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>A5-miseq</b> <i>de novo</i> assembly:  Finished !</p>
-                                                        </div>
-                                                        <div class=".col-6 .col-md-4">
-                                                        <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
-                                                            <div class="sa-icon sa-success animate">
-                                                                <span class="sa-line sa-tip animateSuccessTip"></span>
-                                                                <span class="sa-line sa-long animateSuccessLong"></span>
-                                                                <div class="sa-placeholder"></div>
-                                                                <div class="sa-fix"></div>
-                                                            </div>
-                                                        </div>
-                                                        </div>
-                                                    </div>
-                                                    {% endif %}
-                                                    {% if one_sample_all_info.Step_2_check_reference_based_bwa_report_txt is False %}
-                                                    <div class="row">
-                                                        <div class=".col-12 .col-md-8">
-                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BWA MEM</b> txt result report generation:  Running !<i class="fas fa-ellipsis-h"></i></p>
-                                                        </div>
-                                                    </div>
-                                                    {% elif one_sample_all_info.Step_2_check_reference_based_bwa_report_txt is True %}
-                                                    <div class="row">
-                                                        <div class=".col-12 .col-md-8">
-                                                            <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BWA MEM</b> txt result report generation:  Finished !</p>
                                                         </div>
                                                         <div class=".col-6 .col-md-4">
                                                         <div class="check_mark" style="margin-top:-3px; transform: scale(0.3,0.3);">
@@ -305,24 +283,31 @@
 
 
 
+
+
+                                        <!-- # print("Step_4_check_denovo_samtools_fixmate_bam: ", Step_4_check_denovo_samtools_fixmate_bam[0])
+                                            # print("Step_4_check_denovo_samtools_sorted_bam: ", Step_4_check_denovo_samtools_sorted_bam[0])
+                                            # print("Step_5_check_denovo_bcftools_vcf: ", Step_5_check_denovo_bcftools_vcf[0])
+                                            # print("Step_5_check_denovo_bcftools_vcf_revise: ", Step_5_check_denovo_bcftools_vcf_revise[0])
+                                            # print("Step_6_check_denovo_snpeff_vcf_annotation: ", Step_6_check_denovo_snpeff_vcf_annotation[0]) -->
                                         <li class="timeline-inverted">
                                             <div id="variant_calling" class="timeline-badge warning"><i class="fas fa-cut fa-2x" style="margin-top: 20px"></i></div>
                                             <div id="variant_calling_detail" class="timeline-panel">
                                                 <div id="variant_calling_head" class="timeline-heading">
-                                                  {% if one_sample_all_info.Step_3_check_reference_based_samtools_fixmate_bam is True and one_sample_all_info.Step_3_check_reference_based_samtools_sorted_bam is True and one_sample_all_info.Step_4_check_reference_based_bcftools_vcf %}
+                                                  {% if one_sample_all_info.Step_4_check_denovo_samtools_fixmate_bam is True and one_sample_all_info.Step_4_check_denovo_samtools_sorted_bam is True and one_sample_all_info.Step_5_check_denovo_bcftools_vcf %}
                                                     <h4 class="timeline-title" style="margin-bottom:20px"><i class="fas fa-check" style="color: green"></i>&nbsp&nbsp Variant Calling</h4>
                                                   {% else%}
                                                     <h4 class="timeline-title" style="margin-bottom:20px">Variant Calling</h4>
                                                   {% endif %}
                                                 </div>
                                                 <div id="variant_calling_body" class="timeline-body"  style="margin-left:30px">
-                                                  {% if one_sample_all_info.Step_3_check_reference_based_samtools_fixmate_bam is False %}
+                                                  {% if one_sample_all_info.Step_4_check_denovo_samtools_fixmate_bam is False %}
                                                   <div class="row">
                                                       <div class=".col-12 .col-md-8">
                                                           <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMtools fixmate</b> flags-filling from a name-sorted alignment:  Running !<i class="fas fa-ellipsis-h"></i></p>
                                                       </div>
                                                   </div>
-                                                  {% elif one_sample_all_info.Step_3_check_reference_based_samtools_fixmate_bam is True %}
+                                                  {% elif one_sample_all_info.Step_4_check_denovo_samtools_fixmate_bam is True %}
                                                   <div class="row">
                                                       <div class=".col-12 .col-md-8">
                                                           <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMtools fixmate</b> flags-filling from a name-sorted alignment:  Finished !</p>
@@ -340,13 +325,13 @@
                                                   </div>
                                                   {% endif %}
 
-                                                  {% if one_sample_all_info.Step_3_check_reference_based_samtools_sorted_bam is False %}
+                                                  {% if one_sample_all_info.Step_4_check_denovo_samtools_sorted_bam is False %}
                                                   <div class="row">
                                                       <div class=".col-12 .col-md-8">
                                                           <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMtools sort</b> alignment-sorting:  Running !<i class="fas fa-ellipsis-h"></i></p>
                                                       </div>
                                                   </div>
-                                                  {% elif one_sample_all_info.Step_3_check_reference_based_samtools_sorted_bam is True %}
+                                                  {% elif one_sample_all_info.Step_4_check_denovo_samtools_sorted_bam is True %}
                                                   <div class="row">
                                                       <div class=".col-12 .col-md-8">
                                                           <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>SAMtools sort</b> alignment-sorting:  Finished !</p>
@@ -364,13 +349,13 @@
                                                   </div>
                                                   {% endif %}
 
-                                                  {% if one_sample_all_info.Step_4_check_reference_based_bcftools_vcf is False %}
+                                                  {% if one_sample_all_info.Step_5_check_denovo_bcftools_vcf_revise is False %}
                                                   <div class="row">
                                                       <div class=".col-12 .col-md-8">
                                                           <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BCFtools mpileup | call</b> variant calling vcf file creating:  Running !<i class="fas fa-ellipsis-h"></i></p>
                                                       </div>
                                                   </div>
-                                                  {% elif one_sample_all_info.Step_4_check_reference_based_bcftools_vcf is True %}
+                                                  {% elif one_sample_all_info.Step_5_check_denovo_bcftools_vcf_revise is True %}
                                                   <div class="row">
                                                       <div class=".col-12 .col-md-8">
                                                           <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>BCFtools mpileup | call</b> variant calling vcf file creating:  Finished !</p>
@@ -396,20 +381,20 @@
                                             <div id="variant_calling_annotation" class="timeline-badge warning"><i class="fas fa-cut fa-2x" style="margin-top: 20px"></i></div>
                                             <div id="variant_calling_annotation_detail" class="timeline-panel">
                                                 <div id="variant_calling_annotation_head" class="timeline-heading">
-                                                  {% if one_sample_all_info.Step_4_check_reference_based_bcftools_vcf_revise is True and one_sample_all_info.Step_5_check_reference_based_snpeff_vcf_annotation is True %}
+                                                  {% if one_sample_all_info.Step_5_check_denovo_bcftools_vcf_revise is True and one_sample_all_info.Step_6_check_denovo_snpeff_vcf_annotation is True %}
                                                     <h4 class="timeline-title" style="margin-bottom:20px"><i class="fas fa-check" style="color: green"></i>&nbsp&nbsp Variant Calling File Annotation</h4>
                                                   {% else%}
                                                     <h4 class="timeline-title" style="margin-bottom:20px">Variant Calling File Annotation</h4>
                                                   {% endif %}
                                                 </div>
                                                 <div id="variant_calling_annotation_body" class="timeline-body"  style="margin-left:30px">
-                                                  {% if one_sample_all_info.Step_4_check_reference_based_bcftools_vcf_revise is False %}
+                                                  {% if one_sample_all_info.Step_5_check_denovo_bcftools_vcf_revise is False %}
                                                   <div class="row">
                                                       <div class=".col-12 .col-md-8">
                                                           <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>sed</b> vcf file modification:  Running !<i class="fas fa-ellipsis-h"></i></p>
                                                       </div>
                                                   </div>
-                                                  {% elif one_sample_all_info.Step_4_check_reference_based_bcftools_vcf_revise is True %}
+                                                  {% elif one_sample_all_info.Step_5_check_denovo_bcftools_vcf_revise is True %}
                                                   <div class="row">
                                                       <div class=".col-12 .col-md-8">
                                                           <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>sed</b> vcf file modification:  Finished !</p>
@@ -427,13 +412,13 @@
                                                   </div>
                                                   {% endif %}
 
-                                                  {% if one_sample_all_info.Step_5_check_reference_based_snpeff_vcf_annotation is False %}
+                                                  {% if one_sample_all_info.Step_6_check_denovo_snpeff_vcf_annotation is False %}
                                                   <div class="row">
                                                       <div class=".col-12 .col-md-8">
                                                           <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>snpeff.jar</b> vcf file annotation:  Running !<i class="fas fa-ellipsis-h"></i></p>
                                                       </div>
                                                   </div>
-                                                  {% elif one_sample_all_info.Step_5_check_reference_based_snpeff_vcf_annotation is True %}
+                                                  {% elif one_sample_all_info.Step_6_check_denovo_snpeff_vcf_annotation is True %}
                                                   <div class="row">
                                                       <div class=".col-12 .col-md-8">
                                                           <p><i class="far fa-dot-circle"></i>&nbsp&nbsp <b>snpeff.jar</b> vcf file annotation:  Finished !</p>
