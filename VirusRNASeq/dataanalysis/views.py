@@ -845,9 +845,13 @@ def de_novo_assembly_show_result_overview(request, slug_project):
         fastqc_datadir_post_r2 = os.path.join(qc_datadir, 'post', sample_name+'_r2_paired_fastqc.html')
         multiqc_datadir_post = os.path.join(qc_datadir, 'post', sample_name+'_multiqc.html')
 
+        quast_html_datadir_report = os.path.join(base_dir, sample_name, 'Step_3', 'quast', 'report.html')
+        quast_html_datadir_icarus = os.path.join(base_dir, sample_name, 'Step_3', 'quast', 'icarus_viewers', 'contig_size_viewer.html')
+
         snpeff_html_datadir = os.path.join(base_dir, sample_name, 'Step_6', 'snpeff', sample_name+'_snpEff_summary.html')
         # Destination of html file
         destination_QC_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, '', sample_name, 'Step_1', 'QC')
+        destination_quast_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, '', sample_name, 'Step_3', 'quast')
         destination_snpeff_html_dir = os.path.join(os.path.dirname(__file__), 'templates', 'dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, '', sample_name, 'Step_6', 'snpeff')
         destination_fastqc_datadir_pre_r1 = os.path.join(destination_QC_html_dir, 'pre', sample_name+'.R1_fastqc.html')
         destination_fastqc_datadir_pre_r2 = os.path.join(destination_QC_html_dir, 'pre', sample_name+'.R2_fastqc.html')
@@ -855,8 +859,9 @@ def de_novo_assembly_show_result_overview(request, slug_project):
         destination_fastqc_datadir_post_r1 = os.path.join(destination_QC_html_dir, 'post', sample_name+'_r1_paired_fastqc.html')
         destination_fastqc_datadir_post_r2 = os.path.join(destination_QC_html_dir, 'post', sample_name+'_r2_paired_fastqc.html')
         destination_multiqc_datadir_post = os.path.join(destination_QC_html_dir, 'post', sample_name+'_multiqc.html')
+        destination_quast_datadir_report = os.path.join(destination_quast_html_dir, 'report.html')
+        destination_quast_datadir_contig = os.path.join(destination_quast_html_dir, 'icarus_viewers', 'contig_size_viewer.html')
         destination_snpeff_datadir = os.path.join(destination_snpeff_html_dir, sample_name+'_snpEff_summary.html')
-
         if not os.path.exists(destination_QC_html_dir):
             os.makedirs(destination_QC_html_dir)
             os.makedirs(os.path.join(destination_QC_html_dir, 'pre'))
@@ -867,6 +872,15 @@ def de_novo_assembly_show_result_overview(request, slug_project):
             shutil.copyfile(fastqc_datadir_post_r1, destination_fastqc_datadir_post_r1)
             shutil.copyfile(fastqc_datadir_post_r2, destination_fastqc_datadir_post_r2)
             shutil.copyfile(multiqc_datadir_post, destination_multiqc_datadir_post)
+        if not os.path.exists(destination_quast_html_dir):
+            os.makedirs(destination_quast_html_dir)
+            os.makedirs(os.path.join(destination_quast_html_dir, 'icarus_viewers'))
+            # shutil.copyfile(quast_html_datadir_report, destination_quast_datadir_report)
+            with open(quast_html_datadir_report, "rt") as fin:
+                with open(destination_quast_datadir_report, "wt") as fout:
+                    for line in fin:
+                        fout.write(line.replace("num_N's_per_100_kbp", "num_Ns_per_100_kbp"))
+            shutil.copyfile(quast_html_datadir_icarus, destination_quast_datadir_contig)
         if not os.path.exists(destination_snpeff_html_dir):
             os.makedirs(destination_snpeff_html_dir)
             shutil.copyfile(snpeff_html_datadir, destination_snpeff_datadir)
@@ -897,14 +911,19 @@ def de_novo_assembly_show_result_overview(request, slug_project):
                 a5_mise1_statistics_tmp.append(row)
         for index in range(len(a5_mise1_statistics_tmp[0])):
             a5_mise1_statistics_csv[a5_mise1_statistics_tmp[0][index]] = a5_mise1_statistics_tmp[1][index]
-            
+
         Step_3_check_quast_assessment = utils_func.Step_3_check_quast_assessment(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_3_check_quast_assessment"] = Step_3_check_quast_assessment[1]
 
 
+
+
+
+
+
+
         Step_3_check_bowtie2_assessment = utils_func.Step_3_check_bowtie2_assessment(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_3_check_bowtie2_assessment"] = Step_3_check_bowtie2_assessment[1]
-
 
 
         Step_4_check_denovo_samtools_fixmate_bam = utils_func.Step_4_check_denovo_samtools_fixmate_bam(url_sample_base_dir, sample_datadir, sample_name)
@@ -1067,6 +1086,49 @@ def post_qc_html_view_r2(request, slug_project, slug_sample):
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
     html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, slug_sample, 'Step_1', 'QC', 'post', slug_sample+'_r2_paired_fastqc.html')
+    return render(request, html_file, {
+        'project_name': project_name,
+        'analysis_code': analysis_code,
+        'email': email,
+        'assembly_type_input': assembly_type_input,
+        'url_parameter': url_parameter,
+    })
+
+def quast_result_html_view(request, slug_project, slug_sample):
+    (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
+    url_parameter = project_name + '_' + email.split("@")[0]
+    base_dir = os.path.join(settings.MEDIA_ROOT,
+                            'tmp', project_name + '_' + email + '_' + analysis_code)
+    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, slug_sample, 'Step_3', 'quast', 'report.html')
+    return render(request, html_file, {
+        'project_name': project_name,
+        'analysis_code': analysis_code,
+        'email': email,
+        'assembly_type_input': assembly_type_input,
+        'url_parameter': url_parameter,
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def quast_contig_html_view(request, slug_project, slug_sample):
+    (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
+    url_parameter = project_name + '_' + email.split("@")[0]
+    base_dir = os.path.join(settings.MEDIA_ROOT,
+                            'tmp', project_name + '_' + email + '_' + analysis_code)
+    html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, slug_sample, 'Step_3', 'quast', 'icarus_viewers', 'contig_size_viewer.html')
     return render(request, html_file, {
         'project_name': project_name,
         'analysis_code': analysis_code,

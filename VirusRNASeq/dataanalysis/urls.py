@@ -28,13 +28,14 @@ urlpatterns = [
 
     path('result/<slug:slug_project>/<slug:slug_sample>/reference-mapping/current-status/snpeff/html_report', views.snpeff_report, name="reference_mapping_dataanalysis_result_current_status_snpeff_report"),
 
-
     path('result/<slug:slug_project>/<slug:slug_sample>/de-novo-assembly/current-status/QC/pre/multiqc_before_report', views.pre_qc_html_view_multiqc, name="de_novo_assembly_dataanalysis_result_current_status_pre_multiqc_html"),
     path('result/<slug:slug_project>/<slug:slug_sample>/de-novo-assembly/current-status/QC/pre/fastqc_r1_before_report', views.pre_qc_html_view_r1, name="de_novo_assembly_dataanalysis_result_current_status_pre_fastqc_r1_html"),
     path('result/<slug:slug_project>/<slug:slug_sample>/de-novo-assembly/current-status/QC/pre/fastqc_r2_before_report', views.pre_qc_html_view_r2, name="de_novo_assembly_dataanalysis_result_current_status_pre_fastqc_r2_html"),
     path('result/<slug:slug_project>/<slug:slug_sample>/de-novo-assembly/current-status/QC/post/multiqc_after_report', views.post_qc_html_view_multiqc, name="de_novo_assembly_dataanalysis_result_current_status_post_multiqc_html"),
     path('result/<slug:slug_project>/<slug:slug_sample>/de-novo-assembly/current-status/QC/post/fastqc_r1_after_report', views.post_qc_html_view_r1, name="de_novo_assembly_dataanalysis_result_current_status_post_fastqc_r1_html"),
     path('result/<slug:slug_project>/<slug:slug_sample>/de-novo-assembly/current-status/QC/post/fastqc_r2_after_report', views.post_qc_html_view_r2, name="de_novo_assembly_dataanalysis_result_current_status_post_fastqc_r2_html"),
+    path('result/<slug:slug_project>/<slug:slug_sample>/de-novo-assembly/current-status/quast/quast_result_html', views.quast_result_html_view, name="de_novo_assembly_dataanalysis_result_current_status_quast_result_html"),
+    path('result/<slug:slug_project>/<slug:slug_sample>/de-novo-assembly/current-status/quast/quast_contig_html', views.quast_contig_html_view, name="de_novo_assembly_dataanalysis_result_current_status_quast_contig_html"),
 
     path('result/<slug:slug_project>/<slug:slug_sample>/de-novo-assembly/current-status/snpeff/html_report', views.snpeff_report_denovo, name="de_novo_assembly_dataanalysis_result_current_status_snpeff_report"),
 
