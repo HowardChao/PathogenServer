@@ -20,6 +20,7 @@ import celery
 import celery.task.control as taskControl
 from django_celery_results.models import TaskResult
 
+import re
 import csv
 import yaml
 from django.core.files import File
@@ -577,9 +578,9 @@ def reference_mapping_show_result_overview(request, slug_project):
             one_sample_all_result["trimmo_reverse_only_surviving"] = trimmo_reverse_only_surviving
             trimmo_dropped = ans_list[5]
             one_sample_all_result["trimmo_dropped"] = trimmo_dropped
+            f_trimmomatic_command_log.close()
         samples_all_result[sample_name] = one_sample_all_result
     print("one_sample_all_resultone_sample_all_result: ", samples_all_result)
-
     return render(request, "dataanalysis/analysis_result_overview_reference_based.html", {
         "project_name": project_name,
         "analysis_code": analysis_code,
@@ -594,13 +595,6 @@ def reference_mapping_show_result_overview(request, slug_project):
         "samples_list_key": samples_list_key,
         "sample_list": sample_list,
     })
-
-
-
-
-
-
-
 
 
 
@@ -898,7 +892,6 @@ def de_novo_assembly_show_result_overview(request, slug_project):
         one_sample_all_result["Step_1_check_second_qc"] = Step_1_check_second_qc[1]
 
 
-
         Step_2_check_denovo_a5_miseq = utils_func.Step_2_check_denovo_a5_miseq(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_2_check_denovo_a5_miseq"] = Step_2_check_denovo_a5_miseq[1]
         a5_miseq_stats_csv = os.path.join(base_dir, sample_name, "Step_2", "a5_miseq", sample_name+"_a5.assembly_stats.csv")
@@ -912,19 +905,69 @@ def de_novo_assembly_show_result_overview(request, slug_project):
         for index in range(len(a5_mise1_statistics_tmp[0])):
             a5_mise1_statistics_csv[a5_mise1_statistics_tmp[0][index]] = a5_mise1_statistics_tmp[1][index]
 
+        one_sample_all_result["a5_mise1_statistics_csv"] = a5_mise1_statistics_csv
         Step_3_check_quast_assessment = utils_func.Step_3_check_quast_assessment(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_3_check_quast_assessment"] = Step_3_check_quast_assessment[1]
-
-
-
-
-
-
-
 
         Step_3_check_bowtie2_assessment = utils_func.Step_3_check_bowtie2_assessment(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_3_check_bowtie2_assessment"] = Step_3_check_bowtie2_assessment[1]
 
+        bowtie2_log = os.path.join(base_dir, sample_name, "logs", "Step_3", "bowtie2_alignment", "HM2WFCCXY_3_AAAATG.log")
+
+        if os.path.exists(bowtie2_log):
+            f = open(bowtie2_log, "r")
+            total_reads = " \((\d+)*\.(\d+)%\) were paired; of these:+"
+            paried_aligned_concordantly_1 = " \((\d+)*\.(\d+)%\) aligned concordantly exactly 1 time+"
+            paried_aligned_concordantly_more = " \((\d+)*\.(\d+)%\) aligned concordantly >1 times+"
+            paired_aligned_discordantly_1 = " \((\d+)*\.(\d+)%\) aligned discordantly 1 time+"
+            aligned_0 = " \((\d+)*\.(\d+)%\) aligned 0 times+"
+            aligned_1 = " \((\d+)*\.(\d+)%\) aligned exactly 1 time+"
+            aligned_more = " \((\d+)*\.(\d+)%\) aligned >1 times+"
+            overall_alignment_rate = "% overall alignment rate"
+            # output_string = f.readlines()
+            # print(output_string)
+            # paried_aligned_concordantly_0_match = re.findall(paried_aligned_concordantly_0, output_string[])
+            # print("!!!!!", paried_aligned_concordantly_0_match)
+            for line in f:
+                # print(line)
+                total_reads_match = re.search(total_reads, line)
+                paried_aligned_concordantly_1_match = re.search(paried_aligned_concordantly_1, line)
+                paried_aligned_concordantly_more_match = re.search(paried_aligned_concordantly_more, line)
+                paired_aligned_discordantly_1_match = re.search(paired_aligned_discordantly_1, line)
+                aligned_0_match = re.search(aligned_0, line)
+                aligned_1_match = re.search(aligned_1, line)
+                aligned_more_match = re.search(aligned_more, line)
+                overall_alignment_rate_match = re.search(overall_alignment_rate, line)
+                if paried_aligned_concordantly_1_match:
+                    paried_aligned_concordantly_1_result = re.sub(paried_aligned_concordantly_1, "", line)
+                    paried_aligned_concordantly_1_result = str(int(paried_aligned_concordantly_1_result))
+                    one_sample_all_result["paried_aligned_concordantly_1_time"] = paried_aligned_concordantly_1_result
+                if paried_aligned_concordantly_more_match:
+                    paried_aligned_concordantly_more_result = re.sub(paried_aligned_concordantly_more, "", line)
+                    paried_aligned_concordantly_more_result = str(int(paried_aligned_concordantly_more_result))
+                    one_sample_all_result["paried_aligned_concordantly_more_1_times"] = paried_aligned_concordantly_more_result
+                if paired_aligned_discordantly_1_match:
+                    paired_aligned_discordantly_1_result = re.sub(paired_aligned_discordantly_1, "", line)
+                    paired_aligned_discordantly_1_result = str(int(paired_aligned_discordantly_1_result))
+                    one_sample_all_result["paried_aligned_discordantly_1_time"] = paired_aligned_discordantly_1_result
+                if aligned_0_match:
+                    aligned_0_result = re.sub(aligned_0, "", line)
+                    aligned_0_result = str(int(aligned_0_result))
+                    one_sample_all_result["aligned_0_time"] = aligned_0_result
+                if aligned_1_match:
+                    aligned_1_result = re.sub(aligned_1, "", line)
+                    aligned_1_result = str(int(aligned_1_result))
+                    one_sample_all_result["aligned_1_time"] = aligned_1_result
+                if aligned_more_match:
+                    aligned_more_result = re.sub(aligned_more, "", line)
+                    aligned_more_result = str(int(aligned_more_result))
+                    one_sample_all_result["aligned_more_1_times"] = aligned_more_result
+                if overall_alignment_rate_match:
+                    bowtie2_overall_alignment_rate_result = re.sub(overall_alignment_rate, "", line)
+                    one_sample_all_result["bowtie2_overall_alignment_rate_result"] = str(float(bowtie2_overall_alignment_rate_result))
+            f.close()
+            one_sample_all_result["bowtie2_total_reads"] = int(one_sample_all_result["paried_aligned_concordantly_1_time"]) + int(one_sample_all_result["paried_aligned_concordantly_more_1_times"]) + int(one_sample_all_result["paried_aligned_discordantly_1_time"]) + int(one_sample_all_result["aligned_0_time"]) + int(one_sample_all_result["aligned_1_time"]) + int(one_sample_all_result["aligned_more_1_times"])
+            samples_all_result[sample_name] = one_sample_all_result
 
         Step_4_check_denovo_samtools_fixmate_bam = utils_func.Step_4_check_denovo_samtools_fixmate_bam(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_4_check_denovo_samtools_fixmate_bam"] = Step_4_check_denovo_samtools_fixmate_bam[1]
@@ -961,9 +1004,9 @@ def de_novo_assembly_show_result_overview(request, slug_project):
             one_sample_all_result["trimmo_reverse_only_surviving"] = trimmo_reverse_only_surviving
             trimmo_dropped = ans_list[5]
             one_sample_all_result["trimmo_dropped"] = trimmo_dropped
+            f_trimmomatic_command_log.close()
         samples_all_result[sample_name] = one_sample_all_result
-    # print("one_sample_all_resultone_sample_all_result: ", samples_all_result)
-
+    print("one_sample_all_resultone_sample_all_result: ", samples_all_result[sample_name])
     return render(request, "dataanalysis/analysis_result_overview_denovo.html", {
         "project_name": project_name,
         "analysis_code": analysis_code,
@@ -977,7 +1020,6 @@ def de_novo_assembly_show_result_overview(request, slug_project):
         "samples_txt_file_name": samples_txt_file_name,
         "samples_list_key": samples_list_key,
         "sample_list": sample_list,
-        "a5_mise1_statistics_csv": a5_mise1_statistics_csv,
     })
 
 

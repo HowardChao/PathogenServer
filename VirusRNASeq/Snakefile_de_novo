@@ -347,7 +347,7 @@ rule bowtie2_assembly_assessment_3:
         log = os.path.join("{sample}", "logs", "Step_3", "bowtie2_alignment", "{sample}.log"),
     shell:
         """
-        bowtie2 -p 8 -x {params.bowtie2_output_prefix} -1 {input.r1_paired} -2 {input.r1_paired} > {output.bowtie2_output_bam} > {log.log}
+        bowtie2 -p 8 -x {params.bowtie2_output_prefix} -1 {input.r1_paired} -2 {input.r1_paired} > {output.bowtie2_output_bam} 2> {log.log}
         """
 
 rule samtools_fixmate_1:
