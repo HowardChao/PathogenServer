@@ -8,9 +8,10 @@ https://docs.djangoproject.com/en/2.1/howto/deployment/wsgi/
 """
 
 import os
-
+import sys
 from django.core.wsgi import get_wsgi_application
-
+sys.path.append('/ssd/Howard/Virus/bacteriaNGS/VirusRNASeq')
+sys.path.append('/ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/VirusRNASeq')
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'VirusRNASeq.settings')
 
 application = get_wsgi_application()

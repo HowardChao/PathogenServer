@@ -63,6 +63,7 @@ def newsletter_unsubscribe(request):
         if models.NewsletterUser.objects.filter(project_name=instance.project_name,email=instance.email, analysis_code=instance.analysis_code).exists():
             destination_QC_html_dir = os.path.join(os.path.dirname(dataanalysis.__file__), 'templates', 'dataanalysis', 'tmp', instance.project_name + '_' + instance.email + '_' + instance.analysis_code)
             if os.path.exists(destination_QC_html_dir):
+                print("destination_QC_html_dir: ", destination_QC_html_dir)
                 shutil.rmtree(destination_QC_html_dir)
             inside_or_outside = True
             print("You successfully delete your project!")

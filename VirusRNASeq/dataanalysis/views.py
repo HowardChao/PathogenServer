@@ -16,6 +16,7 @@ import django_q.tasks as django_q_tasks
 from django_q.monitor import Stat
 import math
 import time
+import delegator
 import celery
 import celery.task.control as taskControl
 from django_celery_results.models import TaskResult
@@ -336,7 +337,7 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
             gatk_pathogen_dict = os.path.join(pathogen_dir, bwa_pathogen_full_name)
 
             config_file_path = os.path.join(base_dir, 'config.yaml')
-            snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_reference_based")
+            snakemake_file = os.path.join(prefix_dir, "bacteriaNGS/VirusRNASeq/Snakefile_reference_based")
             destination_snakemake_file = os.path.join(base_dir, 'Snakefile')
             # destination_config_yaml = os.path.join(base_dir, 'config.yaml')
             data = dict(
@@ -383,7 +384,7 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
                 os.mkdir((os.path.join(base_dir, 'get_time_script')))
             for name in ['start', 'end']:
                 get_time_script = os.path.join(
-                    prefix_dir, "VirusRNASeq/VirusRNASeq/get_time_script/get_" + name + "_time.py")
+                    prefix_dir, "bacteriaNGS/VirusRNASeq/get_time_script/get_" + name + "_time.py")
                 destination_get_time_script = os.path.join(
                     base_dir, 'get_time_script/get_' + name + '_time.py')
                 shutil.copyfile(get_time_script, destination_get_time_script)
@@ -400,6 +401,7 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
                     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                     print("*&*&*&*&*& Start running SNAKEMAKE !!!!")
                     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                    print("!!! base_dir: ", base_dir)
                     task_result = tasks.start_snakemake_task.apply_async([base_dir], task_id = new_task_id)
             template_html = "dataanalysis/analysis_home_reference_based.html"
             fetch_job_status = utils_func.celery_check(project_name, email, analysis_code)
@@ -673,7 +675,7 @@ def de_novo_assembly_whole_dataanalysis(request, slug_project):
             # gatk_pathogen_dict = os.path.join(pathogen_dir, bwa_pathogen_full_name)
 
             config_file_path = os.path.join(base_dir, 'config.yaml')
-            snakemake_file = os.path.join(prefix_dir, "VirusRNASeq/VirusRNASeq/Snakefile_de_novo")
+            snakemake_file = os.path.join(prefix_dir, "bacteriaNGS/VirusRNASeq/Snakefile_de_novo")
             destination_snakemake_file = os.path.join(base_dir, 'Snakefile')
             # destination_config_yaml = os.path.join(base_dir, 'config.yaml')
             data = dict(
@@ -718,7 +720,7 @@ def de_novo_assembly_whole_dataanalysis(request, slug_project):
                 os.mkdir((os.path.join(base_dir, 'get_time_script')))
             for name in ['start', 'end']:
                 get_time_script = os.path.join(
-                    prefix_dir, "VirusRNASeq/VirusRNASeq/get_time_script/get_" + name + "_time.py")
+                    prefix_dir, "bacteriaNGS/VirusRNASeq/get_time_script/get_" + name + "_time.py")
                 destination_get_time_script = os.path.join(
                     base_dir, 'get_time_script/get_' + name + '_time.py')
                 shutil.copyfile(get_time_script, destination_get_time_script)

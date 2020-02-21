@@ -45,14 +45,14 @@ rule targets:
                             "{sample}.1.bt2"), sample=samples),
         expand(os.path.join("{sample}", "Step_3", "bowtie2", "{sample}.bam"), sample=samples),
 
-        expand(os.path.join("{sample}", "Step_4", "samtools", "{sample}_fixmate.bam"), sample=samples),
+        # expand(os.path.join("{sample}", "Step_4", "samtools", "{sample}_fixmate.bam"), sample=samples),
 
-        expand(os.path.join("{sample}", "Step_4", "samtools", "{sample}_sorted.bam"), sample=samples),
-        expand(os.path.join("{sample}", "Step_5", "bcftools", "{sample}.vcf"), sample=samples),
-        expand(os.path.join("{sample}", "Step_5", "bcftools", "{sample}_revise.vcf"), sample=samples),
-        expand(os.path.join("{sample}", "Step_5", "bcftools", "{sample}_revise.vcf.gz"), sample=samples),
-        expand(os.path.join("{sample}", "Step_6", "snpeff", "{sample}.ann.vcf"), sample=samples),
-        expand(os.path.join("{sample}", "Step_6", "snpeff", "{sample}_snpEff_summary.html"), sample=samples),
+        # expand(os.path.join("{sample}", "Step_4", "samtools", "{sample}_sorted.bam"), sample=samples),
+        # expand(os.path.join("{sample}", "Step_5", "bcftools", "{sample}.vcf"), sample=samples),
+        # expand(os.path.join("{sample}", "Step_5", "bcftools", "{sample}_revise.vcf"), sample=samples),
+        # expand(os.path.join("{sample}", "Step_5", "bcftools", "{sample}_revise.vcf.gz"), sample=samples),
+        # expand(os.path.join("{sample}", "Step_6", "snpeff", "{sample}.ann.vcf"), sample=samples),
+        # expand(os.path.join("{sample}", "Step_6", "snpeff", "{sample}_snpEff_summary.html"), sample=samples),
 
         # # expand(os.path.join("{sample}", "Step_4", "bcftools", "{sample}.vcf"), sample=samples),
         # expand(os.path.join("{sample}", "Step_4", "bcftools", "{sample}.vcf"), sample=samples),
@@ -249,7 +249,6 @@ rule second_multiqc:
 #         mv {params.mv_from} {params.mv_to}
 #         """
 
-
 rule a5_miseq_denovo_assembly:
     input:
         r1_paired = os.path.join("{sample}", "Step_1", "trimmed_paired", "{sample}_r1_paired.fastq.gz"),
@@ -262,8 +261,6 @@ rule a5_miseq_denovo_assembly:
         assembly_stats_csv = os.path.join("{sample}_a5.assembly_stats.csv"),
     params:
         a5_base_dir = "{sample}_a5",
-        mv_from = "{sample}_a5*",
-        mv_to = os.path.join("{sample}", "Step_2", "a5_miseq")
     priority: 94,
     log:
         log = os.path.join("{sample}", "logs", "Step_2", "a5_miseq", "{sample}.log"),
@@ -288,8 +285,6 @@ rule a5_miseq_denovo_assembly_move:
         """
         mv {params.mv_from} {params.mv_to}
         """
-
-
 
 
 
@@ -353,147 +348,147 @@ rule bowtie2_assembly_assessment_3:
         bowtie2 -p 8 -x {params.bowtie2_output_prefix} -1 {input.r1_paired} -2 {input.r1_paired} > {output.bowtie2_output_bam} 2> {log.log}
         """
 
-rule samtools_fixmate_1:
-    input:
-        bowtie2_output_bam = os.path.join("{sample}", "Step_3", "bowtie2", "{sample}.bam")
-    output:
-        samtools_bam = os.path.join("{sample}", "Step_4", "samtools", "{sample}_fixmate.bam"),
-    params:
-    priority: 88,
-    log:
-        log = os.path.join("{sample}", "logs", "Step_4", "samtools_fixmate", "{sample}.log"),
-    shell:
-        """
-        samtools fixmate -O bam {input.bowtie2_output_bam} {output.samtools_bam}
-        """
-
-rule samtools_sort_2:
-    input:
-        samtools_bam = os.path.join("{sample}", "Step_4", "samtools", "{sample}_fixmate.bam"),
-    output:
-        samtools_sorted_bam = os.path.join("{sample}", "Step_4", "samtools", "{sample}_sorted.bam"),
-    params:
-    priority: 87,
-    log:
-        log = os.path.join("{sample}", "logs", "Step_4", "samtools_sorted", "{sample}.log"),
-    shell:
-        """
-        samtools sort -O bam -o {output.samtools_sorted_bam} {input.samtools_bam}
-        """
-
-
-rule bcftools_mpileup_1:
-    input:
-        contigs_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.fasta"),
-        samtools_sorted_bam = os.path.join("{sample}", "Step_4", "samtools", "{sample}_sorted.bam"),
-    output:
-        bcftools_vcf = os.path.join("{sample}", "Step_5", "bcftools", "{sample}.vcf"),
-    params:
-    priority: 85,
-    log:
-        log = os.path.join("{sample}", "logs", "Step_5", "bcftools_vcf", "{sample}_vcf.log"),
-    shell:
-        """
-        bcftools mpileup -Ou -f {input.contigs_fasta} {input.samtools_sorted_bam} | bcftools call -vmO v -o {output.bcftools_vcf}
-        """
-
-
-rule sed_vcf_revise:
-    input:
-        bcftools_vcf = os.path.join("{sample}", "Step_5", "bcftools", "{sample}.vcf"),
-    output:
-        bcftools_revise_vcf = os.path.join("{sample}", "Step_5", "bcftools", "{sample}_revise.vcf"),
-    params:
-        origin_chromosome_name = "NC_000962.3",
-        target_chromosome_name = "Chromosome",
-    priority: 84,
-    log:
-        log = os.path.join("{sample}", "logs", "Step_5", "bcftools_vcf_revise", "{sample}_revise_vcf.log"),
-    shell:
-        """
-        sed 's/{params.origin_chromosome_name}/{params.target_chromosome_name}/g' "{input.bcftools_vcf}" > {output.bcftools_revise_vcf}
-        """
-
-rule gzip_vcf_file:
-    input:
-        bcftools_revise_vcf = os.path.join("{sample}", "Step_5", "bcftools", "{sample}_revise.vcf"),
-    output:
-        bcftools_revise_vcf_gz = os.path.join("{sample}", "Step_5", "bcftools", "{sample}_revise.vcf.gz"),
-    priority: 83,
-    log:
-        log = os.path.join("{sample}", "logs", "Step_5", "bcftools_vcf_revise_gzip", "{sample}_revise_vcf.gz.log"),
-    shell:
-        """
-        bgzip < {input.bcftools_revise_vcf} > {output.bcftools_revise_vcf_gz}
-        """
-
-
-rule snpeff_1:
-    input:
-        bcftools_revise_vcf = os.path.join("{sample}", "Step_5", "bcftools", "{sample}_revise.vcf"),
-    output:
-        snpeff_ann_vcf = os.path.join("{sample}", "Step_6", "snpeff", "{sample}.ann.vcf"),
-        stats_html_summary = os.path.join("{sample}", "Step_6", "snpeff", "{sample}_snpEff_summary.html"),
-        # stats_txt_genes= os.path.join("{sample}", "Step_5", "snpeff", "{sample}"),
-    params:
-    priority: 82,
-    log:
-        log = os.path.join("{sample}", "logs", "Step_6", "snpeff_ann_vcf", "{sample}.log"),
-    shell:
-        """
-        java -Xmx4g -jar {config[snpEff][snpEff_jar]} -c {config[snpEff][snpEff_config]} Mycobacterium_tuberculosis_h37rv -stats {output.stats_html_summary} {input.bcftools_revise_vcf} > {output.snpeff_ann_vcf}
-        """
-
-
-
-
-
-
-
-
-rule gatk_1:
-    input:
-        snpeff_vcf = os.path.join("{sample}", "Step_5", "snpeff", "{sample}.ann.vcf"),
-    output:
-        gatk_dict = os.path.join("{sample}", "Step_6", "gatk", "{sample}.dict"),
-    params:
-    priority: 85,
-    log:
-        log = os.path.join("{sample}", "logs", "gatk_CreateSequenceDictionary", "{sample}.log"),
-    shell:
-        """
-        java -jar {config[gatk][gatk_jar]} CreateSequenceDictionary -R {config[bwa][bwa_pathogen_dir]} -O {output.gatk_dict}
-        """
-
-rule gatk_2:
-    input:
-        bcftools_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}_revise.vcf.gz"),
-    output:
-        gatk_vcf_gz_tbi = os.path.join("{sample}", "Step_6", "gatk", "{sample}.vcf.gz.tbi"),
-    params:
-    priority: 84,
-    log:
-        log = os.path.join("{sample}", "logs", "snpeff_IndexFeatureFile", "{sample}.log"),
-    shell:
-        """
-        java -jar {config[gatk][gatk_jar]} IndexFeatureFile -F {input.bcftools_vcf}
-        """
-
-rule gatk_3:
-    input:
-        bcftools_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}_revise.vcf.gz"),
-    output:
-        gatk_out_fa = os.path.join("{sample}", "Step_6", "gatk", "{sample}_out.fa"),
-    params:
-    priority: 83,
-    log:
-        log = os.path.join("{sample}", "logs", "snpeff_FastaAlternateReferenceMaker", "{sample}.log"),
-    shell:
-        """
-        java -jar {config[gatk][gatk_jar]} FastaAlternateReferenceMaker -R {config[bwa][bwa_pathogen_dir]} -V {input.bcftools_vcf} --output {output.gatk_out_fa}
-        """
-
-
+# rule samtools_fixmate_1:
+#     input:
+#         bowtie2_output_bam = os.path.join("{sample}", "Step_3", "bowtie2", "{sample}.bam")
+#     output:
+#         samtools_bam = os.path.join("{sample}", "Step_4", "samtools", "{sample}_fixmate.bam"),
+#     params:
+#     priority: 88,
+#     log:
+#         log = os.path.join("{sample}", "logs", "Step_4", "samtools_fixmate", "{sample}.log"),
+#     shell:
+#         """
+#         samtools fixmate -O bam {input.bowtie2_output_bam} {output.samtools_bam}
+#         """
+#
+# rule samtools_sort_2:
+#     input:
+#         samtools_bam = os.path.join("{sample}", "Step_4", "samtools", "{sample}_fixmate.bam"),
+#     output:
+#         samtools_sorted_bam = os.path.join("{sample}", "Step_4", "samtools", "{sample}_sorted.bam"),
+#     params:
+#     priority: 87,
+#     log:
+#         log = os.path.join("{sample}", "logs", "Step_4", "samtools_sorted", "{sample}.log"),
+#     shell:
+#         """
+#         samtools sort -O bam -o {output.samtools_sorted_bam} {input.samtools_bam}
+#         """
+#
+#
+# rule bcftools_mpileup_1:
+#     input:
+#         contigs_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.fasta"),
+#         samtools_sorted_bam = os.path.join("{sample}", "Step_4", "samtools", "{sample}_sorted.bam"),
+#     output:
+#         bcftools_vcf = os.path.join("{sample}", "Step_5", "bcftools", "{sample}.vcf"),
+#     params:
+#     priority: 85,
+#     log:
+#         log = os.path.join("{sample}", "logs", "Step_5", "bcftools_vcf", "{sample}_vcf.log"),
+#     shell:
+#         """
+#         bcftools mpileup -Ou -f {input.contigs_fasta} {input.samtools_sorted_bam} | bcftools call -vmO v -o {output.bcftools_vcf}
+#         """
+#
+#
+# rule sed_vcf_revise:
+#     input:
+#         bcftools_vcf = os.path.join("{sample}", "Step_5", "bcftools", "{sample}.vcf"),
+#     output:
+#         bcftools_revise_vcf = os.path.join("{sample}", "Step_5", "bcftools", "{sample}_revise.vcf"),
+#     params:
+#         origin_chromosome_name = "NC_000962.3",
+#         target_chromosome_name = "Chromosome",
+#     priority: 84,
+#     log:
+#         log = os.path.join("{sample}", "logs", "Step_5", "bcftools_vcf_revise", "{sample}_revise_vcf.log"),
+#     shell:
+#         """
+#         sed 's/{params.origin_chromosome_name}/{params.target_chromosome_name}/g' "{input.bcftools_vcf}" > {output.bcftools_revise_vcf}
+#         """
+#
+# rule gzip_vcf_file:
+#     input:
+#         bcftools_revise_vcf = os.path.join("{sample}", "Step_5", "bcftools", "{sample}_revise.vcf"),
+#     output:
+#         bcftools_revise_vcf_gz = os.path.join("{sample}", "Step_5", "bcftools", "{sample}_revise.vcf.gz"),
+#     priority: 83,
+#     log:
+#         log = os.path.join("{sample}", "logs", "Step_5", "bcftools_vcf_revise_gzip", "{sample}_revise_vcf.gz.log"),
+#     shell:
+#         """
+#         bgzip < {input.bcftools_revise_vcf} > {output.bcftools_revise_vcf_gz}
+#         """
+#
+#
+# rule snpeff_1:
+#     input:
+#         bcftools_revise_vcf = os.path.join("{sample}", "Step_5", "bcftools", "{sample}_revise.vcf"),
+#     output:
+#         snpeff_ann_vcf = os.path.join("{sample}", "Step_6", "snpeff", "{sample}.ann.vcf"),
+#         stats_html_summary = os.path.join("{sample}", "Step_6", "snpeff", "{sample}_snpEff_summary.html"),
+#         # stats_txt_genes= os.path.join("{sample}", "Step_5", "snpeff", "{sample}"),
+#     params:
+#     priority: 82,
+#     log:
+#         log = os.path.join("{sample}", "logs", "Step_6", "snpeff_ann_vcf", "{sample}.log"),
+#     shell:
+#         """
+#         java -Xmx4g -jar {config[snpEff][snpEff_jar]} -c {config[snpEff][snpEff_config]} Mycobacterium_tuberculosis_h37rv -stats {output.stats_html_summary} {input.bcftools_revise_vcf} > {output.snpeff_ann_vcf}
+#         """
+#
+#
+#
+#
+#
+#
+#
+#
+# rule gatk_1:
+#     input:
+#         snpeff_vcf = os.path.join("{sample}", "Step_5", "snpeff", "{sample}.ann.vcf"),
+#     output:
+#         gatk_dict = os.path.join("{sample}", "Step_6", "gatk", "{sample}.dict"),
+#     params:
+#     priority: 85,
+#     log:
+#         log = os.path.join("{sample}", "logs", "gatk_CreateSequenceDictionary", "{sample}.log"),
+#     shell:
+#         """
+#         java -jar {config[gatk][gatk_jar]} CreateSequenceDictionary -R {config[bwa][bwa_pathogen_dir]} -O {output.gatk_dict}
+#         """
+#
+# rule gatk_2:
+#     input:
+#         bcftools_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}_revise.vcf.gz"),
+#     output:
+#         gatk_vcf_gz_tbi = os.path.join("{sample}", "Step_6", "gatk", "{sample}.vcf.gz.tbi"),
+#     params:
+#     priority: 84,
+#     log:
+#         log = os.path.join("{sample}", "logs", "snpeff_IndexFeatureFile", "{sample}.log"),
+#     shell:
+#         """
+#         java -jar {config[gatk][gatk_jar]} IndexFeatureFile -F {input.bcftools_vcf}
+#         """
+#
+# rule gatk_3:
+#     input:
+#         bcftools_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}_revise.vcf.gz"),
+#     output:
+#         gatk_out_fa = os.path.join("{sample}", "Step_6", "gatk", "{sample}_out.fa"),
+#     params:
+#     priority: 83,
+#     log:
+#         log = os.path.join("{sample}", "logs", "snpeff_FastaAlternateReferenceMaker", "{sample}.log"),
+#     shell:
+#         """
+#         java -jar {config[gatk][gatk_jar]} FastaAlternateReferenceMaker -R {config[bwa][bwa_pathogen_dir]} -V {input.bcftools_vcf} --output {output.gatk_out_fa}
+#         """
+#
+#
 rule get_end_time:
     output:
         end_time = 'time/end_time.txt',

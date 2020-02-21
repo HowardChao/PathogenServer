@@ -1,0 +1,19 @@
+[2020-02-21 23:54:57,492: WARNING/ForkPoolWorker-16] Start snakemake
+[2020-02-21 23:54:57,493: WARNING/ForkPoolWorker-16] working_directory:
+[2020-02-21 23:54:57,493: WARNING/ForkPoolWorker-16] /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74
+[2020-02-21 23:54:57,493: WARNING/ForkPoolWorker-16] Print finished !!
+[2020-02-21 23:54:57,493: WARNING/ForkPoolWorker-16] snakefile!! :
+[2020-02-21 23:54:57,493: WARNING/ForkPoolWorker-16] /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/Snakefile
+[2020-02-21 23:54:57,502: WARNING/ForkPoolWorker-16] c.pid:
+[2020-02-21 23:54:57,502: WARNING/ForkPoolWorker-16] 17440
+[2020-02-21 23:54:57,503: WARNING/ForkPoolWorker-16] c.out: whoami ~
+[2020-02-21 23:54:57,503: WARNING/ForkPoolWorker-16] apache
+[2020-02-21 23:54:57,503: WARNING/ForkPoolWorker-16] c.return_code:
+[2020-02-21 23:54:57,503: WARNING/ForkPoolWorker-16] None
+[2020-02-21 23:54:57,510: WARNING/ForkPoolWorker-16] c.pid:
+[2020-02-21 23:54:57,510: WARNING/ForkPoolWorker-16] 17442
+[2020-02-21 23:54:57,511: WARNING/ForkPoolWorker-16] c.out: groups ~
+[2020-02-21 23:54:57,511: WARNING/ForkPoolWorker-16] apache root wheel celery
+[2020-02-21 23:54:57,511: WARNING/ForkPoolWorker-16] c.return_code:
+[2020-02-21 23:54:57,511: WARNING/ForkPoolWorker-16] None
+[2020-02-21 23:54:57,511: WARNING/ForkPoolWorker-16] Second time!
