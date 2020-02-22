@@ -857,7 +857,7 @@ def de_novo_assembly_show_result_overview(request, slug_project):
         destination_multiqc_datadir_post = os.path.join(destination_QC_html_dir, 'post', sample_name+'_multiqc.html')
         destination_quast_datadir_report = os.path.join(destination_quast_html_dir, 'report.html')
         destination_quast_datadir_contig = os.path.join(destination_quast_html_dir, 'icarus_viewers', 'contig_size_viewer.html')
-        destination_snpeff_datadir = os.path.join(destination_snpeff_html_dir, sample_name+'_snpEff_summary.html')
+        # destination_snpeff_datadir = os.path.join(destination_snpeff_html_dir, sample_name+'_snpEff_summary.html')
         if not os.path.exists(destination_QC_html_dir):
             os.makedirs(destination_QC_html_dir)
             os.makedirs(os.path.join(destination_QC_html_dir, 'pre'))
@@ -871,15 +871,15 @@ def de_novo_assembly_show_result_overview(request, slug_project):
         if not os.path.exists(destination_quast_html_dir):
             os.makedirs(destination_quast_html_dir)
             os.makedirs(os.path.join(destination_quast_html_dir, 'icarus_viewers'))
-            # shutil.copyfile(quast_html_datadir_report, destination_quast_datadir_report)
-            with open(quast_html_datadir_report, "rt") as fin:
-                with open(destination_quast_datadir_report, "wt") as fout:
+            shutil.copyfile(quast_html_datadir_icarus, destination_quast_datadir_contig)
+            shutil.copyfile(quast_html_datadir_report, destination_quast_datadir_report)
+            with open(quast_html_datadir_report, "rt", encoding="utf-8") as fin:
+                with open(destination_quast_datadir_report, "wt", encoding="utf-8") as fout:
                     for line in fin:
                         fout.write(line.replace("num_N's_per_100_kbp", "num_Ns_per_100_kbp"))
-            shutil.copyfile(quast_html_datadir_icarus, destination_quast_datadir_contig)
-        if not os.path.exists(destination_snpeff_html_dir):
-            os.makedirs(destination_snpeff_html_dir)
-            shutil.copyfile(snpeff_html_datadir, destination_snpeff_datadir)
+        # if not os.path.exists(destination_snpeff_html_dir):
+        #     os.makedirs(destination_snpeff_html_dir)
+        #     shutil.copyfile(snpeff_html_datadir, destination_snpeff_datadir)
         one_sample_all_result["fastqc_datadir_pre_r1"] = sample_name+'.R1_fastqc.html'
         one_sample_all_result["fastqc_datadir_pre_r2"] = sample_name+'.R2_fastqc.html'
         one_sample_all_result["multiqc_datadir_pre"] = sample_name+'_multiqc.html'
@@ -986,8 +986,8 @@ def de_novo_assembly_show_result_overview(request, slug_project):
         one_sample_all_result["Step_5_check_denovo_bcftools_vcf_revise"] = Step_5_check_denovo_bcftools_vcf_revise[1]
 
 
-        Step_6_check_denovo_snpeff_vcf_annotation = utils_func.Step_6_check_denovo_snpeff_vcf_annotation(url_sample_base_dir, sample_datadir, sample_name)
-        one_sample_all_result["Step_6_check_denovo_snpeff_vcf_annotation"] = Step_6_check_denovo_snpeff_vcf_annotation[1]
+        # Step_6_check_denovo_snpeff_vcf_annotation = utils_func.Step_6_check_denovo_snpeff_vcf_annotation(url_sample_base_dir, sample_datadir, sample_name)
+        # one_sample_all_result["Step_6_check_denovo_snpeff_vcf_annotation"] = Step_6_check_denovo_snpeff_vcf_annotation[1]
         samples_all_result[sample_name] = one_sample_all_result
         trimmomatic_command_log = os.path.join(settings.MEDIA_ROOT, 'tmp', project_name + '_' + email + '_' + analysis_code, sample_name, 'logs', 'trimmomatic_pe', sample_name+'.command.log')
         if os.path.exists(trimmomatic_command_log):
@@ -1152,21 +1152,6 @@ def quast_result_html_view(request, slug_project, slug_sample):
         'url_parameter': url_parameter,
     })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def quast_contig_html_view(request, slug_project, slug_sample):
     (project_name, analysis_code, email, assembly_type_input) = utils_func.check_session(request)
     url_parameter = project_name + '_' + email.split("@")[0]
@@ -1200,6 +1185,7 @@ def snpeff_report_denovo(request, slug_project, slug_sample):
     url_parameter = project_name + '_' + email.split("@")[0]
     base_dir = os.path.join(settings.MEDIA_ROOT,
                             'tmp', project_name + '_' + email + '_' + analysis_code)
+    # html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, slug_sample, 'Step_6', 'snpeff', slug_sample+'_snpEff_summary.html')
     html_file = os.path.join('dataanalysis', 'tmp', project_name + '_' + email + '_' + analysis_code, slug_sample, 'Step_6', 'snpeff', slug_sample+'_snpEff_summary.html')
     return render(request, html_file, {
         'project_name': project_name,

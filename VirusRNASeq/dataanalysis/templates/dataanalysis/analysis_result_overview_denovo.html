@@ -128,12 +128,6 @@
                                               <li>
                                                   <a href="#" id="{{sample_key}}_denovo_assessment_result_nav_bar" class="pipeline_result_nav_bar" onclick="loading(this.name)" name="{{sample_key}}_denovo_assessment_result" style="margin-left: 8px;"><i class="fas fa-align-left"></i>  &nbsp Assembly Assessment</a>
                                               </li>
-                                              <li>
-                                                  <a href="#" id="{{sample_key}}_variant_calling_result_nav_bar" class="pipeline_result_nav_bar" onclick="loading(this.name)" name="{{sample_key}}_variant_calling_result" style="margin-left: 8px;"><i class="fas fa-search-plus"></i> &nbsp Variant Calling</a>
-                                              </li>
-                                              <li>
-                                                  <a href="#" id="{{sample_key}}_variant_calling_file_annotationpipeline_result_nav_bar" class="pipeline_result_nav_bar" onclick="loading(this.name)" name="{{sample_key}}_variant_calling_file_annotationpipeline_result" style="margin-left: 8px;"><i class="fas fa-highlighter"></i> &nbsp VCF Annotation</a>
-                                              </li>
                                           </ul>
                                       </nav>
                                     </div>
@@ -239,7 +233,7 @@
                                                     <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
                                                         <tr>
                                                             <td style="font-family: Verdana, Geneva, sans-serif" width="60%"><b>A5-miseq Assemblied Contigs :</b></td>
-                                                            <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_2_check_denovo_a5_miseq.url_a5_contigs_fasta}}" class="link_color" donwload><center><u>Download</u></center></a></td>
+                                                            <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_2_check_denovo_a5_miseq.url_a5_contigs_fasta}}" class="link_color" download><center><u>Download</u></center></a></td>
                                                         </tr>
                                                     </table>
                                                     <hr>
@@ -250,7 +244,7 @@
                                                         <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
                                                           <tr>
                                                               <td style="font-family: Verdana, Geneva, sans-serif" width="60%"><b>A5-miseq Statistics Report :</b></td>
-                                                              <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_2_check_denovo_a5_miseq.url_a5_assembly_stats_csv}}" class="link_color" donwload><center><u>Download</u></center></a></td>
+                                                              <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_2_check_denovo_a5_miseq.url_a5_assembly_stats_csv}}" class="link_color" download><center><u>Download</u></center></a></td>
                                                           </tr>
                                                         </table>
                                                         <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
@@ -387,87 +381,6 @@
                                                       <div style="margin-bottom: 100px">
                                                       </div>
                                                   </div>
-                                          </div>
-                                      </div>
-
-                                      <div class="pipeline_result" id="{{sample_key}}_variant_calling_result" style="display: none; height: 100%;">
-                                          <div class="w3-main" style="margin-left:130px; margin-right:50px;">
-                                              <header class="w3-container" style="padding-top:22px;">
-                                                  <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-search-plus"></i> &nbsp &nbsp<strong>Variant Calling</strong></h1>
-                                              </header>
-                                              <div class="content-below-header-overview" >
-                                                  <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px;">
-                                                      <div style="width:100%; outline: 5px solid #B07B41; outline-offset: 10px; outline-style: double;">
-                                                        <p>Congradulations! Your job has been completed <strong style="font-size:20px; color: green;">successfully</strong>!</p>
-                                                      </div>
-                                                  </div>
-                                                  <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:70px;">
-                                                      <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>SAMtools Results</b></h4>
-                                                      <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
-                                                          <tr>
-                                                              <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b>SAMtools fixmate <i>BAM</i> file :</b></td>
-                                                              <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_4_check_denovo_samtools_fixmate_bam.url_denovo_samtools_fixmate_bam}}" class="link_color" donwload><center><u>Download</u></center></a></td>
-                                                          </tr>
-                                                          <tr>
-                                                              <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b>SAMtools sort <i>BAM</i> file :</b></td>
-                                                              <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_4_check_denovo_samtools_sorted_bam.url_denovo_samtools_sorted_bam}}" class="link_color" donwload><center><u>Download</u></center></a></td>
-                                                          </tr>
-                                                      </table>
-                                                  </div>
-
-                                                  <hr>
-                                                  <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:40px;">
-                                                      <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>BCFtools Results</b></h4>
-                                                      <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
-                                                          <tr>
-                                                              <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b>BCFtools mpileup | call <i>VCF</i> file :</b></td>
-                                                              <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_5_check_denovo_bcftools_vcf.url_denovo_bcftools_vcf}}" class="link_color" donwload><center><u>Download</u></center></a></td>
-                                                          </tr>
-                                                          <tr>
-                                                              <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b>BCFtools revise <i>VCF</i> file :</b></td>
-                                                              <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_5_check_denovo_bcftools_vcf_revise.url_denovo_bcftools_vcf_revise}}" class="link_color" donwload><center><u>Download</u></center></a></td>
-                                                          </tr>
-                                                      </table>
-                                                      <hr>
-                                                      <div style="margin-bottom: 100px">
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div class="pipeline_result" id="{{sample_key}}_variant_calling_file_annotationpipeline_result" style="display: none; height: 100%;">
-                                          <div class="w3-main" style="margin-left:130px; margin-right:50px;">
-                                              <header class="w3-container" style="padding-top:22px;">
-                                                  <h1 class="content-title-group" style="margin-left:-40px;"><i class="fas fa-highlighter"></i> &nbsp &nbsp<strong>Variant Calling Annotation</strong></h1>
-                                              </header>
-                                              <div class="content-below-header-overview" >
-                                                  <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px;">
-                                                      <div style="width:100%; outline: 5px solid #B07B41; outline-offset: 10px; outline-style: double;">
-                                                        <p>Congradulations! Your job has been completed <strong style="font-size:20px; color: green;">successfully</strong>!</p>
-                                                      </div>
-                                                  </div>
-                                                  <div class="w3-row-padding w3-margin-bottom" style="float:center; margin-top:70px;">
-                                                      <h4 class="content-title-group"><i class="fas fa-dot-circle"></i>&nbsp&nbsp<b>SnpEff Results</b></h4>
-                                                      <table class="w3-table w3-striped w3-white" style="width:100%; margin-top:15px;">
-                                                          <tr>
-                                                              <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b>SnpEff report <i>HTML</i> file :</b></td>
-                                                              <!-- <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_6_check_denovo_snpeff_vcf_annotation.denovo_snpeff_vcf_annotation_html}}" class="link_color"><center><u>Download</u></center></a></td> -->
-                                                              <td style="font-family: Verdana, Geneva, sans-serif"><a target="_blank" rel="noopener noreferrer" href={% url "de_novo_assembly_dataanalysis_result_current_status_snpeff_report" slug_project=url_parameter slug_sample=sample_key%} class="link_color"><center><u>Link</u></center></a>
-                                                          </tr>
-                                                          <tr>
-                                                              <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b>SnpEff annotation <i>ANN.VCF</i> file :</b></td>
-                                                              <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_6_check_denovo_snpeff_vcf_annotation.url_denovo_snpeff_vcf_annotation}}"class="link_color" donwload><center><u>Download</u></center></a></td>
-                                                          </tr>
-                                                          <tr>
-                                                              <td style="font-family: Verdana, Geneva, sans-serif" width="50%"><b>SnpEff report <i>TXT</i> file :</b></td>
-                                                              <td style="font-family: Verdana, Geneva, sans-serif"><a href="{{one_sample_all_info.Step_6_check_denovo_snpeff_vcf_annotation.url_denovo_snpeff_vcf_annotation_txt}}" class="link_color" donwload><center><u>Download</u></center></a></td>
-                                                          </tr>
-                                                      </table>
-                                                      <hr>
-                                                      <div style="margin-bottom: 100px">
-                                                      </div>
-                                                  </div>
-                                              </div>
                                           </div>
                                       </div>
                                   </div>

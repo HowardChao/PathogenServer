@@ -37,7 +37,7 @@ urlpatterns = [
     path('result/<slug:slug_project>/<slug:slug_sample>/de-novo-assembly/current-status/quast/quast_result_html', views.quast_result_html_view, name="de_novo_assembly_dataanalysis_result_current_status_quast_result_html"),
     path('result/<slug:slug_project>/<slug:slug_sample>/de-novo-assembly/current-status/quast/quast_contig_html', views.quast_contig_html_view, name="de_novo_assembly_dataanalysis_result_current_status_quast_contig_html"),
 
-    path('result/<slug:slug_project>/<slug:slug_sample>/de-novo-assembly/current-status/snpeff/html_report', views.snpeff_report_denovo, name="de_novo_assembly_dataanalysis_result_current_status_snpeff_report"),
+    # path('result/<slug:slug_project>/<slug:slug_sample>/de-novo-assembly/current-status/snpeff/html_report', views.snpeff_report_denovo, name="de_novo_assembly_dataanalysis_result_current_status_snpeff_report"),
 
     # path('result/<slug:slug_project>/current-status/QC/post/<slug:slug_filename>', views.post_qc_html_view, name="dataanalysis_result_current_status_post_qc_html"),
 ]

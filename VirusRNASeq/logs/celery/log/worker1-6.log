@@ -17,3 +17,5 @@
 [2020-02-22 00:34:01,994: WARNING/ForkPoolWorker-6] c.return_code:
 [2020-02-22 00:34:01,994: WARNING/ForkPoolWorker-6] None
 [2020-02-22 00:34:01,994: WARNING/ForkPoolWorker-6] Second time!
+[2020-02-22 04:22:23,625: WARNING/ForkPoolWorker-6] snakemake_result:
+[2020-02-22 04:22:23,625: WARNING/ForkPoolWorker-6] 1

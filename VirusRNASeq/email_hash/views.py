@@ -55,8 +55,6 @@ def newsletter_singup(request):
 
 def newsletter_unsubscribe(request):
     form = forms.NewsletterUserDeleteAnalysisForm(request.POST or None)
-
-
     if form.is_valid():
         instance = form.save(commit=False)
         inside_or_outside = False
