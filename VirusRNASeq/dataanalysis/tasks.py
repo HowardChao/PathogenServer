@@ -34,8 +34,8 @@ def start_snakemake_task(working_directory):
     # print("c.pid: ", snakemake_result.pid)
     # print("c.out: ", snakemake_result.out)
     # print("c.return_code: ", snakemake_result.return_code)
-    
-    snakemake_result = subprocess.call(['/ssd/Howard/Virus/venv/bin/snakemake'], cwd = working_directory, shell=True)
+    snakemake_output_file = os.path.join(working_directory, 'logs', 'snakemake_output.log')
+    snakemake_result = subprocess.call(['/ssd/Howard/Virus/venv/bin/snakemake' , '>>', snakemake_output_file], cwd = working_directory, shell=True)
 
     # try:
     #     # subprocess.check_output(['/ssd/Howard/Virus/venv/bin/snakemake'], cwd = working_directory, shell=True)

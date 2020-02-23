@@ -190,3 +190,24 @@ CELERY_CACHE_BACKEND = 'django-cache'
 CELERY_TASK_SERIALIZER = 'json'
 # CELERY_TRACK_STARTED = "task_track_started"
 task_track_started = True
+
+
+# Django Logging setting
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/logs/django/debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}

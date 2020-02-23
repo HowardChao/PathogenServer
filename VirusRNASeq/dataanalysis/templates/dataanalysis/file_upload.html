@@ -260,8 +260,20 @@
                           <div class="col"><hr></div>
                       </div>
                       <div style="margin-left: 15px; border: 1px dashed gray; border-radius: 8px">
-                        <p class="card-text" style="margin-left: 15px; margin-top: 7px;">The filename of the uploaded file must be <b>"samples.csv"</b>.<br> The name of the two columns must be <b>"ids"</b> and <b>"Groups"</b>.<br>There can only be <b>one</b> or <b>two</b> kinds of values in <b>"Groups"</b>.</p>
-                        <p class="card-text" style="margin-left: 15px; margin-bottom: 7px;"><i class="fas fa-dot-circle"></i> &nbsp Example File: &nbsp&nbsp <a href={{one_group_samples_csv}} download>samples.csv (one group)</a> &nbsp/&nbsp <a href={{two_group_samples_csv}} download>samples.csv (two group)</a></p>
+
+
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-7">
+                              <p class="card-text" style="margin-top: 7px;">The filename of the uploaded file must be <b>"samples.csv"</b>.<br> The name of the two columns must be <b>"ids"</b> and <b>"Groups"</b>.<br>There can only be <b>one</b> or <b>two</b> kinds of values in <b>"Groups"</b>.</p>
+                              <p class="card-text" style="margin-bottom: 7px;"><i class="fas fa-dot-circle"></i> &nbsp Download Example File: &nbsp&nbsp <a href={{one_group_samples_csv}} download>samples.csv (one group)</a> &nbsp/&nbsp <a href={{two_group_samples_csv}} download>samples.csv (two group)</a></p>
+                            </div>
+                            <div class="col-5">
+                                <button style="margin-top:80px;" type="button" class="btn btn-outline-info"><b>One Group Example</b></button>
+                                <button style="margin-top:80px" type="button" class="btn btn-outline-info"><b>Two Group Example</b></button>
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
                       <!-- <h1>{{sample_file_two_or_one}}</h1> -->
@@ -428,7 +440,7 @@
                                 <p class="card-text" style="margin-left: 15px">To select the files that are going to upload, you can <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp(1) Drag and drop the files into the "Upload Region" <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp(2) Click the "Upload Region" to select files</p>
                                 <p class="card-text" style="margin-left: 15px">After selecting compulsory files and removing invalid files, please click "<b>Upload button</b>" to start uploading.</p>
                                 <p class="card-text" style="margin-left: 15px;"><b style="color: red">DO NOT</b> refresh the page during uploading.</p>
-                                <p class="card-text" style="margin-left: 15px; margin-bottom: 7px;"><i class="fas fa-dot-circle"></i> &nbsp Example File: &nbsp&nbsp <a href={{fastq_R1}}>SRR8698485.R1.fastq.gz (R1)</a> &nbsp/&nbsp <a href={{fastq_R2}}>SRR8698485.R2.fastq.gz (R2)</a></p>
+                                <p class="card-text" style="margin-left: 15px; margin-bottom: 7px;"><i class="fas fa-dot-circle"></i> &nbsp Download Example File: &nbsp&nbsp <a href={{fastq_R1}}>SRR8698485.R1.fastq.gz (R1)</a> &nbsp/&nbsp <a href={{fastq_R2}}>SRR8698485.R2.fastq.gz (R2)</a></p>
                               </div>
 
 

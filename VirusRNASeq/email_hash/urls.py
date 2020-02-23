@@ -6,7 +6,7 @@ from email_hash import views
 
 urlpatterns = [
     path('start-new-analysis/', views.newsletter_singup, name='new_analysis'),
-    path('merge-two-project/', views.merge_project, name='merge_project'),
+    # path('merge-two-project/', views.merge_project, name='merge_project'),
     path('deleteanalysis/', views.newsletter_unsubscribe,
          name='delete_analysis'),
     path('check-project/', views.check_project, name='check_project'),

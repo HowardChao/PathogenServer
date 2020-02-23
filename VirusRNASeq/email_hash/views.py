@@ -12,6 +12,10 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 import shutil
 import dataanalysis
+import logging
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 TMP_DIR = "/home/kuan-hao/Documents/bioinformatics/Virus/analysis_results/tmp_project"
 

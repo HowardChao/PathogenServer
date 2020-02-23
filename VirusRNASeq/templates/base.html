@@ -16,7 +16,7 @@
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    <link href={% static 'css/mainstyles.css' %} rel="stylesheet" type="text/css" >
+    <link href={% static 'css/mainstyles.cs s' %} rel="stylesheet" type="text/css" >
     <script src={% static 'js/main.js' %}></script>
     <title>Welcome | Pathogen-NGS</title>
     {% block extraheader %}
@@ -65,23 +65,23 @@
                       </li>
                   {% else %}
                       <li class="nav-item nav-middle">
-                          <a class="nav-link" href={% url 'new_analysis' %}><i class="fas fa-plus"></i> Start New Project</a>
+                          <a class="nav-link" href={% url 'new_analysis' %}><i class="fas fa-plus"></i> Start New Project &nbsp&nbsp&nbsp</a>
                       </li>
-                      <li class="nav-item nav-middle">
+                      <!-- <li class="nav-item nav-middle">
                           <a class="nav-link" href={% url 'merge_project' %}><i class="fas fa-plus"></i> Merge Projects</a>
+                      </li> -->
+                      <li class="nav-item nav-middle">
+                          <a class="nav-link" href={% url 'delete_analysis' %}><i class="fas fa-times"></i> Delete Project &nbsp&nbsp&nbsp</a>
                       </li>
                       <li class="nav-item nav-middle">
-                          <a class="nav-link" href={% url 'delete_analysis' %}><i class="fas fa-times"></i> Delete Project</a>
-                      </li>
-                      <li class="nav-item nav-middle">
-                          <a class="nav-link" href={% url 'check_project' %}><i class="fas fa-list-ul"></i> Check Project</a>
+                          <a class="nav-link" href={% url 'check_project' %}><i class="fas fa-list-ul"></i> Check Project &nbsp&nbsp&nbsp</a>
                       </li>
                   {% endif %}
                       <li class="nav-item nav-middle">
-                          <a class="nav-link" href={% url 'help' %}><i class="fas fa-question"></i> Help<span class="sr-only">(current)</span></a>
+                          <a class="nav-link" href={% url 'help' %}><i class="fas fa-question"></i> Help &nbsp&nbsp&nbsp<span class="sr-only">(current)</span></a>
                       </li>
                       <li class="nav-item nav-middle">
-                          <a class="nav-link" href={% url 'about' %}><i class="fas fa-info"></i> About</a>
+                          <a class="nav-link" href={% url 'about' %}><i class="fas fa-info"></i> About &nbsp&nbsp&nbsp</a>
                       </li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
@@ -89,7 +89,7 @@
                       <a class="nav-link" href="mailto:b05901180@ntu.edu.tw"><i class="far fa-envelope fa-1g"></i> Contact</a>
                   </li>
               </ul>
-              <div class="navbar-nav">
+              <!-- <div class="navbar-nav">
                   {% if user.is_authenticated %}
                       <a class="nav-item nav-link" href={% url 'profile' %}>Profile</a>
                       <a class="nav-item nav-link" href={% url 'logout' %}>Logout</a>
@@ -97,7 +97,7 @@
                       <a class="nav-item nav-link" href={% url 'login' %}>Login</a>
                       <a class="nav-item nav-link" href={% url 'register' %}>register</a>
                   {% endif %}
-              </div>
+              </div> -->
         </nav>
 
     </header>

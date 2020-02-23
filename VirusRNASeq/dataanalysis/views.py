@@ -275,6 +275,9 @@ def reference_mapping_whole_dataanalysis(request, slug_project):
     # Check all the files are valid !!! (for referenced-based workflow)
     (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
     fetch_job_status = utils_func.celery_check(project_name, email, analysis_code)
+    # Create Log directory
+    if not os.path.exists(os.path.join(base_dir, 'logs')):
+        os.mkdir(os.path.join(base_dir, 'logs'))
     ############################################
     ### It means that file has been executed ###
     ############################################
@@ -618,6 +621,9 @@ def de_novo_assembly_whole_dataanalysis(request, slug_project):
     # Check all the files are valid !!! (for denovo workflow)
     (overall_sample_result_checker, samples_all_info) = utils_func_denovo_check_whole.Whole_check_denovo_based_results(url_base_dir, base_dir, sample_list)
     fetch_job_status = utils_func.celery_check(project_name, email, analysis_code)
+    # Create Log directory
+    if not os.path.exists(os.path.join(base_dir, 'logs')):
+        os.mkdir(os.path.join(base_dir, 'logs'))
     ############################################
     ### It means that file has been executed ###
     ############################################
