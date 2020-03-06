@@ -77,6 +77,11 @@ class BasicUploadView(DetailView):
                 return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={'slug_project': url_parameter})))
             if assembly_type_input == "de_novo_assembly":
                 return redirect((reverse('de_novo_assembly_dataanalysis_result_current_status', kwargs={'slug_project': url_parameter})))
+            #########################
+            ### Virus NEED CHANGE ###
+            #########################
+            if assembly_type_input == "virus_assembly":
+                return redirect((reverse('virus_assembly_dataanalysis_result_current_status', kwargs={'slug_project': url_parameter})))
         # Start checking files !!!
         # For sample name!
         (samples_txt_file_name, samples_list_key, sample_list, sample_file_validity, sample_file_two_or_one) = utils_func.check_samples_txt_file(base_dir)
@@ -119,6 +124,8 @@ class BasicUploadView(DetailView):
             template_html = "dataanalysis/analysis_home_denovo.html"
         elif assembly_type_input == "reference_based_assembly":
             template_html = "dataanalysis/analysis_home_reference_based.html"
+        elif assembly_type_input == "virus_assembly":
+            template_html = "dataanalysis/analysis_home_virus.html"
         check_uploaded_fastq_file_ans = utils_func.check_uploaded_fastq_file(project_name, email, analysis_code)
         check_uploaded_fastq_file_whole_ans = utils_func.check_uploaded_fastq_file_whole_answer(check_uploaded_fastq_file_ans)
         uploaded_sample_file_url = utils_func.get_sample_file_url(project_name, email, analysis_code)
@@ -204,6 +211,10 @@ class BasicUploadView(DetailView):
             elif assembly_type_input == "reference_based_assembly":
                 template_html = "dataanalysis/analysis_home_reference_based.html"
                 return redirect((reverse('reference_mapping_dataanalysis_home', kwargs={
+                    'slug_project': url_parameter})))
+            elif assembly_type_input == "virus_assembly":
+                template_html = "dataanalysis/analysis_home_virus.html"
+                return redirect((reverse('virus_dataanalysis_home', kwargs={
                     'slug_project': url_parameter})))
             return render(request, template_html, {
                 'project_name': project_name,

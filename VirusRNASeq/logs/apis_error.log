@@ -1981,3 +1981,997 @@
 [Sun Feb 23 08:26:26.019003 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55611] @@@@@@@@@@@ result.state:  STARTED
 [Sun Feb 23 08:26:26.019022 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55611] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 [Sun Feb 23 08:26:26.023194 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55611] samples_all_info:  {'HM2WFCCXY_3_AAAATG': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': True, 'Step_2_check_denovo_a5_miseq': False, 'Step_3_check_quast_assessment': False, 'Step_3_check_bowtie2_assessment': False, 'Step_4_check_denovo_samtools_fixmate_bam': False, 'Step_4_check_denovo_samtools_sorted_bam': False, 'Step_5_check_denovo_bcftools_vcf': False, 'Step_5_check_denovo_bcftools_vcf_revise': False, 'Step_6_check_denovo_snpeff_vcf_annotation': False}}
+[Sun Feb 23 18:40:07.805076 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51085] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Projectdbff9ca4562811ea870ee41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Projectdbff9ca4562811ea870ee41f1345dc74" id="initial-id_project_name"></td></tr>
+[Sun Feb 23 18:40:07.805147 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51085] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Sun Feb 23 18:40:07.805164 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51085] 
+[Sun Feb 23 18:40:17.452606 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51107] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Projecte1c107e0562811ea870ee41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Projecte1c107e0562811ea870ee41f1345dc74" id="initial-id_project_name"></td></tr>
+[Sun Feb 23 18:40:17.452643 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51107] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Sun Feb 23 18:40:17.452658 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51107] 
+[Sun Feb 23 18:41:12.276751 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51215] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project026e7b76562911eab26be41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project026e7b76562911eab26be41f1345dc74" id="initial-id_project_name"></td></tr>
+[Sun Feb 23 18:41:12.276859 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51215] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Sun Feb 23 18:41:12.276876 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51215] 
+[Sun Feb 23 18:41:24.697606 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51255] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project09d5c982562911ea870ee41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project09d5c982562911ea870ee41f1345dc74" id="initial-id_project_name"></td></tr>
+[Sun Feb 23 18:41:24.697643 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51255] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Sun Feb 23 18:41:24.697659 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51255] 
+[Sun Feb 23 18:41:36.795366 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51279] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project110bc3a0562911eab26be41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project110bc3a0562911eab26be41f1345dc74" id="initial-id_project_name"></td></tr>
+[Sun Feb 23 18:41:36.795402 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51279] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Sun Feb 23 18:41:36.795418 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51279] 
+[Sun Feb 23 18:43:47.958143 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51561] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project5f398cec562911eab26be41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project5f398cec562911eab26be41f1345dc74" id="initial-id_project_name"></td></tr>
+[Sun Feb 23 18:43:47.958191 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51561] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Sun Feb 23 18:43:47.958206 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51561] 
+[Sun Feb 23 18:44:41.731190 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] project_name:  Project79d1c9da55c411ea9e9de41f1345dc74
+[Sun Feb 23 18:44:41.731252 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] analysis_code:  7ece2eec55c411eab9e4e41f1345dc74
+[Sun Feb 23 18:44:41.731271 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] email:  try_log@gmail.com
+[Sun Feb 23 18:44:41.733511 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] ***Upload_dir id:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/Project79d1c9da55c411ea9e9de41f1345dc74/reads
+[Sun Feb 23 18:44:43.486011 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] project_name:  Project79d1c9da55c411ea9e9de41f1345dc74
+[Sun Feb 23 18:44:43.486061 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] analysis_code:  7ece2eec55c411eab9e4e41f1345dc74
+[Sun Feb 23 18:44:43.486090 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] email:  try_log@gmail.com
+[Sun Feb 23 18:44:43.486116 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] assembly_type_input:  de_novo_assembly
+[Sun Feb 23 18:44:43.486424 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Sun Feb 23 18:44:43.486461 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] @@@@@@@@@@@ task name :  Project79d1c9da55c411ea9e9de41f1345dc74try_log@gmail.com7ece2eec55c411eab9e4e41f1345dc74
+[Sun Feb 23 18:44:43.488977 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] @@@@@@@@@@@ result.state:  SUCCESS
+[Sun Feb 23 18:44:43.489004 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Sun Feb 23 18:44:43.869072 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] project_name:  Project79d1c9da55c411ea9e9de41f1345dc74
+[Sun Feb 23 18:44:43.869116 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] analysis_code:  7ece2eec55c411eab9e4e41f1345dc74
+[Sun Feb 23 18:44:43.869145 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] email:  try_log@gmail.com
+[Sun Feb 23 18:44:43.869171 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] assembly_type_input:  de_novo_assembly
+[Sun Feb 23 18:44:43.869266 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Sun Feb 23 18:44:43.869296 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] @@@@@@@@@@@ task name :  Project79d1c9da55c411ea9e9de41f1345dc74try_log@gmail.com7ece2eec55c411eab9e4e41f1345dc74
+[Sun Feb 23 18:44:43.871462 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] @@@@@@@@@@@ result.state:  SUCCESS
+[Sun Feb 23 18:44:43.871489 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Sun Feb 23 18:44:43.892316 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Sun Feb 23 18:44:43.892365 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] @@@@@@@@@@@ task name :  Project79d1c9da55c411ea9e9de41f1345dc74try_log@gmail.com7ece2eec55c411eab9e4e41f1345dc74
+[Sun Feb 23 18:44:43.894776 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] @@@@@@@@@@@ result.state:  SUCCESS
+[Sun Feb 23 18:44:43.894802 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Sun Feb 23 18:44:43.894850 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] samples_all_info:  {'HM2WFCCXY_3_AAAATG': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': True, 'Step_2_check_denovo_a5_miseq': True, 'Step_3_check_quast_assessment': True, 'Step_3_check_bowtie2_assessment': True, 'Step_4_check_denovo_samtools_fixmate_bam': False, 'Step_4_check_denovo_samtools_sorted_bam': False, 'Step_5_check_denovo_bcftools_vcf': False, 'Step_5_check_denovo_bcftools_vcf_revise': False, 'Step_6_check_denovo_snpeff_vcf_annotation': False}}
+[Sun Feb 23 18:44:44.238401 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] project_name:  Project79d1c9da55c411ea9e9de41f1345dc74
+[Sun Feb 23 18:44:44.238456 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] analysis_code:  7ece2eec55c411eab9e4e41f1345dc74
+[Sun Feb 23 18:44:44.238485 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] email:  try_log@gmail.com
+[Sun Feb 23 18:44:44.238525 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] assembly_type_input:  de_novo_assembly
+[Sun Feb 23 18:44:44.276261 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:51673] one_sample_all_resultone_sample_all_result:  {'fastqc_datadir_pre_r1': 'HM2WFCCXY_3_AAAATG.R1_fastqc.html', 'fastqc_datadir_pre_r2': 'HM2WFCCXY_3_AAAATG.R2_fastqc.html', 'multiqc_datadir_pre': 'HM2WFCCXY_3_AAAATG_multiqc.html', 'fastqc_datadir_post_r1': 'HM2WFCCXY_3_AAAATG_r1_paired_fastqc.html', 'fastqc_datadir_post_r2': 'HM2WFCCXY_3_AAAATG_r2_paired_fastqc.html', 'multiqc_datadir_post': 'HM2WFCCXY_3_AAAATG_multiqc.html', 'Step_1_check_first_qc': {'url_r1_html': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/pre/HM2WFCCXY_3_AAAATG.R1_fastqc.html', 'url_r2_html': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/pre/HM2WFCCXY_3_AAAATG.R2_fastqc.html', 'url_r1_zip': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/pre/HM2WFCCXY_3_AAAATG.R1_fastqc.zip', 'url_r2_zip': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/pre/HM2WFCCXY_3_AAAATG.R2_fastqc.zip', 'url_multiqc_html': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/pre/HM2WFCCXY_3_AAAATG_multiqc.html', 'url_multiqc_dir': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/pre/HM2WFCCXY_3_AAAATG_multiqc_data'}, 'Step_1_check_trimming_qc': {'url_r1_paired': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/trimmed_paired/HM2WFCCXY_3_AAAATG_r1_paired.fastq.gz', 'url_r2_paired': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/trimmed_paired/HM2WFCCXY_3_AAAATG_r2_paired.fastq.gz', 'url_r1_unpaired': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/trimmed_unpaired/HM2WFCCXY_3_AAAATG_r1_unpaired.fastq.gz', 'url_r2_unpaired': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/trimmed_unpaired/HM2WFCCXY_3_AAAATG_r2_unpaired.fastq.gz'}, 'Step_1_check_second_qc': {'r1_paired_html': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/post/HM2WFCCXY_3_AAAATG_r1_paired_fastqc.html', 'r2_paired_html': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/post/HM2WFCCXY_3_AAAATG_r2_paired_fastqc.html', 'r1_paired_zip': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/post/HM2WFCCXY_3_AAAATG_r1_paired_fastqc.zip', 'r2_paired_zip': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/post/HM2WFCCXY_3_AAAATG_r2_paired_fastqc.zip', 'multiqc_html': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/post/HM2WFCCXY_3_AAAATG_multiqc.html', 'multiqc_dir': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/post/HM2WFCCXY_3_AAAATG_multiqc_data'}, 'Step_2_check_denovo_a5_miseq': {'url_a5_dir': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_2/a5_miseq/HM2WFCCXY_3_AAAATG_a5', 'url_a5_dir_s1': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_2/a5_miseq/HM2WFCCXY_3_AAAATG_a5.s1', 'url_a5_dir_s2': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_2/a5_miseq/HM2WFCCXY_3_AAAATG_a5.s2', 'url_a5_agp': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_2/a5_miseq/HM2WFCCXY_3_AAAATG_a5.agp', 'url_a5_assembly_stats_csv': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_2/a5_miseq/HM2WFCCXY_3_AAAATG_a5.assembly_stats.csv', 'url_a5_contigs_fasta': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_2/a5_miseq/HM2WFCCXY_3_AAAATG_a5.contigs.fasta', 'url_a5_contigs_fastq': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_2/a5_miseq/HM2WFCCXY_3_AAAATG_a5.contigs.fastq', 'url_a5_contigs_qvl': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_2/a5_miseq/HM2WFCCXY_3_AAAATG_a5.contigs.qvl', 'url_a5_final_scaffolds_fasta_contigs_fsa': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_2/a5_miseq/HM2WFCCXY_3_AAAATG_a5.final.scaffolds.fasta.contigs.fsa', 'url_a5_raw1_pe_sort_bam': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_2/a5_miseq/HM2WFCCXY_3_AAAATG_a5.raw1.pe.sort.bam', 'url_a5_tmplibs': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_2/a5_miseq/HM2WFCCXY_3_AAAATG_a5.tmplibs'}, 'a5_mise1_statistics_csv': {'File Name': 'HM2WFCCXY_3_AAAATG_a5', 'Contigs': '132', 'Scaffolds': '132', 'Genome Size': '4402551', 'Longest Scaffold': '298714', 'N50': '114714', 'Raw reads': '9922154', 'EC Reads': '9884004', '% reads passing EC': '99.62', 'Raw nt': '1465641536', 'EC nt': '1458284621', '% nt passing EC': '99.50', 'Raw cov': '332.91', 'EC cov': '331.24', 'Median cov': '329', '10th percentile cov': '279', 'bases >= Q40': '4397766', '% GC': '65.5', 'assembler version': 'A5-miseq 20160825'}, 'Step_3_check_quast_assessment': {'url_contig_size_viewer_html': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_3/quast/icarus_viewers/contig_size_viewer.html', 'url_icarus_html': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_3/quast/icarus.html', 'url_report_html': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_3/quast/report.html', 'url_report_tsv': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_3/quast/report.tsv', 'url_report_tex': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_3/quast/report.tex', 'url_report_txt': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_3/quast/report.txt', 'url_transposed_report_tex': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_3/quast/transposed_report.tex', 'url_transposed_report_tsv': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_3/quast/transposed_report.tsv', 'url_transposed_report_txt': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_3/quast/transposed_report.txt', 'url_report_pdf': '/media/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74/HM2WFCCXY_3_AAAATG/Step_3/quast/r
+[Sun Feb 23 18:49:53.916915 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:52317] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project395a7698562a11eab26be41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project395a7698562a11eab26be41f1345dc74" id="initial-id_project_name"></td></tr>
+[Sun Feb 23 18:49:53.916961 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:52317] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Sun Feb 23 18:49:53.916977 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:52317] 
+[Sun Feb 23 18:49:56.066738 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:52317] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project3aa28914562a11eab26be41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project3aa28914562a11eab26be41f1345dc74" id="initial-id_project_name"></td></tr>
+[Sun Feb 23 18:49:56.066768 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:52317] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Sun Feb 23 18:49:56.066784 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:52317] 
+[Wed Feb 26 23:38:18.405339 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55289] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project02df15a258ae11ea870ee41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project02df15a258ae11ea870ee41f1345dc74" id="initial-id_project_name"></td></tr>
+[Wed Feb 26 23:38:18.405381 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55289] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Wed Feb 26 23:38:18.405396 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55289] 
+[Wed Feb 26 23:38:36.916179 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55338] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project0de7a6c658ae11eab26be41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project0de7a6c658ae11eab26be41f1345dc74" id="initial-id_project_name"></td></tr>
+[Wed Feb 26 23:38:36.916219 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55338] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Wed Feb 26 23:38:36.916234 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55338] 
+[Wed Feb 26 23:39:54.333572 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55528] project_name:  Project02e4d22658ae11ea870ee41f1345dc74
+[Wed Feb 26 23:39:54.333618 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55528] analysis_code:  0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:39:54.333633 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55528] email:  howardchao@gmail.com
+[Wed Feb 26 23:39:54.335267 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55528] ***Upload_dir id:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/Project02e4d22658ae11ea870ee41f1345dc74/reads
+[Wed Feb 26 23:39:56.444185 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55528] project_name:  Project02e4d22658ae11ea870ee41f1345dc74
+[Wed Feb 26 23:39:56.444232 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55528] analysis_code:  0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:39:56.444260 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55528] email:  howardchao@gmail.com
+[Wed Feb 26 23:39:56.444285 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55528] assembly_type_input:  reference_based_assembly
+[Wed Feb 26 23:39:56.444548 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55528] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:39:56.444580 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55528] @@@@@@@@@@@ task name :  Project02e4d22658ae11ea870ee41f1345dc74howardchao@gmail.com0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:39:56.446471 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55528] @@@@@@@@@@@ result.state:  PENDING
+[Wed Feb 26 23:39:56.446494 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55528] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:40:17.786974 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55583] project_name:  Project02e4d22658ae11ea870ee41f1345dc74
+[Wed Feb 26 23:40:17.787064 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55583] analysis_code:  0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:40:17.787096 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55583] email:  howardchao@gmail.com
+[Wed Feb 26 23:40:17.787123 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55583] assembly_type_input:  reference_based_assembly
+[Wed Feb 26 23:40:17.787291 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55583] samples-files-upload!!!
+[Wed Feb 26 23:40:17.787327 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55583] myfile.name:  samples.csv
+[Wed Feb 26 23:42:36.969192 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55914] project_name:  Project02e4d22658ae11ea870ee41f1345dc74
+[Wed Feb 26 23:42:36.969263 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55914] analysis_code:  0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:42:36.969296 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55914] email:  howardchao@gmail.com
+[Wed Feb 26 23:42:36.969326 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55914] assembly_type_input:  reference_based_assembly
+[Wed Feb 26 23:42:36.988872 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55914] samples-files-upload!!!
+[Wed Feb 26 23:42:36.988930 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55914] myfile.name:  samples.csv
+[Wed Feb 26 23:43:03.224745 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55970] project_name:  Project02e4d22658ae11ea870ee41f1345dc74
+[Wed Feb 26 23:43:03.224806 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55970] analysis_code:  0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:43:03.224837 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55970] email:  howardchao@gmail.com
+[Wed Feb 26 23:43:03.224865 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55970] assembly_type_input:  reference_based_assembly
+[Wed Feb 26 23:43:03.591687 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55970] project_name:  Project02e4d22658ae11ea870ee41f1345dc74
+[Wed Feb 26 23:43:03.591731 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55970] analysis_code:  0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:43:03.591760 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55970] email:  howardchao@gmail.com
+[Wed Feb 26 23:43:03.591787 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55970] assembly_type_input:  reference_based_assembly
+[Wed Feb 26 23:43:03.603317 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55970] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:43:03.603363 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55970] @@@@@@@@@@@ task name :  Project02e4d22658ae11ea870ee41f1345dc74howardchao@gmail.com0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:43:03.605663 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55970] @@@@@@@@@@@ result.state:  PENDING
+[Wed Feb 26 23:43:03.605690 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:55970] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:43:37.782931 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] project_name:  Project02e4d22658ae11ea870ee41f1345dc74
+[Wed Feb 26 23:43:37.783002 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] analysis_code:  0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:43:37.783035 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] email:  howardchao@gmail.com
+[Wed Feb 26 23:43:37.783083 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] assembly_type_input:  reference_based_assembly
+[Wed Feb 26 23:43:37.795966 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:43:37.796006 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] @@@@@@@@@@@ task name :  Project02e4d22658ae11ea870ee41f1345dc74howardchao@gmail.com0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:43:37.798177 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] @@@@@@@@@@@ result.state:  PENDING
+[Wed Feb 26 23:43:37.798202 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:43:37.801996 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] bwa_pathogenbwa_pathogen:  TB_H37Rv
+[Wed Feb 26 23:43:37.811090 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Wed Feb 26 23:43:37.811110 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] *&*&*&*&*& Start running SNAKEMAKE !!!!
+[Wed Feb 26 23:43:37.811122 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Wed Feb 26 23:43:37.811142 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] !!! base_dir:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:43:37.833719 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:43:37.833774 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] @@@@@@@@@@@ task name :  Project02e4d22658ae11ea870ee41f1345dc74howardchao@gmail.com0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:43:37.836157 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] @@@@@@@@@@@ result.state:  PENDING
+[Wed Feb 26 23:43:37.836183 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:43:38.190749 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] project_name:  Project02e4d22658ae11ea870ee41f1345dc74
+[Wed Feb 26 23:43:38.190826 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] analysis_code:  0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:43:38.190869 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] email:  howardchao@gmail.com
+[Wed Feb 26 23:43:38.190917 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] assembly_type_input:  reference_based_assembly
+[Wed Feb 26 23:43:38.191091 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:43:38.191132 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] @@@@@@@@@@@ task name :  Project02e4d22658ae11ea870ee41f1345dc74howardchao@gmail.com0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:43:38.194329 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] @@@@@@@@@@@ result.state:  STARTED
+[Wed Feb 26 23:43:38.194361 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:43:38.233173 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:43:38.233213 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] @@@@@@@@@@@ task name :  Project02e4d22658ae11ea870ee41f1345dc74howardchao@gmail.com0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:43:38.235769 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] @@@@@@@@@@@ result.state:  STARTED
+[Wed Feb 26 23:43:38.235798 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:43:38.251903 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56044] samples_all_info:  {'HM2WFCCXY_3_AAAATG': {'Step_1_check_first_qc': False, 'Step_1_check_trimming_qc': False, 'Step_1_check_second_qc': False, 'Step_2_check_reference_based_bwa_sam': False, 'Step_2_check_reference_based_bwa_report_txt': False, 'Step_3_check_reference_based_samtools_fixmate_bam': False, 'Step_3_check_reference_based_samtools_sorted_bam': False, 'Step_4_check_reference_based_bcftools_vcf': False, 'Step_4_check_reference_based_bcftools_vcf_revise': False, 'Step_5_check_reference_based_snpeff_vcf_annotation': False}}
+[Wed Feb 26 23:43:48.155037 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56078] project_name:  Project02e4d22658ae11ea870ee41f1345dc74
+[Wed Feb 26 23:43:48.155085 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56078] analysis_code:  0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:43:48.155105 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56078] email:  howardchao@gmail.com
+[Wed Feb 26 23:43:48.155125 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56078] assembly_type_input:  reference_based_assembly
+[Wed Feb 26 23:43:48.155225 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56078] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:43:48.155247 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56078] @@@@@@@@@@@ task name :  Project02e4d22658ae11ea870ee41f1345dc74howardchao@gmail.com0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:43:48.157320 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56078] @@@@@@@@@@@ result.state:  STARTED
+[Wed Feb 26 23:43:48.157349 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56078] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:43:48.170115 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56078] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:43:48.170146 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56078] @@@@@@@@@@@ task name :  Project02e4d22658ae11ea870ee41f1345dc74howardchao@gmail.com0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:43:48.171704 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56078] @@@@@@@@@@@ result.state:  STARTED
+[Wed Feb 26 23:43:48.171723 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56078] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:43:48.175901 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56078] samples_all_info:  {'HM2WFCCXY_3_AAAATG': {'Step_1_check_first_qc': False, 'Step_1_check_trimming_qc': False, 'Step_1_check_second_qc': False, 'Step_2_check_reference_based_bwa_sam': False, 'Step_2_check_reference_based_bwa_report_txt': False, 'Step_3_check_reference_based_samtools_fixmate_bam': False, 'Step_3_check_reference_based_samtools_sorted_bam': False, 'Step_4_check_reference_based_bcftools_vcf': False, 'Step_4_check_reference_based_bcftools_vcf_revise': False, 'Step_5_check_reference_based_snpeff_vcf_annotation': False}}
+[Wed Feb 26 23:46:40.400992 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] project_name:  Project02e4d22658ae11ea870ee41f1345dc74
+[Wed Feb 26 23:46:40.401066 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] analysis_code:  0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:46:40.401103 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] email:  howardchao@gmail.com
+[Wed Feb 26 23:46:40.401138 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] assembly_type_input:  reference_based_assembly
+[Wed Feb 26 23:46:40.401436 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:46:40.401472 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] @@@@@@@@@@@ task name :  Project02e4d22658ae11ea870ee41f1345dc74howardchao@gmail.com0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:46:40.404376 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] @@@@@@@@@@@ result.state:  STARTED
+[Wed Feb 26 23:46:40.404401 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:46:40.755289 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] project_name:  Project02e4d22658ae11ea870ee41f1345dc74
+[Wed Feb 26 23:46:40.755331 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] analysis_code:  0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:46:40.755352 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] email:  howardchao@gmail.com
+[Wed Feb 26 23:46:40.755371 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] assembly_type_input:  reference_based_assembly
+[Wed Feb 26 23:46:40.755471 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:46:40.755494 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] @@@@@@@@@@@ task name :  Project02e4d22658ae11ea870ee41f1345dc74howardchao@gmail.com0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:46:40.757148 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] @@@@@@@@@@@ result.state:  STARTED
+[Wed Feb 26 23:46:40.757168 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:46:40.771197 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:46:40.771225 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] @@@@@@@@@@@ task name :  Project02e4d22658ae11ea870ee41f1345dc74howardchao@gmail.com0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:46:40.772676 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] @@@@@@@@@@@ result.state:  STARTED
+[Wed Feb 26 23:46:40.772695 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:46:40.776859 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56464] samples_all_info:  {'HM2WFCCXY_3_AAAATG': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': False, 'Step_2_check_reference_based_bwa_sam': False, 'Step_2_check_reference_based_bwa_report_txt': False, 'Step_3_check_reference_based_samtools_fixmate_bam': False, 'Step_3_check_reference_based_samtools_sorted_bam': False, 'Step_4_check_reference_based_bcftools_vcf': False, 'Step_4_check_reference_based_bcftools_vcf_revise': False, 'Step_5_check_reference_based_snpeff_vcf_annotation': False}}
+[Wed Feb 26 23:46:49.782524 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56487] project_name:  Project02e4d22658ae11ea870ee41f1345dc74
+[Wed Feb 26 23:46:49.782615 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56487] analysis_code:  0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:46:49.782638 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56487] email:  howardchao@gmail.com
+[Wed Feb 26 23:46:49.782659 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56487] assembly_type_input:  reference_based_assembly
+[Wed Feb 26 23:46:49.782868 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56487] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:46:49.782893 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56487] @@@@@@@@@@@ task name :  Project02e4d22658ae11ea870ee41f1345dc74howardchao@gmail.com0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:46:49.784713 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56487] @@@@@@@@@@@ result.state:  STARTED
+[Wed Feb 26 23:46:49.784732 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56487] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:46:49.798739 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56487] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:46:49.798766 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56487] @@@@@@@@@@@ task name :  Project02e4d22658ae11ea870ee41f1345dc74howardchao@gmail.com0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:46:49.800241 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56487] @@@@@@@@@@@ result.state:  STARTED
+[Wed Feb 26 23:46:49.800260 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56487] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:46:49.804443 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56487] samples_all_info:  {'HM2WFCCXY_3_AAAATG': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': False, 'Step_2_check_reference_based_bwa_sam': False, 'Step_2_check_reference_based_bwa_report_txt': False, 'Step_3_check_reference_based_samtools_fixmate_bam': False, 'Step_3_check_reference_based_samtools_sorted_bam': False, 'Step_4_check_reference_based_bcftools_vcf': False, 'Step_4_check_reference_based_bcftools_vcf_revise': False, 'Step_5_check_reference_based_snpeff_vcf_annotation': False}}
+[Wed Feb 26 23:47:00.754402 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56529] project_name:  Project02e4d22658ae11ea870ee41f1345dc74
+[Wed Feb 26 23:47:00.754467 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56529] analysis_code:  0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:47:00.754497 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56529] email:  howardchao@gmail.com
+[Wed Feb 26 23:47:00.754539 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56529] assembly_type_input:  reference_based_assembly
+[Wed Feb 26 23:47:00.754671 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56529] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:47:00.754702 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56529] @@@@@@@@@@@ task name :  Project02e4d22658ae11ea870ee41f1345dc74howardchao@gmail.com0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:47:00.757087 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56529] @@@@@@@@@@@ result.state:  STARTED
+[Wed Feb 26 23:47:00.757115 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56529] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:47:00.775105 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56529] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:47:00.775143 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56529] @@@@@@@@@@@ task name :  Project02e4d22658ae11ea870ee41f1345dc74howardchao@gmail.com0de787a458ae11eab26be41f1345dc74
+[Wed Feb 26 23:47:00.777212 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56529] @@@@@@@@@@@ result.state:  STARTED
+[Wed Feb 26 23:47:00.777238 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56529] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:47:00.783228 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56529] samples_all_info:  {'HM2WFCCXY_3_AAAATG': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': False, 'Step_2_check_reference_based_bwa_sam': False, 'Step_2_check_reference_based_bwa_report_txt': False, 'Step_3_check_reference_based_samtools_fixmate_bam': False, 'Step_3_check_reference_based_samtools_sorted_bam': False, 'Step_4_check_reference_based_bcftools_vcf': False, 'Step_4_check_reference_based_bcftools_vcf_revise': False, 'Step_5_check_reference_based_snpeff_vcf_annotation': False}}
+[Wed Feb 26 23:47:30.168919 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] project_name:  Project59034f0e550a11eab101e41f1345dc74
+[Wed Feb 26 23:47:30.168966 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] analysis_code:  61cf43b8550a11ea983ae41f1345dc74
+[Wed Feb 26 23:47:30.168979 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] email:  reference_based@gmail.com
+[Wed Feb 26 23:47:30.170450 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] ***Upload_dir id:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/Project59034f0e550a11eab101e41f1345dc74/reads
+[Wed Feb 26 23:47:31.993736 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] project_name:  Project59034f0e550a11eab101e41f1345dc74
+[Wed Feb 26 23:47:31.993793 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] analysis_code:  61cf43b8550a11ea983ae41f1345dc74
+[Wed Feb 26 23:47:31.993817 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] email:  reference_based@gmail.com
+[Wed Feb 26 23:47:31.993838 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] assembly_type_input:  reference_based_assembly
+[Wed Feb 26 23:47:31.994076 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:47:31.994105 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] @@@@@@@@@@@ task name :  Project59034f0e550a11eab101e41f1345dc74reference_based@gmail.com61cf43b8550a11ea983ae41f1345dc74
+[Wed Feb 26 23:47:31.995959 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] @@@@@@@@@@@ result.state:  SUCCESS
+[Wed Feb 26 23:47:31.995979 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:47:32.344001 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] project_name:  Project59034f0e550a11eab101e41f1345dc74
+[Wed Feb 26 23:47:32.344054 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] analysis_code:  61cf43b8550a11ea983ae41f1345dc74
+[Wed Feb 26 23:47:32.344075 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] email:  reference_based@gmail.com
+[Wed Feb 26 23:47:32.344094 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] assembly_type_input:  reference_based_assembly
+[Wed Feb 26 23:47:32.344202 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:47:32.344224 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] @@@@@@@@@@@ task name :  Project59034f0e550a11eab101e41f1345dc74reference_based@gmail.com61cf43b8550a11ea983ae41f1345dc74
+[Wed Feb 26 23:47:32.345838 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] @@@@@@@@@@@ result.state:  SUCCESS
+[Wed Feb 26 23:47:32.345857 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:47:32.358691 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:47:32.358718 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] @@@@@@@@@@@ task name :  Project59034f0e550a11eab101e41f1345dc74reference_based@gmail.com61cf43b8550a11ea983ae41f1345dc74
+[Wed Feb 26 23:47:32.360180 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] @@@@@@@@@@@ result.state:  SUCCESS
+[Wed Feb 26 23:47:32.360199 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:47:32.360251 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] samples_all_info:  {'HM2WFCCXY_AGCGCT': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': True, 'Step_2_check_reference_based_bwa_sam': True, 'Step_2_check_reference_based_bwa_report_txt': True, 'Step_3_check_reference_based_samtools_fixmate_bam': True, 'Step_3_check_reference_based_samtools_sorted_bam': True, 'Step_4_check_reference_based_bcftools_vcf': True, 'Step_4_check_reference_based_bcftools_vcf_revise': True, 'Step_5_check_reference_based_snpeff_vcf_annotation': True}, 'HM2WFCCXY_GTCCTT': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': True, 'Step_2_check_reference_based_bwa_sam': True, 'Step_2_check_reference_based_bwa_report_txt': True, 'Step_3_check_reference_based_samtools_fixmate_bam': True, 'Step_3_check_reference_based_samtools_sorted_bam': True, 'Step_4_check_reference_based_bcftools_vcf': True, 'Step_4_check_reference_based_bcftools_vcf_revise': True, 'Step_5_check_reference_based_snpeff_vcf_annotation': True}, 'HM2WFCCXY_TCTTCT': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': True, 'Step_2_check_reference_based_bwa_sam': True, 'Step_2_check_reference_based_bwa_report_txt': True, 'Step_3_check_reference_based_samtools_fixmate_bam': True, 'Step_3_check_reference_based_samtools_sorted_bam': True, 'Step_4_check_reference_based_bcftools_vcf': True, 'Step_4_check_reference_based_bcftools_vcf_revise': True, 'Step_5_check_reference_based_snpeff_vcf_annotation': True}, 'HM2WFCCXY_TTATTC': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': True, 'Step_2_check_reference_based_bwa_sam': True, 'Step_2_check_reference_based_bwa_report_txt': True, 'Step_3_check_reference_based_samtools_fixmate_bam': True, 'Step_3_check_reference_based_samtools_sorted_bam': True, 'Step_4_check_reference_based_bcftools_vcf': True, 'Step_4_check_reference_based_bcftools_vcf_revise': True, 'Step_5_check_reference_based_snpeff_vcf_annotation': True}}
+[Wed Feb 26 23:47:32.694751 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] project_name:  Project59034f0e550a11eab101e41f1345dc74
+[Wed Feb 26 23:47:32.694791 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] analysis_code:  61cf43b8550a11ea983ae41f1345dc74
+[Wed Feb 26 23:47:32.694812 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] email:  reference_based@gmail.com
+[Wed Feb 26 23:47:32.694830 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] assembly_type_input:  reference_based_assembly
+[Wed Feb 26 23:47:32.707529 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56597] one_sample_all_resultone_sample_all_result:  {'HM2WFCCXY_AGCGCT': {'fastqc_datadir_pre_r1': 'HM2WFCCXY_AGCGCT.R1_fastqc.html', 'fastqc_datadir_pre_r2': 'HM2WFCCXY_AGCGCT.R2_fastqc.html', 'multiqc_datadir_pre': 'HM2WFCCXY_AGCGCT_multiqc.html', 'fastqc_datadir_post_r1': 'HM2WFCCXY_AGCGCT_r1_paired_fastqc.html', 'fastqc_datadir_post_r2': 'HM2WFCCXY_AGCGCT_r2_paired_fastqc.html', 'multiqc_datadir_post': 'HM2WFCCXY_AGCGCT_multiqc.html', 'Step_1_check_first_qc': {'url_r1_html': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_1/QC/pre/HM2WFCCXY_AGCGCT.R1_fastqc.html', 'url_r2_html': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_1/QC/pre/HM2WFCCXY_AGCGCT.R2_fastqc.html', 'url_r1_zip': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_1/QC/pre/HM2WFCCXY_AGCGCT.R1_fastqc.zip', 'url_r2_zip': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_1/QC/pre/HM2WFCCXY_AGCGCT.R2_fastqc.zip', 'url_multiqc_html': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_1/QC/pre/HM2WFCCXY_AGCGCT_multiqc.html', 'url_multiqc_dir': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_1/QC/pre/HM2WFCCXY_AGCGCT_multiqc_data'}, 'Step_1_check_trimming_qc': {'url_r1_paired': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_1/trimmed_paired/HM2WFCCXY_AGCGCT_r1_paired.fastq.gz', 'url_r2_paired': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_1/trimmed_paired/HM2WFCCXY_AGCGCT_r2_paired.fastq.gz', 'url_r1_unpaired': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_1/trimmed_unpaired/HM2WFCCXY_AGCGCT_r1_unpaired.fastq.gz', 'url_r2_unpaired': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_1/trimmed_unpaired/HM2WFCCXY_AGCGCT_r2_unpaired.fastq.gz'}, 'Step_1_check_second_qc': {'r1_paired_html': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_1/QC/post/HM2WFCCXY_AGCGCT_r1_paired_fastqc.html', 'r2_paired_html': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_1/QC/post/HM2WFCCXY_AGCGCT_r2_paired_fastqc.html', 'r1_paired_zip': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_1/QC/post/HM2WFCCXY_AGCGCT_r1_paired_fastqc.zip', 'r2_paired_zip': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_1/QC/post/HM2WFCCXY_AGCGCT_r2_paired_fastqc.zip', 'multiqc_html': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_1/QC/post/HM2WFCCXY_AGCGCT_multiqc.html', 'multiqc_dir': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_1/QC/post/HM2WFCCXY_AGCGCT_multiqc_data'}, 'Step_2_check_reference_based_bwa_sam': {'url_reference_based_bwa_sam': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_2/bwa/HM2WFCCXY_AGCGCT.sam'}, 'Step_2_check_reference_based_bwa_report_txt': {'url_reference_based_bwa_report_txt': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_2/bwa/HM2WFCCXY_AGCGCT_alignment_report.txt'}, 'Step_3_check_reference_based_samtools_fixmate_bam': {'url_reference_based_samtools_fixmate_bam': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_3/samtools/HM2WFCCXY_AGCGCT_fixmate.bam'}, 'Step_3_check_reference_based_samtools_sorted_bam': {'url_reference_based_samtools_sorted_bam': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_3/samtools/HM2WFCCXY_AGCGCT_sorted.bam'}, 'Step_4_check_reference_based_bcftools_vcf': {'url_reference_based_bcftools_vcf': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_4/bcftools/HM2WFCCXY_AGCGCT.vcf'}, 'Step_4_check_reference_based_bcftools_vcf_revise': {'reference_based_bcftools_vcf_revise': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_4/bcftools/HM2WFCCXY_AGCGCT_revise.vcf'}, 'Step_5_check_reference_based_snpeff_vcf_annotation': {'reference_based_snpeff_vcf_annotation': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_5/snpeff/HM2WFCCXY_AGCGCT.ann.vcf', 'reference_based_snpeff_vcf_annotation_txt': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_5/snpeff/HM2WFCCXY_AGCGCT_snpEff_summary.genes.txt', 'reference_based_snpeff_vcf_annotation_html': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_AGCGCT/Step_5/snpeff/HM2WFCCXY_AGCGCT_snpEff_summary.html'}, 'trimmo_intput_read_pairs': '5014819', 'trimmo_both_surviving': '4931499', 'trimmo_forward_only_surviving': '72942', 'trimmo_reverse_only_surviving': '7801', 'trimmo_dropped': '2577'}, 'HM2WFCCXY_GTCCTT': {'fastqc_datadir_pre_r1': 'HM2WFCCXY_GTCCTT.R1_fastqc.html', 'fastqc_datadir_pre_r2': 'HM2WFCCXY_GTCCTT.R2_fastqc.html', 'multiqc_datadir_pre': 'HM2WFCCXY_GTCCTT_multiqc.html', 'fastqc_datadir_post_r1': 'HM2WFCCXY_GTCCTT_r1_paired_fastqc.html', 'fastqc_datadir_post_r2': 'HM2WFCCXY_GTCCTT_r2_paired_fastqc.html', 'multiqc_datadir_post': 'HM2WFCCXY_GTCCTT_multiqc.html', 'Step_1_check_first_qc': {'url_r1_html': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_GTCCTT/Step_1/QC/pre/HM2WFCCXY_GTCCTT.R1_fastqc.html', 'url_r2_html': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_GTCCTT/Step_1/QC/pre/HM2WFCCXY_GTCCTT.R2_fastqc.html', 'url_r1_zip': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_GTCCTT/Step_1/QC/pre/HM2WFCCXY_GTCCTT.R1_fastqc.zip', 'url_r2_zip': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_GTCCTT/Step_1/QC/pre/HM2WFCCXY_GTCCTT.R2_fastqc.zip', 'url_multiqc_html': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_GTCCTT/Step_1/QC/pre/HM2WFCCXY_GTCCTT_multiqc.html', 'url_multiqc_dir': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_GTCCTT/Step_1/QC/pre/HM2WFCCXY_GTCCTT_multiqc_data'}, 'Step_1_check_trimming_qc': {'url_r1_paired': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_GTCCTT/Step_1/trimmed_paired/HM2WFCCXY_GTCCTT_r1_paired.fastq.gz', 'url_r2_paired': '/media/tmp/Project59034f0e550a11eab101e41f1345dc74_reference_based@gmail.com_61cf43b8550a11ea983ae41f1345dc74/HM2WFCCXY_GTCCTT/Step_1/
+[Wed Feb 26 23:48:11.722486 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56689] project_name:  Project59034f0e550a11eab101e41f1345dc74
+[Wed Feb 26 23:48:11.722539 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56689] analysis_code:  61cf43b8550a11ea983ae41f1345dc74
+[Wed Feb 26 23:48:11.722560 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56689] email:  reference_based@gmail.com
+[Wed Feb 26 23:48:11.722589 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56689] assembly_type_input:  reference_based_assembly
+[Wed Feb 26 23:48:11.722704 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56689] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:48:11.722727 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56689] @@@@@@@@@@@ task name :  Project59034f0e550a11eab101e41f1345dc74reference_based@gmail.com61cf43b8550a11ea983ae41f1345dc74
+[Wed Feb 26 23:48:11.724384 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56689] @@@@@@@@@@@ result.state:  SUCCESS
+[Wed Feb 26 23:48:11.724403 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56689] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:48:22.005933 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] project_name:  Project47e21ad654c211eab992e41f1345dc74
+[Wed Feb 26 23:48:22.005977 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] analysis_code:  4c39d48454c211ea8b6be41f1345dc74
+[Wed Feb 26 23:48:22.005989 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] email:  ck1021051@gmail.com
+[Wed Feb 26 23:48:22.007458 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] ***Upload_dir id:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/Project47e21ad654c211eab992e41f1345dc74/reads
+[Wed Feb 26 23:48:23.551044 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] project_name:  Project47e21ad654c211eab992e41f1345dc74
+[Wed Feb 26 23:48:23.551101 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] analysis_code:  4c39d48454c211ea8b6be41f1345dc74
+[Wed Feb 26 23:48:23.551124 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] email:  ck1021051@gmail.com
+[Wed Feb 26 23:48:23.551144 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] assembly_type_input:  reference_based_assembly
+[Wed Feb 26 23:48:23.551370 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:48:23.551397 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] @@@@@@@@@@@ task name :  Project47e21ad654c211eab992e41f1345dc74ck1021051@gmail.com4c39d48454c211ea8b6be41f1345dc74
+[Wed Feb 26 23:48:23.553242 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] @@@@@@@@@@@ result.state:  SUCCESS
+[Wed Feb 26 23:48:23.553260 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:48:23.895931 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] project_name:  Project47e21ad654c211eab992e41f1345dc74
+[Wed Feb 26 23:48:23.895972 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] analysis_code:  4c39d48454c211ea8b6be41f1345dc74
+[Wed Feb 26 23:48:23.895992 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] email:  ck1021051@gmail.com
+[Wed Feb 26 23:48:23.896010 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] assembly_type_input:  reference_based_assembly
+[Wed Feb 26 23:48:23.896106 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:48:23.896128 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] @@@@@@@@@@@ task name :  Project47e21ad654c211eab992e41f1345dc74ck1021051@gmail.com4c39d48454c211ea8b6be41f1345dc74
+[Wed Feb 26 23:48:23.897697 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] @@@@@@@@@@@ result.state:  SUCCESS
+[Wed Feb 26 23:48:23.897717 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:48:23.907670 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:48:23.907705 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] @@@@@@@@@@@ task name :  Project47e21ad654c211eab992e41f1345dc74ck1021051@gmail.com4c39d48454c211ea8b6be41f1345dc74
+[Wed Feb 26 23:48:23.909184 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] @@@@@@@@@@@ result.state:  SUCCESS
+[Wed Feb 26 23:48:23.909203 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Feb 26 23:48:23.909235 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] samples_all_info:  {'HM2WFCCXY_3_AAAATG': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': True, 'Step_2_check_reference_based_bwa_sam': True, 'Step_2_check_reference_based_bwa_report_txt': True, 'Step_3_check_reference_based_samtools_fixmate_bam': True, 'Step_3_check_reference_based_samtools_sorted_bam': True, 'Step_4_check_reference_based_bcftools_vcf': True, 'Step_4_check_reference_based_bcftools_vcf_revise': True, 'Step_5_check_reference_based_snpeff_vcf_annotation': True}}
+[Wed Feb 26 23:48:24.252337 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] project_name:  Project47e21ad654c211eab992e41f1345dc74
+[Wed Feb 26 23:48:24.252395 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] analysis_code:  4c39d48454c211ea8b6be41f1345dc74
+[Wed Feb 26 23:48:24.252424 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] email:  ck1021051@gmail.com
+[Wed Feb 26 23:48:24.252451 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] assembly_type_input:  reference_based_assembly
+[Wed Feb 26 23:48:24.264454 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:56712] one_sample_all_resultone_sample_all_result:  {'HM2WFCCXY_3_AAAATG': {'fastqc_datadir_pre_r1': 'HM2WFCCXY_3_AAAATG.R1_fastqc.html', 'fastqc_datadir_pre_r2': 'HM2WFCCXY_3_AAAATG.R2_fastqc.html', 'multiqc_datadir_pre': 'HM2WFCCXY_3_AAAATG_multiqc.html', 'fastqc_datadir_post_r1': 'HM2WFCCXY_3_AAAATG_r1_paired_fastqc.html', 'fastqc_datadir_post_r2': 'HM2WFCCXY_3_AAAATG_r2_paired_fastqc.html', 'multiqc_datadir_post': 'HM2WFCCXY_3_AAAATG_multiqc.html', 'Step_1_check_first_qc': {'url_r1_html': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/pre/HM2WFCCXY_3_AAAATG.R1_fastqc.html', 'url_r2_html': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/pre/HM2WFCCXY_3_AAAATG.R2_fastqc.html', 'url_r1_zip': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/pre/HM2WFCCXY_3_AAAATG.R1_fastqc.zip', 'url_r2_zip': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/pre/HM2WFCCXY_3_AAAATG.R2_fastqc.zip', 'url_multiqc_html': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/pre/HM2WFCCXY_3_AAAATG_multiqc.html', 'url_multiqc_dir': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/pre/HM2WFCCXY_3_AAAATG_multiqc_data'}, 'Step_1_check_trimming_qc': {'url_r1_paired': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/trimmed_paired/HM2WFCCXY_3_AAAATG_r1_paired.fastq.gz', 'url_r2_paired': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/trimmed_paired/HM2WFCCXY_3_AAAATG_r2_paired.fastq.gz', 'url_r1_unpaired': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/trimmed_unpaired/HM2WFCCXY_3_AAAATG_r1_unpaired.fastq.gz', 'url_r2_unpaired': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/trimmed_unpaired/HM2WFCCXY_3_AAAATG_r2_unpaired.fastq.gz'}, 'Step_1_check_second_qc': {'r1_paired_html': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/post/HM2WFCCXY_3_AAAATG_r1_paired_fastqc.html', 'r2_paired_html': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/post/HM2WFCCXY_3_AAAATG_r2_paired_fastqc.html', 'r1_paired_zip': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/post/HM2WFCCXY_3_AAAATG_r1_paired_fastqc.zip', 'r2_paired_zip': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/post/HM2WFCCXY_3_AAAATG_r2_paired_fastqc.zip', 'multiqc_html': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/post/HM2WFCCXY_3_AAAATG_multiqc.html', 'multiqc_dir': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/post/HM2WFCCXY_3_AAAATG_multiqc_data'}, 'Step_2_check_reference_based_bwa_sam': {'url_reference_based_bwa_sam': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_2/bwa/HM2WFCCXY_3_AAAATG.sam'}, 'Step_2_check_reference_based_bwa_report_txt': {'url_reference_based_bwa_report_txt': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_2/bwa/HM2WFCCXY_3_AAAATG_alignment_report.txt'}, 'Step_3_check_reference_based_samtools_fixmate_bam': {'url_reference_based_samtools_fixmate_bam': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_3/samtools/HM2WFCCXY_3_AAAATG_fixmate.bam'}, 'Step_3_check_reference_based_samtools_sorted_bam': {'url_reference_based_samtools_sorted_bam': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_3/samtools/HM2WFCCXY_3_AAAATG_sorted.bam'}, 'Step_4_check_reference_based_bcftools_vcf': {'url_reference_based_bcftools_vcf': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_4/bcftools/HM2WFCCXY_3_AAAATG.vcf'}, 'Step_4_check_reference_based_bcftools_vcf_revise': {'reference_based_bcftools_vcf_revise': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_4/bcftools/HM2WFCCXY_3_AAAATG_revise.vcf'}, 'Step_5_check_reference_based_snpeff_vcf_annotation': {'reference_based_snpeff_vcf_annotation': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_5/snpeff/HM2WFCCXY_3_AAAATG.ann.vcf', 'reference_based_snpeff_vcf_annotation_txt': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_5/snpeff/HM2WFCCXY_3_AAAATG_snpEff_summary.genes.txt', 'reference_based_snpeff_vcf_annotation_html': '/media/tmp/Project47e21ad654c211eab992e41f1345dc74_ck1021051@gmail.com_4c39d48454c211ea8b6be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_5/snpeff/HM2WFCCXY_3_AAAATG_snpEff_summary.html'}, 'trimmo_intput_read_pairs': '5044349', 'trimmo_both_surviving': '4961077', 'trimmo_forward_only_surviving': '72381', 'trimmo_reverse_only_surviving': '7963', 'trimmo_dropped': '2928'}}
+[Fri Feb 28 07:57:23.147624 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] project_name:  Project02e4d22658ae11ea870ee41f1345dc74
+[Fri Feb 28 07:57:23.147664 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] analysis_code:  0de787a458ae11eab26be41f1345dc74
+[Fri Feb 28 07:57:23.147677 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] email:  howardchao@gmail.com
+[Fri Feb 28 07:57:23.149095 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] ***Upload_dir id:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/Project02e4d22658ae11ea870ee41f1345dc74/reads
+[Fri Feb 28 07:57:24.929859 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] project_name:  Project02e4d22658ae11ea870ee41f1345dc74
+[Fri Feb 28 07:57:24.929920 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] analysis_code:  0de787a458ae11eab26be41f1345dc74
+[Fri Feb 28 07:57:24.929958 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] email:  howardchao@gmail.com
+[Fri Feb 28 07:57:24.929998 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] assembly_type_input:  reference_based_assembly
+[Fri Feb 28 07:57:24.930285 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Fri Feb 28 07:57:24.930321 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] @@@@@@@@@@@ task name :  Project02e4d22658ae11ea870ee41f1345dc74howardchao@gmail.com0de787a458ae11eab26be41f1345dc74
+[Fri Feb 28 07:57:24.932737 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] @@@@@@@@@@@ result.state:  SUCCESS
+[Fri Feb 28 07:57:24.932763 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Fri Feb 28 07:57:25.327695 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] project_name:  Project02e4d22658ae11ea870ee41f1345dc74
+[Fri Feb 28 07:57:25.327731 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] analysis_code:  0de787a458ae11eab26be41f1345dc74
+[Fri Feb 28 07:57:25.327751 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] email:  howardchao@gmail.com
+[Fri Feb 28 07:57:25.327768 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] assembly_type_input:  reference_based_assembly
+[Fri Feb 28 07:57:25.327837 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Fri Feb 28 07:57:25.327859 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] @@@@@@@@@@@ task name :  Project02e4d22658ae11ea870ee41f1345dc74howardchao@gmail.com0de787a458ae11eab26be41f1345dc74
+[Fri Feb 28 07:57:25.329357 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] @@@@@@@@@@@ result.state:  SUCCESS
+[Fri Feb 28 07:57:25.329376 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Fri Feb 28 07:57:25.339067 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Fri Feb 28 07:57:25.339094 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] @@@@@@@@@@@ task name :  Project02e4d22658ae11ea870ee41f1345dc74howardchao@gmail.com0de787a458ae11eab26be41f1345dc74
+[Fri Feb 28 07:57:25.340540 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] @@@@@@@@@@@ result.state:  SUCCESS
+[Fri Feb 28 07:57:25.340559 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Fri Feb 28 07:57:25.340590 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] samples_all_info:  {'HM2WFCCXY_3_AAAATG': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': True, 'Step_2_check_reference_based_bwa_sam': True, 'Step_2_check_reference_based_bwa_report_txt': True, 'Step_3_check_reference_based_samtools_fixmate_bam': True, 'Step_3_check_reference_based_samtools_sorted_bam': True, 'Step_4_check_reference_based_bcftools_vcf': True, 'Step_4_check_reference_based_bcftools_vcf_revise': True, 'Step_5_check_reference_based_snpeff_vcf_annotation': True}}
+[Fri Feb 28 07:57:25.734091 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] project_name:  Project02e4d22658ae11ea870ee41f1345dc74
+[Fri Feb 28 07:57:25.734135 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] analysis_code:  0de787a458ae11eab26be41f1345dc74
+[Fri Feb 28 07:57:25.734162 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] email:  howardchao@gmail.com
+[Fri Feb 28 07:57:25.734188 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] assembly_type_input:  reference_based_assembly
+[Fri Feb 28 07:57:25.755201 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50735] one_sample_all_resultone_sample_all_result:  {'HM2WFCCXY_3_AAAATG': {'fastqc_datadir_pre_r1': 'HM2WFCCXY_3_AAAATG.R1_fastqc.html', 'fastqc_datadir_pre_r2': 'HM2WFCCXY_3_AAAATG.R2_fastqc.html', 'multiqc_datadir_pre': 'HM2WFCCXY_3_AAAATG_multiqc.html', 'fastqc_datadir_post_r1': 'HM2WFCCXY_3_AAAATG_r1_paired_fastqc.html', 'fastqc_datadir_post_r2': 'HM2WFCCXY_3_AAAATG_r2_paired_fastqc.html', 'multiqc_datadir_post': 'HM2WFCCXY_3_AAAATG_multiqc.html', 'Step_1_check_first_qc': {'url_r1_html': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/pre/HM2WFCCXY_3_AAAATG.R1_fastqc.html', 'url_r2_html': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/pre/HM2WFCCXY_3_AAAATG.R2_fastqc.html', 'url_r1_zip': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/pre/HM2WFCCXY_3_AAAATG.R1_fastqc.zip', 'url_r2_zip': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/pre/HM2WFCCXY_3_AAAATG.R2_fastqc.zip', 'url_multiqc_html': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/pre/HM2WFCCXY_3_AAAATG_multiqc.html', 'url_multiqc_dir': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/pre/HM2WFCCXY_3_AAAATG_multiqc_data'}, 'Step_1_check_trimming_qc': {'url_r1_paired': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/trimmed_paired/HM2WFCCXY_3_AAAATG_r1_paired.fastq.gz', 'url_r2_paired': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/trimmed_paired/HM2WFCCXY_3_AAAATG_r2_paired.fastq.gz', 'url_r1_unpaired': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/trimmed_unpaired/HM2WFCCXY_3_AAAATG_r1_unpaired.fastq.gz', 'url_r2_unpaired': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/trimmed_unpaired/HM2WFCCXY_3_AAAATG_r2_unpaired.fastq.gz'}, 'Step_1_check_second_qc': {'r1_paired_html': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/post/HM2WFCCXY_3_AAAATG_r1_paired_fastqc.html', 'r2_paired_html': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/post/HM2WFCCXY_3_AAAATG_r2_paired_fastqc.html', 'r1_paired_zip': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/post/HM2WFCCXY_3_AAAATG_r1_paired_fastqc.zip', 'r2_paired_zip': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/post/HM2WFCCXY_3_AAAATG_r2_paired_fastqc.zip', 'multiqc_html': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/post/HM2WFCCXY_3_AAAATG_multiqc.html', 'multiqc_dir': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_1/QC/post/HM2WFCCXY_3_AAAATG_multiqc_data'}, 'Step_2_check_reference_based_bwa_sam': {'url_reference_based_bwa_sam': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_2/bwa/HM2WFCCXY_3_AAAATG.sam'}, 'Step_2_check_reference_based_bwa_report_txt': {'url_reference_based_bwa_report_txt': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_2/bwa/HM2WFCCXY_3_AAAATG_alignment_report.txt'}, 'Step_3_check_reference_based_samtools_fixmate_bam': {'url_reference_based_samtools_fixmate_bam': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_3/samtools/HM2WFCCXY_3_AAAATG_fixmate.bam'}, 'Step_3_check_reference_based_samtools_sorted_bam': {'url_reference_based_samtools_sorted_bam': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_3/samtools/HM2WFCCXY_3_AAAATG_sorted.bam'}, 'Step_4_check_reference_based_bcftools_vcf': {'url_reference_based_bcftools_vcf': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_4/bcftools/HM2WFCCXY_3_AAAATG.vcf'}, 'Step_4_check_reference_based_bcftools_vcf_revise': {'reference_based_bcftools_vcf_revise': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_4/bcftools/HM2WFCCXY_3_AAAATG_revise.vcf'}, 'Step_5_check_reference_based_snpeff_vcf_annotation': {'reference_based_snpeff_vcf_annotation': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_5/snpeff/HM2WFCCXY_3_AAAATG.ann.vcf', 'reference_based_snpeff_vcf_annotation_txt': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_5/snpeff/HM2WFCCXY_3_AAAATG_snpEff_summary.genes.txt', 'reference_based_snpeff_vcf_annotation_html': '/media/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74/HM2WFCCXY_3_AAAATG/Step_5/snpeff/HM2WFCCXY_3_AAAATG_snpEff_summary.html'}, 'trimmo_intput_read_pairs': '5044349', 'trimmo_both_surviving': '4961077', 'trimmo_forward_only_surviving': '72381', 'trimmo_reverse_only_surviving': '7963', 'trimmo_dropped': '2928'}}
+[Fri Feb 28 07:57:56.657570 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50820] destination_QC_html_dir:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/dataanalysis/templates/dataanalysis/tmp/Project02e4d22658ae11ea870ee41f1345dc74_howardchao@gmail.com_0de787a458ae11eab26be41f1345dc74
+[Fri Feb 28 07:57:56.659903 2020] [wsgi:error] [pid 23519] [remote 10.8.0.6:50820] You successfully delete your project!
+[Tue Mar 03 17:18:45.154141 2020] [wsgi:error] [pid 7698] Inside ready!!
+[Tue Mar 03 17:20:57.558630 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62081] destination_QC_html_dir:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/dataanalysis/templates/dataanalysis/tmp/Project79d1c9da55c411ea9e9de41f1345dc74_try_log@gmail.com_7ece2eec55c411eab9e4e41f1345dc74
+[Tue Mar 03 17:20:57.559834 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62081] You successfully delete your project!
+[Tue Mar 03 17:21:00.370467 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62081] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project4c07e14c5d3011ea9bf3e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project4c07e14c5d3011ea9bf3e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Tue Mar 03 17:21:00.370492 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62081] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Tue Mar 03 17:21:00.370504 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62081] 
+[Tue Mar 03 17:21:16.198129 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62116] project_name:  Projectdaf98056554511eab101e41f1345dc74
+[Tue Mar 03 17:21:16.198161 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62116] analysis_code:  eb6533b8554511ea983ae41f1345dc74
+[Tue Mar 03 17:21:16.198174 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62116] email:  recheck_reference_based@gmail.com
+[Tue Mar 03 17:21:16.199602 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62116] ***Upload_dir id:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/Projectdaf98056554511eab101e41f1345dc74/reads
+[Tue Mar 03 17:21:18.139451 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62116] project_name:  Projectdaf98056554511eab101e41f1345dc74
+[Tue Mar 03 17:21:18.139495 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62116] analysis_code:  eb6533b8554511ea983ae41f1345dc74
+[Tue Mar 03 17:21:18.139516 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62116] email:  recheck_reference_based@gmail.com
+[Tue Mar 03 17:21:18.139548 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62116] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 17:21:18.167653 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62116] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:21:18.167683 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62116] @@@@@@@@@@@ task name :  Projectdaf98056554511eab101e41f1345dc74recheck_reference_based@gmail.comeb6533b8554511ea983ae41f1345dc74
+[Tue Mar 03 17:21:18.170065 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62116] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 17:21:18.170086 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62116] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:21:37.990163 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62176] You successfully delete your project!
+[Tue Mar 03 17:21:47.773384 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] project_name:  Project44fe8f4c553b11ea983ae41f1345dc74
+[Tue Mar 03 17:21:47.773425 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] analysis_code:  4faf7956553b11eab101e41f1345dc74
+[Tue Mar 03 17:21:47.773446 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] email:  de_novo@gmail.com
+[Tue Mar 03 17:21:47.775448 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] ***Upload_dir id:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/Project44fe8f4c553b11ea983ae41f1345dc74/reads
+[Tue Mar 03 17:21:49.292789 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] project_name:  Project44fe8f4c553b11ea983ae41f1345dc74
+[Tue Mar 03 17:21:49.292842 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] analysis_code:  4faf7956553b11eab101e41f1345dc74
+[Tue Mar 03 17:21:49.292872 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] email:  de_novo@gmail.com
+[Tue Mar 03 17:21:49.292900 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] assembly_type_input:  de_novo_assembly
+[Tue Mar 03 17:21:49.293055 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:21:49.293088 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] @@@@@@@@@@@ task name :  Project44fe8f4c553b11ea983ae41f1345dc74de_novo@gmail.com4faf7956553b11eab101e41f1345dc74
+[Tue Mar 03 17:21:49.296386 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] @@@@@@@@@@@ result.state:  SUCCESS
+[Tue Mar 03 17:21:49.296415 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:21:49.673014 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] project_name:  Project44fe8f4c553b11ea983ae41f1345dc74
+[Tue Mar 03 17:21:49.673058 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] analysis_code:  4faf7956553b11eab101e41f1345dc74
+[Tue Mar 03 17:21:49.673088 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] email:  de_novo@gmail.com
+[Tue Mar 03 17:21:49.673115 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] assembly_type_input:  de_novo_assembly
+[Tue Mar 03 17:21:49.673213 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:21:49.673259 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] @@@@@@@@@@@ task name :  Project44fe8f4c553b11ea983ae41f1345dc74de_novo@gmail.com4faf7956553b11eab101e41f1345dc74
+[Tue Mar 03 17:21:49.675432 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] @@@@@@@@@@@ result.state:  SUCCESS
+[Tue Mar 03 17:21:49.675462 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:21:49.706000 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:21:49.706029 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] @@@@@@@@@@@ task name :  Project44fe8f4c553b11ea983ae41f1345dc74de_novo@gmail.com4faf7956553b11eab101e41f1345dc74
+[Tue Mar 03 17:21:49.707576 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] @@@@@@@@@@@ result.state:  SUCCESS
+[Tue Mar 03 17:21:49.707597 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:21:49.707650 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] samples_all_info:  {'HM2WFCCXY_AGCGCT': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': True, 'Step_2_check_denovo_a5_miseq': False, 'Step_3_check_quast_assessment': False, 'Step_3_check_bowtie2_assessment': False, 'Step_4_check_denovo_samtools_fixmate_bam': False, 'Step_4_check_denovo_samtools_sorted_bam': False, 'Step_5_check_denovo_bcftools_vcf': False, 'Step_5_check_denovo_bcftools_vcf_revise': False, 'Step_6_check_denovo_snpeff_vcf_annotation': False}, 'HM2WFCCXY_GTCCTT': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': True, 'Step_2_check_denovo_a5_miseq': False, 'Step_3_check_quast_assessment': False, 'Step_3_check_bowtie2_assessment': False, 'Step_4_check_denovo_samtools_fixmate_bam': False, 'Step_4_check_denovo_samtools_sorted_bam': False, 'Step_5_check_denovo_bcftools_vcf': False, 'Step_5_check_denovo_bcftools_vcf_revise': False, 'Step_6_check_denovo_snpeff_vcf_annotation': False}, 'HM2WFCCXY_TCTTCT': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': True, 'Step_2_check_denovo_a5_miseq': False, 'Step_3_check_quast_assessment': False, 'Step_3_check_bowtie2_assessment': False, 'Step_4_check_denovo_samtools_fixmate_bam': False, 'Step_4_check_denovo_samtools_sorted_bam': False, 'Step_5_check_denovo_bcftools_vcf': False, 'Step_5_check_denovo_bcftools_vcf_revise': False, 'Step_6_check_denovo_snpeff_vcf_annotation': False}, 'HM2WFCCXY_TTATTC': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': True, 'Step_2_check_denovo_a5_miseq': False, 'Step_3_check_quast_assessment': False, 'Step_3_check_bowtie2_assessment': False, 'Step_4_check_denovo_samtools_fixmate_bam': False, 'Step_4_check_denovo_samtools_sorted_bam': False, 'Step_5_check_denovo_bcftools_vcf': False, 'Step_5_check_denovo_bcftools_vcf_revise': False, 'Step_6_check_denovo_snpeff_vcf_annotation': False}}
+[Tue Mar 03 17:21:50.071346 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] project_name:  Project44fe8f4c553b11ea983ae41f1345dc74
+[Tue Mar 03 17:21:50.071397 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] analysis_code:  4faf7956553b11eab101e41f1345dc74
+[Tue Mar 03 17:21:50.071427 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] email:  de_novo@gmail.com
+[Tue Mar 03 17:21:50.071454 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:62196] assembly_type_input:  de_novo_assembly
+[Tue Mar 03 17:50:43.582060 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49849] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project72e84d665d3411ea9bf3e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project72e84d665d3411ea9bf3e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Tue Mar 03 17:50:43.582107 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49849] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Tue Mar 03 17:50:43.582120 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49849] 
+[Tue Mar 03 17:50:47.121505 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49856] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project75042d685d3411ea9951e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project75042d685d3411ea9951e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Tue Mar 03 17:50:47.121538 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49856] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Tue Mar 03 17:50:47.121554 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49856] 
+[Tue Mar 03 17:50:58.382959 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49882] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project7bbaf6005d3411ea9bf3e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project7bbaf6005d3411ea9bf3e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Tue Mar 03 17:50:58.383010 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49882] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Tue Mar 03 17:50:58.383022 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49882] 
+[Tue Mar 03 17:51:00.319954 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49883] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project7ce246965d3411ea9951e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project7ce246965d3411ea9951e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Tue Mar 03 17:51:00.319979 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49883] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Tue Mar 03 17:51:00.319990 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49883] 
+[Tue Mar 03 17:51:03.237172 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49883] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project7e9f53845d3411ea9951e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project7e9f53845d3411ea9951e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Tue Mar 03 17:51:03.237194 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49883] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Tue Mar 03 17:51:03.237205 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49883] 
+[Tue Mar 03 17:51:04.368069 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49883] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project7f4c10ba5d3411ea9bf3e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project7f4c10ba5d3411ea9bf3e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Tue Mar 03 17:51:04.368095 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49883] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Tue Mar 03 17:51:04.368106 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49883] 
+[Tue Mar 03 17:51:05.192294 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49883] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project7fc9fb2e5d3411ea9951e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project7fc9fb2e5d3411ea9951e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Tue Mar 03 17:51:05.192318 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49883] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Tue Mar 03 17:51:05.192329 2020] [wsgi:error] [pid 7698] [remote 10.8.0.6:49883] 
+[Tue Mar 03 17:52:01.562769 2020] [wsgi:error] [pid 8828] Inside ready!!
+[Tue Mar 03 17:52:02.227236 2020] [wsgi:error] [pid 8828] [remote 10.8.0.6:50016] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Projecta1c61aaa5d3411eab27ae41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Projecta1c61aaa5d3411eab27ae41f1345dc74" id="initial-id_project_name"></td></tr>
+[Tue Mar 03 17:52:02.227278 2020] [wsgi:error] [pid 8828] [remote 10.8.0.6:50016] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Tue Mar 03 17:52:02.227302 2020] [wsgi:error] [pid 8828] [remote 10.8.0.6:50016] 
+[Tue Mar 03 17:52:26.984355 2020] [wsgi:error] [pid 8828] [remote 10.8.0.6:50077] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Projectb089fbec5d3411ea9184e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Projectb089fbec5d3411ea9184e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Tue Mar 03 17:52:26.984401 2020] [wsgi:error] [pid 8828] [remote 10.8.0.6:50077] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Tue Mar 03 17:52:26.984417 2020] [wsgi:error] [pid 8828] [remote 10.8.0.6:50077] 
+[Tue Mar 03 17:54:39.261779 2020] [wsgi:error] [pid 8918] Inside ready!!
+[Tue Mar 03 17:54:39.923131 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50362] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Projectffc51f025d3411eab170e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Projectffc51f025d3411eab170e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Tue Mar 03 17:54:39.923174 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50362] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Tue Mar 03 17:54:39.923185 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50362] 
+[Tue Mar 03 17:54:58.611613 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50412] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 17:54:58.611657 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50412] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:54:58.611672 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50412] email:  ck1021051@gmail.com
+[Tue Mar 03 17:54:58.613153 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50412] ***Upload_dir id:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/Projectb08e94f45d3411ea9184e41f1345dc74/reads
+[Tue Mar 03 17:55:00.963902 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50412] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 17:55:00.963956 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50412] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:55:00.963988 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50412] email:  ck1021051@gmail.com
+[Tue Mar 03 17:55:00.964018 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50412] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 17:55:00.992776 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50412] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:55:00.992805 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50412] @@@@@@@@@@@ task name :  Projectb08e94f45d3411ea9184e41f1345dc74ck1021051@gmail.comffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:55:00.994595 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50412] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 17:55:00.994616 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50412] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:55:14.310531 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50448] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 17:55:14.310577 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50448] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:55:14.310599 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50448] email:  ck1021051@gmail.com
+[Tue Mar 03 17:55:14.310620 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50448] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 17:55:14.310742 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50448] samples-files-upload!!!
+[Tue Mar 03 17:55:14.310772 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50448] myfile.name:  samples.csv
+[Tue Mar 03 17:55:54.114727 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50530] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 17:55:54.114776 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50530] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:55:54.114798 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50530] email:  ck1021051@gmail.com
+[Tue Mar 03 17:55:54.114818 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50530] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 17:55:54.127959 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50530] samples-files-upload!!!
+[Tue Mar 03 17:55:54.127999 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50530] myfile.name:  samples.csv
+[Tue Mar 03 17:55:57.203757 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50530] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 17:55:57.203816 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50530] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:55:57.203847 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50530] email:  ck1021051@gmail.com
+[Tue Mar 03 17:55:57.203876 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50530] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 17:55:57.634719 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50530] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 17:55:57.634764 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50530] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:55:57.634795 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50530] email:  ck1021051@gmail.com
+[Tue Mar 03 17:55:57.634824 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50530] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 17:55:57.643231 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50530] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:55:57.643261 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50530] @@@@@@@@@@@ task name :  Projectb08e94f45d3411ea9184e41f1345dc74ck1021051@gmail.comffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:55:57.644770 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50530] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 17:55:57.644791 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50530] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:56:04.208723 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50555] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 17:56:04.208767 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50555] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:56:04.208789 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50555] email:  ck1021051@gmail.com
+[Tue Mar 03 17:56:04.208809 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50555] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 17:56:04.217460 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50555] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:56:04.217489 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50555] @@@@@@@@@@@ task name :  Projectb08e94f45d3411ea9184e41f1345dc74ck1021051@gmail.comffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:56:04.218977 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50555] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 17:56:04.218997 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50555] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:56:04.221844 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50555] bwa_pathogenbwa_pathogen:  TB_H37Rv
+[Tue Mar 03 17:56:04.229969 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50555] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 17:56:04.229996 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50555] *&*&*&*&*& Start running SNAKEMAKE !!!!
+[Tue Mar 03 17:56:04.230011 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50555] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 17:56:04.230031 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50555] !!! base_dir:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/tmp/Projectb08e94f45d3411ea9184e41f1345dc74_ck1021051@gmail.com_ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:57:04.262292 2020] [wsgi:error] [pid 8923] [client 10.8.0.6:50555] Timeout when reading response headers from daemon process 'VirusRNASeq': /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/VirusRNASeq/wsgi.py, referer: http://172.16.0.153/dataanalysis/Projectb08e94f45d3411ea9184e41f1345dc74_ck1021051/reference-mapping/settings
+[Tue Mar 03 17:57:10.812593 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50696] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 17:57:10.812649 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50696] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:57:10.812681 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50696] email:  ck1021051@gmail.com
+[Tue Mar 03 17:57:10.812710 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50696] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 17:57:10.812877 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50696] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:57:10.812911 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50696] @@@@@@@@@@@ task name :  Projectb08e94f45d3411ea9184e41f1345dc74ck1021051@gmail.comffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:57:10.815092 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50696] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 17:57:10.815120 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50696] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:57:19.421456 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 17:57:19.421523 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:57:19.421556 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] email:  ck1021051@gmail.com
+[Tue Mar 03 17:57:19.421585 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 17:57:19.833033 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 17:57:19.833078 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:57:19.833109 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] email:  ck1021051@gmail.com
+[Tue Mar 03 17:57:19.833137 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 17:57:19.842023 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:57:19.842052 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] @@@@@@@@@@@ task name :  Projectb08e94f45d3411ea9184e41f1345dc74ck1021051@gmail.comffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:57:19.843551 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 17:57:19.843572 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:57:22.252956 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 17:57:22.253016 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:57:22.253047 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] email:  ck1021051@gmail.com
+[Tue Mar 03 17:57:22.253076 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 17:57:22.261955 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:57:22.261983 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] @@@@@@@@@@@ task name :  Projectb08e94f45d3411ea9184e41f1345dc74ck1021051@gmail.comffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:57:22.263407 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 17:57:22.263428 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:57:22.266107 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] bwa_pathogenbwa_pathogen:  TB_H37Rv
+[Tue Mar 03 17:57:22.272990 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 17:57:22.273008 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] *&*&*&*&*& Start running SNAKEMAKE !!!!
+[Tue Mar 03 17:57:22.273018 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 17:57:22.273031 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:50717] !!! base_dir:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/tmp/Projectb08e94f45d3411ea9184e41f1345dc74_ck1021051@gmail.com_ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:58:22.306630 2020] [wsgi:error] [pid 8921] [client 10.8.0.6:50717] Timeout when reading response headers from daemon process 'VirusRNASeq': /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/VirusRNASeq/wsgi.py, referer: http://172.16.0.153/dataanalysis/Projectb08e94f45d3411ea9184e41f1345dc74_ck1021051/reference-mapping/settings
+[Tue Mar 03 17:59:37.961889 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 17:59:37.961933 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:59:37.961955 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] email:  ck1021051@gmail.com
+[Tue Mar 03 17:59:37.961975 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 17:59:37.962103 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:59:37.962127 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] @@@@@@@@@@@ task name :  Projectb08e94f45d3411ea9184e41f1345dc74ck1021051@gmail.comffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:59:37.964259 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 17:59:37.964287 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:59:40.378016 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 17:59:40.378077 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:59:40.378109 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] email:  ck1021051@gmail.com
+[Tue Mar 03 17:59:40.378138 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 17:59:40.737536 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 17:59:40.737569 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:59:40.737591 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] email:  ck1021051@gmail.com
+[Tue Mar 03 17:59:40.737611 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 17:59:40.745410 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:59:40.745438 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] @@@@@@@@@@@ task name :  Projectb08e94f45d3411ea9184e41f1345dc74ck1021051@gmail.comffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:59:40.746875 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 17:59:40.746897 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:59:43.233270 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 17:59:43.233330 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:59:43.233362 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] email:  ck1021051@gmail.com
+[Tue Mar 03 17:59:43.233391 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 17:59:43.242176 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:59:43.242204 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] @@@@@@@@@@@ task name :  Projectb08e94f45d3411ea9184e41f1345dc74ck1021051@gmail.comffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 17:59:43.243633 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 17:59:43.243653 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 17:59:43.246355 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] bwa_pathogenbwa_pathogen:  TB_H37Rv
+[Tue Mar 03 17:59:43.253184 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 17:59:43.253202 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] *&*&*&*&*& Start running SNAKEMAKE !!!!
+[Tue Mar 03 17:59:43.253212 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 17:59:43.253255 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51026] !!! base_dir:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/tmp/Projectb08e94f45d3411ea9184e41f1345dc74_ck1021051@gmail.com_ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:00:43.286878 2020] [wsgi:error] [pid 8922] [client 10.8.0.6:51026] Timeout when reading response headers from daemon process 'VirusRNASeq': /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/VirusRNASeq/wsgi.py, referer: http://172.16.0.153/dataanalysis/Projectb08e94f45d3411ea9184e41f1345dc74_ck1021051/reference-mapping/settings
+[Tue Mar 03 18:01:42.482158 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 18:01:42.482279 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:01:42.482316 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] email:  ck1021051@gmail.com
+[Tue Mar 03 18:01:42.482346 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:01:42.482508 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:01:42.482542 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] @@@@@@@@@@@ task name :  Projectb08e94f45d3411ea9184e41f1345dc74ck1021051@gmail.comffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:01:42.484860 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 18:01:42.484890 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:01:47.097943 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 18:01:47.098011 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:01:47.098043 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] email:  ck1021051@gmail.com
+[Tue Mar 03 18:01:47.098073 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:01:47.489382 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 18:01:47.489417 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:01:47.489439 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] email:  ck1021051@gmail.com
+[Tue Mar 03 18:01:47.489459 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:01:47.497853 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:01:47.497882 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] @@@@@@@@@@@ task name :  Projectb08e94f45d3411ea9184e41f1345dc74ck1021051@gmail.comffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:01:47.499397 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 18:01:47.499426 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:01:49.521209 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 18:01:49.521277 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:01:49.521307 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] email:  ck1021051@gmail.com
+[Tue Mar 03 18:01:49.521334 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:01:49.530478 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:01:49.530506 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] @@@@@@@@@@@ task name :  Projectb08e94f45d3411ea9184e41f1345dc74ck1021051@gmail.comffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:01:49.531921 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 18:01:49.531941 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:01:49.534650 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] bwa_pathogenbwa_pathogen:  TB_H37Rv
+[Tue Mar 03 18:01:49.541509 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 18:01:49.541527 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] *&*&*&*&*& Start running SNAKEMAKE !!!!
+[Tue Mar 03 18:01:49.541537 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 18:01:49.541551 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:51312] !!! base_dir:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/tmp/Projectb08e94f45d3411ea9184e41f1345dc74_ck1021051@gmail.com_ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:02:49.575134 2020] [wsgi:error] [pid 8919] [client 10.8.0.6:51312] Timeout when reading response headers from daemon process 'VirusRNASeq': /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/VirusRNASeq/wsgi.py, referer: http://172.16.0.153/dataanalysis/Projectb08e94f45d3411ea9184e41f1345dc74_ck1021051/reference-mapping/settings
+[Tue Mar 03 18:11:16.864076 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 18:11:16.864138 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:11:16.864170 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] email:  ck1021051@gmail.com
+[Tue Mar 03 18:11:16.864199 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:11:16.864377 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:11:16.864413 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] @@@@@@@@@@@ task name :  Projectb08e94f45d3411ea9184e41f1345dc74ck1021051@gmail.comffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:11:16.866860 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 18:11:16.866889 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:11:19.247046 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 18:11:19.247107 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:11:19.247138 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] email:  ck1021051@gmail.com
+[Tue Mar 03 18:11:19.247166 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:11:19.617551 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 18:11:19.617584 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:11:19.617606 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] email:  ck1021051@gmail.com
+[Tue Mar 03 18:11:19.617634 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:11:19.625433 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:11:19.625461 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] @@@@@@@@@@@ task name :  Projectb08e94f45d3411ea9184e41f1345dc74ck1021051@gmail.comffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:11:19.626900 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 18:11:19.626920 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:11:22.247458 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 18:11:22.247501 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:11:22.247523 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] email:  ck1021051@gmail.com
+[Tue Mar 03 18:11:22.247542 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:11:22.255405 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:11:22.255432 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] @@@@@@@@@@@ task name :  Projectb08e94f45d3411ea9184e41f1345dc74ck1021051@gmail.comffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:11:22.256855 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 18:11:22.256875 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:11:22.259576 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] bwa_pathogenbwa_pathogen:  TB_H37Rv
+[Tue Mar 03 18:11:22.266428 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 18:11:22.266445 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] *&*&*&*&*& Start running SNAKEMAKE !!!!
+[Tue Mar 03 18:11:22.266455 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 18:11:22.266469 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:52631] !!! base_dir:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/tmp/Projectb08e94f45d3411ea9184e41f1345dc74_ck1021051@gmail.com_ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:12:22.301627 2020] [wsgi:error] [pid 8923] [client 10.8.0.6:52631] Timeout when reading response headers from daemon process 'VirusRNASeq': /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/VirusRNASeq/wsgi.py, referer: http://172.16.0.153/dataanalysis/Projectb08e94f45d3411ea9184e41f1345dc74_ck1021051/reference-mapping/settings
+[Tue Mar 03 18:23:03.931543 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 18:23:03.931603 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:23:03.931636 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] email:  ck1021051@gmail.com
+[Tue Mar 03 18:23:03.931665 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:23:03.931826 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:23:03.931859 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] @@@@@@@@@@@ task name :  Projectb08e94f45d3411ea9184e41f1345dc74ck1021051@gmail.comffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:23:03.933945 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 18:23:03.933974 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:23:07.184590 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 18:23:07.184651 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:23:07.184694 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] email:  ck1021051@gmail.com
+[Tue Mar 03 18:23:07.184724 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:23:07.540703 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 18:23:07.540748 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:23:07.540778 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] email:  ck1021051@gmail.com
+[Tue Mar 03 18:23:07.540806 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:23:07.550331 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:23:07.550359 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] @@@@@@@@@@@ task name :  Projectb08e94f45d3411ea9184e41f1345dc74ck1021051@gmail.comffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:23:07.551796 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 18:23:07.551817 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:23:10.755592 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] project_name:  Projectb08e94f45d3411ea9184e41f1345dc74
+[Tue Mar 03 18:23:10.755651 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] analysis_code:  ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:23:10.755682 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] email:  ck1021051@gmail.com
+[Tue Mar 03 18:23:10.755711 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:23:10.763793 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:23:10.763821 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] @@@@@@@@@@@ task name :  Projectb08e94f45d3411ea9184e41f1345dc74ck1021051@gmail.comffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:23:10.765246 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 18:23:10.765266 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:23:10.767942 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] bwa_pathogenbwa_pathogen:  TB_H37Rv
+[Tue Mar 03 18:23:10.774754 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 18:23:10.774771 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] *&*&*&*&*& Start running SNAKEMAKE !!!!
+[Tue Mar 03 18:23:10.774782 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 18:23:10.774795 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:54195] !!! base_dir:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/tmp/Projectb08e94f45d3411ea9184e41f1345dc74_ck1021051@gmail.com_ffc4fe785d3411eab170e41f1345dc74
+[Tue Mar 03 18:24:10.763526 2020] [wsgi:error] [pid 8920] [client 10.8.0.6:54195] Timeout when reading response headers from daemon process 'VirusRNASeq': /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/VirusRNASeq/wsgi.py, referer: http://172.16.0.153/dataanalysis/Projectb08e94f45d3411ea9184e41f1345dc74_ck1021051/reference-mapping/settings
+[Tue Mar 03 18:38:48.983592 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56372] You successfully delete your project!
+[Tue Mar 03 18:38:51.404115 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56372] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project2c2f44cc5d3b11ea9383e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project2c2f44cc5d3b11ea9383e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Tue Mar 03 18:38:51.404143 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56372] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Tue Mar 03 18:38:51.404163 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56372] 
+[Tue Mar 03 18:39:04.129538 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56405] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project33c4b3a25d3b11eaa27ce41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project33c4b3a25d3b11eaa27ce41f1345dc74" id="initial-id_project_name"></td></tr>
+[Tue Mar 03 18:39:04.129582 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56405] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Tue Mar 03 18:39:04.129594 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56405] 
+[Tue Mar 03 18:39:20.020134 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56440] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 18:39:20.020166 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56440] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:39:20.020180 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56440] email:  reference@gmail.com
+[Tue Mar 03 18:39:20.021586 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56440] ***Upload_dir id:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/Project2c3312aa5d3b11ea9383e41f1345dc74/reads
+[Tue Mar 03 18:39:22.161960 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56440] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 18:39:22.162010 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56440] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:39:22.162038 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56440] email:  reference@gmail.com
+[Tue Mar 03 18:39:22.162065 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56440] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:39:22.162724 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56440] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:39:22.162781 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56440] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:39:22.165243 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56440] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 18:39:22.165270 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56440] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:39:28.017154 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56462] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 18:39:28.017212 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56462] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:39:28.017257 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56462] email:  reference@gmail.com
+[Tue Mar 03 18:39:28.017288 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56462] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:39:28.017463 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56462] samples-files-upload!!!
+[Tue Mar 03 18:39:28.017503 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56462] myfile.name:  samples.csv
+[Tue Mar 03 18:39:47.482370 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 18:39:47.482429 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:39:47.482461 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] email:  reference@gmail.com
+[Tue Mar 03 18:39:47.482490 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:39:47.496235 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] samples-files-upload!!!
+[Tue Mar 03 18:39:47.496270 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] myfile.name:  samples.csv
+[Tue Mar 03 18:39:50.920448 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 18:39:50.920512 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:39:50.920544 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] email:  reference@gmail.com
+[Tue Mar 03 18:39:50.920572 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:39:50.934586 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] samples-files-upload!!!
+[Tue Mar 03 18:39:50.934622 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] myfile.name:  samples.csv
+[Tue Mar 03 18:39:54.980274 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 18:39:54.980318 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:39:54.980339 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] email:  reference@gmail.com
+[Tue Mar 03 18:39:54.980358 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:39:54.992886 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] samples-files-upload!!!
+[Tue Mar 03 18:39:54.992918 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] myfile.name:  samples.csv
+[Tue Mar 03 18:39:59.859465 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 18:39:59.859507 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:39:59.859529 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] email:  reference@gmail.com
+[Tue Mar 03 18:39:59.859548 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:39:59.872129 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] samples-files-upload!!!
+[Tue Mar 03 18:39:59.872162 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56505] myfile.name:  samples.csv
+[Tue Mar 03 18:40:09.383347 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56550] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 18:40:09.383403 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56550] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:40:09.383434 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56550] email:  reference@gmail.com
+[Tue Mar 03 18:40:09.383462 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56550] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:40:09.396791 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56550] samples-files-upload!!!
+[Tue Mar 03 18:40:09.396824 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56550] myfile.name:  samples.csv
+[Tue Mar 03 18:40:12.455657 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56550] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 18:40:12.455710 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56550] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:40:12.455741 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56550] email:  reference@gmail.com
+[Tue Mar 03 18:40:12.455769 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56550] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:40:12.810520 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56550] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 18:40:12.810563 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56550] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:40:12.810593 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56550] email:  reference@gmail.com
+[Tue Mar 03 18:40:12.810622 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56550] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:40:12.820401 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56550] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:40:12.820429 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56550] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:40:12.821887 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56550] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 18:40:12.821908 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56550] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:40:19.420483 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56572] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 18:40:19.420532 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56572] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:40:19.420556 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56572] email:  reference@gmail.com
+[Tue Mar 03 18:40:19.420579 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56572] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:40:19.429569 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56572] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:40:19.429598 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56572] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:40:19.431060 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56572] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 18:40:19.431081 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56572] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:40:19.433926 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56572] bwa_pathogenbwa_pathogen:  TB_H37Rv
+[Tue Mar 03 18:40:19.441331 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56572] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 18:40:19.441349 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56572] *&*&*&*&*& Start running SNAKEMAKE !!!!
+[Tue Mar 03 18:40:19.441359 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56572] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 18:40:19.441373 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56572] !!! base_dir:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/tmp/Project2c3312aa5d3b11ea9383e41f1345dc74_reference@gmail.com_33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:41:00.272735 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56660] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 18:41:00.272795 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56660] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:41:00.272826 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56660] email:  reference@gmail.com
+[Tue Mar 03 18:41:00.272855 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56660] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:41:00.273004 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56660] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:41:00.273037 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56660] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:41:00.275096 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56660] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 18:41:00.275125 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56660] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:41:19.473338 2020] [wsgi:error] [pid 10262] [client 10.8.0.6:56572] Timeout when reading response headers from daemon process 'VirusRNASeq': /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/VirusRNASeq/wsgi.py, referer: http://172.16.0.153/dataanalysis/Project2c3312aa5d3b11ea9383e41f1345dc74_reference/reference-mapping/settings
+[Tue Mar 03 18:42:10.314405 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 18:42:10.314456 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:42:10.314478 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] email:  reference@gmail.com
+[Tue Mar 03 18:42:10.314498 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:42:10.314613 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:42:10.314646 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:42:10.316161 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 18:42:10.316182 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:42:12.615935 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 18:42:12.615993 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:42:12.616024 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] email:  reference@gmail.com
+[Tue Mar 03 18:42:12.616052 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:42:12.979909 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 18:42:12.979954 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:42:12.979984 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] email:  reference@gmail.com
+[Tue Mar 03 18:42:12.980012 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:42:12.989843 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:42:12.989871 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:42:12.991331 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 18:42:12.991352 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:42:15.367913 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 18:42:15.367950 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:42:15.367971 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] email:  reference@gmail.com
+[Tue Mar 03 18:42:15.367990 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 18:42:15.375856 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:42:15.375885 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:42:15.377317 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 18:42:15.377338 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 18:42:15.380012 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] bwa_pathogenbwa_pathogen:  TB_H37Rv
+[Tue Mar 03 18:42:15.386850 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 18:42:15.386867 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] *&*&*&*&*& Start running SNAKEMAKE !!!!
+[Tue Mar 03 18:42:15.386891 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 18:42:15.386905 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:56806] !!! base_dir:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/tmp/Project2c3312aa5d3b11ea9383e41f1345dc74_reference@gmail.com_33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 18:43:15.412365 2020] [wsgi:error] [pid 9010] [client 10.8.0.6:56806] Timeout when reading response headers from daemon process 'VirusRNASeq': /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/VirusRNASeq/wsgi.py, referer: http://172.16.0.153/dataanalysis/Project2c3312aa5d3b11ea9383e41f1345dc74_reference/reference-mapping/settings
+[Tue Mar 03 19:03:18.761672 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 19:03:18.761737 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:03:18.761768 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] email:  reference@gmail.com
+[Tue Mar 03 19:03:18.761798 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 19:03:18.761950 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:03:18.761983 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:03:18.764176 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 19:03:18.764206 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:03:20.848029 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 19:03:20.848100 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:03:20.848132 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] email:  reference@gmail.com
+[Tue Mar 03 19:03:20.848161 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 19:03:21.221550 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 19:03:21.221606 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:03:21.221638 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] email:  reference@gmail.com
+[Tue Mar 03 19:03:21.221667 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 19:03:21.231352 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:03:21.231380 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:03:21.232839 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 19:03:21.232860 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:03:24.008280 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 19:03:24.008336 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:03:24.008362 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] email:  reference@gmail.com
+[Tue Mar 03 19:03:24.008386 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 19:03:24.017989 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:03:24.018017 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:03:24.019498 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 19:03:24.019519 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:03:24.022198 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] bwa_pathogenbwa_pathogen:  TB_H37Rv
+[Tue Mar 03 19:03:24.029036 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 19:03:24.029055 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] *&*&*&*&*& Start running SNAKEMAKE !!!!
+[Tue Mar 03 19:03:24.029065 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 19:03:24.029087 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59674] !!! base_dir:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/tmp/Project2c3312aa5d3b11ea9383e41f1345dc74_reference@gmail.com_33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:04:24.056331 2020] [wsgi:error] [pid 8921] [client 10.8.0.6:59674] Timeout when reading response headers from daemon process 'VirusRNASeq': /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/VirusRNASeq/wsgi.py, referer: http://172.16.0.153/dataanalysis/Project2c3312aa5d3b11ea9383e41f1345dc74_reference/reference-mapping/settings
+[Tue Mar 03 19:04:40.424339 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 19:04:40.424385 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:04:40.424406 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] email:  reference@gmail.com
+[Tue Mar 03 19:04:40.426493 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] ***Upload_dir id:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/Project2c3312aa5d3b11ea9383e41f1345dc74/reads
+[Tue Mar 03 19:04:44.966344 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 19:04:44.966411 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:04:44.966443 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] email:  reference@gmail.com
+[Tue Mar 03 19:04:44.966473 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 19:04:44.966624 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:04:44.966658 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:04:44.968778 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 19:04:44.968806 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:04:47.155929 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 19:04:47.155983 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:04:47.156014 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] email:  reference@gmail.com
+[Tue Mar 03 19:04:47.156043 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 19:04:47.544796 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 19:04:47.544840 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:04:47.544871 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] email:  reference@gmail.com
+[Tue Mar 03 19:04:47.544900 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 19:04:47.553133 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:04:47.553162 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:04:47.554583 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 19:04:47.554604 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59853] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:04:56.654370 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 19:04:56.654431 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:04:56.654476 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] email:  reference@gmail.com
+[Tue Mar 03 19:04:56.654506 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 19:04:56.654654 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:04:56.654687 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:04:56.656791 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 19:04:56.656820 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:04:59.041552 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 19:04:59.041603 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:04:59.041634 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] email:  reference@gmail.com
+[Tue Mar 03 19:04:59.041662 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 19:04:59.422344 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 19:04:59.422388 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:04:59.422419 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] email:  reference@gmail.com
+[Tue Mar 03 19:04:59.422447 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 19:04:59.431439 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:04:59.431466 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:04:59.432890 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 19:04:59.432910 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:05:02.073942 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 19:05:02.073994 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:05:02.074025 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] email:  reference@gmail.com
+[Tue Mar 03 19:05:02.074054 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 19:05:02.083012 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:05:02.083040 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:05:02.084542 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 19:05:02.084563 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:05:02.087348 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] bwa_pathogenbwa_pathogen:  TB_H37Rv
+[Tue Mar 03 19:05:02.094141 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 19:05:02.094159 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] *&*&*&*&*& Start running SNAKEMAKE !!!!
+[Tue Mar 03 19:05:02.094169 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 19:05:02.094182 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:59888] !!! base_dir:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/tmp/Project2c3312aa5d3b11ea9383e41f1345dc74_reference@gmail.com_33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:06:02.102718 2020] [wsgi:error] [pid 8922] [client 10.8.0.6:59888] Timeout when reading response headers from daemon process 'VirusRNASeq': /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/VirusRNASeq/wsgi.py, referer: http://172.16.0.153/dataanalysis/Project2c3312aa5d3b11ea9383e41f1345dc74_reference/reference-mapping/settings
+[Tue Mar 03 19:28:42.396407 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 19:28:42.396458 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:28:42.396475 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] email:  reference@gmail.com
+[Tue Mar 03 19:28:42.398541 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] ***Upload_dir id:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/Project2c3312aa5d3b11ea9383e41f1345dc74/reads
+[Tue Mar 03 19:28:44.741329 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 19:28:44.741388 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:28:44.741436 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] email:  reference@gmail.com
+[Tue Mar 03 19:28:44.741469 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 19:28:44.741905 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:28:44.741950 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:28:44.754979 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 19:28:44.755006 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:28:47.486125 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 19:28:47.486182 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:28:47.486215 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] email:  reference@gmail.com
+[Tue Mar 03 19:28:47.486277 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 19:28:47.872956 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 19:28:47.873000 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:28:47.873031 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] email:  reference@gmail.com
+[Tue Mar 03 19:28:47.873059 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 19:28:47.881878 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:28:47.881906 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:28:47.883359 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 19:28:47.883380 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:28:49.967134 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Tue Mar 03 19:28:49.967186 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:28:49.967243 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] email:  reference@gmail.com
+[Tue Mar 03 19:28:49.967280 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] assembly_type_input:  reference_based_assembly
+[Tue Mar 03 19:28:49.975551 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:28:49.975588 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:28:49.977037 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 03 19:28:49.977057 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 03 19:28:49.979732 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] bwa_pathogenbwa_pathogen:  TB_H37Rv
+[Tue Mar 03 19:28:49.986888 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 19:28:49.986917 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] *&*&*&*&*& Start running SNAKEMAKE !!!!
+[Tue Mar 03 19:28:49.986929 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Tue Mar 03 19:28:49.986942 2020] [wsgi:error] [pid 8918] [remote 10.8.0.6:62834] !!! base_dir:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/tmp/Project2c3312aa5d3b11ea9383e41f1345dc74_reference@gmail.com_33c492be5d3b11eaa27ce41f1345dc74
+[Tue Mar 03 19:29:49.965182 2020] [wsgi:error] [pid 8986] [client 10.8.0.6:62834] Timeout when reading response headers from daemon process 'VirusRNASeq': /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/VirusRNASeq/wsgi.py, referer: http://172.16.0.153/dataanalysis/Project2c3312aa5d3b11ea9383e41f1345dc74_reference/reference-mapping/settings
+[Wed Mar 04 17:39:48.473612 2020] [wsgi:error] [pid 16959] Inside ready!!
+[Wed Mar 04 17:40:35.230825 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Wed Mar 04 17:40:35.230877 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Wed Mar 04 17:40:35.230898 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] email:  reference@gmail.com
+[Wed Mar 04 17:40:35.232912 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] ***Upload_dir id:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/Project2c3312aa5d3b11ea9383e41f1345dc74/reads
+[Wed Mar 04 17:40:37.215454 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Wed Mar 04 17:40:37.215508 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Wed Mar 04 17:40:37.215539 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] email:  reference@gmail.com
+[Wed Mar 04 17:40:37.215568 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] assembly_type_input:  reference_based_assembly
+[Wed Mar 04 17:40:37.260192 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Mar 04 17:40:37.260231 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Wed Mar 04 17:40:37.263020 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] @@@@@@@@@@@ result.state:  PENDING
+[Wed Mar 04 17:40:37.263048 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Mar 04 17:40:41.103437 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Wed Mar 04 17:40:41.103504 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Wed Mar 04 17:40:41.103536 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] email:  reference@gmail.com
+[Wed Mar 04 17:40:41.103565 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] assembly_type_input:  reference_based_assembly
+[Wed Mar 04 17:40:41.483220 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Wed Mar 04 17:40:41.483260 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Wed Mar 04 17:40:41.483286 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] email:  reference@gmail.com
+[Wed Mar 04 17:40:41.483327 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] assembly_type_input:  reference_based_assembly
+[Wed Mar 04 17:40:41.494977 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Mar 04 17:40:41.495017 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Wed Mar 04 17:40:41.497161 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] @@@@@@@@@@@ result.state:  PENDING
+[Wed Mar 04 17:40:41.497213 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Mar 04 17:40:43.654061 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Wed Mar 04 17:40:43.654113 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Wed Mar 04 17:40:43.654144 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] email:  reference@gmail.com
+[Wed Mar 04 17:40:43.654186 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] assembly_type_input:  reference_based_assembly
+[Wed Mar 04 17:40:43.665583 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Mar 04 17:40:43.665623 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Wed Mar 04 17:40:43.667678 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] @@@@@@@@@@@ result.state:  PENDING
+[Wed Mar 04 17:40:43.667706 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Wed Mar 04 17:40:43.671372 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] bwa_pathogenbwa_pathogen:  TB_H37Rv
+[Wed Mar 04 17:40:43.683552 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Wed Mar 04 17:40:43.683580 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] *&*&*&*&*& Start running SNAKEMAKE !!!!
+[Wed Mar 04 17:40:43.683595 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] !!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Wed Mar 04 17:40:43.683614 2020] [wsgi:error] [pid 16959] [remote 10.8.0.6:64720] !!! base_dir:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/tmp/Project2c3312aa5d3b11ea9383e41f1345dc74_reference@gmail.com_33c492be5d3b11eaa27ce41f1345dc74
+[Wed Mar 04 17:42:23.482042 2020] [wsgi:error] [pid 17007] [client 10.8.0.6:64720] Timeout when reading response headers from daemon process 'VirusRNASeq': /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/VirusRNASeq/wsgi.py, referer: http://172.16.0.153/dataanalysis/Project2c3312aa5d3b11ea9383e41f1345dc74_reference/reference-mapping/settings
+[Wed Mar 04 17:42:47.781554 2020] [wsgi:error] [pid 17075] Inside ready!!
+[Fri Mar 06 13:39:40.037872 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:59890] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Projectdf92ecfc5f6c11eaae08e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Projectdf92ecfc5f6c11eaae08e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Fri Mar 06 13:39:40.037932 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:59890] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Fri Mar 06 13:39:40.037949 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:59890] 
+[Fri Mar 06 13:40:30.378458 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:59992] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Projectfd9466c25f6c11ea82f7e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Projectfd9466c25f6c11ea82f7e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Fri Mar 06 13:40:30.378508 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:59992] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Fri Mar 06 13:40:30.378525 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:59992] 
+[Fri Mar 06 13:42:20.461747 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60234] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project3f319cd05f6d11eaae08e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project3f319cd05f6d11eaae08e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Fri Mar 06 13:42:20.461790 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60234] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Fri Mar 06 13:42:20.461807 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60234] 
+[Fri Mar 06 13:43:03.469527 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60323] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project58d41f3c5f6d11ea82f7e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project58d41f3c5f6d11ea82f7e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Fri Mar 06 13:43:03.469568 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60323] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Fri Mar 06 13:43:03.469585 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60323] 
+[Fri Mar 06 13:43:17.057673 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60353] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project60ed7ace5f6d11eaae08e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project60ed7ace5f6d11eaae08e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Fri Mar 06 13:43:17.057710 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60353] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Fri Mar 06 13:43:17.057727 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60353] 
+[Fri Mar 06 13:43:31.019521 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60383] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Project694005a25f6d11ea82f7e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Project694005a25f6d11ea82f7e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Fri Mar 06 13:43:31.019570 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60383] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Fri Mar 06 13:43:31.019586 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60383] 
+[Fri Mar 06 13:46:03.294268 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60695] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Projectc40328705f6d11eaae08e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Projectc40328705f6d11eaae08e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Fri Mar 06 13:46:03.294312 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60695] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Fri Mar 06 13:46:03.294329 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60695] 
+[Fri Mar 06 13:47:17.420901 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60870] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Projectf03287105f6d11ea82f7e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Projectf03287105f6d11ea82f7e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Fri Mar 06 13:47:17.420947 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60870] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Fri Mar 06 13:47:17.420959 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60870] 
+[Fri Mar 06 13:47:24.390727 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60886] $$$$$$$$$$:  <tr><th><label for="id_project_name">Project name:</label></th><td><input type="text" name="project_name" value="Projectf4598a5a5f6d11eaae08e41f1345dc74" maxlength="100" required id="id_project_name"><input type="hidden" name="initial-project_name" value="Projectf4598a5a5f6d11eaae08e41f1345dc74" id="initial-id_project_name"></td></tr>
+[Fri Mar 06 13:47:24.390771 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60886] <tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+[Fri Mar 06 13:47:24.390787 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60886] 
+[Fri Mar 06 13:47:40.001271 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60913] project_name:  Projectf0365c6e5f6d11ea82f7e41f1345dc74
+[Fri Mar 06 13:47:40.001314 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60913] analysis_code:  f4596a2a5f6d11eaae08e41f1345dc74
+[Fri Mar 06 13:47:40.001334 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60913] email:  virus@gmail.com
+[Fri Mar 06 13:47:40.003344 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:60913] ***Upload_dir id:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/Projectf0365c6e5f6d11ea82f7e41f1345dc74/reads
+[Fri Mar 06 13:52:02.773421 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61494] project_name:  Projectf0365c6e5f6d11ea82f7e41f1345dc74
+[Fri Mar 06 13:52:02.773459 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61494] analysis_code:  f4596a2a5f6d11eaae08e41f1345dc74
+[Fri Mar 06 13:52:02.773473 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61494] email:  virus@gmail.com
+[Fri Mar 06 13:52:02.774891 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61494] ***Upload_dir id:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/Projectf0365c6e5f6d11ea82f7e41f1345dc74/reads
+[Fri Mar 06 13:52:04.768076 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61494] project_name:  Projectf0365c6e5f6d11ea82f7e41f1345dc74
+[Fri Mar 06 13:52:04.768132 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61494] analysis_code:  f4596a2a5f6d11eaae08e41f1345dc74
+[Fri Mar 06 13:52:04.768163 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61494] email:  virus@gmail.com
+[Fri Mar 06 13:52:04.768226 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61494] assembly_type_input:  virus_assembly
+[Fri Mar 06 13:52:04.807308 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61494] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Fri Mar 06 13:52:04.807348 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61494] @@@@@@@@@@@ task name :  Projectf0365c6e5f6d11ea82f7e41f1345dc74virus@gmail.comf4596a2a5f6d11eaae08e41f1345dc74
+[Fri Mar 06 13:52:04.810142 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61494] @@@@@@@@@@@ result.state:  PENDING
+[Fri Mar 06 13:52:04.810183 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61494] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Fri Mar 06 13:53:50.503205 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61722] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Fri Mar 06 13:53:50.503287 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61722] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Fri Mar 06 13:53:50.503306 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61722] email:  reference@gmail.com
+[Fri Mar 06 13:53:50.505207 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61722] ***Upload_dir id:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/Project2c3312aa5d3b11ea9383e41f1345dc74/reads
+[Fri Mar 06 13:53:52.363732 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61722] project_name:  Project2c3312aa5d3b11ea9383e41f1345dc74
+[Fri Mar 06 13:53:52.363790 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61722] analysis_code:  33c492be5d3b11eaa27ce41f1345dc74
+[Fri Mar 06 13:53:52.363825 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61722] email:  reference@gmail.com
+[Fri Mar 06 13:53:52.363855 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61722] assembly_type_input:  reference_based_assembly
+[Fri Mar 06 13:53:52.364276 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61722] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Fri Mar 06 13:53:52.364322 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61722] @@@@@@@@@@@ task name :  Project2c3312aa5d3b11ea9383e41f1345dc74reference@gmail.com33c492be5d3b11eaa27ce41f1345dc74
+[Fri Mar 06 13:53:52.366618 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61722] @@@@@@@@@@@ result.state:  PENDING
+[Fri Mar 06 13:53:52.366647 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61722] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Fri Mar 06 13:54:42.452553 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61842] project_name:  Projectf0365c6e5f6d11ea82f7e41f1345dc74
+[Fri Mar 06 13:54:42.452585 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61842] analysis_code:  f4596a2a5f6d11eaae08e41f1345dc74
+[Fri Mar 06 13:54:42.452598 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61842] email:  virus@gmail.com
+[Fri Mar 06 13:54:42.453993 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61842] ***Upload_dir id:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/Projectf0365c6e5f6d11ea82f7e41f1345dc74/reads
+[Fri Mar 06 13:54:43.995710 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61842] project_name:  Projectf0365c6e5f6d11ea82f7e41f1345dc74
+[Fri Mar 06 13:54:43.995750 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61842] analysis_code:  f4596a2a5f6d11eaae08e41f1345dc74
+[Fri Mar 06 13:54:43.995773 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61842] email:  virus@gmail.com
+[Fri Mar 06 13:54:43.995794 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61842] assembly_type_input:  virus_assembly
+[Fri Mar 06 13:54:43.995933 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61842] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Fri Mar 06 13:54:43.995960 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61842] @@@@@@@@@@@ task name :  Projectf0365c6e5f6d11ea82f7e41f1345dc74virus@gmail.comf4596a2a5f6d11eaae08e41f1345dc74
+[Fri Mar 06 13:54:43.997507 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61842] @@@@@@@@@@@ result.state:  PENDING
+[Fri Mar 06 13:54:43.997529 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:61842] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Fri Mar 06 13:56:20.247720 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62051] project_name:  Projectf0365c6e5f6d11ea82f7e41f1345dc74
+[Fri Mar 06 13:56:20.247781 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62051] analysis_code:  f4596a2a5f6d11eaae08e41f1345dc74
+[Fri Mar 06 13:56:20.247812 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62051] email:  virus@gmail.com
+[Fri Mar 06 13:56:20.247841 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62051] assembly_type_input:  virus_assembly
+[Fri Mar 06 13:56:20.248009 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62051] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Fri Mar 06 13:56:20.248044 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62051] @@@@@@@@@@@ task name :  Projectf0365c6e5f6d11ea82f7e41f1345dc74virus@gmail.comf4596a2a5f6d11eaae08e41f1345dc74
+[Fri Mar 06 13:56:20.250217 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62051] @@@@@@@@@@@ result.state:  PENDING
+[Fri Mar 06 13:56:20.250246 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62051] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Fri Mar 06 13:56:37.857694 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62094] project_name:  Projectf0365c6e5f6d11ea82f7e41f1345dc74
+[Fri Mar 06 13:56:37.857749 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62094] analysis_code:  f4596a2a5f6d11eaae08e41f1345dc74
+[Fri Mar 06 13:56:37.857793 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62094] email:  virus@gmail.com
+[Fri Mar 06 13:56:37.857821 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62094] assembly_type_input:  virus_assembly
+[Fri Mar 06 13:56:37.857957 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62094] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Fri Mar 06 13:56:37.857990 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62094] @@@@@@@@@@@ task name :  Projectf0365c6e5f6d11ea82f7e41f1345dc74virus@gmail.comf4596a2a5f6d11eaae08e41f1345dc74
+[Fri Mar 06 13:56:37.860220 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62094] @@@@@@@@@@@ result.state:  PENDING
+[Fri Mar 06 13:56:37.860248 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62094] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Fri Mar 06 13:56:51.600274 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62126] project_name:  Projectf0365c6e5f6d11ea82f7e41f1345dc74
+[Fri Mar 06 13:56:51.600328 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62126] analysis_code:  f4596a2a5f6d11eaae08e41f1345dc74
+[Fri Mar 06 13:56:51.600359 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62126] email:  virus@gmail.com
+[Fri Mar 06 13:56:51.600388 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62126] assembly_type_input:  virus_assembly
+[Fri Mar 06 13:56:51.600511 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62126] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Fri Mar 06 13:56:51.600545 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62126] @@@@@@@@@@@ task name :  Projectf0365c6e5f6d11ea82f7e41f1345dc74virus@gmail.comf4596a2a5f6d11eaae08e41f1345dc74
+[Fri Mar 06 13:56:51.602808 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62126] @@@@@@@@@@@ result.state:  PENDING
+[Fri Mar 06 13:56:51.602837 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62126] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Fri Mar 06 13:57:07.271098 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62160] project_name:  Projectf0365c6e5f6d11ea82f7e41f1345dc74
+[Fri Mar 06 13:57:07.271151 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62160] analysis_code:  f4596a2a5f6d11eaae08e41f1345dc74
+[Fri Mar 06 13:57:07.271200 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62160] email:  virus@gmail.com
+[Fri Mar 06 13:57:07.271232 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62160] assembly_type_input:  virus_assembly
+[Fri Mar 06 13:57:07.271403 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62160] samples-files-upload!!!
+[Fri Mar 06 13:57:07.271443 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62160] myfile.name:  samples.csv
+[Fri Mar 06 13:58:44.735963 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62361] project_name:  Projectf0365c6e5f6d11ea82f7e41f1345dc74
+[Fri Mar 06 13:58:44.736017 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62361] analysis_code:  f4596a2a5f6d11eaae08e41f1345dc74
+[Fri Mar 06 13:58:44.736044 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62361] email:  virus@gmail.com
+[Fri Mar 06 13:58:44.736069 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62361] assembly_type_input:  virus_assembly
+[Fri Mar 06 13:58:44.753082 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62361] samples-files-upload!!!
+[Fri Mar 06 13:58:44.753125 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62361] myfile.name:  samples.csv
+[Fri Mar 06 13:58:47.053390 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62361] project_name:  Projectf0365c6e5f6d11ea82f7e41f1345dc74
+[Fri Mar 06 13:58:47.053444 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62361] analysis_code:  f4596a2a5f6d11eaae08e41f1345dc74
+[Fri Mar 06 13:58:47.053475 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62361] email:  virus@gmail.com
+[Fri Mar 06 13:58:47.053503 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62361] assembly_type_input:  virus_assembly
+[Fri Mar 06 13:58:57.472649 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62390] project_name:  Projectf0365c6e5f6d11ea82f7e41f1345dc74
+[Fri Mar 06 13:58:57.472705 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62390] analysis_code:  f4596a2a5f6d11eaae08e41f1345dc74
+[Fri Mar 06 13:58:57.472736 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62390] email:  virus@gmail.com
+[Fri Mar 06 13:58:57.472777 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62390] assembly_type_input:  virus_assembly
+[Fri Mar 06 13:58:57.472943 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62390] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Fri Mar 06 13:58:57.472976 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62390] @@@@@@@@@@@ task name :  Projectf0365c6e5f6d11ea82f7e41f1345dc74virus@gmail.comf4596a2a5f6d11eaae08e41f1345dc74
+[Fri Mar 06 13:58:57.474833 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62390] @@@@@@@@@@@ result.state:  PENDING
+[Fri Mar 06 13:58:57.474856 2020] [wsgi:error] [pid 17075] [remote 10.8.0.6:62390] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

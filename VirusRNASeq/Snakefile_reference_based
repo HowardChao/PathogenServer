@@ -78,7 +78,7 @@ rule first_fastqc:
         log = os.path.join("{sample}", "logs", "Step_1","fastqc_pre", "{sample}.log")
     shell:
         """
-        {config[fastqc][fastqc_command]} {input.r1} {input.r2} --outdir={params.sample}/Step_1/QC/pre
+        {config[fastqc][fastqc_command]} {input.r1} {input.r2} --outdir={params.sample}/Step_1/QC/pre &> {log.log}
         """
 
 rule first_multiqc:
@@ -98,7 +98,7 @@ rule first_multiqc:
         log = os.path.join("{sample}", "logs", "Step_1", "multiqc_pre", "{sample}.log"),
     shell:
         """
-        multiqc --force {params.directory} -n {params.filename}
+        multiqc --force {params.directory} -n {params.filename} &> {log.log}
         """
 
 rule trimmomatic_pe:
@@ -110,7 +110,6 @@ rule trimmomatic_pe:
         r1_unpaired = os.path.join("{sample}", "Step_1", "trimmed_unpaired", "{sample}_r1_unpaired.fastq.gz"),
         r2_paired = os.path.join("{sample}", "Step_1", "trimmed_paired", "{sample}_r2_paired.fastq.gz"),
         r2_unpaired = os.path.join("{sample}", "Step_1", "trimmed_unpaired", "{sample}_r2_unpaired.fastq.gz"),
-        output_command = os.path.join("{sample}", "logs", "trimmomatic_pe", "{sample}.command.log"),
     threads: 8,
     priority: 97,
     log:
@@ -126,7 +125,7 @@ rule trimmomatic_pe:
         """
         java -jar {config[trimmomatic][trimmomatic_jar]} PE -threads {threads} {config[trimmomatic][trimmomatic_phred]} -trimlog {log.log} {input.r1} {input.r2} {output.r1_paired} \
         {output.r1_unpaired} {output.r2_paired} {output.r2_unpaired} \
-        {config[trimmomatic][trimmomatic_adapter_snakemake_variable]} LEADING:{config[trimmomatic][trimmomatic_leading]} TRAILING:{config[trimmomatic][trimmomatic_trailing]} SLIDINGWINDOW:{config[trimmomatic][trimmomatic_window_size]}:{config[trimmomatic][trimmomatic_window_quality]} MINLEN:{config[trimmomatic][trimmomatic_minlen]} &> {output.output_command}
+        {config[trimmomatic][trimmomatic_adapter_snakemake_variable]} LEADING:{config[trimmomatic][trimmomatic_leading]} TRAILING:{config[trimmomatic][trimmomatic_trailing]} SLIDINGWINDOW:{config[trimmomatic][trimmomatic_window_size]}:{config[trimmomatic][trimmomatic_window_quality]} MINLEN:{config[trimmomatic][trimmomatic_minlen]} &> {log.log}
         """
 
 
@@ -161,7 +160,7 @@ rule second_fastqc:
         log = os.path.join("{sample}", "logs", "Step_1", "fastqc_post", "{sample}.log"),
     shell:
         """
-        {config[fastqc][fastqc_command]} --threads {threads} {input.r1_paired} {input.r2_paired} --outdir={params.sample}/Step_1/QC/post
+        {config[fastqc][fastqc_command]} --threads {threads} {input.r1_paired} {input.r2_paired} --outdir={params.sample}/Step_1/QC/post &> {log.log}
         """
         # {config[fastqc][fastqc_command]} --threads {threads} {input.r1_paired} {input.r1_unpaired} {input.r2_paired} {input.r2_unpaired} --outdir={params.sample}/Step_1/QC/post
 
@@ -172,18 +171,10 @@ rule second_multiqc:
             "{sample}", "Step_1", "QC", "post", "{sample}_r1_paired_fastqc.html"),
         zip_r1_paired = os.path.join(
             "{sample}", "Step_1", "QC", "post", "{sample}_r1_paired_fastqc.zip"),
-        # html_r1_unpaired = os.path.join(
-        #     "{sample}", "Step_1", "QC", "post", "{sample}_r1_unpaired_fastqc.html"),
-        # zip_r1_unpaired = os.path.join(
-        #     "{sample}", "Step_1", "QC", "post", "{sample}_r1_unpaired_fastqc.zip"),
         html_r2_paired = os.path.join(
             "{sample}", "Step_1", "QC", "post", "{sample}_r2_paired_fastqc.html"),
         zip_r2_paired = os.path.join(
             "{sample}", "Step_1", "QC", "post", "{sample}_r2_paired_fastqc.zip"),
-        # html_r2_unpaired = os.path.join(
-        #     "{sample}", "Step_1", "QC", "post", "{sample}_r2_unpaired_fastqc.html"),
-        # zip_r2_unpaired = os.path.join(
-        #     "{sample}", "Step_1", "QC", "post", "{sample}_r2_unpaired_fastqc.zip"),
     output:
         multiqc_file = os.path.join("{sample}", "Step_1", "QC", "post", "{sample}_multiqc.html"),
         multiqc_dir = os.path.join("{sample}", "Step_1", "QC", "post", "{sample}_multiqc_data"),
@@ -195,7 +186,7 @@ rule second_multiqc:
         log = os.path.join("{sample}", "logs", "Step_1", "multiqc_post", "{sample}.log"),
     shell:
         """
-        multiqc --force {params.directory} -n {params.filename}
+        multiqc --force {params.directory} -n {params.filename} &> {log.log}
         """
 
 
@@ -239,7 +230,7 @@ rule samtools_fixmate_1:
         log = os.path.join("{sample}", "logs", "Step_3", "samtools_fixmate", "{sample}.log"),
     shell:
         """
-        samtools fixmate -O bam {input.bwa_sam} {output.samtools_bam}
+        samtools fixmate -O bam {input.bwa_sam} {output.samtools_bam} &> {log.log}
         """
 
 rule samtools_sort_2:
@@ -253,7 +244,7 @@ rule samtools_sort_2:
         log = os.path.join("{sample}", "logs", "Step_3", "samtools_sorted", "{sample}.log"),
     shell:
         """
-        samtools sort -O bam -o {output.samtools_sorted_bam} {input.samtools_bam}
+        samtools sort -O bam -o {output.samtools_sorted_bam} {input.samtools_bam} &> {log.log}
         """
 
 
@@ -282,7 +273,7 @@ rule bcftools_mpileup_1:
         log = os.path.join("{sample}", "logs", "Step_4", "bcftools_vcf", "{sample}_vcf.log"),
     shell:
         """
-        bcftools mpileup -Ou -f {config[bwa][bwa_pathogen_dir]} {input.samtools_sorted_bam} | bcftools call -vmO v -o {output.bcftools_vcf}
+        bcftools mpileup -Ou -f {config[bwa][bwa_pathogen_dir]} {input.samtools_sorted_bam} | bcftools call -vmO v -o {output.bcftools_vcf} &> {log.log}
         """
 
 
@@ -299,7 +290,7 @@ rule sed_vcf_revise:
         log = os.path.join("{sample}", "logs", "Step_4", "bcftools_vcf_revise", "{sample}_revise_vcf.log"),
     shell:
         """
-        sed 's/{params.origin_chromosome_name}/{params.target_chromosome_name}/g' "{input.bcftools_vcf}" > {output.bcftools_revise_vcf}
+        sed 's/{params.origin_chromosome_name}/{params.target_chromosome_name}/g' "{input.bcftools_vcf}" > {output.bcftools_revise_vcf} &> {log.log}
         """
 
 rule gzip_vcf_file:
@@ -335,60 +326,60 @@ rule snpeff_1:
 
 
 
-
-
-
-rule gatk_1:
-    input:
-        snpeff_vcf = os.path.join("{sample}", "Step_5", "snpeff", "{sample}.ann.vcf"),
-    output:
-        gatk_dict = os.path.join("{sample}", "Step_6", "gatk", "{sample}.dict"),
-    params:
-    priority: 85,
-    log:
-        log = os.path.join("{sample}", "logs", "gatk_CreateSequenceDictionary", "{sample}.log"),
-    shell:
-        """
-        java -jar {config[gatk][gatk_jar]} CreateSequenceDictionary -R {config[bwa][bwa_pathogen_dir]} -O {output.gatk_dict}
-        """
-
-rule gatk_2:
-    input:
-        bcftools_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}_revise.vcf.gz"),
-    output:
-        gatk_vcf_gz_tbi = os.path.join("{sample}", "Step_6", "gatk", "{sample}.vcf.gz.tbi"),
-    params:
-    priority: 84,
-    log:
-        log = os.path.join("{sample}", "logs", "snpeff_IndexFeatureFile", "{sample}.log"),
-    shell:
-        """
-        java -jar {config[gatk][gatk_jar]} IndexFeatureFile -F {input.bcftools_vcf}
-        """
-
-rule gatk_3:
-    input:
-        bcftools_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}_revise.vcf.gz"),
-    output:
-        gatk_out_fa = os.path.join("{sample}", "Step_6", "gatk", "{sample}_out.fa"),
-    params:
-    priority: 83,
-    log:
-        log = os.path.join("{sample}", "logs", "snpeff_FastaAlternateReferenceMaker", "{sample}.log"),
-    shell:
-        """
-        java -jar {config[gatk][gatk_jar]} FastaAlternateReferenceMaker -R {config[bwa][bwa_pathogen_dir]} -V {input.bcftools_vcf} --output {output.gatk_out_fa}
-        """
-
-
-rule get_end_time:
-    output:
-        end_time = 'time/end_time.txt',
-    priority: 0,
-    shell:
-        '''
-        python get_time_script/get_end_time.py
-        '''
+#
+#
+#
+# rule gatk_1:
+#     input:
+#         snpeff_vcf = os.path.join("{sample}", "Step_5", "snpeff", "{sample}.ann.vcf"),
+#     output:
+#         gatk_dict = os.path.join("{sample}", "Step_6", "gatk", "{sample}.dict"),
+#     params:
+#     priority: 85,
+#     log:
+#         log = os.path.join("{sample}", "logs", "gatk_CreateSequenceDictionary", "{sample}.log"),
+#     shell:
+#         """
+#         java -jar {config[gatk][gatk_jar]} CreateSequenceDictionary -R {config[bwa][bwa_pathogen_dir]} -O {output.gatk_dict}
+#         """
+#
+# rule gatk_2:
+#     input:
+#         bcftools_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}_revise.vcf.gz"),
+#     output:
+#         gatk_vcf_gz_tbi = os.path.join("{sample}", "Step_6", "gatk", "{sample}.vcf.gz.tbi"),
+#     params:
+#     priority: 84,
+#     log:
+#         log = os.path.join("{sample}", "logs", "snpeff_IndexFeatureFile", "{sample}.log"),
+#     shell:
+#         """
+#         java -jar {config[gatk][gatk_jar]} IndexFeatureFile -F {input.bcftools_vcf}
+#         """
+#
+# rule gatk_3:
+#     input:
+#         bcftools_vcf = os.path.join("{sample}", "Step_4", "bcftools", "{sample}_revise.vcf.gz"),
+#     output:
+#         gatk_out_fa = os.path.join("{sample}", "Step_6", "gatk", "{sample}_out.fa"),
+#     params:
+#     priority: 83,
+#     log:
+#         log = os.path.join("{sample}", "logs", "snpeff_FastaAlternateReferenceMaker", "{sample}.log"),
+#     shell:
+#         """
+#         java -jar {config[gatk][gatk_jar]} FastaAlternateReferenceMaker -R {config[bwa][bwa_pathogen_dir]} -V {input.bcftools_vcf} --output {output.gatk_out_fa}
+#         """
+#
+#
+# rule get_end_time:
+#     output:
+#         end_time = 'time/end_time.txt',
+#     priority: 0,
+#     shell:
+#         '''
+#         python get_time_script/get_end_time.py
+#         '''
 
 #------------ include rules -----------
 # include: "./rules/trimmomatic_trimming_PE.snakefile"

@@ -34,6 +34,8 @@
                         <a><button type="button" class="btn btn-success btn-block btn-lg" onclick="return popitup('{% url 'reference_mapping_dataanalysis_data_upload' slug_project=variable.url_parameter %}')">Link to your Project (Upload)</button></a>
                         {% elif variable.assembly_type_input == "de_novo_assembly"%}
                         <a><button type="button" class="btn btn-success btn-block btn-lg" onclick="return popitup('{% url 'de_novo_assembly_dataanalysis_data_upload' slug_project=variable.url_parameter %}')">Link to your Project (Upload)</button></a>
+                        {% elif variable.assembly_type_input == "virus_assembly"%}
+                        <a><button type="button" class="btn btn-success btn-block btn-lg" onclick="return popitup('{% url 'de_novo_assembly_dataanalysis_data_upload' slug_project=variable.url_parameter %}')">Link to your Project (Upload)</button></a>
                         {% endif %}
                         <br>
                         <a href={% url 'new_analysis' %}><button type="button" class="btn btn-outline-success">Back to homepage</button></a>

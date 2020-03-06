@@ -27,8 +27,6 @@ def project_name_generator():
 
 def newsletter_singup(request):
     default_analysis_code = analysis_code_generator()
-    # print(default_analysis_code)
-
     form = forms.NewsletterUserSignUpForm(
         initial={
             'analysis_code': default_analysis_code,

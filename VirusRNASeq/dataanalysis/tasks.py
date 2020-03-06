@@ -9,9 +9,8 @@ def start_snakemake_task(working_directory):
     print("Start snakemake")
     print("working_directory: ", working_directory)
     print("Print finished !!")
-    # snakemake_result = subprocess.call(['/ssd/Howard/Virus/venv/bin/snakemake'], shell=True)
 
-    # snakemake_result = subprocess.call(['/ssd/Howard/Virus/venv/bin/snakemake'], cwd = working_directory, shell=True)
+
     snakefile = os.path.join(working_directory, 'Snakefile')
     print("snakefile!! : ", snakefile)
     # subprocess.check_output(['/ssd/Howard/Virus/venv/bin/snakemake', '-s', snakefile], shell=True)
@@ -35,17 +34,10 @@ def start_snakemake_task(working_directory):
     # print("c.out: ", snakemake_result.out)
     # print("c.return_code: ", snakemake_result.return_code)
     snakemake_output_file = os.path.join(working_directory, 'logs', 'snakemake_output.log')
-    snakemake_result = subprocess.call(['/ssd/Howard/Virus/venv/bin/snakemake' , '>>', snakemake_output_file], cwd = working_directory, shell=True)
+    snakemake_result = subprocess.call(['/ssd/Howard/Virus/venv/bin/snakemake'], cwd=working_directory, shell=True)
+    # Write snakemake output to log file!
+    # print("snakemake_result: ", snakemake_result)
+    # with open('snakemake_output_file', 'wb') as f:
+    #     f.write(snakemake_output_file.stdout)
 
-    # try:
-    #     # subprocess.check_output(['/ssd/Howard/Virus/venv/bin/snakemake'], cwd = working_directory, shell=True)
-    #     # snakemake_result = subprocess.run(['/ssd/Howard/Virus/venv/bin/snakemake'], cwd = working_directory, shell=True)
-    #     snakemake_result = subprocess.call(['/ssd/Howard/miniconda3/bin/snakemake'], cwd = working_directory)
-    #     print("snakemake_result!!: ", snakemake_result)
-    #     # snakefile = os.path.join(working_directory, 'Snakefile')
-    #     # print("snakefile!! : ", snakefile)
-    #     # subprocess.check_output(['/ssd/Howard/Virus/venv/bin/snakemake', '-s', snakefile], shell=True)
-    # except subprocess.CalledProcessError as e:
-    #     raise RuntimeError("command '{}' return with error (code {}): {}".format(e.cmd, e.returncode, e.output))
-    #
     print("snakemake_result: ", snakemake_result)
