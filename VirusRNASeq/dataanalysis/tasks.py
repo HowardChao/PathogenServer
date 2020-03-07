@@ -3,13 +3,14 @@ from celery import shared_task
 import subprocess
 import os
 import delegator
+import logging
+
+logger = logging.getLogger(__name__)
 
 @shared_task
 def start_snakemake_task(working_directory):
-    print("Start snakemake")
-    print("working_directory: ", working_directory)
-    print("Print finished !!")
-
+    logger.debug('Start snakemake')
+    logger.debug("working_directory: ", working_directory)
 
     snakefile = os.path.join(working_directory, 'Snakefile')
     print("snakefile!! : ", snakefile)
@@ -33,8 +34,10 @@ def start_snakemake_task(working_directory):
     # print("c.pid: ", snakemake_result.pid)
     # print("c.out: ", snakemake_result.out)
     # print("c.return_code: ", snakemake_result.return_code)
-    snakemake_output_file = os.path.join(working_directory, 'logs', 'snakemake_output.log')
-    snakemake_result = subprocess.call(['/ssd/Howard/Virus/venv/bin/snakemake'], cwd=working_directory, shell=True)
+
+    # snakemake_output_file = os.path.join(working_directory, 'logs', 'snakemake_output.log')
+
+    snakemake_result = subprocess.call(['/ssd/Howard/Virus/venv/bin/snakemake'], cwd = working_directory, shell=True)
     # Write snakemake output to log file!
     # print("snakemake_result: ", snakemake_result)
     # with open('snakemake_output_file', 'wb') as f:

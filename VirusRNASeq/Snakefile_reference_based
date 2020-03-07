@@ -322,13 +322,6 @@ rule snpeff_1:
         java -Xmx4g -jar {config[snpEff][snpEff_jar]} -c {config[snpEff][snpEff_config]} Mycobacterium_tuberculosis_h37rv -stats {output.stats_html_summary} {input.bcftools_revise_vcf} > {output.snpeff_ann_vcf}
         """
 
-
-
-
-
-#
-#
-#
 # rule gatk_1:
 #     input:
 #         snpeff_vcf = os.path.join("{sample}", "Step_5", "snpeff", "{sample}.ann.vcf"),
@@ -372,14 +365,14 @@ rule snpeff_1:
 #         """
 #
 #
-# rule get_end_time:
-#     output:
-#         end_time = 'time/end_time.txt',
-#     priority: 0,
-#     shell:
-#         '''
-#         python get_time_script/get_end_time.py
-#         '''
+rule get_end_time:
+    output:
+        end_time = 'time/end_time.txt',
+    priority: 0,
+    shell:
+        '''
+        python get_time_script/get_end_time.py
+        '''
 
 #------------ include rules -----------
 # include: "./rules/trimmomatic_trimming_PE.snakefile"

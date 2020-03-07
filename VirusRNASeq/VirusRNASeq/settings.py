@@ -166,18 +166,6 @@ PROGRESSBARUPLOAD_INCLUDE_JQUERY = True
 ##
 LOGIN_REDIRECT_URL = 'homepage'
 
-
-Q_CLUSTER = {
-'name': 'DjangORM',
-'workers': 16,
-# 'timeout': 1800,
-'save_limit': 0,
-'timeout': None,
-# 'queue_limit': 8,
-'cpu_affinity': 5,
-'orm': 'default'
-}
-
 # celery settings
 
 # CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'

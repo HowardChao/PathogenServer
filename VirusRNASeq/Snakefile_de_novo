@@ -285,9 +285,6 @@ rule a5_miseq_denovo_assembly_move:
         mv {params.mv_from} {params.mv_to}
         """
 
-
-
-
 rule quast_assembly_assessment:
     input:
         contigs_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.fasta")
