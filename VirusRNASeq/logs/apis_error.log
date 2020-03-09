@@ -7494,3 +7494,99 @@
 [Mon Mar 09 15:20:18.257129 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49387] @@@@@@@@@@@ result.state:  SUCCESS
 [Mon Mar 09 15:20:18.257150 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49387] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 [Mon Mar 09 15:20:18.257196 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49387] samples_all_info:  {'HM2WFCCXY_3_AAAATG': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': True, 'Step_2_check_reference_based_bwa_sam': False, 'Step_2_check_reference_based_bwa_report_txt': False, 'Step_3_check_reference_based_samtools_fixmate_bam': False, 'Step_3_check_reference_based_samtools_sorted_bam': False, 'Step_4_check_reference_based_bcftools_vcf': False, 'Step_4_check_reference_based_bcftools_vcf_revise': False, 'Step_5_check_reference_based_snpeff_vcf_annotation': False}}
+[Mon Mar 09 19:12:29.761056 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] project_name:  Project2eb8970660d911ea8fc2e41f1345dc74
+[Mon Mar 09 19:12:29.761110 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] analysis_code:  328cbc3660d911eaa251e41f1345dc74
+[Mon Mar 09 19:12:29.761132 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] email:  virus@gmail.com
+[Mon Mar 09 19:12:29.761153 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] assembly_type_input:  virus_assembly
+[Mon Mar 09 19:12:29.761317 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:12:29.761345 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] @@@@@@@@@@@ task name :  Project2eb8970660d911ea8fc2e41f1345dc74virus@gmail.com328cbc3660d911eaa251e41f1345dc74
+[Mon Mar 09 19:12:29.762978 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] @@@@@@@@@@@ result.state:  SUCCESS
+[Mon Mar 09 19:12:29.763000 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:12:30.106148 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] project_name:  Project2eb8970660d911ea8fc2e41f1345dc74
+[Mon Mar 09 19:12:30.106243 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] analysis_code:  328cbc3660d911eaa251e41f1345dc74
+[Mon Mar 09 19:12:30.106273 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] email:  virus@gmail.com
+[Mon Mar 09 19:12:30.106295 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] assembly_type_input:  virus_assembly
+[Mon Mar 09 19:12:30.106399 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:12:30.106423 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] @@@@@@@@@@@ task name :  Project2eb8970660d911ea8fc2e41f1345dc74virus@gmail.com328cbc3660d911eaa251e41f1345dc74
+[Mon Mar 09 19:12:30.108067 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] @@@@@@@@@@@ result.state:  SUCCESS
+[Mon Mar 09 19:12:30.108088 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:12:30.116843 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:12:30.116871 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] @@@@@@@@@@@ task name :  Project2eb8970660d911ea8fc2e41f1345dc74virus@gmail.com328cbc3660d911eaa251e41f1345dc74
+[Mon Mar 09 19:12:30.118401 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] @@@@@@@@@@@ result.state:  SUCCESS
+[Mon Mar 09 19:12:30.118423 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:12:30.118456 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61479] samples_all_info:  {'HM2WFCCXY_3_AAAATG': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': True, 'Step_2_check_reference_based_bwa_sam': False, 'Step_2_check_reference_based_bwa_report_txt': False, 'Step_3_check_reference_based_samtools_fixmate_bam': False, 'Step_3_check_reference_based_samtools_sorted_bam': False, 'Step_4_check_reference_based_bcftools_vcf': False, 'Step_4_check_reference_based_bcftools_vcf_revise': False, 'Step_5_check_reference_based_snpeff_vcf_annotation': False}}
+[Mon Mar 09 19:12:51.514841 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] project_name:  Project2eb8970660d911ea8fc2e41f1345dc74
+[Mon Mar 09 19:12:51.514897 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] analysis_code:  328cbc3660d911eaa251e41f1345dc74
+[Mon Mar 09 19:12:51.514917 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] email:  virus@gmail.com
+[Mon Mar 09 19:12:51.516999 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] ***Upload_dir id:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/Project2eb8970660d911ea8fc2e41f1345dc74/reads
+[Mon Mar 09 19:12:53.223939 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] project_name:  Project2eb8970660d911ea8fc2e41f1345dc74
+[Mon Mar 09 19:12:53.223988 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] analysis_code:  328cbc3660d911eaa251e41f1345dc74
+[Mon Mar 09 19:12:53.224009 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] email:  virus@gmail.com
+[Mon Mar 09 19:12:53.224030 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] assembly_type_input:  virus_assembly
+[Mon Mar 09 19:12:53.224183 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:12:53.224209 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] @@@@@@@@@@@ task name :  Project2eb8970660d911ea8fc2e41f1345dc74virus@gmail.com328cbc3660d911eaa251e41f1345dc74
+[Mon Mar 09 19:12:53.225911 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] @@@@@@@@@@@ result.state:  SUCCESS
+[Mon Mar 09 19:12:53.225932 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:12:53.563446 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] project_name:  Project2eb8970660d911ea8fc2e41f1345dc74
+[Mon Mar 09 19:12:53.563493 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] analysis_code:  328cbc3660d911eaa251e41f1345dc74
+[Mon Mar 09 19:12:53.563522 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] email:  virus@gmail.com
+[Mon Mar 09 19:12:53.563550 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] assembly_type_input:  virus_assembly
+[Mon Mar 09 19:12:53.563679 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:12:53.563711 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] @@@@@@@@@@@ task name :  Project2eb8970660d911ea8fc2e41f1345dc74virus@gmail.com328cbc3660d911eaa251e41f1345dc74
+[Mon Mar 09 19:12:53.565977 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] @@@@@@@@@@@ result.state:  SUCCESS
+[Mon Mar 09 19:12:53.566005 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:12:53.578379 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:12:53.578419 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] @@@@@@@@@@@ task name :  Project2eb8970660d911ea8fc2e41f1345dc74virus@gmail.com328cbc3660d911eaa251e41f1345dc74
+[Mon Mar 09 19:12:53.580532 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] @@@@@@@@@@@ result.state:  SUCCESS
+[Mon Mar 09 19:12:53.580561 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:12:53.580609 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61525] samples_all_info:  {'HM2WFCCXY_3_AAAATG': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': True, 'Step_2_check_reference_based_bwa_sam': False, 'Step_2_check_reference_based_bwa_report_txt': False, 'Step_3_check_reference_based_samtools_fixmate_bam': False, 'Step_3_check_reference_based_samtools_sorted_bam': False, 'Step_4_check_reference_based_bcftools_vcf': False, 'Step_4_check_reference_based_bcftools_vcf_revise': False, 'Step_5_check_reference_based_snpeff_vcf_annotation': False}}
+[Mon Mar 09 19:13:17.686801 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] project_name:  Project2eb8970660d911ea8fc2e41f1345dc74
+[Mon Mar 09 19:13:17.686853 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] analysis_code:  328cbc3660d911eaa251e41f1345dc74
+[Mon Mar 09 19:13:17.686874 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] email:  virus@gmail.com
+[Mon Mar 09 19:13:17.689042 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] ***Upload_dir id:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/Project2eb8970660d911ea8fc2e41f1345dc74/reads
+[Mon Mar 09 19:13:19.376451 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] project_name:  Project2eb8970660d911ea8fc2e41f1345dc74
+[Mon Mar 09 19:13:19.376502 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] analysis_code:  328cbc3660d911eaa251e41f1345dc74
+[Mon Mar 09 19:13:19.376524 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] email:  virus@gmail.com
+[Mon Mar 09 19:13:19.376545 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] assembly_type_input:  virus_assembly
+[Mon Mar 09 19:13:19.376708 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:13:19.376734 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] @@@@@@@@@@@ task name :  Project2eb8970660d911ea8fc2e41f1345dc74virus@gmail.com328cbc3660d911eaa251e41f1345dc74
+[Mon Mar 09 19:13:19.378419 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] @@@@@@@@@@@ result.state:  SUCCESS
+[Mon Mar 09 19:13:19.378440 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:13:19.771237 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] project_name:  Project2eb8970660d911ea8fc2e41f1345dc74
+[Mon Mar 09 19:13:19.771277 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] analysis_code:  328cbc3660d911eaa251e41f1345dc74
+[Mon Mar 09 19:13:19.771299 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] email:  virus@gmail.com
+[Mon Mar 09 19:13:19.771320 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] assembly_type_input:  virus_assembly
+[Mon Mar 09 19:13:19.771422 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:13:19.771447 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] @@@@@@@@@@@ task name :  Project2eb8970660d911ea8fc2e41f1345dc74virus@gmail.com328cbc3660d911eaa251e41f1345dc74
+[Mon Mar 09 19:13:19.773062 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] @@@@@@@@@@@ result.state:  SUCCESS
+[Mon Mar 09 19:13:19.773083 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:13:19.782607 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:13:19.782651 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] @@@@@@@@@@@ task name :  Project2eb8970660d911ea8fc2e41f1345dc74virus@gmail.com328cbc3660d911eaa251e41f1345dc74
+[Mon Mar 09 19:13:19.784523 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] @@@@@@@@@@@ result.state:  SUCCESS
+[Mon Mar 09 19:13:19.784544 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:13:19.784579 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61585] samples_all_info:  {'HM2WFCCXY_3_AAAATG': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': True, 'Step_2_check_reference_based_bwa_sam': False, 'Step_2_check_reference_based_bwa_report_txt': False, 'Step_3_check_reference_based_samtools_fixmate_bam': False, 'Step_3_check_reference_based_samtools_sorted_bam': False, 'Step_4_check_reference_based_bcftools_vcf': False, 'Step_4_check_reference_based_bcftools_vcf_revise': False, 'Step_5_check_reference_based_snpeff_vcf_annotation': False}}
+[Mon Mar 09 19:13:31.495749 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] project_name:  Projectfa437b4c603a11ea9937e41f1345dc74
+[Mon Mar 09 19:13:31.495794 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] analysis_code:  feb39004603a11ea9b83e41f1345dc74
+[Mon Mar 09 19:13:31.495815 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] email:  virus@gmail.com
+[Mon Mar 09 19:13:31.497825 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] ***Upload_dir id:  /ssd/Howard/Virus/bacteriaNGS/VirusRNASeq/media/Projectfa437b4c603a11ea9937e41f1345dc74/reads
+[Mon Mar 09 19:13:32.972951 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] project_name:  Projectfa437b4c603a11ea9937e41f1345dc74
+[Mon Mar 09 19:13:32.973005 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] analysis_code:  feb39004603a11ea9b83e41f1345dc74
+[Mon Mar 09 19:13:32.973036 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] email:  virus@gmail.com
+[Mon Mar 09 19:13:32.973066 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] assembly_type_input:  virus_assembly
+[Mon Mar 09 19:13:32.973240 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:13:32.973277 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] @@@@@@@@@@@ task name :  Projectfa437b4c603a11ea9937e41f1345dc74virus@gmail.comfeb39004603a11ea9b83e41f1345dc74
+[Mon Mar 09 19:13:32.975558 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] @@@@@@@@@@@ result.state:  SUCCESS
+[Mon Mar 09 19:13:32.975588 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:13:33.320423 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] project_name:  Projectfa437b4c603a11ea9937e41f1345dc74
+[Mon Mar 09 19:13:33.320475 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] analysis_code:  feb39004603a11ea9b83e41f1345dc74
+[Mon Mar 09 19:13:33.320507 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] email:  virus@gmail.com
+[Mon Mar 09 19:13:33.320536 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] assembly_type_input:  virus_assembly
+[Mon Mar 09 19:13:33.320638 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:13:33.320671 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] @@@@@@@@@@@ task name :  Projectfa437b4c603a11ea9937e41f1345dc74virus@gmail.comfeb39004603a11ea9b83e41f1345dc74
+[Mon Mar 09 19:13:33.322855 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] @@@@@@@@@@@ result.state:  SUCCESS
+[Mon Mar 09 19:13:33.322884 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:13:33.335306 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:13:33.335346 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] @@@@@@@@@@@ task name :  Projectfa437b4c603a11ea9937e41f1345dc74virus@gmail.comfeb39004603a11ea9b83e41f1345dc74
+[Mon Mar 09 19:13:33.337458 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] @@@@@@@@@@@ result.state:  SUCCESS
+[Mon Mar 09 19:13:33.337488 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Mon Mar 09 19:13:33.337547 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:61617] samples_all_info:  {'HM2WFCCXY_3_AAAATG': {'Step_1_check_first_qc': True, 'Step_1_check_trimming_qc': True, 'Step_1_check_second_qc': True, 'Step_2_check_reference_based_bwa_sam': False, 'Step_2_check_reference_based_bwa_report_txt': False, 'Step_3_check_reference_based_samtools_fixmate_bam': False, 'Step_3_check_reference_based_samtools_sorted_bam': False, 'Step_4_check_reference_based_bcftools_vcf': False, 'Step_4_check_reference_based_bcftools_vcf_revise': False, 'Step_5_check_reference_based_snpeff_vcf_annotation': False}}

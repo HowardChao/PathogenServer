@@ -382,11 +382,9 @@ def Step_2_check_reference_based_bwa_report_txt(url_base_dir, sample_datadir, sa
 
 
 
-
-
-
-
-
+########################
+### De novo assembly ###
+########################
 def Step_2_check_denovo_a5_miseq(url_base_dir, sample_datadir, sample_name):
     ## Check files before moving
     root_dir = os.path.join(sample_datadir, "Step_2", "a5_miseq")
@@ -693,15 +691,110 @@ def Step_5_check_reference_based_snpeff_vcf_annotation(url_base_dir, sample_data
         return (False, Step_5_check_reference_based_snpeff_vcf_annotation_urls)
 
 
+######################
+### Virus assembly ###
+######################
+def check_bwa_subtraction_bwa_mem(url_base_dir, sample_datadir, sample_name):
+    # sam_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_bwa_mem", "{sample}.sam"),
+    root_dir_bwa_mem = os.path.join(sample_datadir, 'Step_2', "bwa_subtraction_bwa_mem")
+    url_root_bwa_mem = os.path.join(url_base_dir, 'Step_2', "bwa_subtraction_bwa_mem")
 
+    bwa_mem_sam = os.path.exists(os.path.join(
+        root_dir_bwa_mem, sample_name+".sam"))
+    # print("bwa_mem_sam: ", bwa_mem_sam)
+    Step_2_check_bwa_subtraction_bwa_mem = {}
+    if bwa_mem_sam:
+        url_bwa_mem_sam = os.path.join(url_root_bwa_mem, sample_name+".sam")
+        Step_2_check_bwa_subtraction_bwa_mem["url_bwa_mem_sam"] = url_bwa_mem_sam
+        return (True, Step_2_check_bwa_subtraction_bwa_mem)
+    else:
+        return (False, Step_2_check_bwa_subtraction_bwa_mem)
 
+def check_bwa_subtraction_samtools_sam2bam(url_base_dir, sample_datadir, sample_name):
+    # bam_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_sam2bam", "{sample}.bam"),
+    root_dir_samtools_sam2bam = os.path.join(sample_datadir, 'Step_2', "bwa_subtraction_samtools_sam2bam")
+    url_root_samtools_sam2bam = os.path.join(url_base_dir, 'Step_2', "bwa_subtraction_samtools_sam2bam")
 
+    samtools_sam2bam = os.path.exists(os.path.join(
+        root_dir_samtools_sam2bam, sample_name+".bam"))
+    # print("samtools_sam2bam: ", samtools_sam2bam)
+    Step_2_check_bwa_subtraction_samtools_sam2bam = {}
+    if samtools_sam2bam:
+        url_samtools_sam2bam = os.path.join(url_root_samtools_sam2bam, sample_name+".bam")
+        Step_2_check_bwa_subtraction_samtools_sam2bam["url_samtools_sam2bam"] = url_samtools_sam2bam
+        return (True, Step_2_check_bwa_subtraction_samtools_sam2bam)
+    else:
+        return (False, Step_2_check_bwa_subtraction_samtools_sam2bam)
 
+def check_bwa_subtraction_samtools_flagstat(url_base_dir, sample_datadir, sample_name):
+    # txt_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_flagstat", "{sample}.txt"),
+    root_dir_samtools_flagstat = os.path.join(sample_datadir, 'Step_2', "bwa_subtraction_samtools_flagstat")
+    url_root_samtools_flagstat = os.path.join(url_base_dir, 'Step_2', "bwa_subtraction_samtools_flagstat")
 
+    samtools_flagstat_txt = os.path.exists(os.path.join(
+        root_dir_samtools_flagstat, sample_name+".txt"))
+    # print("samtools_flagstat_txt: ", samtools_flagstat_txt)
+    Step_2_check_bwa_subtraction_samtools_flagstat = {}
+    if samtools_flagstat_txt:
+        url_samtools_flagstat_txt = os.path.join(url_root_samtools_flagstat, sample_name+".txt")
+        Step_2_check_bwa_subtraction_samtools_flagstat["url_samtools_flagstat_txt"] = url_samtools_flagstat_txt
+        return (True, Step_2_check_bwa_subtraction_samtools_flagstat)
+    else:
+        return (False, Step_2_check_bwa_subtraction_samtools_flagstat)
 
+def check_bwa_subtraction_samtools_view_unmapped_bam(url_base_dir, sample_datadir, sample_name):
+    # unmapped_bam_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_view_unmapped_bam", "{sample}_unmapped.bam"),
+    root_dir_samtools_view_unmapped_bam = os.path.join(sample_datadir, 'Step_2', "bwa_subtraction_samtools_view_unmapped_bam")
+    url_root_samtools_view_unmapped_bam = os.path.join(url_base_dir, 'Step_2', "bwa_subtraction_samtools_view_unmapped_bam")
 
+    samtools_view_unmapped_bam = os.path.exists(os.path.join(
+        root_dir_samtools_view_unmapped_bam, sample_name+"_unmapped.bam"))
+    # print("samtools_view_unmapped_bam: ", samtools_view_unmapped_bam)
+    Step_2_check_bwa_subtraction_samtools_view_unmapped_bam = {}
+    if samtools_view_unmapped_bam:
+        url_samtools_view_unmapped_bam = os.path.join(url_root_samtools_view_unmapped_bam, sample_name+"_unmapped.bam")
+        Step_2_check_bwa_subtraction_samtools_view_unmapped_bam["url_samtools_view_unmapped_bam"] = url_samtools_view_unmapped_bam
+        return (True, Step_2_check_bwa_subtraction_samtools_view_unmapped_bam)
+    else:
+        return (False, Step_2_check_bwa_subtraction_samtools_view_unmapped_bam)
 
+def check_bwa_subtraction_samtools_view_unmapped_sorted_bam(url_base_dir, sample_datadir, sample_name):
+    # unmapped_bam_sorted_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_view_unmapped_sorted_bam", "{sample}_sorted_unmapped.bam"),
+    root_dir_samtools_view_unmapped_sorted_bam = os.path.join(sample_datadir, 'Step_2', "bwa_subtraction_samtools_view_unmapped_sorted_bam")
+    url_root_samtools_view_unmapped_sorted_bam = os.path.join(url_base_dir, 'Step_2', "bwa_subtraction_samtools_view_unmapped_sorted_bam")
 
+    samtools_view_unmapped_sorted_bam = os.path.exists(os.path.join(
+        root_dir_samtools_view_unmapped_sorted_bam, sample_name+"_sorted_unmapped.bam"))
+    # print("samtools_view_unmapped_sorted_bam: ", samtools_view_unmapped_sorted_bam)
+    Step_2_check_bwa_subtraction_samtools_view_unmapped_sorted_bam = {}
+    if samtools_view_unmapped_sorted_bam:
+        url_samtools_view_unmapped_sorted_bam = os.path.join(url_root_samtools_view_unmapped_sorted_bam, sample_name+"_sorted_unmapped.bam")
+        Step_2_check_bwa_subtraction_samtools_view_unmapped_sorted_bam["url_samtools_view_unmapped_sorted_bam"] = url_samtools_view_unmapped_sorted_bam
+        return (True, Step_2_check_bwa_subtraction_samtools_view_unmapped_sorted_bam)
+    else:
+        return (False, Step_2_check_bwa_subtraction_samtools_view_unmapped_sorted_bam)
+
+def check_bwa_subtraction_bedtools_bam2fastq(url_base_dir, sample_datadir, sample_name):
+    # unmapped_fastq_r1 = os.path.join("{sample}", "Step_2", "bwa_subtraction_bedtools_bam2fastq", "{sample}_unmapped_r1.fastq.gz"),
+    # unmapped_fastq_r2 = os.path.join("{sample}", "Step_2", "bwa_subtraction_bedtools_bam2fastq", "{sample}_unmapped_r2.fastq.gz"),
+    root_dir_bam2fastq = os.path.join(sample_datadir, 'Step_2', "bwa_subtraction_bedtools_bam2fastq")
+    url_root_bam2fastq = os.path.join(url_base_dir, 'Step_2', "bwa_subtraction_bedtools_bam2fastq")
+    r1_bam2fastq = os.path.exists(os.path.join(
+        root_dir_bam2fastq, sample_name+"_unmapped_r1.fastq.gz"))
+    r2_bam2fastq = os.path.exists(os.path.join(
+        url_root_bam2fastq, sample_name+"_unmapped_r2.fastq.gz"))
+    # print("r1_bam2fastq: ", r1_bam2fastq)
+    # print("r2_bam2fastq: ", r2_bam2fastq)
+    Step_2_check_bwa_subtraction_bedtools_bam2fastq = {}
+    if r1_bam2fastq and r2_bam2fastq:
+        url_r1_unmapped = os.path.join(url_root_bam2fastq, sample_name+"_unmapped_r1.fastq.gz")
+        Step_2_check_bwa_subtraction_bedtools_bam2fastq["url_r1_unmapped"] = url_r1_unmapped
+
+        url_r2_unmapped = os.path.join(url_root_bam2fastq, sample_name+"_unmapped_r2.fastq.gz")
+        Step_2_check_bwa_subtraction_bedtools_bam2fastq["url_r2_unmapped"] = url_r2_unmapped
+        return (True, Step_2_check_bwa_subtraction_bedtools_bam2fastq)
+    else:
+        return (False, Step_2_check_bwa_subtraction_bedtools_bam2fastq)
 
 
 

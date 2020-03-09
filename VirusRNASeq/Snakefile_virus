@@ -31,7 +31,7 @@ rule targets:
                             "{sample}_multiqc.html"), sample=samples),
         expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_bwa_mem",
                             "{sample}.sam"), sample=samples),
-        expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_sam2bam", "{sample}.sam"), sample=samples),
+        expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_sam2bam", "{sample}.bam"), sample=samples),
         expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_flagstat", "{sample}.txt"), sample=samples),
         expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_view_unmapped_bam", "{sample}_unmapped.bam"), sample=samples),
         expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_view_unmapped_sorted_bam", "{sample}_sorted_unmapped.bam"), sample=samples),
@@ -205,7 +205,7 @@ rule read_subtraction_samtools_sam2bam:
     input:
         sam_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_bwa_mem", "{sample}.sam"),
     output:
-        bam_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_sam2bam", "{sample}.sam"),
+        bam_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_sam2bam", "{sample}.bam"),
     params:
     priority: 93,
     log:
@@ -217,7 +217,7 @@ rule read_subtraction_samtools_sam2bam:
 
 rule read_subtraction_samtools_flagstat:
     input:
-        bam_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_sam2bam", "{sample}.sam"),
+        bam_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_sam2bam", "{sample}.bam"),
     output:
         txt_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_flagstat", "{sample}.txt"),
     params:
@@ -231,7 +231,7 @@ rule read_subtraction_samtools_flagstat:
 
 rule read_subtraction_samtools_view_unmapped_bam:
     input:
-        bam_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_sam2bam", "{sample}.sam"),
+        bam_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_sam2bam", "{sample}.bam"),
     output:
         unmapped_bam_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_view_unmapped_bam", "{sample}_unmapped.bam"),
     params:
@@ -254,7 +254,7 @@ rule read_subtraction_samtools_sort_name:
         log = os.path.join("{sample}", "logs", "Step_2", "bwa_subtraction_samtools_view_unmapped_sorted_bam", "{sample}.log"),
     shell:
         """
-        samtools sort -n -o {output.unmapped_bam_sorted_file} {input.unmapped_bam_sorted_file} &> {log.log}
+        samtools sort -n -o {output.unmapped_bam_sorted_file} {input.unmapped_bam_file} &> {log.log}
         """
 
 rule read_subtraction_bedtools_bam2fastq:

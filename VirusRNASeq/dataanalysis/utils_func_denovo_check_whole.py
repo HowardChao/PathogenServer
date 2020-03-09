@@ -26,16 +26,16 @@ def Whole_check_denovo_based_results(url_base_dir, base_dir, sample_list):
         Step_3_check_bowtie2_assessment = utils_func.Step_3_check_bowtie2_assessment(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_info["Step_3_check_bowtie2_assessment"] = Step_3_check_bowtie2_assessment[0]
 
-        Step_4_check_denovo_samtools_fixmate_bam = utils_func.Step_4_check_denovo_samtools_fixmate_bam(url_base_dir, sample_datadir, sample_name)
-        one_sample_all_info["Step_4_check_denovo_samtools_fixmate_bam"] = Step_4_check_denovo_samtools_fixmate_bam[0]
-        Step_4_check_denovo_samtools_sorted_bam = utils_func.Step_4_check_denovo_samtools_sorted_bam(url_base_dir, sample_datadir, sample_name)
-        one_sample_all_info["Step_4_check_denovo_samtools_sorted_bam"] = Step_4_check_denovo_samtools_sorted_bam[0]
-        Step_5_check_denovo_bcftools_vcf = utils_func.Step_5_check_denovo_bcftools_vcf(url_base_dir, sample_datadir, sample_name)
-        one_sample_all_info["Step_5_check_denovo_bcftools_vcf"] = Step_5_check_denovo_bcftools_vcf[0]
-        Step_5_check_denovo_bcftools_vcf_revise = utils_func.Step_5_check_denovo_bcftools_vcf_revise(url_base_dir, sample_datadir, sample_name)
-        one_sample_all_info["Step_5_check_denovo_bcftools_vcf_revise"] = Step_5_check_denovo_bcftools_vcf_revise[0]
-        Step_6_check_denovo_snpeff_vcf_annotation = utils_func.Step_6_check_denovo_snpeff_vcf_annotation(url_base_dir, sample_datadir, sample_name)
-        one_sample_all_info["Step_6_check_denovo_snpeff_vcf_annotation"] = Step_6_check_denovo_snpeff_vcf_annotation[0]
+        # Step_4_check_denovo_samtools_fixmate_bam = utils_func.Step_4_check_denovo_samtools_fixmate_bam(url_base_dir, sample_datadir, sample_name)
+        # one_sample_all_info["Step_4_check_denovo_samtools_fixmate_bam"] = Step_4_check_denovo_samtools_fixmate_bam[0]
+        # Step_4_check_denovo_samtools_sorted_bam = utils_func.Step_4_check_denovo_samtools_sorted_bam(url_base_dir, sample_datadir, sample_name)
+        # one_sample_all_info["Step_4_check_denovo_samtools_sorted_bam"] = Step_4_check_denovo_samtools_sorted_bam[0]
+        # Step_5_check_denovo_bcftools_vcf = utils_func.Step_5_check_denovo_bcftools_vcf(url_base_dir, sample_datadir, sample_name)
+        # one_sample_all_info["Step_5_check_denovo_bcftools_vcf"] = Step_5_check_denovo_bcftools_vcf[0]
+        # Step_5_check_denovo_bcftools_vcf_revise = utils_func.Step_5_check_denovo_bcftools_vcf_revise(url_base_dir, sample_datadir, sample_name)
+        # one_sample_all_info["Step_5_check_denovo_bcftools_vcf_revise"] = Step_5_check_denovo_bcftools_vcf_revise[0]
+        # Step_6_check_denovo_snpeff_vcf_annotation = utils_func.Step_6_check_denovo_snpeff_vcf_annotation(url_base_dir, sample_datadir, sample_name)
+        # one_sample_all_info["Step_6_check_denovo_snpeff_vcf_annotation"] = Step_6_check_denovo_snpeff_vcf_annotation[0]
 
 
         # print("Step_4_check_denovo_samtools_fixmate_bam: ", Step_4_check_denovo_samtools_fixmate_bam[0])

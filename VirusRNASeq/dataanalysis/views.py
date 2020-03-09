@@ -1150,7 +1150,6 @@ def virus_assembly_whole_dataanalysis(request, slug_project):
                     task_result = tasks.start_snakemake_task.apply_async([base_dir], task_id = new_task_id)
             template_html = "dataanalysis/analysis_home_virus.html"
             fetch_job_status = utils_func.celery_check(project_name, email, analysis_code)
-
             return redirect((reverse('virus_assembly_dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
 
