@@ -60,8 +60,8 @@
                     <a class="list-group-item list-group-item-action" href="#list-item-1">1. Quality Control</a>
                     <a class="list-group-item list-group-item-action" href="#list-item-2">2. Read Filtration</a>
                     <a class="list-group-item list-group-item-action" href="#list-item-3">3. <i>De novo</i> Assembly</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-4">4. Scaffolds Re-alignment</a>
-                    <a class="list-group-item list-group-item-action" href="#list-item-5">4. Homology Search</a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-4">4. De novo Assembly Assessment</a>
+                    <!-- <a class="list-group-item list-group-item-action" href="#list-item-5">4. Homology Search</a> -->
                 </ul>
             </div>
         </nav>
@@ -303,24 +303,11 @@
                               <div class="row">
                                   <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                     <div class="col-auto">
-                                      <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp Select Target Bacteria</h5>
+                                      <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp Remove bacterial genome sequences</h5>
                                     </div>
                                   <div class="col"><hr></div>
                               </div>
-                              <div class="reads-subtraction-host" style="margin-left:40px;">
-                                <div class="row">
-                                  <label class="col-md-4 control-label" for="reads_subtraction_host"><i class="far fa-dot-circle"></i>&nbsp&nbsp Target Bacteria</label>
-                                  <div class="col-md-6">
-                                    <select class="custom-select my-1 mr-sm-2" name="reads_subtraction_host" id="reads_subtraction_host">
-                                      <option selected="selected" value="TB">Tuberculosis (TB)</option>
-                                      <option value="mosquito">mosquito (Aedes aegypti)</option>
-                                      <option value="mouse">mouse (Mus musculus)</option>
-                                      <option value="pig">pig (Sus scrofa)</option>
-                                      <option value="tick">tick (Ixodes scapularis)</option>
-                                    </select>
-                                  </div>
-                                </div>
-                              </div>
+                              <p class="card-text" style="margin-left:40px;">Database: <a href="ftp://ftp.ncbi.nlm.nih.gov/genomes/TARGET/">ftp://ftp.ncbi.nlm.nih.gov/genomes/all/</a> <br>(Updated on Tue Dec 26 13:56:59 2017)</p>
                               <br>
 
                               <div class="row">
@@ -332,14 +319,13 @@
                               </div>
                               <div class="reads-subtraction-host" style="margin-left:40px;">
                                 <div class="row">
-                                  <label class="col-md-4 control-label" for="reads_subtraction_host"><i class="far fa-dot-circle"></i>&nbsp&nbsp Select Target Host</label>
+                                  <label class="col-md-4 control-label" for="reads_subtraction_host"><i class="far fa-dot-circle" style='margin-top:15px'></i>&nbsp&nbsp Select Target Host</label>
                                   <div class="col-md-6">
                                     <select class="custom-select my-1 mr-sm-2" name="reads_subtraction_host" id="reads_subtraction_host">
+                                      <option selected="selected" value="human">human (Homo sapiens)</option>
                                       <option value="bovine">bovine (Bos taurus)</option>
                                       <option value="chicken">chicken (Gallus gallus)</option>
                                       <option value="dog">dog (Canis lupus familiaris)</option>
-                                      <option value="dog">dog (Canis lupus familiaris)</option>
-                                      <option selected="selected" value="human">human (Homo sapiens)</option>
                                       <option value="mosquito">mosquito (Aedes aegypti)</option>
                                       <option value="mouse">mouse (Mus musculus)</option>
                                       <option value="pig">pig (Sus scrofa)</option>
@@ -411,23 +397,31 @@
 
                     <div id="list-item-4">
                         <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
-                           <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-reply"></i> &nbsp &nbsp Scaffolds Realignment</p></div>
-                           <div class="card-body w-100">
-                               <p class="card-text"> Final scaffolds were subjected to <b>BWA-MEM</b> reads re-mapping. </p>
-                               <br>
-                               <div class="row">
-                                   <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
-                                     <div class="col-auto">
-                                       <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp <b>BWA-MEM</b> Reads Re-mapping</h5>
-                                     </div>
-                                   <div class="col"><hr></div>
-                               </div>
-                               <p class="card-text" style="margin-left:40px;">Description.</p>
-                           </div>
-                         </div>
-                    </div>
+                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-cut"></i> &nbsp &nbsp De novo Assembly Assessment</p></div>
+                            <div class="card-body w-100">
+                                </p>
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp <strong>Quast</strong> assessment</h5>
+                                        <p class="card-text" style="margin-left:40px;">Database: <a href="ftp://ftp.ncbi.nlm.nih.gov/genomes/TARGET/">ftp://ftp.ncbi.nlm.nih.gov/genomes/all/</a> <br>(Updated on Tue Dec 26 13:56:59 2017)</p>
 
-                    <div id="list-item-5">
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <br>
+                                <br>
+
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                      <div class="col-auto">
+                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp<strong>Bowtie</strong> assessment</h5>
+                                      </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                        </div>
+                    </div>
+                    <!-- <div id="list-item-5">
                         <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
                            <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-database"></i> &nbsp &nbsp homology Search</p></div>
                            <div class="card-body w-100">
@@ -442,32 +436,13 @@
                                <p class="card-text" style="margin-left:40px;">Description</p>
                            </div>
                        </div>
-                    </div>
+                    </div> -->
 
 
                     <button id="start-analysis-button" name="start-analysis-reference-based" type="submit" class="btn btn-success btn-lg btn-block" style="margin-top: 100px; margin-bottom: 100px; height:80px">Start Analysis</button>
                     <!-- <button id="paired-end-button" name="upload-paired-end-file" class="btn btn-info btn-block" type="submit">Upload Paired-End Files</button> -->
                   </div>
-                  <!-- <script>
-
-                    $('#start-analysis-button').click(function(){
-                        console.log("{{uploaded_file_url_pe_1}}"!="None" && "{{uploaded_file_url_pe_2}}"!="None"  || "{{uploaded_file_url_se}}"!="None");
-                        if ("{{uploaded_file_url_pe_1}}"!="None" && "{{uploaded_file_url_pe_2}}"!="None"  || "{{uploaded_file_url_se}}"!="None") {
-                            return true;
-                        } else {
-                            $('html,body').scrollTop(0);
-                            var myNode = document.getElementById("whole-page-message-container");
-                            myNode.innerHTML = '';
-                            $('#whole-page-message-container').append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><center>You do not upload <strong>paired-end files</strong> or <strong>single-end file</strong> yet !</center><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>')
-                            console.log("File is not upload yet!!");
-                            return false;
-                        }
-                    })
-
-                  </script> -->
                 </form>
-
-
             </div>
         </div>
     </div>

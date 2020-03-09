@@ -35,9 +35,8 @@ rule targets:
         expand(os.path.join("{sample}", "Step_1", "QC", "post",
                             "{sample}_multiqc.html"), sample=samples),
 
-        expand(os.path.join("{sample}_a5.final.scaffolds.fasta.contigs.fsa"), sample=samples),
-        expand(os.path.join("{sample}", "Step_2", "a5_miseq",
-                            "{sample}_a5.final.scaffolds.fasta.contigs.fsa"), sample=samples),
+        expand(os.path.join("{sample}_a5.assembly_stats.csv"), sample=samples),
+        expand(os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.assembly_stats.csv"), sample=samples),
 
         expand(os.path.join("{sample}", "Step_3", "quast", "report.pdf"), sample=samples),
         expand(os.path.join("{sample}", "Step_3", "bowtie2", "bowtie_index"), sample=samples),
@@ -256,7 +255,6 @@ rule a5_miseq_denovo_assembly:
         contigs_fasta = os.path.join("{sample}_a5.contigs.fasta"),
         contigs_fastq = os.path.join("{sample}_a5.contigs.fastq"),
         contigs_qvl = os.path.join("{sample}_a5.contigs.qvl"),
-        final_scaffolds_fasta = os.path.join("{sample}_a5.final.scaffolds.fasta.contigs.fsa"),
         assembly_stats_csv = os.path.join("{sample}_a5.assembly_stats.csv"),
     params:
         a5_base_dir = "{sample}_a5",
@@ -274,7 +272,6 @@ rule a5_miseq_denovo_assembly_move:
         contigs_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.fasta"),
         contigs_fastq = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.fastq"),
         contigs_qvl = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.qvl"),
-        final_scaffolds_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.final.scaffolds.fasta.contigs.fsa"),
         assembly_stats_csv = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.assembly_stats.csv"),
     params:
         mv_from = "{sample}_a5*",

@@ -926,7 +926,7 @@ def de_novo_assembly_show_result_overview(request, slug_project):
         Step_3_check_bowtie2_assessment = utils_func.Step_3_check_bowtie2_assessment(url_sample_base_dir, sample_datadir, sample_name)
         one_sample_all_result["Step_3_check_bowtie2_assessment"] = Step_3_check_bowtie2_assessment[1]
 
-        bowtie2_log = os.path.join(base_dir, sample_name, "logs", "Step_3", "bowtie2_alignment", "HM2WFCCXY_3_AAAATG.log")
+        bowtie2_log = os.path.join(base_dir, sample_name, "logs", "Step_3", "bowtie2_alignment", sample_name+".log")
 
         if os.path.exists(bowtie2_log):
             f = open(bowtie2_log, "r")
@@ -1063,7 +1063,7 @@ def virus_assembly_whole_dataanalysis(request, slug_project):
     ### It means that file has been executed ###
     ############################################
     if fetch_job_status != "PENDING" and not(all(value == False for value in samples_all_info.values())):
-        return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={'slug_project': url_parameter})))
+        return redirect((reverse('virus_assembly_dataanalysis_result_current_status', kwargs={'slug_project': url_parameter})))
 
     if request.method == 'POST' :
         if 'start-analysis-reference-based' in request.POST:
@@ -1096,32 +1096,8 @@ def virus_assembly_whole_dataanalysis(request, slug_project):
             trimmomatic_window_size = request.POST.get('trimmomatic_slidingwindow_size')
             trimmomatic_window_quality = request.POST.get('trimmomatic_slidingwindow_quality')
 
-            ### BWA
-            species_dir = "homo_sapiens"
-            bwa_species = "homo_sapiens.fa"
-            bwa_host_ref = os.path.join(host_ref_dir, species_dir, bwa_species)
-            bwa_pathogen= request.POST.get('reads_alignment_reference')
-            bwa_pathogen_full_name = ""
-            bwa_pathogen_fastq = ""
-            print("bwa_pathogenbwa_pathogen: ", bwa_pathogen)
-            if bwa_pathogen == "TB_H37Rv":
-                bwa_pathogen_full_name = "Mycobacterium_tuberculosis_H37Rv"
-                bwa_pathogen_fastq = "Mycobacterium_tuberculosis_H37Rv.fna"
-            if bwa_pathogen == "TB_Taiwan":
-                bwa_pathogen_full_name = "Mycobacterium_tuberculosis_Taiwan"
-                bwa_pathogen_fastq = "Taiwan_pilot.sites_noDR.fasta"
-            bwa_pathogen_dir = os.path.join(pathogen_dir, bwa_pathogen_full_name, bwa_pathogen_fastq)
-            bwa_threads = 10
-            ### snpEff
-            snpEff_jar = os.path.join(tool_dir, "snpEff/snpEff/snpEff.jar")
-            snpEff_config = os.path.join(tool_dir, "snpEff/snpEff/snpEff.config")
-
-            ### gatk
-            gatk_jar = os.path.join(tool_dir, "gatk/gatk-package-4.1.0.0-local.jar")
-            gatk_pathogen_dict = os.path.join(pathogen_dir, bwa_pathogen_full_name)
-
             config_file_path = os.path.join(base_dir, 'config.yaml')
-            snakemake_file = os.path.join(prefix_dir, "bacteriaNGS/VirusRNASeq/Snakefile_reference_based")
+            snakemake_file = os.path.join(prefix_dir, "bacteriaNGS/VirusRNASeq/Snakefile_virus")
             destination_snakemake_file = os.path.join(base_dir, 'Snakefile')
             # destination_config_yaml = os.path.join(base_dir, 'config.yaml')
             data = dict(
@@ -1129,7 +1105,6 @@ def virus_assembly_whole_dataanalysis(request, slug_project):
                 samples_list_key = samples_list_key,
                 project_name = project_name,
                 datadir = base_dir,
-                bwa_pathogen_full_name = bwa_pathogen_full_name,
                 fastqc = dict(
                     fastqc_command = fastqc_command,
                 ),
@@ -1145,20 +1120,6 @@ def virus_assembly_whole_dataanalysis(request, slug_project):
                     trimmomatic_leading = trimmomatic_leading,
                     trimmomatic_trailing = trimmomatic_trailing,
                     trimmomatic_minlen = trimmomatic_minlen,
-                ),
-                bwa = dict(
-                    bwa_host_ref = bwa_host_ref,
-                    bwa_pathogen = bwa_pathogen,
-                    bwa_pathogen_dir = bwa_pathogen_dir,
-                    bwa_threads = bwa_threads,
-                ),
-                snpEff = dict(
-                    snpEff_jar = snpEff_jar,
-                    snpEff_config = snpEff_config,
-                ),
-                gatk = dict(
-                    gatk_jar = gatk_jar,
-                    gatk_pathogen_dict = gatk_pathogen_dict,
                 ),
             )
             with open(config_file_path, 'w') as ymlfile:
@@ -1190,7 +1151,7 @@ def virus_assembly_whole_dataanalysis(request, slug_project):
             template_html = "dataanalysis/analysis_home_virus.html"
             fetch_job_status = utils_func.celery_check(project_name, email, analysis_code)
 
-            return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
+            return redirect((reverse('virus_assembly_dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
 
     return render(request, template_html, {
@@ -1231,7 +1192,7 @@ def virus_assembly_current_status(request, slug_project):
 
     if request.method == 'POST':
         if 'go-to-overview-button' in request.POST:
-            return redirect((reverse('reference_mapping_dataanalysis_result_current_status', kwargs={
+            return redirect((reverse('virus_assembly_dataanalysis_result_current_status', kwargs={
                 'slug_project': url_parameter})))
     (overall_sample_result_checker, samples_all_info) = utils_func_reference_check_whole.Whole_check_reference_based_results(url_base_dir, base_dir, sample_list)
     fetch_job_status = utils_func.celery_check(project_name, email, analysis_code)
@@ -1242,10 +1203,10 @@ def virus_assembly_current_status(request, slug_project):
     ############################################################
     print("samples_all_info: ", samples_all_info)
     if overall_sample_result_checker and fetch_job_status == "SUCCESS":
-        return redirect((reverse('reference_mapping_dataanalysis_result_overview', kwargs={
+        return redirect((reverse('virus_assembly_dataanalysis_result_overview', kwargs={
             'slug_project': url_parameter})))
 
-    return render(request, "dataanalysis/analysis_result_status_reference_based.html", {
+    return render(request, "dataanalysis/analysis_result_status_virus_assembly.html", {
         'project_name': project_name,
         'email': email,
         'analysis_code': analysis_code,

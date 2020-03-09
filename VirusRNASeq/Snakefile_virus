@@ -1,0 +1,383 @@
+from snakemake.utils import min_version
+import os
+from snakemake.shell import shell
+import pandas as pd
+
+__author__ = 'Kuan-Hao Chao <b05901180@ntu.edu.tw>'
+
+#------------ Config setup ------------
+configfile: "config.yaml"
+print(os.path.join(config["datadir"]))
+workdir: os.path.join(config["datadir"])
+trimmomatic_jar = config["trimmomatic"]["trimmomatic_jar"]
+
+#------------ Definition fo all_input ------
+samples_list_key = config["samples_list_key"]
+# Getting samples
+samples = []
+for i in samples_list_key:
+    for j in samples_list_key[i]:
+        samples.append(j)
+
+#------------ Target File -------------
+rule targets:
+    input:
+        "time/start_time.txt",
+        expand(os.path.join("{sample}", "Step_1", "trimmed_paired",
+                            "{sample}_r1_paired.fastq.gz"), sample=samples),
+        expand(os.path.join("{sample}", "Step_1", "QC", "pre",
+                            "{sample}_multiqc.html"), sample=samples),
+        expand(os.path.join("{sample}", "Step_1", "QC", "post",
+                            "{sample}_multiqc.html"), sample=samples),
+        expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_bwa_mem",
+                            "{sample}.sam"), sample=samples),
+        expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_sam2bam", "{sample}.sam"), sample=samples),
+        expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_flagstat", "{sample}.txt"), sample=samples),
+        expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_view_unmapped_bam", "{sample}_unmapped.bam"), sample=samples),
+        expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_view_unmapped_sorted_bam", "{sample}_sorted_unmapped.bam"), sample=samples),
+        expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_bedtools_bam2fastq", "{sample}_unmapped_r1.fastq.gz"), sample=samples),
+        expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_bedtools_bam2fastq", "{sample}_unmapped_r2.fastq.gz"), sample=samples),
+
+        expand(os.path.join("{sample}_a5.assembly_stats.csv"), sample=samples),
+        expand(os.path.join("{sample}", "Step_3", "a5_miseq", "{sample}_a5.assembly_stats.csv"), sample=samples),
+
+        expand(os.path.join("{sample}", "Step_4", "quast", "report.pdf"), sample=samples),
+        expand(os.path.join("{sample}", "Step_4", "bowtie2", "bowtie_index"), sample=samples),
+        expand(os.path.join("{sample}", "Step_4", "bowtie2", "bowtie_index",
+                            "{sample}.1.bt2"), sample=samples),
+        expand(os.path.join("{sample}", "Step_4", "bowtie2", "{sample}.bam"), sample=samples),
+
+        'time/end_time.txt',
+
+rule get_start_time:
+    output:
+        start_time = 'time/start_time.txt'
+    priority: 100
+    shell:
+        '''
+        python get_time_script/get_start_time.py
+        '''
+
+rule first_fastqc:
+    input:
+        r1 = os.path.join("Uploaded_files", "{sample}", "{sample}.R1.fastq.gz"),
+        r2 = os.path.join("Uploaded_files", "{sample}", "{sample}.R2.fastq.gz"),
+    output:
+        html_r1 = os.path.join("{sample}", "Step_1", "QC", "pre", "{sample}.R1_fastqc.html"),
+        zip_r1 = os.path.join("{sample}", "Step_1", "QC", "pre", "{sample}.R1_fastqc.zip"),
+        html_r2 = os.path.join("{sample}", "Step_1", "QC", "pre", "{sample}.R2_fastqc.html"),
+        zip_r2 = os.path.join("{sample}", "Step_1", "QC", "pre", "{sample}.R2_fastqc.zip"),
+    params:
+        sample = "{sample}"
+    priority: 99,
+    log:
+        log = os.path.join("{sample}", "logs", "Step_1","fastqc_pre", "{sample}.log")
+    shell:
+        """
+        {config[fastqc][fastqc_command]} {input.r1} {input.r2} --outdir={params.sample}/Step_1/QC/pre &> {log.log}
+        """
+
+rule first_multiqc:
+    input:
+        html_r1 = os.path.join("{sample}", "Step_1", "QC", "pre", "{sample}.R1_fastqc.html"),
+        zip_r1 = os.path.join("{sample}", "Step_1", "QC", "pre", "{sample}.R1_fastqc.zip"),
+        html_r2 = os.path.join("{sample}", "Step_1", "QC", "pre", "{sample}.R2_fastqc.html"),
+        zip_r2 = os.path.join("{sample}", "Step_1", "QC", "pre", "{sample}.R2_fastqc.zip"),
+    output:
+        multiqc_file = os.path.join("{sample}", "Step_1", "QC", "pre", "{sample}_multiqc.html"),
+        multiqc_dir = os.path.join("{sample}", "Step_1", "QC", "pre", "{sample}_multiqc_data"),
+    params:
+        directory = os.path.join("{sample}", "Step_1", "QC", "pre"),
+        filename = os.path.join("{sample}", "Step_1", "QC", "pre", "{sample}_multiqc"),
+    priority: 98,
+    log:
+        log = os.path.join("{sample}", "logs", "Step_1", "multiqc_pre", "{sample}.log"),
+    shell:
+        """
+        multiqc --force {params.directory} -n {params.filename} &> {log.log}
+        """
+
+rule trimmomatic_pe:
+    input:
+        r1 = os.path.join("Uploaded_files", "{sample}", "{sample}.R1.fastq.gz"),
+        r2 = os.path.join("Uploaded_files", "{sample}", "{sample}.R2.fastq.gz"),
+    output:
+        r1_paired = os.path.join("{sample}", "Step_1", "trimmed_paired", "{sample}_r1_paired.fastq.gz"),
+        r1_unpaired = os.path.join("{sample}", "Step_1", "trimmed_unpaired", "{sample}_r1_unpaired.fastq.gz"),
+        r2_paired = os.path.join("{sample}", "Step_1", "trimmed_paired", "{sample}_r2_paired.fastq.gz"),
+        r2_unpaired = os.path.join("{sample}", "Step_1", "trimmed_unpaired", "{sample}_r2_unpaired.fastq.gz"),
+    threads: 8,
+    priority: 97,
+    log:
+        log = os.path.join("{sample}", "logs", "Step_1", "trimmomatic_pe", "{sample}.log")
+    message: "Trimming Illumina adapters from {input.r1} and {input.r2}"
+    params:
+        # list of trimmers (see manual)
+        trimmer=["CROP:151"],
+        minilength=["MINLEN:50"],
+        # optional parameters
+        extra="-phred33",
+    shell:
+        """
+        java -jar {config[trimmomatic][trimmomatic_jar]} PE -threads {threads} {config[trimmomatic][trimmomatic_phred]} -trimlog {log.log} {input.r1} {input.r2} {output.r1_paired} \
+        {output.r1_unpaired} {output.r2_paired} {output.r2_unpaired} \
+        {config[trimmomatic][trimmomatic_adapter_snakemake_variable]} LEADING:{config[trimmomatic][trimmomatic_leading]} TRAILING:{config[trimmomatic][trimmomatic_trailing]} SLIDINGWINDOW:{config[trimmomatic][trimmomatic_window_size]}:{config[trimmomatic][trimmomatic_window_quality]} MINLEN:{config[trimmomatic][trimmomatic_minlen]} &> {log.log}
+        """
+
+
+rule second_fastqc:
+    input:
+        r1_paired = os.path.join("{sample}", "Step_1", "trimmed_paired", "{sample}_r1_paired.fastq.gz"),
+        # r1_unpaired = os.path.join("{sample}", "Step_1", "trimmed_unpaired", "{sample}_r1_unpaired.fastq.gz"),
+        r2_paired = os.path.join("{sample}", "Step_1", "trimmed_paired", "{sample}_r2_paired.fastq.gz"),
+        # r2_unpaired = os.path.join("{sample}", "Step_1", "trimmed_unpaired", "{sample}_r2_unpaired.fastq.gz"),
+    output:
+        html_r1_paired = os.path.join(
+            "{sample}", "Step_1", "QC", "post", "{sample}_r1_paired_fastqc.html"),
+        zip_r1_paired = os.path.join(
+            "{sample}", "Step_1", "QC", "post", "{sample}_r1_paired_fastqc.zip"),
+        # html_r1_unpaired = os.path.join(
+        #     "{sample}", "Step_1", "QC", "post", "{sample}_r1_unpaired_fastqc.html"),
+        # zip_r1_unpaired = os.path.join(
+        #     "{sample}", "Step_1", "QC", "post", "{sample}_r1_unpaired_fastqc.zip"),
+        html_r2_paired = os.path.join(
+            "{sample}", "Step_1", "QC", "post", "{sample}_r2_paired_fastqc.html"),
+        zip_r2_paired = os.path.join(
+            "{sample}", "Step_1", "QC", "post", "{sample}_r2_paired_fastqc.zip"),
+        # html_r2_unpaired = os.path.join(
+        #     "{sample}", "Step_1", "QC", "post", "{sample}_r2_unpaired_fastqc.html"),
+        # zip_r2_unpaired = os.path.join(
+        #     "{sample}", "Step_1", "QC", "post", "{sample}_r2_unpaired_fastqc.zip"),
+    threads: 8,
+    priority: 96,
+    params:
+        sample = "{sample}"
+    log:
+        log = os.path.join("{sample}", "logs", "Step_1", "fastqc_post", "{sample}.log"),
+    shell:
+        """
+        {config[fastqc][fastqc_command]} --threads {threads} {input.r1_paired} {input.r2_paired} --outdir={params.sample}/Step_1/QC/post &> {log.log}
+        """
+        # {config[fastqc][fastqc_command]} --threads {threads} {input.r1_paired} {input.r1_unpaired} {input.r2_paired} {input.r2_unpaired} --outdir={params.sample}/Step_1/QC/post
+
+
+rule second_multiqc:
+    input:
+        html_r1_paired = os.path.join(
+            "{sample}", "Step_1", "QC", "post", "{sample}_r1_paired_fastqc.html"),
+        zip_r1_paired = os.path.join(
+            "{sample}", "Step_1", "QC", "post", "{sample}_r1_paired_fastqc.zip"),
+        html_r2_paired = os.path.join(
+            "{sample}", "Step_1", "QC", "post", "{sample}_r2_paired_fastqc.html"),
+        zip_r2_paired = os.path.join(
+            "{sample}", "Step_1", "QC", "post", "{sample}_r2_paired_fastqc.zip"),
+    output:
+        multiqc_file = os.path.join("{sample}", "Step_1", "QC", "post", "{sample}_multiqc.html"),
+        multiqc_dir = os.path.join("{sample}", "Step_1", "QC", "post", "{sample}_multiqc_data"),
+    params:
+        directory = os.path.join("{sample}", "Step_1", "QC", "post"),
+        filename = os.path.join("{sample}", "Step_1", "QC", "post", "{sample}_multiqc"),
+    priority: 95,
+    log:
+        log = os.path.join("{sample}", "logs", "Step_1", "multiqc_post", "{sample}.log"),
+    shell:
+        """
+        multiqc --force {params.directory} -n {params.filename} &> {log.log}
+        """
+
+rule read_subtraction_bwa_mem:
+    input:
+        reference_fasta = os.path.join("../../../../../virus_read_subtraction_genome/homo_sapiens/rRNA_host.fa"),
+        r1_paired = os.path.join("{sample}", "Step_1", "trimmed_paired", "{sample}_r1_paired.fastq.gz"),
+        r2_paired = os.path.join("{sample}", "Step_1", "trimmed_paired", "{sample}_r2_paired.fastq.gz"),
+    output:
+        sam_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_bwa_mem", "{sample}.sam"),
+    params:
+    priority: 94,
+    log:
+        log = os.path.join("{sample}", "logs", "Step_2", "bwa_subtraction_bwa_mem", "{sample}.log"),
+    shell:
+        """
+        bwa mem {input.reference_fasta} {input.r1_paired} {input.r2_paired} > {output.sam_file}
+        """
+
+rule read_subtraction_samtools_sam2bam:
+    input:
+        sam_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_bwa_mem", "{sample}.sam"),
+    output:
+        bam_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_sam2bam", "{sample}.sam"),
+    params:
+    priority: 93,
+    log:
+        log = os.path.join("{sample}", "logs", "Step_2", "bwa_subtraction_samtools_sam2bam", "{sample}.log"),
+    shell:
+        """
+        samtools sort -o {output.bam_file} {input.sam_file} &> {log.log}
+        """
+
+rule read_subtraction_samtools_flagstat:
+    input:
+        bam_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_sam2bam", "{sample}.sam"),
+    output:
+        txt_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_flagstat", "{sample}.txt"),
+    params:
+    priority: 92,
+    log:
+        log = os.path.join("{sample}", "logs", "Step_2", "bwa_subtraction_samtools_flagstat", "{sample}.log"),
+    shell:
+        """
+        samtools flagstat {input.bam_file} > {output.txt_file};
+        """
+
+rule read_subtraction_samtools_view_unmapped_bam:
+    input:
+        bam_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_sam2bam", "{sample}.sam"),
+    output:
+        unmapped_bam_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_view_unmapped_bam", "{sample}_unmapped.bam"),
+    params:
+    priority: 91,
+    log:
+        log = os.path.join("{sample}", "logs", "Step_2", "bwa_subtraction_samtools_view_unmapped_bam", "{sample}.log"),
+    shell:
+        """
+        samtools view -b -f 4 {input.bam_file} > {output.unmapped_bam_file}
+        """
+
+rule read_subtraction_samtools_sort_name:
+    input:
+        unmapped_bam_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_view_unmapped_bam", "{sample}_unmapped.bam"),
+    output:
+        unmapped_bam_sorted_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_view_unmapped_sorted_bam", "{sample}_sorted_unmapped.bam"),
+    params:
+    priority: 90,
+    log:
+        log = os.path.join("{sample}", "logs", "Step_2", "bwa_subtraction_samtools_view_unmapped_sorted_bam", "{sample}.log"),
+    shell:
+        """
+        samtools sort -n -o {output.unmapped_bam_sorted_file} {input.unmapped_bam_sorted_file} &> {log.log}
+        """
+
+rule read_subtraction_bedtools_bam2fastq:
+    input:
+        unmapped_bam_sorted_file = os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_view_unmapped_sorted_bam", "{sample}_sorted_unmapped.bam"),
+    output:
+        unmapped_fastq_r1 = os.path.join("{sample}", "Step_2", "bwa_subtraction_bedtools_bam2fastq", "{sample}_unmapped_r1.fastq.gz"),
+        unmapped_fastq_r2 = os.path.join("{sample}", "Step_2", "bwa_subtraction_bedtools_bam2fastq", "{sample}_unmapped_r2.fastq.gz"),
+    params:
+    priority: 89,
+    log:
+        log = os.path.join("{sample}", "logs", "Step_2", "bwa_subtraction_bedtools_bam2fastq", "{sample}.log"),
+    shell:
+        """
+        bedtools bamtofastq -i {input.unmapped_bam_sorted_file} -fq {output.unmapped_fastq_r1} -fq2 {output.unmapped_fastq_r2} &> {log.log}
+        """
+
+rule a5_miseq_denovo_assembly:
+    input:
+        unmapped_fastq_r1 = os.path.join("{sample}", "Step_2", "bwa_subtraction_bedtools_bam2fastq", "{sample}_unmapped_r1.fastq.gz"),
+        unmapped_fastq_r2 = os.path.join("{sample}", "Step_2", "bwa_subtraction_bedtools_bam2fastq", "{sample}_unmapped_r2.fastq.gz"),
+    output:
+        contigs_fasta = os.path.join("{sample}_a5.contigs.fasta"),
+        contigs_fastq = os.path.join("{sample}_a5.contigs.fastq"),
+        contigs_qvl = os.path.join("{sample}_a5.contigs.qvl"),
+        assembly_stats_csv = os.path.join("{sample}_a5.assembly_stats.csv"),
+    params:
+        a5_base_dir = "{sample}_a5",
+    priority: 88,
+    log:
+        log = os.path.join("{sample}", "logs", "Step_3", "a5_miseq", "{sample}.log"),
+    shell:
+        """
+        a5_pipeline.pl {config[a5_miseq][a5_pipeline_pl_begin_command]} {config[a5_miseq][a5_pipeline_pl_end_command]} {input.unmapped_fastq_r1} {input.unmapped_fastq_r2} {params.a5_base_dir} --threads 16 &> {log.log}
+        """
+        # mv {params.mv_from} {params.mv_to}
+
+rule a5_miseq_denovo_assembly_move:
+    output:
+        contigs_fasta = os.path.join("{sample}", "Step_3", "a5_miseq", "{sample}_a5.contigs.fasta"),
+        contigs_fastq = os.path.join("{sample}", "Step_3", "a5_miseq", "{sample}_a5.contigs.fastq"),
+        contigs_qvl = os.path.join("{sample}", "Step_3", "a5_miseq", "{sample}_a5.contigs.qvl"),
+        assembly_stats_csv = os.path.join("{sample}", "Step_3", "a5_miseq", "{sample}_a5.assembly_stats.csv"),
+    params:
+        mv_from = "{sample}_a5*",
+        mv_to = os.path.join("{sample}", "Step_2", "a5_miseq")
+    priority: 87,
+    shell:
+        """
+        mv {params.mv_from} {params.mv_to}
+        """
+
+rule quast_assembly_assessment:
+    input:
+        contigs_fasta = os.path.join("{sample}", "Step_3", "a5_miseq", "{sample}_a5.contigs.fasta")
+    output:
+        contig_size_viewer_html = os.path.join("{sample}", "Step_4", "quast", "icarus_viewers", "contig_size_viewer.html"),
+        icarus_html = os.path.join("{sample}", "Step_4", "quast", "icarus.html"),
+        report_html = os.path.join("{sample}", "Step_4", "quast", "report.html"),
+        report_tsv = os.path.join("{sample}", "Step_4", "quast", "report.tsv"),
+        report_pdf = os.path.join("{sample}", "Step_4", "quast", "report.pdf"),
+    params:
+        directory = os.path.join("{sample}", "Step_4", "quast"),
+    priority: 86,
+    log:
+        log = os.path.join("{sample}", "logs", "Step_4", "quast", "{sample}.log"),
+    shell:
+        """
+        quast.py {input.contigs_fasta} --output-dir {params.directory} &> {log.log}
+        """
+
+rule bowtie2_assembly_assessment_1:
+    output:
+        bowtie2_index_folder = os.path.join("{sample}", "Step_4", "bowtie2", "bowtie_index"),
+    priority: 85,
+    shell:
+        """
+        mkdir {output.bowtie2_index_folder}
+        """
+
+rule bowtie2_assembly_assessment_2:
+    input:
+        contigs_fasta = os.path.join("{sample}", "Step_3", "a5_miseq", "{sample}_a5.contigs.fasta"),
+    output:
+        bowtie2_output_1 = os.path.join("{sample}", "Step_4", "bowtie2", "bowtie_index", "{sample}.1.bt2")
+    params:
+        bowtie2_output_prefix = os.path.join("{sample}", "Step_4", "bowtie2", "bowtie_index", "{sample}"),
+    priority: 84,
+    log:
+        log = os.path.join("{sample}", "logs", "Step_4", "bowtie2_index", "{sample}.log"),
+    shell:
+        """
+        bowtie2-build {input.contigs_fasta} {params.bowtie2_output_prefix} &> {log.log}
+        """
+
+rule bowtie2_assembly_assessment_3:
+    input:
+        unmapped_fastq_r1 = os.path.join("{sample}", "Step_2", "bwa_subtraction_bedtools_bam2fastq", "{sample}_unmapped_r1.fastq.gz"),
+        unmapped_fastq_r2 = os.path.join("{sample}", "Step_2", "bwa_subtraction_bedtools_bam2fastq", "{sample}_unmapped_r2.fastq.gz"),
+    output:
+        bowtie2_output_bam = os.path.join("{sample}", "Step_4", "bowtie2", "{sample}.bam")
+    params:
+        bowtie2_output_prefix = os.path.join("{sample}", "Step_4", "bowtie2", "bowtie_index", "{sample}")
+    priority: 83,
+    log:
+        log = os.path.join("{sample}", "logs", "Step_4", "bowtie2_alignment", "{sample}.log"),
+    shell:
+        """
+        bowtie2 -p 8 -x {params.bowtie2_output_prefix} -1 {input.r1_paired} -2 {input.r1_paired} > {output.bowtie2_output_bam} 2> {log.log}
+        """
+
+rule get_end_time:
+    output:
+        end_time = 'time/end_time.txt',
+    priority: 0,
+    shell:
+        '''
+        python get_time_script/get_end_time.py
+        '''
+
+#------------ include rules -----------
+# include: "./rules/trimmomatic_trimming_PE.snakefile"
+# include: "./rules/bwa_alignment.snakefile"
+
+
+#------------ setup report ------------
