@@ -198,7 +198,7 @@ rule read_subtraction_bwa_mem:
         log = os.path.join("{sample}", "logs", "Step_2", "bwa_subtraction_bwa_mem", "{sample}.log"),
     shell:
         """
-        bwa mem {input.reference_fasta} {input.r1_paired} {input.r2_paired} > {output.sam_file}
+        bwa mem {input.reference_fasta} {input.r1_paired} {input.r2_paired} > {output.sam_file} 2> {log.log}
         """
 
 rule read_subtraction_samtools_sam2bam:
