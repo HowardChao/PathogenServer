@@ -22,22 +22,22 @@ for i in samples_list_key:
 #------------ Target File -------------
 rule targets:
     input:
-        "time/start_time.txt",
-        expand(os.path.join("{sample}", "Step_1", "trimmed_paired",
-                            "{sample}_r1_paired.fastq.gz"), sample=samples),
-        expand(os.path.join("{sample}", "Step_1", "QC", "pre",
-                            "{sample}_multiqc.html"), sample=samples),
-        expand(os.path.join("{sample}", "Step_1", "QC", "post",
-                            "{sample}_multiqc.html"), sample=samples),
-        expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_bwa_mem",
-                            "{sample}.sam"), sample=samples),
-        expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_sam2bam", "{sample}.bam"), sample=samples),
-        expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_flagstat", "{sample}.txt"), sample=samples),
-        expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_view_unmapped_bam", "{sample}_unmapped.bam"), sample=samples),
-        expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_view_unmapped_sorted_bam", "{sample}_sorted_unmapped.bam"), sample=samples),
-        expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_bedtools_bam2fastq", "{sample}_unmapped_r1.fastq.gz"), sample=samples),
-        expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_bedtools_bam2fastq", "{sample}_unmapped_r2.fastq.gz"), sample=samples),
-
+        # "time/start_time.txt",
+        # expand(os.path.join("{sample}", "Step_1", "trimmed_paired",
+        #                     "{sample}_r1_paired.fastq.gz"), sample=samples),
+        # expand(os.path.join("{sample}", "Step_1", "QC", "pre",
+        #                     "{sample}_multiqc.html"), sample=samples),
+        # expand(os.path.join("{sample}", "Step_1", "QC", "post",
+        #                     "{sample}_multiqc.html"), sample=samples),
+        # expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_bwa_mem",
+        #                     "{sample}.sam"), sample=samples),
+        # expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_sam2bam", "{sample}.bam"), sample=samples),
+        # expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_flagstat", "{sample}.txt"), sample=samples),
+        # expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_view_unmapped_bam", "{sample}_unmapped.bam"), sample=samples),
+        # expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_samtools_view_unmapped_sorted_bam", "{sample}_sorted_unmapped.bam"), sample=samples),
+        # expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_bedtools_bam2fastq", "{sample}_unmapped_r1.fastq.gz"), sample=samples),
+        # expand(os.path.join("{sample}", "Step_2", "bwa_subtraction_bedtools_bam2fastq", "{sample}_unmapped_r2.fastq.gz"), sample=samples),
+        #
         expand(os.path.join("{sample}_a5.assembly_stats.csv"), sample=samples),
         expand(os.path.join("{sample}", "Step_3", "a5_miseq", "{sample}_a5.assembly_stats.csv"), sample=samples),
 
@@ -300,7 +300,7 @@ rule a5_miseq_denovo_assembly_move:
         assembly_stats_csv = os.path.join("{sample}", "Step_3", "a5_miseq", "{sample}_a5.assembly_stats.csv"),
     params:
         mv_from = "{sample}_a5*",
-        mv_to = os.path.join("{sample}", "Step_2", "a5_miseq")
+        mv_to = os.path.join("{sample}", "Step_3", "a5_miseq")
     priority: 87,
     shell:
         """

@@ -77,7 +77,7 @@
                       <div class="card bg-light mt-5 mb-3 w-100" style="border-color: #afafaf; border-width:2px">
                           <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-cut"></i> &nbsp &nbsp Quality Control</p></div>
                           <div class="card-body w-100">
-                              <p class="card-text">This step is to ensure that quality meets the quality requirement. <strong>FastQC</strong> is used to acquire quality information. <strong>Trimmomatic</strong> is used to remove adapter and trim low quality parts of reads
+                              <p class="card-text">This step is to ensure that reads quality meets the quality requirement. <strong>FastQC</strong> and <strong>MultiQC</strong> is used to acquire quality information. <strong>Trimmomatic</strong> is used to remove adapter and trim low quality parts of reads
                               </p><br>
                               <div class="row">
                                   <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
@@ -86,7 +86,7 @@
                                     </div>
                                   <div class="col"><hr></div>
                               </div>
-                              <p class="card-text"  style="margin-left:40px;"><strong>FastqQC</strong> and <strong>MultiQC</strong> would be run.</p>
+                              <p class="card-text"  style="margin-left:40px;"><strong>FastQC</strong> and <strong>MultiQC</strong> would be run.<br><b>FastQC</b> website: <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">https://www.bioinformatics.babraham.ac.uk/projects/fastqc/</a><br><b>MultiQC</b> website: <a href="https://multiqc.info">https://multiqc.info</a></p>
                               <br>
 
                               <div class="row">
@@ -96,7 +96,7 @@
                                     </div>
                                   <div class="col"><hr></div>
                               </div>
-                              <p class="card-text" style="margin-left:40px;"><strong>Trimmomatic</strong> would be run. You can set your own variable.</p>
+                              <p class="card-text" style="margin-left:40px;"><strong>Trimmomatic</strong> would be run. You can set your own variable.<br><b>Trimmomatic</b> website: <a href="http://www.usadellab.org/cms/?page=trimmomatic">http://www.usadellab.org/cms/?page=trimmomatic</a></p>
                               <div class="trimmomatic" style="margin-left:40px;">
                                 <div class="row trimmomatic_adapter">
                                   <label class="col-md-4 control-label" for="trimmomatic_illuminaclip"  style="margin-top: 10px;"><i class="far fa-dot-circle"></i>&nbsp&nbspTarget Adapter</label>
@@ -281,7 +281,7 @@
                                     </div>
                                   <div class="col"><hr></div>
                               </div>
-                              <p class="card-text" style="margin-left:40px;"><strong>FastqQC</strong> and <strong>MultiQC</strong> would be run.</p>
+                              <p class="card-text" style="margin-left:40px;"><strong>FastQC</strong> and <strong>MultiQC</strong> would be run.</p>
                           </div>
                       </div>
                     </div>
@@ -362,7 +362,7 @@
                                     </div>
                                   <div class="col"><hr></div>
                               </div>
-                              <p class="card-text"  style="margin-left:40px;"><strong>a5_pipeline.pl</strong> command would be run. You can set your own variables.</p>
+                              <p class="card-text"  style="margin-left:40px;"><strong>a5_pipeline.pl</strong> command would be run. You can set your own variables.<br><b>A5-miseq</b> website: <a href="https://sourceforge.net/projects/ngopt/">https://sourceforge.net/projects/ngopt/</a></p>
                               <div class="trimmomatic" style="margin-left:40px;">
                                 <div class="row a5-miseq_begin_1">
                                   <label class="col-md-4 control-label" for="a5-miseq_begin"  style="margin-top: 10px;"><i class="far fa-dot-circle"></i>&nbsp&nbspBegin</label>
@@ -400,25 +400,25 @@
                             <div class="card-header" style="border-color: #afafaf; border-width:4px"><p class="h2"><i class="fas fa-cut"></i> &nbsp &nbsp De novo Assembly Assessment</p></div>
                             <div class="card-body w-100">
                                 </p>
-                                <div class="row">
-                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
-                                      <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp <strong>Quast</strong> assessment</h5>
-                                        <p class="card-text" style="margin-left:40px;">Database: <a href="ftp://ftp.ncbi.nlm.nih.gov/genomes/TARGET/">ftp://ftp.ncbi.nlm.nih.gov/genomes/all/</a> <br>(Updated on Tue Dec 26 13:56:59 2017)</p>
-
-                                      </div>
-                                    <div class="col"><hr></div>
-                                </div>
-                                <br>
-                                <br>
 
                                 <div class="row">
                                     <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
                                       <div class="col-auto">
-                                        <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp<strong>Bowtie</strong> assessment</h5>
+                                          <h5><i class="fas fa-flag"></i> &nbsp Step 1: &nbsp <strong>Quast</strong> assessment</h5>
                                       </div>
                                     <div class="col"><hr></div>
                                 </div>
+                                <p class="card-text" style="margin-left:40px;">It evaluates the assembled genome and generates <b>lcarus</b> contig alignment visualization.<br><b>Quast</b> Website: <a href="http://bioinf.spbau.ru/quast">http://bioinf.spbau.ru/quast</a></p>
+                                <br>
+
+                                <div class="row">
+                                    <!-- <div class="col"><i class="fas fa-flag"></i><div> -->
+                                    <div class="col-auto">
+                                      <h5><i class="fas fa-flag"></i> &nbsp Step 2: &nbsp<strong>Bowtie</strong> assessment</h5>
+                                    </div>
+                                    <div class="col"><hr></div>
+                                </div>
+                                <p class="card-text" style="margin-left:40px;">Short reads are remapped back to <b>a5-miseq</b> assembled genome to evaluate the assembly result.<br><b>Bowtie</b> Website: <a href="http://bowtie-bio.sourceforge.net/index.shtml">http://bowtie-bio.sourceforge.net/index.shtml</a></p>
                         </div>
                     </div>
                     <!-- <div id="list-item-5">
