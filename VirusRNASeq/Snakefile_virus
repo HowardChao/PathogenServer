@@ -288,7 +288,7 @@ rule a5_miseq_denovo_assembly:
         log = os.path.join("{sample}", "logs", "Step_3", "a5_miseq", "{sample}.log"),
     shell:
         """
-        a5_pipeline.pl {config[a5_miseq][a5_pipeline_pl_begin_command]} {config[a5_miseq][a5_pipeline_pl_end_command]} {input.unmapped_fastq_r1} {input.unmapped_fastq_r2} {params.a5_base_dir} --threads 16 &> {log.log}
+        a5_pipeline.pl {config[a5_miseq][a5_pipeline_pl_begin_command]} {config[a5_miseq][a5_pipeline_pl_end_command]} {input.r1_paired} {input.r2_paired} {params.a5_base_dir} --threads 16 &> {log.log}
         """
         # mv {params.mv_from} {params.mv_to}
 
@@ -306,6 +306,31 @@ rule a5_miseq_denovo_assembly_move:
         """
         mv {params.mv_from} {params.mv_to}
         """
+
+
+
+
+rule a5_miseq_denovo_assembly_move:
+    output:
+        contigs_fasta = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.fasta"),
+        contigs_fastq = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.fastq"),
+        contigs_qvl = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.contigs.qvl"),
+        assembly_stats_csv = os.path.join("{sample}", "Step_2", "a5_miseq", "{sample}_a5.assembly_stats.csv"),
+    params:
+        mv_from = "{sample}_a5*",
+        mv_to = os.path.join("{sample}", "Step_2", "a5_miseq")
+    priority: 93,
+    shell:
+        """
+        mv {params.mv_from} {params.mv_to}
+        """
+
+
+
+
+
+
+
 
 rule quast_assembly_assessment:
     input:

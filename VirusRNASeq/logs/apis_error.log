@@ -8301,3 +8301,367 @@
 [Tue Mar 10 17:16:00.362709 2020] [wsgi:error] [pid 7069] [remote 10.8.0.10:54297] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
 [Tue Mar 10 17:16:00.364209 2020] [wsgi:error] [pid 7069] [remote 10.8.0.10:54297] @@@@@@@@@@@ result.state:  PENDING
 [Tue Mar 10 17:16:00.364231 2020] [wsgi:error] [pid 7069] [remote 10.8.0.10:54297] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:22:02.360818 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63238] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:22:02.360873 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63238] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:22:02.360896 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63238] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:22:02.360916 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63238] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:22:02.361034 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63238] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:22:02.361069 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63238] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:22:02.362632 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63238] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:22:02.362654 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63238] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:22:07.953707 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63250] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:22:07.953761 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63250] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:22:07.953783 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63250] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:22:07.953803 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63250] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:22:08.311640 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63250] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:22:08.311688 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63250] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:22:08.311710 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63250] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:22:08.311730 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63250] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:22:08.320105 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63250] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:22:08.320134 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63250] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:22:08.321621 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63250] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:22:08.321642 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63250] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:26:52.150756 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63858] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:26:52.150840 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63858] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:26:52.150884 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63858] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:26:52.150926 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63858] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:26:52.165567 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63858] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:26:52.165636 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63858] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:26:52.168478 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63858] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:26:52.168514 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:63858] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:27:42.773195 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64039] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:27:42.773274 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64039] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:27:42.773314 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64039] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:27:42.773354 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64039] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:27:42.787522 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64039] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:27:42.787594 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64039] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:27:42.790526 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64039] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:27:42.790564 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64039] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:27:48.822335 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64056] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:27:48.822413 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64056] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:27:48.822454 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64056] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:27:48.822494 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64056] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:27:48.836542 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64056] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:27:48.836611 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64056] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:27:48.839449 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64056] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:27:48.839482 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64056] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:27:56.001869 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64078] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:27:56.001939 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64078] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:27:56.001974 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64078] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:27:56.002008 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64078] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:27:56.016768 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64078] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:27:56.016844 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64078] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:27:56.019852 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64078] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:27:56.019892 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64078] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:28:02.169277 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64093] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:28:02.169346 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64093] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:28:02.169386 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64093] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:28:02.169422 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64093] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:28:02.183615 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64093] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:28:02.183681 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64093] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:28:02.186575 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64093] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:28:02.186607 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64093] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:28:16.711830 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64126] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:28:16.711910 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64126] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:28:16.711948 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64126] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:28:16.711986 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64126] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:28:16.727240 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64126] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:28:16.727311 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64126] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:28:16.730275 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64126] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:28:16.730311 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64126] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:28:27.559931 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64149] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:28:27.560003 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64149] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:28:27.560038 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64149] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:28:27.560079 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64149] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:28:27.574093 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64149] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:28:27.574158 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64149] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:28:27.576953 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64149] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:28:27.576981 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64149] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:28:47.007618 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64188] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:28:47.007669 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64188] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:28:47.007691 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64188] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:28:47.007712 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64188] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:28:47.016369 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64188] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:28:47.016414 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64188] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:28:47.018248 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64188] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:28:47.018269 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64188] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:29:08.557474 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64280] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:29:08.557536 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64280] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:29:08.557569 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64280] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:29:08.557598 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64280] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:29:08.569575 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64280] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:29:08.569616 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64280] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:29:08.571717 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64280] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:29:08.571746 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64280] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:29:57.678437 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64380] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:29:57.678497 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64380] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:29:57.678529 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64380] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:29:57.678559 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64380] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:29:57.690347 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64380] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:29:57.690396 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64380] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:29:57.692354 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64380] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:29:57.692381 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64380] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:30:35.558025 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64457] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:30:35.558087 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64457] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:30:35.558119 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64457] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:30:35.558148 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64457] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:30:35.570380 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64457] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:30:35.570422 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64457] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:30:35.572541 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64457] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:30:35.572571 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64457] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:31:10.206433 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64586] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:31:10.206493 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64586] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:31:10.206525 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64586] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:31:10.206555 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64586] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:31:10.218463 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64586] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:31:10.218504 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64586] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:31:10.220614 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64586] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:31:10.220644 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64586] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:31:21.108635 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64609] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:31:21.108694 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64609] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:31:21.108727 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64609] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:31:21.108756 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64609] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:31:21.120669 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64609] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:31:21.120712 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64609] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:31:21.122814 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64609] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:31:21.122843 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64609] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:31:37.516887 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64644] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:31:37.516945 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64644] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:31:37.516977 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64644] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:31:37.517007 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64644] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:31:37.528851 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64644] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:31:37.528890 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64644] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:31:37.530835 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64644] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:31:37.530862 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64644] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:32:10.934410 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64713] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:32:10.934471 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64713] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:32:10.934504 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64713] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:32:10.934534 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64713] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:32:10.946542 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64713] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:32:10.946583 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64713] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:32:10.948702 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64713] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:32:10.948732 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64713] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:32:22.644718 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64738] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:32:22.644778 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64738] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:32:22.644810 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64738] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:32:22.644840 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64738] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:32:22.656816 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64738] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:32:22.656857 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64738] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:32:22.658957 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64738] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:32:22.658986 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64738] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:33:07.369670 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64845] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:33:07.369731 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64845] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:33:07.369763 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64845] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:33:07.369793 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64845] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:33:07.381879 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64845] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:33:07.381920 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64845] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:33:07.384015 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64845] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:33:07.384045 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64845] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:33:26.276576 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64882] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:33:26.276630 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64882] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:33:26.276669 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64882] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:33:26.276696 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64882] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:33:26.287782 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64882] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:33:26.287820 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64882] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:33:26.289804 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64882] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:33:26.289831 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:64882] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:36:42.038054 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:65455] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:36:42.038115 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:65455] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:36:42.038147 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:65455] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:36:42.038247 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:65455] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:36:42.050143 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:65455] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:36:42.050196 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:65455] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:36:42.052142 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:65455] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:36:42.052183 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:65455] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:37:00.951553 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:65533] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:37:00.951612 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:65533] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:37:00.951641 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:65533] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:37:00.951666 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:65533] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:37:00.962801 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:65533] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:37:00.962840 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:65533] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:37:00.964793 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:65533] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:37:00.964821 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:65533] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:38:02.031829 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49323] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:38:02.031890 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49323] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:38:02.031922 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49323] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:38:02.031951 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49323] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:38:02.044109 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49323] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:38:02.044152 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49323] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:38:02.046268 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49323] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:38:02.046298 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49323] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:38:14.797504 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49353] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:38:14.797581 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49353] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:38:14.797612 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49353] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:38:14.797642 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49353] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:38:14.809525 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49353] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:38:14.809565 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49353] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:38:14.811663 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49353] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:38:14.811692 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49353] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:38:40.660260 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49416] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:38:40.660319 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49416] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:38:40.660352 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49416] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:38:40.660381 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49416] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:38:40.672545 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49416] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:38:40.672586 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49416] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:38:40.674673 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49416] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:38:40.674702 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49416] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:38:48.838404 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49433] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:38:48.838460 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49433] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:38:48.838493 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49433] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:38:48.838522 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49433] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:38:48.850355 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49433] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:38:48.850396 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49433] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:38:48.852463 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49433] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:38:48.852493 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49433] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:39:07.197198 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49471] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:39:07.197254 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49471] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:39:07.197287 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49471] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:39:07.197317 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49471] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:39:07.209091 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49471] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:39:07.209130 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49471] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:39:07.211058 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49471] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:39:07.211096 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49471] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:39:18.650336 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49494] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:39:18.650397 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49494] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:39:18.650430 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49494] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:39:18.650460 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49494] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:39:18.662630 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49494] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:39:18.662672 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49494] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:39:18.664761 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49494] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:39:18.664791 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49494] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:39:44.295541 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49547] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:39:44.295599 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49547] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:39:44.295632 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49547] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:39:44.295661 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49547] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:39:44.307415 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49547] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:39:44.307456 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49547] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:39:44.309559 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49547] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:39:44.309589 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49547] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:40:08.399103 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49598] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:40:08.399164 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49598] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:40:08.399216 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49598] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:40:08.399246 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49598] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:40:08.411214 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49598] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:40:08.411256 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49598] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:40:08.413361 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49598] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:40:08.413390 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49598] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:40:22.157695 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49627] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:40:22.157755 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49627] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:40:22.157787 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49627] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:40:22.157817 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49627] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:40:22.169684 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49627] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:40:22.169722 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49627] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:40:22.171690 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49627] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:40:22.171717 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49627] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:40:41.106879 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49666] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:40:41.106936 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49666] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:40:41.106968 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49666] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:40:41.106998 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49666] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:40:41.118857 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49666] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:40:41.118898 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49666] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:40:41.120977 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49666] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:40:41.121007 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49666] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:41:44.389344 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49801] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:41:44.389408 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49801] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:41:44.389440 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49801] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:41:44.389470 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49801] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:41:44.401611 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49801] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:41:44.401652 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49801] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:41:44.403777 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49801] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:41:44.403806 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49801] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:41:58.720149 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49848] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:41:58.720224 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49848] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:41:58.720257 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49848] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:41:58.720286 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49848] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:41:58.732241 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49848] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:41:58.732282 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49848] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:41:58.734391 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49848] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:41:58.734420 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49848] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:42:37.150652 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49928] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:42:37.150712 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49928] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:42:37.150744 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49928] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:42:37.150774 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49928] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:42:37.162828 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49928] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:42:37.162868 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49928] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:42:37.164967 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49928] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:42:37.164996 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49928] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:42:47.985694 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49954] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:42:47.985752 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49954] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:42:47.985783 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49954] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:42:47.985813 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49954] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:42:47.996972 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49954] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:42:47.997011 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49954] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:42:47.998944 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49954] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:42:47.998972 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:49954] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:43:27.149857 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50041] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:43:27.149918 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50041] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:43:27.149950 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50041] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:43:27.149980 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50041] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:43:27.162115 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50041] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:43:27.162158 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50041] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:43:27.164288 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50041] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:43:27.164318 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50041] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:43:38.494426 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50068] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:43:38.494483 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50068] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:43:38.494516 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50068] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:43:38.494545 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50068] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:43:38.506444 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50068] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:43:38.506486 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50068] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:43:38.508575 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50068] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:43:38.508603 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50068] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:44:50.763030 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50215] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:44:50.763093 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50215] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:44:50.763125 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50215] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:44:50.763182 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50215] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:44:50.775107 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50215] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:44:50.775147 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50215] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:44:50.777273 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50215] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:44:50.777302 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50215] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:46:05.304789 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50376] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:46:05.304850 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50376] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:46:05.304883 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50376] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:46:05.304912 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50376] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:46:05.317091 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50376] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:46:05.317133 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50376] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:46:05.319257 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50376] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:46:05.319287 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50376] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:47:41.874693 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50584] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:47:41.874754 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50584] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:47:41.874786 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50584] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:47:41.874816 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50584] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:47:41.886760 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50584] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:47:41.886801 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50584] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:47:41.888921 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50584] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:47:41.888951 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50584] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:47:43.625224 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50589] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:47:43.625279 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50589] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:47:43.625311 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50589] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:47:43.625340 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50589] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:47:43.636843 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50589] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:47:43.636884 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50589] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:47:43.638973 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50589] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:47:43.639003 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50589] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:48:52.506974 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50738] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:48:52.507045 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50738] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:48:52.507078 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50738] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:48:52.507108 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50738] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:48:52.519160 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50738] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:48:52.519216 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50738] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:48:52.521366 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50738] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:48:52.521395 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50738] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:50:03.296603 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50897] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:50:03.296681 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50897] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:50:03.296722 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50897] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:50:03.296760 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50897] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:50:03.310038 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50897] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:50:03.310102 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50897] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:50:03.312662 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50897] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:50:03.312694 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50897] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:50:34.924141 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50964] project_name:  Project8f27bfda62a111eab412e41f1345dc74
+[Tue Mar 10 23:50:34.924224 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50964] analysis_code:  98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:50:34.924266 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50964] email:  new_virus_check_step@gmail.com
+[Tue Mar 10 23:50:34.924304 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50964] assembly_type_input:  virus_assembly
+[Tue Mar 10 23:50:34.938043 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50964] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+[Tue Mar 10 23:50:34.938110 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50964] @@@@@@@@@@@ task name :  Project8f27bfda62a111eab412e41f1345dc74new_virus_check_step@gmail.com98446e3862a111eab412e41f1345dc74
+[Tue Mar 10 23:50:34.940949 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50964] @@@@@@@@@@@ result.state:  PENDING
+[Tue Mar 10 23:50:34.940981 2020] [wsgi:error] [pid 7069] [remote 10.8.0.6:50964] @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
