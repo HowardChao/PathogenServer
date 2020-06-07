@@ -56,7 +56,7 @@ pytz==2018.9
 PyYAML==3.13
 quast==5.0.2
 redis==3.2.1
-requests==2.14.2
+requests==2.20.0
 simplejson==3.16.0
 six==1.12.0
 snakemake==3.13.3
